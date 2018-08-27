@@ -33,7 +33,7 @@ bool Game::onUpdate()
 	_frame++;
 	cout << "Frame: " << _frame << endl;
 
-	return (_frame < 10) ? true : false;
+	return (_frame < 10000) ? true : false;
 }
 
 bool Game::onDraw()

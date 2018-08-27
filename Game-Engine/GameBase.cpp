@@ -21,7 +21,7 @@ bool GameBase::start(const int& width, const int& height, const char* title)
 		return false;
 
 	_renderer = new Renderer;
-	if (!_renderer->start())
+	if (!_renderer->start(_window))
 		return false;
 
 	return onStart();
@@ -32,6 +32,7 @@ bool GameBase::stop()
 	cout << "GameBase::stop()" << endl;
 
 	bool result = onStop();
+	
 	_renderer->stop();
 	_window->stop();
 
@@ -46,9 +47,15 @@ void GameBase::run()
 	cout << "GameBase::run()" << endl;
 
 	bool update = true;
+	_renderer->setClearColor(0.0f, 0.5f, 0.0f, 0.0f);
 
-	while (update)
+	while (update && !_window->shouldClose())
 	{
 		update = onUpdate();
+
+		_renderer->clearScreen();
+		_renderer->swapBuffers();
+
+		_window->pollEvents();
 	}
 }

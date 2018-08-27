@@ -25,6 +25,15 @@ bool Window::start(const int& width, const int& height, const char* title)
 		return false;
 	}
 
+	_actualWindow = glfwCreateWindow(_width, _height, _title.c_str(), NULL, NULL);
+
+	if (!_actualWindow)
+	{
+		cerr << "Failed to open the actual window." << endl;
+		glfwTerminate();
+		return false;
+	}
+
 	return true;
 }
 
@@ -32,5 +41,25 @@ bool Window::stop()
 {
 	cout << "Window::stop()" << endl;
 
+	if (_actualWindow)
+		glfwDestroyWindow((GLFWwindow*)_actualWindow);
+
+	_actualWindow == NULL;
+	
+	glfwTerminate();
+
 	return true;
+}
+
+bool Window::shouldClose()
+{
+	if (_actualWindow)
+		return glfwWindowShouldClose((GLFWwindow*)_actualWindow);
+
+	return true;
+}
+
+void Window::pollEvents()
+{
+	glfwPollEvents();
 }
