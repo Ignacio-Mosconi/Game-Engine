@@ -17,23 +17,28 @@ bool GameBase::start(const int& width, const int& height, const char* title)
 	cout << "GameBase::start()" << endl;
 
 	_window = new Window;
-	_renderer = new Renderer;
+	if (!_window->start(width, height, title))
+		return false;
 
-	return (_window->start(width, height, title) && _renderer->start()) ? onStart() : false;
+	_renderer = new Renderer;
+	if (!_renderer->start())
+		return false;
+
+	return onStart();
 }
 
 bool GameBase::stop()
 {
 	cout << "GameBase::stop()" << endl;
 
-	onStop();
+	bool result = onStop();
 	_renderer->stop();
 	_window->stop();
 
 	delete _renderer;
 	delete _window;
 	
-	return true;
+	return result;
 }
 
 void GameBase::run()

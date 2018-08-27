@@ -1,4 +1,5 @@
 #include "Window.h"
+#include <GLFW\glfw3.h>
 
 Window::Window()
 {
@@ -17,6 +18,12 @@ bool Window::start(const int& width, const int& height, const char* title)
 	_width = width;
 	_height = height;
 	_title = title;
+
+	if (!glfwInit())
+	{
+		cerr << "Failed to initialize GLFW." << endl;
+		return false;
+	}
 
 	return true;
 }

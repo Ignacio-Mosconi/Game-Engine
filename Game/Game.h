@@ -13,6 +13,7 @@ protected:
 	bool onStart() override;
 	bool onStop() override;
 	bool onUpdate() override;
+	bool onDraw() override;
 
 public:
 	Game();

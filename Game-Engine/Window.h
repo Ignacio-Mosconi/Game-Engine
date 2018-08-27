@@ -19,4 +19,3 @@ public:
 	bool start(const int& width, const int& height, const char* title);
 	bool stop();
 };
-

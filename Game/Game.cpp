@@ -15,6 +15,7 @@ bool Game::onStart()
 	cout << "Game::onStart()" << endl;
 
 	_frame = 0;
+
 	return true;
 }
 
@@ -33,4 +34,11 @@ bool Game::onUpdate()
 	cout << "Frame: " << _frame << endl;
 
 	return (_frame < 10) ? true : false;
+}
+
+bool Game::onDraw()
+{
+	cout << "Game::onDraw()" << endl;
+
+	return true;
 }

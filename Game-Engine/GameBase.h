@@ -15,6 +15,7 @@ protected:
 	virtual bool onStart() = 0;
 	virtual bool onStop() = 0;
 	virtual bool onUpdate() = 0;
+	virtual bool onDraw() = 0;
 
 public:
 	GameBase();
@@ -24,4 +25,3 @@ public:
 	bool stop();
 	void run();
 };
-
