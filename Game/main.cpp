@@ -6,7 +6,7 @@ int main()
 {
 	Game* game = new Game();
 
-	if (game->start())
+	if (game->start(640, 480, "My Game & Engine"))
 		game->run();
 
 	game->stop();

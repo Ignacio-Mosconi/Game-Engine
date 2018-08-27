@@ -1,5 +1,6 @@
 #include "GameBase.h"
 #include "Renderer.h"
+#include "Window.h"
 
 GameBase::GameBase()
 {
@@ -11,13 +12,14 @@ GameBase::~GameBase()
 	cout << "GameBase::~GameBase()" << endl;
 }
 
-bool GameBase::start()
+bool GameBase::start(const int& width, const int& height, const char* title)
 {
 	cout << "GameBase::start()" << endl;
 
+	_window = new Window;
 	_renderer = new Renderer;
 
-	return (_renderer->start()) ? onStart() : false;
+	return (_window->start(width, height, title) && _renderer->start()) ? onStart() : false;
 }
 
 bool GameBase::stop()
@@ -26,8 +28,11 @@ bool GameBase::stop()
 
 	onStop();
 	_renderer->stop();
+	_window->stop();
 
 	delete _renderer;
+	delete _window;
+	
 	return true;
 }
 
