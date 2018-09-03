@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Triangle.h"
 
 Game::Game() : GameBase()
 {
@@ -15,6 +16,16 @@ bool Game::onStart()
 	cout << "Game::onStart()" << endl;
 
 	_frame = 0;
+	_triangle = new Triangle(_renderer);
+
+	float vertexData[] = 
+	{
+		-1.0f, -1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f
+	}
+
+	_triangle->create(&vertexData, 3, 3);
 
 	return true;
 }
@@ -39,6 +50,8 @@ bool Game::onUpdate()
 bool Game::onDraw()
 {
 	cout << "Game::onDraw()" << endl;
+
+
 
 	return true;
 }

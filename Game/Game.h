@@ -4,10 +4,13 @@
 #include "GameBase.h"
 using namespace std;
 
+class Triangle;
+
 class Game : public GameBase
 {
 private:
 	int _frame;
+	Triangle* _triangle;
 
 protected:
 	bool onStart() override;
