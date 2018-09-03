@@ -22,6 +22,12 @@ bool Renderer::start(Window* renderWindow)
 
 	glfwMakeContextCurrent((GLFWwindow*)_renderWindow->getWindowPtr());
 
+	if (glewInit() != GLEW_OK)
+	{
+		cerr << "Failed to initialize Glew." << endl;
+		return false;
+	}
+
 	glGenVertexArrays(1, &_vertexArrayID);
 	glBindVertexArray(_vertexArrayID);
 
@@ -73,4 +79,7 @@ void Renderer::draw(unsigned int vertexBuffer, int vertexCount) const
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glVertexAttribPointer(0, vertexCount, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+	glDrawArrays(GL_ARRAY_BUFFER, 0, vertexCount);
+	glDisableVertexAttribArray(0);
 }

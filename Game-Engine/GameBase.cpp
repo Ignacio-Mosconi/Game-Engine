@@ -54,8 +54,9 @@ void GameBase::run()
 		update = onUpdate();
 
 		_renderer->clearScreen();
+		onDraw();
 		_renderer->swapBuffers();
-
+		
 		_window->pollEvents();
 	}
 }

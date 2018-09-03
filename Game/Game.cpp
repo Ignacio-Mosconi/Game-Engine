@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Entity.h"
 #include "Triangle.h"
 
 Game::Game() : GameBase()
@@ -18,14 +19,14 @@ bool Game::onStart()
 	_frame = 0;
 	_triangle = new Triangle(_renderer);
 
-	float vertexData[] = 
+	float vertexData[] =
 	{
 		-1.0f, -1.0f, 0.0f,
 		1.0f, -1.0f, 0.0f,
 		0.0f, 1.0f, 0.0f
-	}
+	};
 
-	_triangle->create(&vertexData, 3, 3);
+	_triangle->create(vertexData, 3, 3);
 
 	return true;
 }
@@ -33,6 +34,10 @@ bool Game::onStart()
 bool Game::onStop()
 {
 	cout << "Game::onStop()" << endl;
+
+	_triangle->dispose();
+	
+	delete _triangle;
 
 	return true;
 }
@@ -51,7 +56,7 @@ bool Game::onDraw()
 {
 	cout << "Game::onDraw()" << endl;
 
-
+	_triangle->draw();
 
 	return true;
 }

@@ -14,7 +14,7 @@ public:
 	Triangle(Renderer* renderer);
 	~Triangle();
 
-	bool create(float& vertexBufferData, int vertexCount, int vertexComponents);
+	void create(float* vertexBufferData, int vertexCount, int vertexComponents);
 	void dispose();
 
 	void draw() const override;
