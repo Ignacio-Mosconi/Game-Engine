@@ -24,7 +24,7 @@ public:
 	void swapBuffers();
 	
 	unsigned int generateVertexBuffer(float* vertexBufferData, int size);
-	void destroyVertexBuffer(unsigned int vertexBuffer);
-	void draw(unsigned int vertexBuffer, int vertices) const;
+	void destroyVertexBuffer(unsigned int vertexBufferID);
+	void draw(unsigned int vertexBufferID, int vertexCount) const;
 };
 
