@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Material.h"
 #include "Entity.h"
 #include "Triangle.h"
 
@@ -17,7 +18,9 @@ bool Game::onStart()
 	cout << "Game::onStart()" << endl;
 
 	_frame = 0;
-	_triangle = new Triangle(_renderer);
+
+	_material = Material::generateMaterial("Shaders/SimpleVertexShader.vertexshader", "Shaders/SimpleFragmentShader.fragmentshader");
+	_triangle = new Triangle(_renderer, _material);
 
 	float vertexData[] =
 	{
@@ -38,6 +41,7 @@ bool Game::onStop()
 	_triangle->dispose();
 	
 	delete _triangle;
+	delete _material;
 
 	return true;
 }
@@ -49,7 +53,7 @@ bool Game::onUpdate()
 	_frame++;
 	cout << "Frame: " << _frame << endl;
 
-	return (_frame < 10000) ? true : false;
+	return (_frame < 5000) ? true : false;
 }
 
 bool Game::onDraw()

@@ -69,15 +69,15 @@ unsigned int Renderer::generateVertexBuffer(float* vertexBufferData, int size)
 	return vertexBuffer;
 }
 
-void Renderer::destroyVertexBuffer(unsigned int vertexBuffer)
+void Renderer::destroyVertexBuffer(unsigned int vertexBufferID)
 {
-	glDeleteBuffers(1, &vertexBuffer);
+	glDeleteBuffers(1, &vertexBufferID);
 }
 
-void Renderer::draw(unsigned int vertexBuffer, int vertexCount) const
+void Renderer::draw(unsigned int vertexBufferID, int vertexCount) const
 {
 	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
 	glVertexAttribPointer(0, vertexCount, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	glDrawArrays(GL_ARRAY_BUFFER, 0, vertexCount);

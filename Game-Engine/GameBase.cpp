@@ -47,7 +47,7 @@ void GameBase::run()
 	cout << "GameBase::run()" << endl;
 
 	bool update = true;
-	_renderer->setClearColor(0.0f, 0.5f, 0.0f, 0.0f);
+	_renderer->setClearColor(0.0f, 0.25f, 0.0f, 0.0f);
 
 	while (update && !_window->shouldClose())
 	{

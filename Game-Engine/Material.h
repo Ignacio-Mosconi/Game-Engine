@@ -1,10 +1,24 @@
 #pragma once
-class Material
+
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include <vector>
+#include "Exports.h"
+using namespace std;
+
+class ENGINE_API Material
 {
-public:
+private:
+	unsigned int _programID;
+
 	Material();
+	unsigned int loadShaders(const string& vertexShaderPath, const string& pixelShaderPath);
+
+public:
 	~Material();
 
-	bool bind();
+	static Material* generateMaterial(const string& vertexShaderPath, const string& pixelShaderPath);
+	void bind();
 };
 

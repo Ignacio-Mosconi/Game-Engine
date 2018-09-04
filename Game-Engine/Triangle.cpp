@@ -1,7 +1,9 @@
 #include "Triangle.h"
+#include "Material.h"
 #include "Renderer.h"
 
-Triangle::Triangle(Renderer* renderer) : Entity(renderer)
+Triangle::Triangle(Renderer* renderer, Material* material) : Entity(renderer), 
+_material(material), _vertexBufferData(NULL), _vertexBufferID(-1), _vertexCount(0)
 {
 	cout << "Triangle::Triangle()" << endl;
 }
@@ -11,29 +13,45 @@ Triangle::~Triangle()
 	cout << "Triangle::~Triangle()" << endl;
 }
 
-void Triangle::create(float* vertexBufferData, int vertexCount, int vertexComponents)
+bool Triangle::create(float* vertexBufferData, int vertexCount, int vertexComponents)
 {
 	cout << "Triangle::create(vertexBufferData, vertexCount, vertexComponents)" << endl;
 
-	int vertexArraySize = sizeof(float) * vertexCount * vertexComponents;
+	if (_vertexBufferID != -1)
+		dispose();
+
+	int vertexBufferSize = sizeof(float) * vertexCount * vertexComponents;
 
 	_vertexBufferData = vertexBufferData;
 	_vertexCount = vertexCount;
-	_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexArraySize);
+	_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
+
+	return _vertexBufferID != -1;
 }
 
-void Triangle::dispose()
+bool Triangle::dispose()
 {
 	cout << "Triangle::dispose()" << endl;
 
-	_vertexBufferData = NULL;
-	_vertexCount = 0;
-	_renderer->destroyVertexBuffer(_vertexBufferID);
+	bool wasDisposed = false;
+
+	if (_vertexBufferID != -1)
+	{
+		_renderer->destroyVertexBuffer(_vertexBufferID);
+		_vertexBufferData = NULL;
+		_vertexBufferID = -1;
+		_vertexCount = 0;
+
+		wasDisposed = true;
+	}
+
+	return wasDisposed;
 }
 
 void Triangle::draw() const
 {
 	cout << "Triangle::draw()" << endl;
 
+	_material->bind();
 	_renderer->draw(_vertexBufferID, _vertexCount);
 }

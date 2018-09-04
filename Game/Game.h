@@ -4,12 +4,14 @@
 #include "GameBase.h"
 using namespace std;
 
+class Material;
 class Triangle;
 
 class Game : public GameBase
 {
 private:
 	int _frame;
+	Material* _material;
 	Triangle* _triangle;
 
 protected:
