@@ -44,7 +44,7 @@ bool Window::stop()
 	if (_actualWindow)
 		glfwDestroyWindow((GLFWwindow*)_actualWindow);
 
-	_actualWindow == NULL;
+	_actualWindow = NULL;
 	
 	glfwTerminate();
 
@@ -53,10 +53,7 @@ bool Window::stop()
 
 bool Window::shouldClose()
 {
-	if (_actualWindow)
-		return glfwWindowShouldClose((GLFWwindow*)_actualWindow);
-
-	return true;
+	return !_actualWindow || glfwWindowShouldClose((GLFWwindow*)_actualWindow);
 }
 
 void Window::pollEvents()

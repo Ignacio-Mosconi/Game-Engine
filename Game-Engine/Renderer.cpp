@@ -16,7 +16,7 @@ Renderer::~Renderer()
 
 bool Renderer::start(Window* renderWindow)
 {
-	cout << "Renderer::start()" << endl;
+	cout << "Renderer::start(renderWindow)" << endl;
 
 	_renderWindow = renderWindow;
 

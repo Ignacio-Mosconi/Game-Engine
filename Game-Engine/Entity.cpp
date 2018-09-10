@@ -12,5 +12,5 @@ Entity::~Entity()
 
 void Entity::draw() const
 {
-
+	cout << "Entity::draw()" << endl;
 }
