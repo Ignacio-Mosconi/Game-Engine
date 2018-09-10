@@ -25,6 +25,6 @@ public:
 	
 	unsigned int generateVertexBuffer(float* vertexBufferData, int size);
 	void destroyVertexBuffer(unsigned int vertexBufferID);
-	void draw(unsigned int vertexBufferID, int vertexCount) const;
+	void drawBuffer(unsigned int vertexBufferID, int vertexCount) const;
 };
 

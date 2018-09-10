@@ -45,21 +45,30 @@ bool Renderer::stop()
 
 void Renderer::setClearColor(float r, float g, float b, float a)
 {
+	cout << "Renderer::setClearColor(r, g, b, a)" << endl;
+
 	glClearColor(r, g, b, a);
 }
 
 void Renderer::clearScreen()
 {
+	cout << "Renderer::clearScreen()" << endl;
+
+
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void Renderer::swapBuffers()
 {
+	cout << "Renderer::swapBuffers()" << endl;
+
 	glfwSwapBuffers((GLFWwindow*)_renderWindow->getWindowPtr());
 }
 
 unsigned int Renderer::generateVertexBuffer(float* vertexBufferData, int size)
 {
+	cout << "Renderer::generateVertexBuffer(vertexBufferData, size)" << endl;
+
 	GLuint vertexBuffer;
 
 	glGenBuffers(1, &vertexBuffer);
@@ -71,11 +80,15 @@ unsigned int Renderer::generateVertexBuffer(float* vertexBufferData, int size)
 
 void Renderer::destroyVertexBuffer(unsigned int vertexBufferID)
 {
+	cout << "Renderer::destroyVertexBuffer(vertexBufferID)" << endl;
+
 	glDeleteBuffers(1, &vertexBufferID);
 }
 
-void Renderer::draw(unsigned int vertexBufferID, int vertexCount) const
+void Renderer::drawBuffer(unsigned int vertexBufferID, int vertexCount) const
 {
+	cout << "Renderer::drawBuffer(vertexBufferID, vertexCount)" << endl;
+
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);

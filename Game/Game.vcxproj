@@ -150,12 +150,17 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Definitions.h" />
     <ClInclude Include="Game.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game-Engine\Game-Engine.vcxproj">
       <Project>{3b516390-f4d9-4b5c-8767-f59a2cb53fb5}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\SimpleFragmentShader.fragmentshader" />
+    <None Include="Shaders\SimpleVertexShader.vertexshader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

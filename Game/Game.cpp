@@ -1,3 +1,4 @@
+#include "Definitions.h"
 #include "Game.h"
 #include "Material.h"
 #include "Entity.h"
@@ -19,14 +20,14 @@ bool Game::onStart()
 
 	_frame = 0;
 
-	_material = Material::generateMaterial("Shaders/SimpleVertexShader.vertexshader", "Shaders/SimpleFragmentShader.fragmentshader");
+	_material = Material::generateMaterial(VERTEX_SHADER_PATH, PIXEL_SHADER_PATH);
 	_triangle = new Triangle(_renderer, _material);
 
 	float vertexData[] =
 	{
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f
+		-0.75f, -0.75f, 0.0f,
+		0.75f, -0.75f, 0.0f,
+		0.0f, 0.75f, 0.0f
 	};
 
 	_triangle->create(vertexData, 3, 3);
@@ -53,7 +54,7 @@ bool Game::onUpdate()
 	_frame++;
 	cout << "Frame: " << _frame << endl;
 
-	return (_frame < 5000) ? true : false;
+	return (_frame < MAX_FRAMES) ? true : false;
 }
 
 bool Game::onDraw()

@@ -53,5 +53,5 @@ void Triangle::draw() const
 	cout << "Triangle::draw()" << endl;
 
 	_material->bind();
-	_renderer->draw(_vertexBufferID, _vertexCount);
+	_renderer->drawBuffer(_vertexBufferID, _vertexCount);
 }
