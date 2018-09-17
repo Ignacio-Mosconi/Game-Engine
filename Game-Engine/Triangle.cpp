@@ -52,7 +52,14 @@ void Triangle::draw() const
 {
 	cout << "Triangle::draw()" << endl;
 
+	_renderer->loadIdentityMatrix();
+	_renderer->setModelMatrix(_model);
+
 	if (_material)
+	{
 		_material->bind();
+		_material->setMatrixProperty("MVP", _renderer->getMVP());
+	}
+	
 	_renderer->drawBuffer(_vertexBufferID, _vertexCount);
 }

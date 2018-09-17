@@ -54,6 +54,11 @@ bool Game::onUpdate()
 	_frame++;
 	cout << "Frame: " << _frame << endl;
 
+	_triangle->setPosition(_triangle->getPosition().x + 0.01f, 
+							_triangle->getPosition().y, 
+							_triangle->getPosition().z);
+	_triangle->setRotation(0, 0, _triangle->getRotation().z + 0.01f);
+
 	return (_frame < MAX_FRAMES) ? true : false;
 }
 

@@ -2,7 +2,7 @@
 #include "Window.h"
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
-
+#include <gtc\matrix_transform.hpp>
 
 Renderer::Renderer()
 {
@@ -12,6 +12,11 @@ Renderer::Renderer()
 Renderer::~Renderer()
 {
 	cout << "Renderer::~Renderer()" << endl;
+}
+
+void Renderer::updateMVP()
+{
+	_mvp = _projection * _view * _model;
 }
 
 bool Renderer::start(Window* renderWindow)
@@ -30,6 +35,12 @@ bool Renderer::start(Window* renderWindow)
 
 	glGenVertexArrays(1, &_vertexArrayID);
 	glBindVertexArray(_vertexArrayID);
+
+	_model = mat4(1.0f);
+	_view = lookAt(vec3(0, 0, 1), vec3(0, 0, 0), vec3(0, 1, 0));
+	_projection = ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.0f, 100.0f);
+
+	updateMVP();
 
 	return true;
 }
@@ -95,4 +106,22 @@ void Renderer::drawBuffer(unsigned int vertexBufferID, int vertexCount) const
 
 	glDrawArrays(GL_TRIANGLES, 0, vertexCount);
 	glDisableVertexAttribArray(0);
+}
+
+void Renderer::loadIdentityMatrix()
+{
+	_model = mat4(1.0f);
+	updateMVP();
+}
+
+void Renderer::setModelMatrix(mat4 matrix)
+{
+	_model = matrix;
+	updateMVP();
+}
+
+void Renderer::multiplyModelMatrix(mat4 matrix)
+{
+	_model *= matrix;
+	updateMVP();
 }

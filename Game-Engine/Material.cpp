@@ -117,3 +117,10 @@ void Material::bind()
 
 	glUseProgram(_programID);
 }
+
+void Material::setMatrixProperty(const char* propertyName, mat4& matrix)
+{
+	_matrixID = glGetUniformLocation(_programID, propertyName);
+
+	glUniformMatrix4fv(_matrixID, 1, GL_FALSE, &matrix[0][0]);
+}
