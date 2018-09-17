@@ -25,9 +25,9 @@ bool Game::onStart()
 
 	float vertexData[] =
 	{
-		-0.75f, -0.75f, 0.0f,
-		0.75f, -0.75f, 0.0f,
-		0.0f, 0.75f, 0.0f
+		-1.0f, -1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f
 	};
 
 	_triangle->create(vertexData, 3, 3);
@@ -54,11 +54,15 @@ bool Game::onUpdate()
 	_frame++;
 	cout << "Frame: " << _frame << endl;
 
-	_triangle->setPosition(_triangle->getPosition().x + 0.01f, 
-							_triangle->getPosition().y, 
-							_triangle->getPosition().z);
-	_triangle->setRotation(0, 0, _triangle->getRotation().z + 0.01f);
+	float offset = 0.01f;
 
+	_triangle->setPosition(_triangle->getPosition().x + offset, 
+							_triangle->getPosition().y + offset, 
+							_triangle->getPosition().z);
+	 _triangle->setRotation(0, 0, _triangle->getRotation().z + offset);
+	 _triangle->setScale(_triangle->getScale().x + offset,
+						 _triangle->getScale().y + offset,
+						 1);
 	return (_frame < MAX_FRAMES) ? true : false;
 }
 

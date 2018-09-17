@@ -110,18 +110,24 @@ void Renderer::drawBuffer(unsigned int vertexBufferID, int vertexCount) const
 
 void Renderer::loadIdentityMatrix()
 {
+	cout << "Renderer::loadIdentityMatrix()" << endl;
+
 	_model = mat4(1.0f);
 	updateMVP();
 }
 
 void Renderer::setModelMatrix(mat4 matrix)
 {
+	cout << "Renderer::setModelMatrix()" << endl;
+
 	_model = matrix;
 	updateMVP();
 }
 
 void Renderer::multiplyModelMatrix(mat4 matrix)
 {
+	cout << "Renderer::multiplyModelMatrix()" << endl;
+
 	_model *= matrix;
 	updateMVP();
 }

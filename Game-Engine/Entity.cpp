@@ -17,11 +17,15 @@ Entity::~Entity()
 
 void Entity::updateModelMatrix()
 {
+	cout << "Entity::~updateModelMatrix()" << endl;
+
 	_model = _translation * _rotationX * _rotationY * _rotationZ * _scaling;
 }
 
 void Entity::setPosition(float x, float y, float z)
 {
+	cout << "Entity::~setPosition(x, y, z)" << endl;
+
 	_position = vec3(x, y, z);
 	
 	_translation = translate(mat4(1.0f), _position);
@@ -31,6 +35,8 @@ void Entity::setPosition(float x, float y, float z)
 
 void Entity::setRotation(float x, float y, float z)
 {
+	cout << "Entity::~setRotation(x, y, z)" << endl;
+
 	_rotation = vec3(x, y, z);
 
 	_rotationX = rotate(mat4(1.0f), x, vec3(1, 0, 0));
@@ -42,6 +48,8 @@ void Entity::setRotation(float x, float y, float z)
 
 void Entity::setScale(float x, float y, float z)
 {
+	cout << "Entity::~setScale(x, y, z)" << endl;
+
 	_scale = vec3(x, y, z);
 
 	_scaling = scale(mat4(1.0f), _scale);
