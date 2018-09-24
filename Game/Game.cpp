@@ -3,6 +3,7 @@
 #include "Material.h"
 #include "Entity.h"
 #include "Triangle.h"
+#include "Rectangle.h"
 
 Game::Game() : GameBase()
 {
@@ -20,17 +21,29 @@ bool Game::onStart()
 
 	_frame = 0;
 
-	_material = Material::generateMaterial(VERTEX_SHADER_PATH, PIXEL_SHADER_PATH);
-	_triangle = new Triangle(_renderer, _material);
+	_simpleMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
+	_customMaterial = Material::generateMaterial(CUSTOM_VERTEX_SHADER_PATH, CUSTOM_PIXEL_SHADER_PATH);
 
-	float vertexData[] =
+	_triangle = new Triangle(_renderer, _simpleMaterial);
+	_rectangle = new Rectangle(_renderer, _customMaterial);
+
+	float triangleVertexData[] =
 	{
 		-1.0f, -1.0f, 0.0f,
 		1.0f, -1.0f, 0.0f,
 		0.0f, 1.0f, 0.0f
 	};
 
-	_triangle->create(vertexData, 3, 3);
+	float rectangleVertexData[] =
+	{
+		-1.0f, -1.0f, 0.0f,
+		-1.0f, 1.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+		1.0f, 1.0f, 0.0f
+	};
+
+	_triangle->create(triangleVertexData, 3);
+	_rectangle->create(rectangleVertexData, 3);
 
 	return true;
 }
@@ -42,7 +55,10 @@ bool Game::onStop()
 	_triangle->dispose();
 	
 	delete _triangle;
-	delete _material;
+	delete _rectangle;
+
+	delete _simpleMaterial;
+	delete _customMaterial;
 
 	return true;
 }
@@ -56,13 +72,15 @@ bool Game::onUpdate()
 
 	float offset = 0.01f;
 
-	_triangle->setPosition(_triangle->getPosition().x + offset, 
-							_triangle->getPosition().y + offset, 
+	_triangle->setPosition(_triangle->getPosition().x + offset, _triangle->getPosition().y,
 							_triangle->getPosition().z);
-	 _triangle->setRotation(0, 0, _triangle->getRotation().z + offset);
-	 _triangle->setScale(_triangle->getScale().x + offset,
-						 _triangle->getScale().y + offset,
-						 1);
+	_triangle->setRotation(0, 0, _triangle->getRotation().z + offset);
+
+	
+	_rectangle->setPosition(_rectangle->getPosition().x - offset, _rectangle->getPosition().y,
+		_rectangle->getPosition().z);
+	_rectangle->setRotation(0, 0, _rectangle->getRotation().z - offset);
+	
 	return (_frame < MAX_FRAMES) ? true : false;
 }
 
@@ -71,6 +89,7 @@ bool Game::onDraw()
 	cout << "Game::onDraw()" << endl;
 
 	_triangle->draw();
+	_rectangle->draw();
 
 	return true;
 }

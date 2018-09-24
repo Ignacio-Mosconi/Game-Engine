@@ -160,6 +160,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\CustomPixelShader.pixelshader" />
+    <None Include="Shaders\CustomVertexShader.vertexshader" />
     <None Include="Shaders\SimpleFragmentShader.fragmentshader" />
     <None Include="Shaders\SimpleVertexShader.vertexshader" />
   </ItemGroup>

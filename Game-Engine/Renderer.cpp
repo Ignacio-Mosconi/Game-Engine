@@ -96,16 +96,29 @@ void Renderer::destroyVertexBuffer(unsigned int vertexBufferID)
 	glDeleteBuffers(1, &vertexBufferID);
 }
 
-void Renderer::drawBuffer(unsigned int vertexBufferID, int vertexCount) const
+void Renderer::enableAttribute(unsigned int attrib) const
+{
+	glEnableVertexAttribArray(attrib);
+}
+
+void Renderer::disableAttribute(unsigned int attrib) const
+{
+	glDisableVertexAttribArray(attrib);
+}
+
+void Renderer::bindBuffer(unsigned int attrib, unsigned int vertexBufferID) const
+{
+	cout << "Renderer::bindBuffer(vertexBufferID)" << endl;
+
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
+	glVertexAttribPointer(attrib, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+}
+
+void Renderer::drawBuffer(unsigned int vertexCount) const
 {
 	cout << "Renderer::drawBuffer(vertexBufferID, vertexCount)" << endl;
 
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-	glDrawArrays(GL_TRIANGLES, 0, vertexCount);
-	glDisableVertexAttribArray(0);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, vertexCount);
 }
 
 void Renderer::loadIdentityMatrix()

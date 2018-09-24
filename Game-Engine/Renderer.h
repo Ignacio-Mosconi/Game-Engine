@@ -35,7 +35,11 @@ public:
 	
 	unsigned int generateVertexBuffer(float* vertexBufferData, int size);
 	void destroyVertexBuffer(unsigned int vertexBufferID);
-	void drawBuffer(unsigned int vertexBufferID, int vertexCount) const;
+
+	void enableAttribute(unsigned int attrib) const;
+	void disableAttribute(unsigned int attrib) const;
+	void bindBuffer(unsigned int attrib, unsigned int vertexBufferID) const;
+	void drawBuffer(unsigned int vertexCount) const;
 
 	void loadIdentityMatrix();
 	void setModelMatrix(mat4 matrix);

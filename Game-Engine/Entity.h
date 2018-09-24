@@ -17,13 +17,11 @@ protected:
 	vec3 _rotation;
 	vec3 _scale;
 
-	mat4 _translation;
-	mat4 _rotationX;
-	mat4 _rotationY;
-	mat4 _rotationZ;
-	mat4 _scaling;
+	mat4 _traMatrix;
+	mat4 _rotMatrix;
+	mat4 _scaMatrix;
 
-	mat4 _model;
+	mat4 _modelMatrix;
 
 	void updateModelMatrix();
 

@@ -1,24 +1,13 @@
 #pragma once
 
 #include "Exports.h"
-#include "Entity.h"
+#include "Shape.h"
 
-class Material;
-
-class ENGINE_API Triangle : public Entity
+class ENGINE_API Triangle : public Shape
 {
-private:
-	Material* _material;
-	float* _vertexBufferData;
-	unsigned int _vertexBufferID;
-	int _vertexCount;
-
 public:
 	Triangle(Renderer* renderer, Material* material);
 	~Triangle();
-
-	bool create(float* vertexBufferData, int vertexCount, int vertexComponents);
-	bool dispose();
 
 	void draw() const override;
 };

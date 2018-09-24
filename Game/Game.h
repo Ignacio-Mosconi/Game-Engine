@@ -6,13 +6,16 @@ using namespace std;
 
 class Material;
 class Triangle;
+class Rectangle;
 
 class Game : public GameBase
 {
 private:
 	int _frame;
-	Material* _material;
+	Material* _simpleMaterial;
+	Material* _customMaterial;
 	Triangle* _triangle;
+	Rectangle* _rectangle;
 
 protected:
 	bool onStart() override;

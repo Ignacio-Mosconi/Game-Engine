@@ -1,20 +1,20 @@
-#include "Triangle.h"
+#include "Rectangle.h"
 #include "Material.h"
 #include "Renderer.h"
 
-Triangle::Triangle(Renderer* renderer, Material* material) : Shape(renderer, material, 3)
+Rectangle::Rectangle(Renderer* renderer, Material* material) : Shape(renderer, material, 4)
 {
-	cout << "Triangle::Triangle()" << endl;
+	cout << "Rectangle::Rectangle()" << endl;
 }
 
-Triangle::~Triangle()
+Rectangle::~Rectangle()
 {
-	cout << "Triangle::~Triangle()" << endl;
+	cout << "Rectangle::~Rectangle()" << endl;
 }
 
-void Triangle::draw() const
+void Rectangle::draw() const
 {
-	cout << "Triangle::draw()" << endl;
+	cout << "Rectangle::draw()" << endl;
 
 	_renderer->loadIdentityMatrix();
 	_renderer->setModelMatrix(_modelMatrix);
@@ -24,9 +24,12 @@ void Triangle::draw() const
 		_material->bind();
 		_material->setMatrixProperty("MVP", _renderer->getMVP());
 	}
-	
+
 	_renderer->enableAttribute(0);
+	_renderer->enableAttribute(1);
 	_renderer->bindBuffer(0, _vertexBufferID);
 	_renderer->drawBuffer(_vertexCount);
 	_renderer->disableAttribute(0);
+	_renderer->disableAttribute(1);
 }
+
