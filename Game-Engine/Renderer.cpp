@@ -38,7 +38,7 @@ bool Renderer::start(Window* renderWindow)
 
 	_model = mat4(1.0f);
 	_view = lookAt(vec3(0, 0, 1), vec3(0, 0, 0), vec3(0, 1, 0));
-	_projection = ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.0f, 100.0f);
+	_projection = ortho(-16.0f, 16.0f, -9.0f, 9.0f, 0.0f, 100.0f);
 
 	updateMVP();
 
@@ -64,7 +64,6 @@ void Renderer::setClearColor(float r, float g, float b, float a)
 void Renderer::clearScreen()
 {
 	cout << "Renderer::clearScreen()" << endl;
-
 
 	glClear(GL_COLOR_BUFFER_BIT);
 }
@@ -98,11 +97,15 @@ void Renderer::destroyVertexBuffer(unsigned int vertexBufferID)
 
 void Renderer::enableAttribute(unsigned int attrib) const
 {
+	cout << "Renderer::enableAttribute(attrib)" << endl;
+
 	glEnableVertexAttribArray(attrib);
 }
 
 void Renderer::disableAttribute(unsigned int attrib) const
 {
+	cout << "Renderer::disableAttribute(attrib)" << endl;
+
 	glDisableVertexAttribArray(attrib);
 }
 
