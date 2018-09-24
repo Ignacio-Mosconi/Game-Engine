@@ -42,8 +42,16 @@ bool Game::onStart()
 		1.0f, 1.0f, 0.0f
 	};
 
-	_triangle->create(triangleVertexData, 3);
-	_rectangle->create(rectangleVertexData, 3);
+	float rectangleColorData[] =
+	{
+		0.1f, 0.1f, 0.7f,
+		0.5f, 0.1f, 0.5f,
+		0.7f, 0.1f, 0.1f,
+		0.7f, 0.7f, 0.2f
+	};
+
+	_triangle->create(triangleVertexData, NULL, 3);
+	_rectangle->create(rectangleVertexData, rectangleColorData, 3);
 
 	return true;
 }

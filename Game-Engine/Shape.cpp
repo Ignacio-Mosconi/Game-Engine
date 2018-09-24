@@ -2,7 +2,8 @@
 #include "Renderer.h"
 
 Shape::Shape(Renderer* renderer, Material* material, unsigned int vertexCount) : Entity(renderer),
-_material(material), _vertexBufferData(NULL), _vertexBufferID(-1), _vertexCount(vertexCount)
+_material(material), _vertexBufferData(NULL), _colorBufferData(NULL), _vertexBufferID(-1), _colorBufferID(-1),
+_vertexCount(vertexCount)
 {
 	cout << "Shape::Shape()" << endl;
 }
@@ -12,9 +13,9 @@ Shape::~Shape()
 	cout << "Shape::~Shape()" << endl;
 }
 
-bool Shape::create(float* vertexBufferData, unsigned int vertexComponents)
+bool Shape::create(float* vertexBufferData, float* colorBufferData, unsigned int vertexComponents)
 {
-	cout << "Shape::create(vertexBufferData, vertexCount, vertexComponents)" << endl;
+	cout << "Shape::create(vertexBufferData, colorVertexData, vertexComponents)" << endl;
 
 	if (_vertexBufferID != -1)
 		dispose();
@@ -22,7 +23,10 @@ bool Shape::create(float* vertexBufferData, unsigned int vertexComponents)
 	int vertexBufferSize = sizeof(float) * _vertexCount * vertexComponents;
 
 	_vertexBufferData = vertexBufferData;
+	_colorBufferData = colorBufferData;
+
 	_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
+	_colorBufferID = _renderer->generateVertexBuffer(_colorBufferData, vertexBufferSize);
 
 	return _vertexBufferID != -1;
 }
@@ -37,7 +41,9 @@ bool Shape::dispose()
 	{
 		_renderer->destroyVertexBuffer(_vertexBufferID);
 		_vertexBufferData = NULL;
+		_colorBufferData = NULL;
 		_vertexBufferID = -1;
+		_colorBufferID = -1;
 
 		wasDisposed = true;
 	}
