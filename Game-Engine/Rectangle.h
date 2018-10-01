@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Shape.h"
 
 class ENGINE_API Rectangle : public Shape

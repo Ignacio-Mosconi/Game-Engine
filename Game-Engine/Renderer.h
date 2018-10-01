@@ -8,6 +8,13 @@ using namespace glm;
 
 class Window;
 
+enum PrimitiveType
+{
+	TRIANGLE = 4,
+	TRIANGLE_STRIP = 5,
+	TRIANGLE_FAN = 6
+};
+
 class ENGINE_API Renderer
 {
 private:
@@ -39,7 +46,7 @@ public:
 	void enableAttribute(unsigned int attrib) const;
 	void disableAttribute(unsigned int attrib) const;
 	void bindBuffer(unsigned int attrib, unsigned int vertexBufferID) const;
-	void drawBuffer(unsigned int vertexCount) const;
+	void drawBuffer(PrimitiveType primitive, unsigned int vertexCount) const;
 
 	void loadIdentityMatrix();
 	void setModelMatrix(mat4 matrix);

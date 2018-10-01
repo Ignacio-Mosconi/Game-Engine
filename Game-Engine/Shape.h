@@ -6,7 +6,7 @@ class Material;
 class ENGINE_API Shape : public Entity
 {
 protected:
-	Material * _material;
+	Material* _material;
 	float* _vertexBufferData;
 	float* _colorBufferData;
 	unsigned int _vertexBufferID;
@@ -20,6 +20,6 @@ public:
 	bool create(float* vertexBufferData, float* colorBufferData, unsigned int vertexComponents);
 	bool dispose();
 
-	void draw() const = 0;
+	void draw() const;
 };
 

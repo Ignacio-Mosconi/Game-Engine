@@ -15,18 +15,11 @@ Triangle::~Triangle()
 void Triangle::draw() const
 {
 	cout << "Triangle::draw()" << endl;
-
-	_renderer->loadIdentityMatrix();
-	_renderer->setModelMatrix(_modelMatrix);
-
-	if (_material)
-	{
-		_material->bind();
-		_material->setMatrixProperty("MVP", _renderer->getMVP());
-	}
 	
+	Shape::draw();
+
 	_renderer->enableAttribute(0);
 	_renderer->bindBuffer(0, _vertexBufferID);
-	_renderer->drawBuffer(_vertexCount);
+	_renderer->drawBuffer(TRIANGLE, _vertexCount);
 	_renderer->disableAttribute(0);
 }

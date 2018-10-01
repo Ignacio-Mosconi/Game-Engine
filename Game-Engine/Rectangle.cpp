@@ -16,21 +16,13 @@ void Rectangle::draw() const
 {
 	cout << "Rectangle::draw()" << endl;
 
-	_renderer->loadIdentityMatrix();
-	_renderer->setModelMatrix(_modelMatrix);
-
-	if (_material)
-	{
-		_material->bind();
-		_material->setMatrixProperty("MVP", _renderer->getMVP());
-	}
+	Shape::draw();
 
 	_renderer->enableAttribute(0);
 	_renderer->enableAttribute(1);
 	_renderer->bindBuffer(0, _vertexBufferID);
 	_renderer->bindBuffer(1, _colorBufferID);
-	_renderer->drawBuffer(_vertexCount);
+	_renderer->drawBuffer(TRIANGLE_STRIP, _vertexCount);
 	_renderer->disableAttribute(0);
 	_renderer->disableAttribute(1);
 }
-

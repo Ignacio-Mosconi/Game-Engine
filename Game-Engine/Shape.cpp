@@ -1,5 +1,6 @@
 #include "Shape.h"
 #include "Renderer.h"
+#include "Material.h"
 
 Shape::Shape(Renderer* renderer, Material* material, unsigned int vertexCount) : Entity(renderer),
 _material(material), _vertexBufferData(NULL), _colorBufferData(NULL), _vertexBufferID(-1), _colorBufferID(-1),
@@ -49,4 +50,18 @@ bool Shape::dispose()
 	}
 
 	return wasDisposed;
+}
+
+void Shape::draw() const
+{
+	cout << "Shape::draw()" << endl;
+
+	_renderer->loadIdentityMatrix();
+	_renderer->setModelMatrix(_modelMatrix);
+
+	if (_material)
+	{
+		_material->bind();
+		_material->setMatrixProperty("MVP", _renderer->getMVP());
+	}
 }

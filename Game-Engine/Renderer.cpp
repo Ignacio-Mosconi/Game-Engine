@@ -117,11 +117,11 @@ void Renderer::bindBuffer(unsigned int attrib, unsigned int vertexBufferID) cons
 	glVertexAttribPointer(attrib, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 }
 
-void Renderer::drawBuffer(unsigned int vertexCount) const
+void Renderer::drawBuffer(PrimitiveType primitive, unsigned int vertexCount) const
 {
 	cout << "Renderer::drawBuffer(vertexBufferID, vertexCount)" << endl;
 
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, vertexCount);
+	glDrawArrays(primitive, 0, vertexCount);
 }
 
 void Renderer::loadIdentityMatrix()
