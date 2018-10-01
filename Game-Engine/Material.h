@@ -22,6 +22,7 @@ public:
 	~Material();
 
 	static Material* generateMaterial(const string& vertexShaderPath, const string& pixelShaderPath);
+	static void destroyMaterial(Material* material);
 	void setMatrixProperty(const char* propertyName, mat4& matrix);
 	void bind();
 };

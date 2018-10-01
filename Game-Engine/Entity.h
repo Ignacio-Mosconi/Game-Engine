@@ -35,7 +35,11 @@ public:
 	void setRotation(float x, float y, float z);
 	void setScale(float x, float y, float z);
 
-	vec3 getPosition() { return _position; }
-	vec3 getRotation() { return _rotation; }
-	vec3 getScale() { return _scale; }
+	void translate(float x, float y, float z);
+	void rotate(float x, float y, float z);
+	void scale(float x, float y, float z);
+
+	inline vec3 getPosition() { return _position; }
+	inline vec3 getRotation() { return _rotation; }
+	inline vec3 getScale() { return _scale; }
 };

@@ -53,6 +53,9 @@ bool Game::onStart()
 	_triangle->create(triangleVertexData, NULL, 3);
 	_rectangle->create(rectangleVertexData, rectangleColorData, 3);
 
+	_triangle->setPosition(4, 0, 0);
+	_rectangle->setPosition(-4, 0, 0);
+
 	return true;
 }
 
@@ -61,12 +64,13 @@ bool Game::onStop()
 	cout << "Game::onStop()" << endl;
 
 	_triangle->dispose();
+	_rectangle->dispose();
 	
 	delete _triangle;
 	delete _rectangle;
 
-	delete _simpleMaterial;
-	delete _customMaterial;
+	Material::destroyMaterial(_simpleMaterial);
+	Material::destroyMaterial(_customMaterial);
 
 	return true;
 }
@@ -78,16 +82,13 @@ bool Game::onUpdate()
 	_frame++;
 	cout << "Frame: " << _frame << endl;
 
-	float offset = 0.01f;
+	float offset = 0.05f;
 
-	_triangle->setPosition(_triangle->getPosition().x + offset, _triangle->getPosition().y,
-							_triangle->getPosition().z);
-	_triangle->setRotation(0, 0, _triangle->getRotation().z + offset);
-
+	_triangle->translate(offset, 0, 0);
+	_triangle->rotate(0, 0, offset);
 	
-	_rectangle->setPosition(_rectangle->getPosition().x - offset, _rectangle->getPosition().y,
-		_rectangle->getPosition().z);
-	_rectangle->setRotation(0, 0, _rectangle->getRotation().z - offset);
+	_rectangle->translate(-offset, 0, 0);
+	_rectangle->rotate(0, 0, -offset);
 	
 	return (_frame < MAX_FRAMES) ? true : false;
 }

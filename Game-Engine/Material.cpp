@@ -111,6 +111,14 @@ Material* Material::generateMaterial(const string& vertexShaderPath, const strin
 	return material;
 }
 
+void Material::destroyMaterial(Material* material)
+{
+	cout << "Material::destroyMaterial(material)" << endl;
+
+	if (material)
+		delete material;
+}
+
 void Material::bind()
 {
 	cout << "Material::bind()" << endl;
