@@ -14,22 +14,36 @@ Shape::~Shape()
 	cout << "Shape::~Shape()" << endl;
 }
 
-bool Shape::create(float* vertexBufferData, float* colorBufferData, unsigned int vertexComponents)
+bool Shape::create(unsigned int vertexComponents, float* colorBufferData)
 {
-	cout << "Shape::create(vertexBufferData, colorVertexData, vertexComponents)" << endl;
+	cout << "Shape::create(vertexComponents, colorBufferData)" << endl;
 
 	if (_vertexBufferID != -1)
 		dispose();
 
 	int vertexBufferSize = sizeof(float) * _vertexCount * vertexComponents;
 
-	_vertexBufferData = vertexBufferData;
-	_colorBufferData = colorBufferData;
+	_vertexBufferData = setVertices(vertexComponents);
+	if (colorBufferData)
+		_colorBufferData = setVerticesColor(colorBufferData, vertexComponents);
 
 	_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
 	_colorBufferID = _renderer->generateVertexBuffer(_colorBufferData, vertexBufferSize);
 
 	return _vertexBufferID != -1;
+}
+
+float* Shape::setVerticesColor(float* colorBufferData, unsigned int vertexComponents) const
+{
+	cout << "Shape::setVerticesColor(colorBufferData, vertexComponents)" << endl;
+
+	int arrayLength = _vertexCount * vertexComponents;
+	float* newColorBufferData = new float[arrayLength];
+
+	for (unsigned int i = 0; i <arrayLength; i++)
+		newColorBufferData[i] = colorBufferData[i];
+
+	return newColorBufferData;
 }
 
 bool Shape::dispose()
@@ -41,6 +55,9 @@ bool Shape::dispose()
 	if (_vertexBufferID != -1)
 	{
 		_renderer->destroyVertexBuffer(_vertexBufferID);
+		delete _vertexBufferData;
+		if (_colorBufferData)
+			delete _colorBufferData;
 		_vertexBufferData = NULL;
 		_colorBufferData = NULL;
 		_vertexBufferID = -1;

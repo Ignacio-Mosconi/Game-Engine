@@ -17,9 +17,10 @@ public:
 	Shape(Renderer* renderer, Material* material, unsigned int vertexCount);
 	~Shape();
 
-	bool create(float* vertexBufferData, float* colorBufferData, unsigned int vertexComponents);
+	bool create(unsigned int vertexComponents, float* colorBufferData);
+	virtual float* setVertices(unsigned int vertexComponents) const = 0;
+	virtual float* setVerticesColor(float* colorBufferData, unsigned int vertexComponents) const;
 	bool dispose();
 
 	void draw() const;
 };
-

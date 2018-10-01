@@ -9,5 +9,7 @@ public:
 	Circle(Renderer* renderer, Material* material, unsigned int vertexCount);
 	~Circle();
 
+	float* setVertices(unsigned int vertexComponents) const override;
+
 	void draw() const override;
 };

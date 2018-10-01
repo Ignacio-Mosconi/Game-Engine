@@ -1,8 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include "Exports.h"
 #include <glm.hpp>
+#include "Exports.h"
 using namespace std;
 using namespace glm;
 

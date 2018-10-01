@@ -27,22 +27,7 @@ bool Game::onStart()
 
 	_triangle = new Triangle(_renderer, _simpleMaterial);
 	_rectangle = new Rectangle(_renderer, _customMaterial);
-	_circle = new Circle(_renderer, _simpleMaterial, 10);
-
-	float triangleVertexData[] =
-	{
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f
-	};
-
-	float rectangleVertexData[] =
-	{
-		-1.0f, -1.0f, 0.0f,
-		-1.0f, 1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		1.0f, 1.0f, 0.0f
-	};
+	_circle = new Circle(_renderer, _simpleMaterial, 20);
 
 	float rectangleColorData[] =
 	{
@@ -52,23 +37,9 @@ bool Game::onStart()
 		0.7f, 0.7f, 0.2f
 	};
 
-	float circleVertexData[] =
-	{
-		0.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		cos(pi<float>() / 4.5f), sin(pi<float>() / 4.5f), 0.0f,
-		0.0f, 1.0f, 0.0f,
-		-cos(pi<float>() / 4.5f), sin(pi<float>() / 4.5f), 0.0f,
-		-1.0f, 0.0f, 0.0f,
-		-cos(pi<float>() / 4.5f), -sin(pi<float>() / 4.5f), 0.0f,
-		0.0f, -1.0f, 0.0f,
-		cos(pi<float>() / 4.5f), -sin(pi<float>() / 4.5f), 0.0f,
-		1.0f, 0.0f, 0.0f
-	};
-
-	_triangle->create(triangleVertexData, NULL, 3);
-	_rectangle->create(rectangleVertexData, rectangleColorData, 3);
-	_circle->create(circleVertexData, NULL, 3);
+	_triangle->create(3, NULL);
+	_rectangle->create(3, rectangleColorData);
+	_circle->create(3, NULL);
 
 	_triangle->setPosition(4, 0, 0);
 	_rectangle->setPosition(-4, 0, 0);
@@ -83,6 +54,7 @@ bool Game::onStop()
 
 	_triangle->dispose();
 	_rectangle->dispose();
+	_circle->dispose();
 	
 	delete _triangle;
 	delete _rectangle;

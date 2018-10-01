@@ -23,3 +23,17 @@ void Triangle::draw() const
 	_renderer->drawBuffer(TRIANGLE, _vertexCount);
 	_renderer->disableAttribute(0);
 }
+
+float* Triangle::setVertices(unsigned int vertexComponents) const
+{
+	cout << "Triangle::setVertices(vertexComponents)" << endl;
+
+	float* vertexBufferData = new float[_vertexCount * vertexComponents]
+	{
+		-1.0f, -1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f
+	};
+
+	return vertexBufferData;
+}

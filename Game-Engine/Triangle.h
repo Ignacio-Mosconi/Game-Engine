@@ -9,5 +9,7 @@ public:
 	Triangle(Renderer* renderer, Material* material);
 	~Triangle();
 
+	float* setVertices(unsigned int vertexComponents) const override;
+
 	void draw() const override;
 };

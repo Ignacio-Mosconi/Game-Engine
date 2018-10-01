@@ -1,10 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <glm.hpp>
-#include <gtc\constants.hpp>
 #include "GameBase.h"
-using namespace glm;
 using namespace std;
 
 class Material;
@@ -32,4 +29,3 @@ public:
 	Game();
 	~Game();
 };
-
