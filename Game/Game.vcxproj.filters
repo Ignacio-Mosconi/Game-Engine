@@ -43,5 +43,11 @@
     <None Include="Shaders\CustomVertexShader.vertexshader">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Shaders\TexturePixelShader.pixelshader">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Shaders\TextureVertexShader.vertexshader">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

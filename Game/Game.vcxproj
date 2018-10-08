@@ -164,6 +164,8 @@
     <None Include="Shaders\CustomVertexShader.vertexshader" />
     <None Include="Shaders\SimpleFragmentShader.fragmentshader" />
     <None Include="Shaders\SimpleVertexShader.vertexshader" />
+    <None Include="Shaders\TexturePixelShader.pixelshader" />
+    <None Include="Shaders\TextureVertexShader.vertexshader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
