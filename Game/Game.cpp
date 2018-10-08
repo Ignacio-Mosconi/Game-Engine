@@ -1,6 +1,7 @@
 #include "Definitions.h"
 #include "Game.h"
 #include "Material.h"
+#include "Texture.h"
 #include "Entity.h"
 #include "Triangle.h"
 #include "Rectangle.h"
@@ -24,6 +25,7 @@ bool Game::onStart()
 
 	_simpleMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
 	_customMaterial = Material::generateMaterial(CUSTOM_VERTEX_SHADER_PATH, CUSTOM_PIXEL_SHADER_PATH);
+	_texture = Texture::generateTextureBMP(SPRITE_TEXTURE_PATH);
 
 	_triangle = new Triangle(_renderer, _simpleMaterial);
 	_rectangle = new Rectangle(_renderer, _customMaterial);
@@ -62,6 +64,7 @@ bool Game::onStop()
 
 	Material::destroyMaterial(_simpleMaterial);
 	Material::destroyMaterial(_customMaterial);
+	Texture::destroyTexture(_texture);
 
 	return true;
 }

@@ -16,14 +16,13 @@ private:
 	unsigned int _matrixID;
 
 	Material();
+	~Material();
 	unsigned int loadShaders(const string& vertexShaderPath, const string& pixelShaderPath);
 
 public:
-	~Material();
 
 	static Material* generateMaterial(const string& vertexShaderPath, const string& pixelShaderPath);
 	static void destroyMaterial(Material* material);
 	void setMatrixProperty(const char* propertyName, mat4& matrix);
 	void bind();
 };
-

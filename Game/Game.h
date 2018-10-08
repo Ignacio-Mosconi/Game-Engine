@@ -5,6 +5,7 @@
 using namespace std;
 
 class Material;
+class Texture;
 class Triangle;
 class Rectangle;
 class Circle;
@@ -15,6 +16,7 @@ private:
 	int _frame;
 	Material* _simpleMaterial;
 	Material* _customMaterial;
+	Texture* _texture;
 	Triangle* _triangle;
 	Rectangle* _rectangle;
 	Circle* _circle;
