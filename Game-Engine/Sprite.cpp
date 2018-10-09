@@ -60,14 +60,12 @@ float* Sprite::setVerticesUV() const
 {
 	cout << "Sprite::setVerticesUV()" << endl;
 
-	float* uvBufferData = new float[(_vertexCount - 1) * 4]
+	float* uvBufferData = new float[_vertexCount * 2]
 	{
 		0.0f, 0.0f,
-		1.0f, 1.0f,
 		0.0f, 1.0f,
-		1.0f, 1.0f,
 		1.0f, 0.0f,
-		0.0f, 0.0f
+		1.0f, 1.0f
 	};
 
 	return uvBufferData;

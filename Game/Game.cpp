@@ -53,6 +53,7 @@ bool Game::onStart()
 	_rectangle->setPosition(-4, 0, 0);
 	_circle->setPosition(0, 0, 0);
 	_sprite->setPosition(0, 1, 0);
+	_sprite->setScale(5, 5, 5);
 
 	return true;
 }

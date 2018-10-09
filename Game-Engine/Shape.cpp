@@ -81,5 +81,6 @@ void Shape::draw() const
 	{
 		_material->bind();
 		_material->setMatrixProperty("MVP", _renderer->getMVP());
+		_material->bindTexture();
 	}
 }

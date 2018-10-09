@@ -30,4 +30,5 @@ public:
 	void setMatrixProperty(const char* propertyName, mat4& matrix);
 	void setTexture(Texture* texture, const char* propertyName);
 	void bind();
+	void bindTexture();
 };

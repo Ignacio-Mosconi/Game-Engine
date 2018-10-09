@@ -125,13 +125,6 @@ void Material::bind()
 	cout << "Material::bind()" << endl;
 
 	glUseProgram(_programID);
-
-	if (_textureID != -1)
-	{
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, _texture->getTexureID());
-		glUniform1i(_textureID, 0);
-	}
 }
 
 void Material::setMatrixProperty(const char* propertyName, mat4& matrix)
@@ -149,4 +142,16 @@ void Material::setTexture(Texture* texture, const char* propertyName)
 
 	_texture = texture;
 	_textureID = glGetUniformLocation(_programID, propertyName);
+}
+
+void Material::bindTexture()
+{
+	cout << "Material::bindTexture()" << endl;
+
+	if (_textureID != -1)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, _texture->getTexureID());
+		glUniform1i(_textureID, 0);
+	}
 }
