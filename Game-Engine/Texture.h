@@ -21,4 +21,6 @@ private:
 public:
 	static Texture* generateTextureBMP(const string& imagePath);
 	static void destroyTexture(Texture* texture);
+
+	inline unsigned int getTexureID() const { return _textureID; }
 };

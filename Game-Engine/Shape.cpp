@@ -3,8 +3,8 @@
 #include "Material.h"
 
 Shape::Shape(Renderer* renderer, Material* material, unsigned int vertexCount) : Entity(renderer),
-_material(material), _vertexBufferData(NULL), _colorBufferData(NULL), _uvBufferData(NULL),
-_vertexBufferID(-1), _colorBufferID(-1), _uvBufferID(-1),
+_material(material), _vertexBufferData(NULL), _colorBufferData(NULL),
+_vertexBufferID(-1), _colorBufferID(-1),
 _vertexCount(vertexCount)
 {
 	cout << "Shape::Shape()" << endl;
@@ -15,7 +15,7 @@ Shape::~Shape()
 	cout << "Shape::~Shape()" << endl;
 }
 
-bool Shape::create(unsigned int vertexComponents, float* colorBufferData = NULL, float* uvBufferData = NULL)
+bool Shape::create(unsigned int vertexComponents, float* colorBufferData)
 {
 	cout << "Shape::create(vertexComponents, colorBufferData)" << endl;
 
@@ -27,12 +27,9 @@ bool Shape::create(unsigned int vertexComponents, float* colorBufferData = NULL,
 	_vertexBufferData = setVertices(vertexComponents);
 	if (colorBufferData)
 		_colorBufferData = setVerticesColor(colorBufferData, vertexComponents);
-	if (uvBufferData)
-		_uvBufferData = setVerticesUV(uvBufferData);
 
 	_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
 	_colorBufferID = (_colorBufferData) ? _renderer->generateVertexBuffer(_colorBufferData, vertexBufferSize) : -1;
-	_uvBufferID = (_uvBufferData) ? _renderer->generateVertexBuffer(_uvBufferData, vertexBufferSize) : -1;
 
 	return _vertexBufferID != -1;
 }

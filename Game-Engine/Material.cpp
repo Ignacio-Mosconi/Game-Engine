@@ -1,7 +1,8 @@
 #include "Material.h"
+#include "Texture.h"
 #include <GL/glew.h>
 
-Material::Material()
+Material::Material() : _texture(NULL), _programID(-1), _matrixID(-1), _textureID(-1)
 {
 	cout << "Material::Material()" << endl;
 }
@@ -124,6 +125,13 @@ void Material::bind()
 	cout << "Material::bind()" << endl;
 
 	glUseProgram(_programID);
+
+	if (_textureID != -1)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, _texture->getTexureID());
+		glUniform1i(_textureID, 0);
+	}
 }
 
 void Material::setMatrixProperty(const char* propertyName, mat4& matrix)
@@ -133,4 +141,12 @@ void Material::setMatrixProperty(const char* propertyName, mat4& matrix)
 	_matrixID = glGetUniformLocation(_programID, propertyName);
 
 	glUniformMatrix4fv(_matrixID, 1, GL_FALSE, &matrix[0][0]);
+}
+
+void Material::setTexture(Texture* texture, const char* propertyName)
+{
+	cout << "Material::setTexture(texture, propertyName)" << endl;
+
+	_texture = texture;
+	_textureID = glGetUniformLocation(_programID, propertyName);
 }

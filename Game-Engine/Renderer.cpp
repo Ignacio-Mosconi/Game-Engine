@@ -109,12 +109,12 @@ void Renderer::disableAttribute(unsigned int attrib) const
 	glDisableVertexAttribArray(attrib);
 }
 
-void Renderer::bindBuffer(unsigned int attrib, unsigned int vertexBufferID) const
+void Renderer::bindBuffer(unsigned int attrib, unsigned int vertexComponents, unsigned int vertexBufferID) const
 {
 	cout << "Renderer::bindBuffer(vertexBufferID)" << endl;
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
-	glVertexAttribPointer(attrib, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer(attrib, vertexComponents, GL_FLOAT, GL_FALSE, 0, (void*)0);
 }
 
 void Renderer::drawBuffer(PrimitiveType primitive, unsigned int vertexCount) const

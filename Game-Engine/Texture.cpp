@@ -1,7 +1,7 @@
 #include "Texture.h"
 #include <GL/glew.h>
 
-Texture::Texture()
+Texture::Texture() : _textureID(-1)
 {
 	cout << "Texture::Texture()" << endl;
 }
@@ -34,10 +34,10 @@ unsigned int Texture::loadBMP(const string& imagePath)
 		if (header[0] != 'B' || header[1] != 'M')
 			throw logic_error("The file is not a proper BMP file.");
 
-		width = (unsigned int)header[0x12];
-		height = (unsigned int)header[0x16];
-		dataPosition = (unsigned int)(header[0x0A] == BMP_HEADER_SIZE) ? (unsigned int)header[0x0A] : BMP_HEADER_SIZE;
-		imageSize = (unsigned int)(header[0x22] == width * height * 3) ? (unsigned int)header[0x22] : width * height * 3;
+		width = *(int*)&header[0x12];
+		height = *(int*)&header[0x16];
+		dataPosition =  (*(int*)&header[0x0A] == BMP_HEADER_SIZE) ? *(int*)&header[0x0A] : BMP_HEADER_SIZE;
+		imageSize = (*(int*)&header[0x22] == width * height * 3) ? *(int*)&header[0x22] : width * height * 3;
 
 		data = new char[imageSize];
 		bmpFile.read(data, imageSize);

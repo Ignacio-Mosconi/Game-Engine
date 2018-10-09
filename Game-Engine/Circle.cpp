@@ -23,7 +23,7 @@ void Circle::draw() const
 	Shape::draw();
 
 	_renderer->enableAttribute(0);
-	_renderer->bindBuffer(0, _vertexBufferID);
+	_renderer->bindBuffer(0, 3, _vertexBufferID);
 	_renderer->drawBuffer(TRIANGLE_FAN, _vertexCount);
 	_renderer->disableAttribute(0);
 }

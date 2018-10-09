@@ -9,17 +9,21 @@ class Texture;
 class Triangle;
 class Rectangle;
 class Circle;
+class Sprite;
 
 class Game : public GameBase
 {
 private:
-	int _frame;
 	Material* _simpleMaterial;
 	Material* _customMaterial;
+	Material* _textureMaterial;
 	Texture* _texture;
 	Triangle* _triangle;
 	Rectangle* _rectangle;
 	Circle* _circle;
+	Sprite* _sprite;
+	
+	int _frame;
 
 protected:
 	bool onStart() override;

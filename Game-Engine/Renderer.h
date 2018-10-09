@@ -45,7 +45,7 @@ public:
 
 	void enableAttribute(unsigned int attrib) const;
 	void disableAttribute(unsigned int attrib) const;
-	void bindBuffer(unsigned int attrib, unsigned int vertexBufferID) const;
+	void bindBuffer(unsigned int attrib, unsigned int vertexComponents, unsigned int vertexBufferID) const;
 	void drawBuffer(PrimitiveType primitive, unsigned int vertexCount) const;
 
 	void loadIdentityMatrix();

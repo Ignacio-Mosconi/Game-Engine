@@ -20,8 +20,8 @@ void Rectangle::draw() const
 
 	_renderer->enableAttribute(0);
 	_renderer->enableAttribute(1);
-	_renderer->bindBuffer(0, _vertexBufferID);
-	_renderer->bindBuffer(1, _colorBufferID);
+	_renderer->bindBuffer(0, 3, _vertexBufferID);
+	_renderer->bindBuffer(1, 3, _colorBufferID);
 	_renderer->drawBuffer(TRIANGLE_STRIP, _vertexCount);
 	_renderer->disableAttribute(0);
 	_renderer->disableAttribute(1);
