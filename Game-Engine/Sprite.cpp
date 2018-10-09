@@ -20,6 +20,8 @@ void Sprite::draw() const
 
 	Shape::draw();
 
+	_renderer->enableBlend();
+
 	_renderer->enableAttribute(0);
 	_renderer->enableAttribute(1);
 	_renderer->bindBuffer(0, 3, _vertexBufferID);
@@ -27,6 +29,8 @@ void Sprite::draw() const
 	_renderer->drawBuffer(TRIANGLE_STRIP, _vertexCount);
 	_renderer->disableAttribute(0);
 	_renderer->disableAttribute(1);
+
+	_renderer->disableBlend();
 }
 
 bool Sprite::create(unsigned int vertexComponents, float* colorBufferData)

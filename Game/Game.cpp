@@ -53,7 +53,7 @@ bool Game::onStart()
 	_rectangle->setPosition(-4, 0, 0);
 	_circle->setPosition(0, 0, 0);
 	_sprite->setPosition(0, 1, 0);
-	_sprite->setScale(5, 5, 5);
+	_sprite->setScale(2, 2, 2);
 
 	return true;
 }
@@ -98,6 +98,8 @@ bool Game::onUpdate()
 
 	_circle->translate(0, offset, 0);
 	_circle->rotate(0, 0, -offset);
+
+	_sprite->translate(0, -offset, 0);
 	
 	return (_frame < MAX_FRAMES) ? true : false;
 }

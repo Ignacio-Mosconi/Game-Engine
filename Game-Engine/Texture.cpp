@@ -20,12 +20,12 @@ unsigned int Texture::loadBMP(const string& imagePath)
 	try
 	{
 		ifstream bmpFile;
-		char header[BMP_HEADER_SIZE];
+		unsigned char header[BMP_HEADER_SIZE];
 		unsigned int dataPosition;
 		unsigned int width;
 		unsigned int height;
 		unsigned int imageSize;
-		char* data;
+		unsigned char* data;
 
 		bmpFile.open(imagePath, ios::in | ios::binary);
 		if (!bmpFile.is_open())
@@ -36,10 +36,12 @@ unsigned int Texture::loadBMP(const string& imagePath)
 
 		width = *(int*)&header[0x12];
 		height = *(int*)&header[0x16];
-		dataPosition =  (*(int*)&header[0x0A] == BMP_HEADER_SIZE) ? *(int*)&header[0x0A] : BMP_HEADER_SIZE;
-		imageSize = (*(int*)&header[0x22] == width * height * 4) ? *(int*)&header[0x22] : width * height * 4;
+		dataPosition =  (*(int*)&header[0x0A] == 0) ? BMP_HEADER_SIZE : *(int*)&header[0x0A];
+		imageSize = (*(int*)&header[0x22] == 0) ? width * height * 4 : *(int*)&header[0x22];
 
-		data = new char[imageSize];
+		bmpFile.seekg(dataPosition, bmpFile.beg);
+
+		data = new unsigned char[imageSize];
 		bmpFile.read((char*)data, imageSize);
 		cout << "Reading the image..." << endl;
 		if (!bmpFile.good())

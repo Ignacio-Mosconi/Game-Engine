@@ -109,6 +109,21 @@ void Renderer::disableAttribute(unsigned int attrib) const
 	glDisableVertexAttribArray(attrib);
 }
 
+void Renderer::enableBlend() const
+{
+	cout << "Renderer::enableBlend()" << endl;
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+void Renderer::disableBlend() const
+{
+	cout << "Renderer::disableBlend()" << endl;
+
+	glDisable(GL_BLEND);
+}
+
 void Renderer::bindBuffer(unsigned int attrib, unsigned int vertexComponents, unsigned int vertexBufferID) const
 {
 	cout << "Renderer::bindBuffer(vertexBufferID)" << endl;
