@@ -12,6 +12,8 @@ class ENGINE_API Texture
 {
 private:
 	unsigned int _textureID;
+	unsigned int _width;
+	unsigned int _height;
 
 	Texture();
 	~Texture();
@@ -23,4 +25,6 @@ public:
 	static void destroyTexture(Texture* texture);
 
 	inline unsigned int getTexureID() const { return _textureID; }
+	inline unsigned int getWidth() const { return _width; }
+	inline unsigned int getHeight() const { return _height; }
 };

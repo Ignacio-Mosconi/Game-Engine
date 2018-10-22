@@ -6,6 +6,7 @@
 #include <vector>
 #include <glm.hpp>
 #include "Exports.h"
+#include "Texture.h"
 using namespace std;
 using namespace glm;
 
@@ -31,4 +32,7 @@ public:
 	void setTexture(Texture* texture, const char* propertyName);
 	void bind();
 	void bindTexture();
+
+	inline unsigned int getTextureWidth() const { return _texture->getWidth(); }
+	inline unsigned int getTextureHeight() const { return _texture->getHeight(); }
 };

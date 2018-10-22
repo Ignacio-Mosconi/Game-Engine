@@ -22,8 +22,6 @@ unsigned int Texture::loadBMP(const string& imagePath)
 		ifstream bmpFile;
 		unsigned char header[BMP_HEADER_SIZE];
 		unsigned int dataPosition;
-		unsigned int width;
-		unsigned int height;
 		unsigned int imageSize;
 		unsigned char* data;
 
@@ -34,10 +32,10 @@ unsigned int Texture::loadBMP(const string& imagePath)
 		if (header[0] != 'B' || header[1] != 'M')
 			throw logic_error("The file is not a proper BMP file.");
 
-		width = *(int*)&header[0x12];
-		height = *(int*)&header[0x16];
+		_width = *(int*)&header[0x12];
+		_height = *(int*)&header[0x16];
 		dataPosition =  (*(int*)&header[0x0A] == 0) ? BMP_HEADER_SIZE : *(int*)&header[0x0A];
-		imageSize = (*(int*)&header[0x22] == 0) ? width * height * 4 : *(int*)&header[0x22];
+		imageSize = (*(int*)&header[0x22] == 0) ? _width * _height * 4 : *(int*)&header[0x22];
 
 		bmpFile.seekg(dataPosition, bmpFile.beg);
 
@@ -51,7 +49,7 @@ unsigned int Texture::loadBMP(const string& imagePath)
 		GLuint textureID;
 		glGenTextures(1, &textureID);
 		glBindTexture(GL_TEXTURE_2D, textureID);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glGenerateMipmap(GL_TEXTURE_2D);

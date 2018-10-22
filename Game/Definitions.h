@@ -10,4 +10,5 @@
 #define TEXTURE_VERTEX_SHADER_PATH "Shaders/TextureVertexShader.vertexshader"
 #define TEXTURE_PIXEL_SHADER_PATH "Shaders/TexturePixelShader.pixelshader"
 #define SPRITE_TEXTURE_PATH "Textures/Sprite Texture.bmp"
+#define SPRITE_SHEET_TEXTURE_PATH "Textures/Sprite Sheet Texture.bmp"
 #define MAX_FRAMES 5000

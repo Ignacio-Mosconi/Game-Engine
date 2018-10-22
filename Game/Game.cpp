@@ -28,7 +28,7 @@ bool Game::onStart()
 	_customMaterial = Material::generateMaterial(CUSTOM_VERTEX_SHADER_PATH, CUSTOM_PIXEL_SHADER_PATH);
 	_textureMaterial = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
 	
-	_texture = Texture::generateTextureBMP(SPRITE_TEXTURE_PATH);
+	_texture = Texture::generateTextureBMP(SPRITE_SHEET_TEXTURE_PATH);
 	_textureMaterial->setTexture(_texture, "textureSampler");
 
 	_triangle = new Triangle(_renderer, _simpleMaterial);
@@ -48,6 +48,8 @@ bool Game::onStart()
 	_rectangle->create(3, rectangleColorData);
 	_circle->create(3);
 	_sprite->create(3);
+	_sprite->setFramesInfo(2, 2, 256, 256);
+	_sprite->setAnimationFrame(1);
 
 	_triangle->setPosition(4, 0, 0);
 	_rectangle->setPosition(-4, 0, 0);
