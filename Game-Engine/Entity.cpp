@@ -3,7 +3,8 @@
 #include <gtc\matrix_transform.hpp>
 #include <gtx\transform.hpp>
 
-Entity::Entity(Renderer* renderer) : _renderer(renderer),
+Entity::Entity(Renderer* renderer, float boundBoxWidth, float boundBoxHeight) :
+_renderer(renderer), _boundBoxWidth(boundBoxWidth), _boundBoxHeight(boundBoxHeight),
 _position(vec3(0, 0, 0)), _rotation(vec3(0, 0, 0)), _scale(vec3(1, 1, 1)),
 _traMatrix(mat4(1.0f)), _rotMatrix(mat4(1.0f)), _scaMatrix(mat4(1.0f))
 {

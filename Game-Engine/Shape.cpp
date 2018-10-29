@@ -2,7 +2,9 @@
 #include "Renderer.h"
 #include "Material.h"
 
-Shape::Shape(Renderer* renderer, Material* material, unsigned int vertexCount) : Entity(renderer),
+Shape::Shape(Renderer* renderer, Material* material, unsigned int vertexCount, 
+			float boundingBoxWidth, float boundingBoxHeight) :
+Entity(renderer, boundingBoxWidth, boundingBoxHeight),
 _material(material), _vertexBufferData(NULL), _colorBufferData(NULL),
 _vertexBufferID(-1), _colorBufferID(-1),
 _vertexCount(vertexCount)

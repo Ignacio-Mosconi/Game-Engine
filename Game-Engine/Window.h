@@ -22,7 +22,7 @@ public:
 	bool shouldClose();
 	void pollEvents();
 	
-	inline void* getWindowPtr() { return _actualWindow; }
-	inline int getWidth() { return _width; }
-	inline int getHeight() { return _height; }
+	inline void* getWindowPtr() const { return _actualWindow; }
+	inline int getWidth() const { return _width; }
+	inline int getHeight() const { return _height; }
 };

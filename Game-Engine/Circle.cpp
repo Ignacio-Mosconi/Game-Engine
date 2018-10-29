@@ -5,8 +5,9 @@
 #include <gtc\constants.hpp>
 using namespace glm;
 
-Circle::Circle(Renderer* renderer, Material* material, unsigned int vertexCount) : 
-Shape(renderer, material, vertexCount)
+Circle::Circle(Renderer* renderer, Material* material, unsigned int vertexCount,
+			float boundingBoxWidth, float boundingBoxHeight) :
+Shape(renderer, material, vertexCount, boundingBoxWidth, boundingBoxHeight)
 {
 	cout << "Circle::Circle()" << endl;
 }

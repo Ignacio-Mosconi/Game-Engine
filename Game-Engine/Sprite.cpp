@@ -3,7 +3,8 @@
 #include "Material.h"
 #include "Renderer.h"
 
-Sprite::Sprite(Renderer* renderer, Material* material) : Shape(renderer, material, 4),
+Sprite::Sprite(Renderer* renderer, Material* material, float boundingBoxWidth, float boundingBoxHeight) :
+Shape(renderer, material, 4, boundingBoxWidth, boundingBoxHeight),
 _uvBufferData(NULL), _uvBufferID(-1), _frameID(0), _rows(0), _columns(0), _frameWidth(0), _frameHeight(0)
 {
 	cout << "Sprite::Sprite()" << endl;

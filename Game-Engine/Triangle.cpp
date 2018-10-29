@@ -2,7 +2,8 @@
 #include "Material.h"
 #include "Renderer.h"
 
-Triangle::Triangle(Renderer* renderer, Material* material) : Shape(renderer, material, 3)
+Triangle::Triangle(Renderer* renderer, Material* material, float boundingBoxWidth, float boundingBoxHeight) :
+Shape(renderer, material, 3, boundingBoxWidth, boundingBoxHeight)
 {
 	cout << "Triangle::Triangle()" << endl;
 }

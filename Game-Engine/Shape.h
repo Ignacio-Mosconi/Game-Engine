@@ -14,7 +14,8 @@ protected:
 	unsigned int _vertexCount;
 
 public:
-	Shape(Renderer* renderer, Material* material, unsigned int vertexCount);
+	Shape(Renderer* renderer, Material* material, unsigned int vertexCount, 
+		float boundingBoxWidth, float boundingBoxHeight);
 	~Shape();
 
 	virtual bool create(unsigned int vertexComponents, float* colorBufferData = NULL);
