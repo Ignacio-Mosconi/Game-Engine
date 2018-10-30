@@ -6,8 +6,7 @@
 class ENGINE_API Circle : public Shape
 {
 public:
-	Circle(Renderer* renderer, Material* material, unsigned int vertexCount,
-			float boundingBoxWidth, float boundingBoxHeight);
+	Circle(Renderer* renderer, Material* material, unsigned int vertexCount);
 	~Circle();
 
 	float* setVertices(unsigned int vertexComponents) const override;

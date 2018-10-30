@@ -6,15 +6,16 @@
 #include "Exports.h"
 
 using namespace std;
+using namespace glm;
 
-class Entity;
+class Avatar;
 
 class ENGINE_API CollisionManager
 {
 private:
 	static CollisionManager* _instance;
 
-	map<string, vector<Entity*>> collisionLayers;
+	map<string, vector<Avatar*>> _collisionLayers;
 
 	CollisionManager();
 	~CollisionManager();
@@ -23,7 +24,7 @@ public:
 	static CollisionManager* getInstance();
 	static void deleteInstance();
 
-	void registerEntity(Entity* entity, string collisionLayer);
+	void registerAvatar(Avatar* avatar, string layer);
 
 	void update();
 };

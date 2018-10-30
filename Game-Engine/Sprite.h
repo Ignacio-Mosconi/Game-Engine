@@ -14,7 +14,7 @@ private:
 	unsigned int _frameHeight;
 
 public:
-	Sprite(Renderer* renderer, Material* material, float boundingBoxWidth, float boundingBoxHeight);
+	Sprite(Renderer* renderer, Material* material);
 	~Sprite();
 
 	bool create(unsigned int vertexComponents, float* colorBufferData = NULL) override;

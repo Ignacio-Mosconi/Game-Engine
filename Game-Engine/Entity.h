@@ -23,13 +23,10 @@ protected:
 
 	mat4 _modelMatrix;
 
-	float _boundBoxWidth;
-	float _boundBoxHeight;
-
 	void updateModelMatrix();
 
 public:
-	Entity(Renderer* renderer, float boundBoxWidth, float boundBoxHeight);
+	Entity(Renderer* renderer);
 	virtual ~Entity();
 
 	virtual void draw() const = 0;
@@ -45,7 +42,4 @@ public:
 	inline vec3 getPosition() const { return _position; }
 	inline vec3 getRotation() const { return _rotation; }
 	inline vec3 getScale() const { return _scale; }
-
-	inline float getBoundBoxWidth() const { return _boundBoxWidth; }
-	inline float getBoundBoxHeight() const { return _boundBoxHeight; }
 };

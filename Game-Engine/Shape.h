@@ -14,8 +14,7 @@ protected:
 	unsigned int _vertexCount;
 
 public:
-	Shape(Renderer* renderer, Material* material, unsigned int vertexCount, 
-		float boundingBoxWidth, float boundingBoxHeight);
+	Shape(Renderer* renderer, Material* material, unsigned int vertexCount);
 	~Shape();
 
 	virtual bool create(unsigned int vertexComponents, float* colorBufferData = NULL);
@@ -24,4 +23,6 @@ public:
 	bool dispose();
 
 	void draw() const;
+
+	inline Material* getMaterial() const { return _material;  }
 };
