@@ -1,8 +1,8 @@
 #include "CollisionManager.h"
-#include "Avatar.h"
+#include "Entity.h"
 #include "BoundingBox.h"
 
-CollisionManager* CollisionManager::_instance = getInstance();
+CollisionManager* CollisionManager::_instance = NULL;
 
 CollisionManager::CollisionManager()
 {
@@ -26,25 +26,25 @@ void CollisionManager::deleteInstance()
 		delete _instance;
 }
 
-void CollisionManager::registerAvatar(Avatar* avatar, string layer)
+void CollisionManager::registerBoundingBox(BoundingBox* box, string layer)
 {	
-	_collisionLayers[layer].push_back(avatar);
+	_collisionLayers[layer].push_back(box);
 }
 
 void CollisionManager::update()
 {
-	map<string, vector<Avatar*>>::iterator mapItA;
-	map<string, vector<Avatar*>>::iterator mapItB;
-	vector<Avatar*>::iterator vecItA;
-	vector<Avatar*>::iterator vecItB;
+	map<string, vector<BoundingBox*>>::iterator mapItA;
+	map<string, vector<BoundingBox*>>::iterator mapItB;
+	vector<BoundingBox*>::iterator vecItA;
+	vector<BoundingBox*>::iterator vecItB;
 	
 	for (mapItA = _collisionLayers.begin(); mapItA != _collisionLayers.end(); mapItA++)
 	{
 		for (vecItA = mapItA->second.begin(); vecItA != mapItA->second.end(); vecItA++)
 		{
-			vec2 posA((*vecItA)->getSpritePosition().x, (*vecItA)->getSpritePosition().y);
-			float bbWidthA = (*vecItA)->getBoundingBox()->getWidth();
-			float bbHeightA = (*vecItA)->getBoundingBox()->getHeight();
+			vec2 posA = (*vecItA)->getEntityAttachedPosition();
+			float bbWidthA = (*vecItA)->getWidth();
+			float bbHeightA = (*vecItA)->getHeight();
 
 			for (mapItB = _collisionLayers.begin(); mapItB != _collisionLayers.end(); mapItB++)
 			{
@@ -52,9 +52,9 @@ void CollisionManager::update()
 				{
 					for (vecItB = mapItB->second.begin(); vecItB != mapItB->second.end(); vecItB++)
 					{
-						vec2 posB((*vecItB)->getSpritePosition().x, (*vecItB)->getSpritePosition().y);
-						float bbWidthB = (*vecItB)->getBoundingBox()->getWidth();
-						float bbHeightB = (*vecItB)->getBoundingBox()->getHeight();
+						vec2 posB = (*vecItB)->getEntityAttachedPosition();
+						float bbWidthB = (*vecItB)->getWidth();
+						float bbHeightB = (*vecItB)->getHeight();
 
 						float minDistX = bbWidthA / 2 + bbWidthB / 2;
 						float minDistY = bbHeightA / 2 + bbHeightB / 2;
@@ -65,8 +65,8 @@ void CollisionManager::update()
 
 						if (deltaX < minDistX && deltaY < minDistY)
 						{
-							(*vecItA)->getBoundingBox()->onCollision();
-							(*vecItB)->getBoundingBox()->onCollision();
+							(*vecItA)->onCollision();
+							(*vecItB)->onCollision();
 						}
 					}
 				}

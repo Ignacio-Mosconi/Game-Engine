@@ -8,14 +8,14 @@
 using namespace std;
 using namespace glm;
 
-class Avatar;
+class BoundingBox;
 
 class ENGINE_API CollisionManager
 {
 private:
 	static CollisionManager* _instance;
 
-	map<string, vector<Avatar*>> _collisionLayers;
+	map<string, vector<BoundingBox*>> _collisionLayers;
 
 	CollisionManager();
 	~CollisionManager();
@@ -24,7 +24,7 @@ public:
 	static CollisionManager* getInstance();
 	static void deleteInstance();
 
-	void registerAvatar(Avatar* avatar, string layer);
+	void registerBoundingBox(BoundingBox* box, string layer);
 
 	void update();
 };

@@ -12,3 +12,8 @@ void BoundingBox::onCollision()
 {
 
 }
+
+vec2 BoundingBox::getEntityAttachedPosition() const
+{
+	return vec2(getEntityAttachedPosition().x, getEntityAttachedPosition().y);
+}
