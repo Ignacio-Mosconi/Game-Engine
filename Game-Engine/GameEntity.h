@@ -26,8 +26,8 @@ private:
 	Texture* _texture;
 
 public:
-	GameEntity(Renderer* renderer, string& imagePath);
-	GameEntity(Renderer* renderer, string& imagePath, float x, float y);
+	GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer);
+	GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer, float x, float y);
 	~GameEntity();
 
 	Sprite* createSprite(Renderer* renderer, string& imagePath);
@@ -35,5 +35,8 @@ public:
 	
 	static Material* getTextureMaterial();
 
+	void draw() const;
+
+	inline Sprite* getSprite() const { return _sprite; }
 	inline BoundingBox* getBoundingBox() const { return _boundingBox; }
 };

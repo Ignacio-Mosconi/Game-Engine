@@ -7,6 +7,8 @@
 #include "Rectangle.h"
 #include "Circle.h"
 #include "Sprite.h"
+#include "GameEntity.h"
+#include "CollisionManager.h"
 
 Game::Game() : GameBase()
 {
@@ -35,6 +37,12 @@ bool Game::onStart()
 	_rectangle = new Rectangle(_renderer, _customMaterial);
 	_circle = new Circle(_renderer, _simpleMaterial, 20);
 	_sprite = new Sprite(_renderer, _textureMaterial);
+
+	string imagePath(SPRITE_SHEET_TEXTURE_PATH);
+	string layerA("Group A");
+	string layerB("Group B");
+	_gameEntity1 = new GameEntity(_renderer, imagePath, layerA, -4.0f, 0.0f);
+	_gameEntity2 = new GameEntity(_renderer, imagePath, layerB, 4.0f, 0.0f);
 
 	float rectangleColorData[] =
 	{
@@ -74,11 +82,16 @@ bool Game::onStop()
 	delete _circle;
 	delete _sprite;
 
+	delete _gameEntity1;
+	delete _gameEntity2;
+
 	Material::destroyMaterial(_simpleMaterial);
 	Material::destroyMaterial(_customMaterial);
 	Material::destroyMaterial(_textureMaterial);
 	
 	Texture::destroyTexture(_texture);
+
+	CollisionManager::deleteInstance();
 
 	return true;
 }
@@ -102,6 +115,11 @@ bool Game::onUpdate()
 	_circle->rotate(0, 0, -offset);
 
 	_sprite->translate(0, -offset, 0);
+
+	_gameEntity1->getSprite()->translate(offset, 0, 0);
+	_gameEntity2->getSprite()->translate(-offset, 0, 0);
+
+	CollisionManager::getInstance()->update();
 	
 	return (_frame < MAX_FRAMES) ? true : false;
 }
@@ -114,6 +132,9 @@ bool Game::onDraw()
 	_rectangle->draw();
 	_circle->draw();
 	_sprite->draw();
+
+	_gameEntity1->draw();
+	_gameEntity2->draw();
 
 	return true;
 }

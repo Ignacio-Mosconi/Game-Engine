@@ -10,6 +10,7 @@ class Triangle;
 class Rectangle;
 class Circle;
 class Sprite;
+class GameEntity;
 
 class Game : public GameBase
 {
@@ -22,6 +23,8 @@ private:
 	Rectangle* _rectangle;
 	Circle* _circle;
 	Sprite* _sprite;
+	GameEntity* _gameEntity1;
+	GameEntity* _gameEntity2;
 	
 	int _frame;
 

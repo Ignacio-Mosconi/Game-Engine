@@ -6,14 +6,18 @@ CollisionManager* CollisionManager::_instance = NULL;
 
 CollisionManager::CollisionManager()
 {
+	cout << "CollisionManager::CollisionManager()" << endl;
 }
 
 CollisionManager::~CollisionManager()
 {
+	cout << "CollisionManager::~CollisionManager()" << endl;
 }
 
 CollisionManager* CollisionManager::getInstance()
 {
+	cout << "CollisionManager::getInstance()" << endl;
+
 	if (!_instance)
 		_instance = new CollisionManager;
 
@@ -22,17 +26,23 @@ CollisionManager* CollisionManager::getInstance()
 
 void CollisionManager::deleteInstance()
 {
+	cout << "CollisionManager::deleteInstance()" << endl;
+
 	if (_instance)
 		delete _instance;
 }
 
 void CollisionManager::registerBoundingBox(BoundingBox* box, string layer)
 {	
+	cout << "CollisionManager::registerBoundingBox(box, layer)" << endl;
+
 	_collisionLayers[layer].push_back(box);
 }
 
 void CollisionManager::update()
 {
+	cout << "CollisionManager::update()" << endl;
+
 	map<string, vector<BoundingBox*>>::iterator mapItA;
 	map<string, vector<BoundingBox*>>::iterator mapItB;
 	vector<BoundingBox*>::iterator vecItA;
@@ -42,7 +52,7 @@ void CollisionManager::update()
 	{
 		for (vecItA = mapItA->second.begin(); vecItA != mapItA->second.end(); vecItA++)
 		{
-			vec2 posA = (*vecItA)->getEntityAttachedPosition();
+			vec2 posA((*vecItA)->getEntityAttachedPosition().x, (*vecItA)->getEntityAttachedPosition().y);
 			float bbWidthA = (*vecItA)->getWidth();
 			float bbHeightA = (*vecItA)->getHeight();
 
@@ -52,7 +62,7 @@ void CollisionManager::update()
 				{
 					for (vecItB = mapItB->second.begin(); vecItB != mapItB->second.end(); vecItB++)
 					{
-						vec2 posB = (*vecItB)->getEntityAttachedPosition();
+						vec2 posB((*vecItB)->getEntityAttachedPosition().x, (*vecItB)->getEntityAttachedPosition().y);
 						float bbWidthB = (*vecItB)->getWidth();
 						float bbHeightB = (*vecItB)->getHeight();
 

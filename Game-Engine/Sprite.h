@@ -25,4 +25,7 @@ public:
 	void setFramesInfo(unsigned int rows, unsigned int columns, unsigned int frameWidth, unsigned int frameHeight);
 
 	void draw() const override;
+
+	inline unsigned int getFrameWidth() { return _frameWidth; }
+	inline unsigned int getFrameHeight() { return _frameHeight; }
 };
