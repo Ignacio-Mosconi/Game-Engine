@@ -27,10 +27,12 @@ private:
 
 public:
 	GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer);
-	GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer, float x, float y);
+	GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer, float x, float y,
+				int spriteRows, int spriteColumns, int frameWidth, int frameHeight, bool isStatic = false, float mass = 1);
 	~GameEntity();
 
-	Sprite* createSprite(Renderer* renderer, string& imagePath);
+	Sprite* createSprite(Renderer* renderer, string& imagePath, int spriteRows = 1, int spriteColumns = 1, 
+		int frameWidth = -1, int frameHeight = -1);
 	void setBoundingBoxDimensions(float width, float height);
 	
 	static Material* getTextureMaterial();

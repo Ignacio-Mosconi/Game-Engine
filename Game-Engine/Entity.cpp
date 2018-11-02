@@ -6,7 +6,7 @@
 Entity::Entity(Renderer* renderer) :
 _renderer(renderer),
 _position(vec3(0, 0, 0)), _rotation(vec3(0, 0, 0)), _scale(vec3(1, 1, 1)),
-_traMatrix(mat4(1.0f)), _rotMatrix(mat4(1.0f)), _scaMatrix(mat4(1.0f))
+_traMatrix(mat4(1.0f)), _rotMatrix(mat4(1.0f)), _scaMatrix(mat4(1.0f)), _modelMatrix(mat4(1.0f))
 {
 	cout << "Entity::Entity()" << endl;
 }

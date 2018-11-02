@@ -14,7 +14,10 @@ _sprite(createSprite(renderer, imagePath)), _texture(NULL)
 	cout << "GameEntity::GameEntity(renderer, imagePath, collisionLayer)" << endl;
 
 	if (_sprite)
+	{
 		_sprite->setPosition(0, 0, 0);
+		_sprite->setScale(130, 130, 130);
+	}
 	
 	float bbWidth = (float)(_sprite->getFrameWidth());
 	float bbHeight = (float)(_sprite->getFrameHeight());
@@ -24,25 +27,29 @@ _sprite(createSprite(renderer, imagePath)), _texture(NULL)
 	CollisionManager::getInstance()->registerBoundingBox(_boundingBox, collisionLayer);
 }
 
-GameEntity::GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer, float x, float y) :
-_sprite(createSprite(renderer, imagePath))
+GameEntity::GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer, float x, float y,
+						int spriteRows, int spriteColumns, int frameWidth, int frameHeight, bool isStatic, float mass) :
+_sprite(createSprite(renderer, imagePath, spriteRows, spriteColumns, frameWidth, frameHeight))
 {
 	cout << "GameEntity::GameEntity(renderer, imagePath, collisionLayer, x, y)" << endl;
 
 	if (_sprite)
+	{
 		_sprite->setPosition(x, y, 0);
+		_sprite->setScale(130, 130, 130);
+	}
 
 	float bbWidth = (float)(_sprite->getFrameWidth());
 	float bbHeight = (float)(_sprite->getFrameHeight());
 
-	_boundingBox = new BoundingBox(bbWidth, bbHeight);
+	_boundingBox = new BoundingBox(bbWidth, bbHeight, isStatic, mass);
 	_boundingBox->attachToEntity(_sprite);
 	CollisionManager::getInstance()->registerBoundingBox(_boundingBox, collisionLayer);
 }
 
 GameEntity::~GameEntity()
 {
-	cout << "GameEntity::GameEntity()" << endl;
+	cout << "GameEntity::~GameEntity()" << endl;
 
 	delete _sprite;
 	delete _boundingBox;
@@ -58,14 +65,20 @@ GameEntity::~GameEntity()
 	}
 }
 
-Sprite* GameEntity::createSprite(Renderer* renderer, string& imagePath)
+Sprite* GameEntity::createSprite(Renderer* renderer, string& imagePath, int spriteRows, int spriteColumns, 
+								int frameWidth, int frameHeight)
 {
-	cout << "GameEntity::GameEntity()" << endl;
+	cout << "GameEntity::createSprite(renderer, imagePath)" << endl;
 
 	_texture = Texture::generateTextureBMP(imagePath);
 	getTextureMaterial()->setTexture(_texture, "textureSampler");
 	_sprite = new Sprite(renderer, getTextureMaterial());
-	_sprite->setFramesInfo(2, 2, 256, 256);
+	_sprite->create(3);
+	if (frameWidth == -1)
+		frameWidth = _texture->getWidth();
+	if (frameHeight == -1)
+		frameHeight = _texture->getHeight();
+	_sprite->setFramesInfo(spriteRows, spriteColumns, frameWidth, frameHeight);
 	_sprite->setAnimationFrame(0);
 
 	return _sprite;
@@ -73,7 +86,7 @@ Sprite* GameEntity::createSprite(Renderer* renderer, string& imagePath)
 
 void GameEntity::setBoundingBoxDimensions(float width, float height)
 {
-	cout << "GameEntity::GameEntity()" << endl;
+	cout << "GameEntity::setBoundingBoxDimensions(width, height)" << endl;
 
 	_boundingBox->setWidth(width);
 	_boundingBox->setHeight(height);
@@ -81,7 +94,7 @@ void GameEntity::setBoundingBoxDimensions(float width, float height)
 
 Material* GameEntity::getTextureMaterial()
 {
-	cout << "GameEntity::GameEntity()" << endl;
+	cout << "GameEntity::getTextureMaterial()" << endl;
 
 	if (!_textureMaterial)
 		_textureMaterial = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
@@ -91,7 +104,7 @@ Material* GameEntity::getTextureMaterial()
 
 void GameEntity::draw() const
 {
-	cout << "GameEntity::GameEntity()" << endl;
+	cout << "GameEntity::draw()" << endl;
 
 	_sprite->draw();
 }

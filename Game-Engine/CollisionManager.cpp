@@ -75,8 +75,40 @@ void CollisionManager::update()
 
 						if (deltaX < minDistX && deltaY < minDistY)
 						{
-							(*vecItA)->onCollision();
-							(*vecItB)->onCollision();
+							CollisionDir boxADir;
+							CollisionDir boxBDir;
+							float horPenetration = minDistX - deltaX;
+							float verPenetration = minDistY - deltaY;
+							
+							if (horPenetration > verPenetration)
+							{
+								if (diff.y > 0)
+								{
+									boxADir = Up;
+									boxBDir = Down;
+								}
+								else
+								{
+									boxADir = Down;
+									boxBDir = Up;
+								}
+							}
+							else
+							{
+								if (diff.x > 0)
+								{
+									boxADir = Left;
+									boxBDir = Right;
+								}
+								else
+								{
+									boxADir = Right;
+									boxBDir = Left;
+								}
+							}
+							
+							(*vecItA)->onCollision(*vecItB, min(horPenetration, verPenetration), boxADir);
+							(*vecItB)->onCollision(*vecItA, min(horPenetration, verPenetration), boxBDir);
 						}
 					}
 				}

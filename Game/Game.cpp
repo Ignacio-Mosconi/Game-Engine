@@ -41,8 +41,8 @@ bool Game::onStart()
 	string imagePath(SPRITE_SHEET_TEXTURE_PATH);
 	string layerA("Group A");
 	string layerB("Group B");
-	_gameEntity1 = new GameEntity(_renderer, imagePath, layerA, -4.0f, 0.0f);
-	_gameEntity2 = new GameEntity(_renderer, imagePath, layerB, 4.0f, 0.0f);
+	_gameEntity1 = new GameEntity(_renderer, imagePath, layerA, 128, 500, 2, 2, 256, 256, false, 2.0f);
+	_gameEntity2 = new GameEntity(_renderer, imagePath, layerB, 1152, 500, 2, 2, 256, 256, false, 4.0f);
 
 	float rectangleColorData[] =
 	{
@@ -59,11 +59,14 @@ bool Game::onStart()
 	_sprite->setFramesInfo(2, 2, 256, 256);
 	_sprite->setAnimationFrame(1);
 
-	_triangle->setPosition(4, 0, 0);
-	_rectangle->setPosition(-4, 0, 0);
-	_circle->setPosition(0, 0, 0);
-	_sprite->setPosition(0, 1, 0);
-	_sprite->setScale(2, 2, 2);
+	_triangle->setPosition(200, 600, 0);
+	_triangle->setScale(100, 100, 100);
+	_rectangle->setPosition(300, 500, 0);
+	_rectangle->setScale(100, 100, 100);
+	_circle->setPosition(600, 400, 0);
+	_circle->setScale(100, 100, 100);
+	_sprite->setPosition(128, 128, 0);
+	_sprite->setScale(130, 130, 130);
 
 	return true;
 }
@@ -103,7 +106,7 @@ bool Game::onUpdate()
 	_frame++;
 	cout << "Frame: " << _frame << endl;
 
-	float offset = 0.05f;
+	float offset = 10.0f;
 
 	_triangle->translate(offset, 0, 0);
 	_triangle->rotate(0, 0, offset);
@@ -114,7 +117,7 @@ bool Game::onUpdate()
 	_circle->translate(0, offset, 0);
 	_circle->rotate(0, 0, -offset);
 
-	_sprite->translate(0, -offset, 0);
+	//_sprite->translate(0, -offset, 0);
 
 	_gameEntity1->getSprite()->translate(offset, 0, 0);
 	_gameEntity2->getSprite()->translate(-offset, 0, 0);
