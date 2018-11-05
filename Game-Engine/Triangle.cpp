@@ -24,15 +24,18 @@ void Triangle::draw() const
 	_renderer->disableAttribute(0);
 }
 
-float* Triangle::setVertices(unsigned int vertexComponents) const
+float* Triangle::setVertices(unsigned int vertexComponents, float width, float height) const
 {
 	cout << "Triangle::setVertices(vertexComponents)" << endl;
 
+	float valueX = (float)width / 2;
+	float valueY = (float)height / 2;
+
 	float* vertexBufferData = new float[_vertexCount * vertexComponents]
 	{
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f
+		-valueX, -valueY, 0.0f,
+		valueX, -valueY, 0.0f,
+		0.0f, valueY, 0.0f
 	};
 
 	return vertexBufferData;

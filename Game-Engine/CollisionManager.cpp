@@ -66,8 +66,8 @@ void CollisionManager::update()
 						float bbWidthB = (*vecItB)->getWidth();
 						float bbHeightB = (*vecItB)->getHeight();
 
-						float minDistX = bbWidthA / 2 + bbWidthB / 2;
-						float minDistY = bbHeightA / 2 + bbHeightB / 2;
+						float minDistX = (bbWidthA + bbWidthB) / 2;
+						float minDistY = (bbHeightA + bbHeightB) / 2;
 
 						vec2 diff = posB - posA;
 						float deltaX = abs(diff.x);

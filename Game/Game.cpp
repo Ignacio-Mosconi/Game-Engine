@@ -52,21 +52,17 @@ bool Game::onStart()
 		0.7f, 0.7f, 0.2f
 	};
 
-	_triangle->create(3);
-	_rectangle->create(3, rectangleColorData);
-	_circle->create(3);
-	_sprite->create(3);
+	_triangle->create(3, NULL, 100, 100);
+	_rectangle->create(3, rectangleColorData, 200, 200);
+	_circle->create(3, NULL, 75);
+	_sprite->create(3, NULL, 256, 256);
 	_sprite->setFramesInfo(2, 2, 256, 256);
 	_sprite->setAnimationFrame(1);
 
 	_triangle->setPosition(200, 600, 0);
-	_triangle->setScale(100, 100, 100);
 	_rectangle->setPosition(300, 500, 0);
-	_rectangle->setScale(100, 100, 100);
 	_circle->setPosition(600, 400, 0);
-	_circle->setScale(100, 100, 100);
 	_sprite->setPosition(128, 128, 0);
-	_sprite->setScale(130, 130, 130);
 
 	return true;
 }
@@ -106,7 +102,7 @@ bool Game::onUpdate()
 	_frame++;
 	cout << "Frame: " << _frame << endl;
 
-	float offset = 10.0f;
+	float offset = 5.0f;
 
 	_triangle->translate(offset, 0, 0);
 	_triangle->rotate(0, 0, offset);

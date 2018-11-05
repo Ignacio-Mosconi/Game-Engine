@@ -27,7 +27,7 @@ void Circle::draw() const
 	_renderer->disableAttribute(0);
 }
 
-float* Circle::setVertices(unsigned int vertexComponents) const
+float* Circle::setVertices(unsigned int vertexComponents,float width, float height) const
 {
 	cout << "Circle::setVertices(vertexComponents)" << endl;
 
@@ -36,8 +36,8 @@ float* Circle::setVertices(unsigned int vertexComponents) const
 
 	for (unsigned int i = 0; i < _vertexCount * vertexComponents; i += vertexComponents)
 	{
-		vertexBufferData[i] = cos(angle);
-		vertexBufferData[i + 1] = sin(angle);
+		vertexBufferData[i] = (float)width * cos(angle);
+		vertexBufferData[i + 1] = (float)width * sin(angle);
 		vertexBufferData[i + 2] = 0.0f;
 
 		angle += 2 * pi<float>() / _vertexCount;

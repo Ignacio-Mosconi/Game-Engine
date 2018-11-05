@@ -27,16 +27,19 @@ void Rectangle::draw() const
 	_renderer->disableAttribute(1);
 }
 
-float* Rectangle::setVertices(unsigned int vertexComponents) const
+float* Rectangle::setVertices(unsigned int vertexComponents, float width, float height) const
 {
 	cout << "Rectangle::setVertices(vertexComponents)" << endl;
 
+	float valueX = (float)width / 2;
+	float valueY = (float)height / 2;
+
 	float* vertexBufferData = new float[_vertexCount * vertexComponents]
 	{
-		-1.0f, -1.0f, 0.0f,
-		-1.0f, 1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		1.0f, 1.0f, 0.0f
+		-valueX, -valueY, 0.0f,
+		-valueX, valueY, 0.0f,
+		valueX, -valueY, 0.0f,
+		valueX, valueY, 0.0f
 	};
 
 	return vertexBufferData;

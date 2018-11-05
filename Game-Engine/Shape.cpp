@@ -16,7 +16,7 @@ Shape::~Shape()
 	cout << "Shape::~Shape()" << endl;
 }
 
-bool Shape::create(unsigned int vertexComponents, float* colorBufferData)
+bool Shape::create(unsigned int vertexComponents, float* colorBufferData, float width, float height)
 {
 	cout << "Shape::create(vertexComponents, colorBufferData)" << endl;
 
@@ -25,7 +25,7 @@ bool Shape::create(unsigned int vertexComponents, float* colorBufferData)
 
 	int vertexBufferSize = sizeof(float) * _vertexCount * vertexComponents;
 
-	_vertexBufferData = setVertices(vertexComponents);
+	_vertexBufferData = setVertices(vertexComponents, width, height);
 	if (colorBufferData)
 		_colorBufferData = setVerticesColor(colorBufferData, vertexComponents);
 

@@ -14,10 +14,7 @@ _sprite(createSprite(renderer, imagePath)), _texture(NULL)
 	cout << "GameEntity::GameEntity(renderer, imagePath, collisionLayer)" << endl;
 
 	if (_sprite)
-	{
 		_sprite->setPosition(0, 0, 0);
-		_sprite->setScale(130, 130, 130);
-	}
 	
 	float bbWidth = (float)(_sprite->getFrameWidth());
 	float bbHeight = (float)(_sprite->getFrameHeight());
@@ -34,10 +31,7 @@ _sprite(createSprite(renderer, imagePath, spriteRows, spriteColumns, frameWidth,
 	cout << "GameEntity::GameEntity(renderer, imagePath, collisionLayer, x, y)" << endl;
 
 	if (_sprite)
-	{
 		_sprite->setPosition(x, y, 0);
-		_sprite->setScale(130, 130, 130);
-	}
 
 	float bbWidth = (float)(_sprite->getFrameWidth());
 	float bbHeight = (float)(_sprite->getFrameHeight());
@@ -73,7 +67,7 @@ Sprite* GameEntity::createSprite(Renderer* renderer, string& imagePath, int spri
 	_texture = Texture::generateTextureBMP(imagePath);
 	getTextureMaterial()->setTexture(_texture, "textureSampler");
 	_sprite = new Sprite(renderer, getTextureMaterial());
-	_sprite->create(3);
+	_sprite->create(3, NULL, frameWidth, frameHeight);
 	if (frameWidth == -1)
 		frameWidth = _texture->getWidth();
 	if (frameHeight == -1)

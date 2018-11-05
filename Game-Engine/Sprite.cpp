@@ -16,7 +16,7 @@ Sprite::~Sprite()
 	cout << "Sprite::~Sprite()" << endl;
 }
 
-bool Sprite::create(unsigned int vertexComponents, float* colorBufferData)
+bool Sprite::create(unsigned int vertexComponents, float* colorBufferData, float width, float height)
 {
 	cout << "Sprite::create(vertexComponents, colorBufferData)" << endl;
 
@@ -25,19 +25,22 @@ bool Sprite::create(unsigned int vertexComponents, float* colorBufferData)
 	_uvBufferData = setVerticesUV(0, 0);
 	_uvBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
 
-	return Shape::create(vertexComponents);
+	return Shape::create(vertexComponents, NULL, width, height);
 }
 
-float* Sprite::setVertices(unsigned int vertexComponents) const
+float* Sprite::setVertices(unsigned int vertexComponents, float width, float height) const
 {
 	cout << "Sprite::setVertices(vertexComponents)" << endl;
 
+	float valueX = (float)width / 2;
+	float valueY = (float)height / 2;
+
 	float* vertexBufferData = new float[_vertexCount * vertexComponents]
 	{
-		-1.0f, 1.0f, 0.0f,
-		1.0f, 1.0f, 0.0f,
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f
+		-valueX, valueY, 0.0f,
+		valueX, valueY, 0.0f,
+		-valueX, -valueY, 0.0f,
+		valueX, -valueY, 0.0f
 	};
 
 	return vertexBufferData;
