@@ -36,6 +36,7 @@ public:
 	void setBoundingBoxDimensions(float width, float height);
 	
 	static Material* getTextureMaterial();
+	static void destroyTextureMaterial();
 
 	void draw() const;
 

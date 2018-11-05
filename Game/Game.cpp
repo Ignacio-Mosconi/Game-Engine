@@ -89,6 +89,7 @@ bool Game::onStop()
 	Material::destroyMaterial(_textureMaterial);
 	
 	Texture::destroyTexture(_texture);
+	GameEntity::destroyTextureMaterial();
 
 	CollisionManager::deleteInstance();
 

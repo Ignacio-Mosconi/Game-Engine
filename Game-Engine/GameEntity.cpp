@@ -47,11 +47,6 @@ GameEntity::~GameEntity()
 
 	delete _sprite;
 	delete _boundingBox;
-	if (_textureMaterial)
-	{
-		Material::destroyMaterial(_textureMaterial);
-		_textureMaterial = NULL;
-	}
 	if (_texture)
 	{
 		Texture::destroyTexture(_texture);
@@ -94,6 +89,15 @@ Material* GameEntity::getTextureMaterial()
 		_textureMaterial = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
 
 	return _textureMaterial;
+}
+
+void GameEntity::destroyTextureMaterial()
+{
+	if (_textureMaterial)
+	{
+		Material::destroyMaterial(_textureMaterial);
+		_textureMaterial = NULL;
+	}
 }
 
 void GameEntity::draw() const
