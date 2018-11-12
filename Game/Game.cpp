@@ -96,26 +96,26 @@ bool Game::onStop()
 	return true;
 }
 
-bool Game::onUpdate()
+bool Game::onUpdate(float deltaTime)
 {
 	cout << "Game::onUpdate()" << endl;
 
 	_frame++;
 	cout << "Frame: " << _frame << endl;
 
-	float offset = 5.0f;
+	float offset = 25.0f;
 
-	_triangle->translate(offset, 0, 0);
-	_triangle->rotate(0, 0, offset);
+	_triangle->translate(offset * deltaTime, 0, 0);
+	_triangle->rotate(0, 0, offset * deltaTime);
 	
-	_rectangle->translate(-offset, 0, 0);
-	_rectangle->rotate(0, 0, -offset);
+	_rectangle->translate(-offset * deltaTime, 0, 0);
+	_rectangle->rotate(0, 0, -offset * deltaTime);
 
-	_circle->translate(0, offset, 0);
-	_circle->rotate(0, 0, -offset);
+	_circle->translate(0, offset * deltaTime, 0);
+	_circle->rotate(0, 0, -offset * deltaTime);
 
-	_gameEntity1->getSprite()->translate(offset, 0, 0);
-	_gameEntity2->getSprite()->translate(-offset, 0, 0);
+	_gameEntity1->getSprite()->translate(offset * deltaTime, 0, 0);
+	_gameEntity2->getSprite()->translate(-offset * deltaTime, 0, 0);
 
 	CollisionManager::getInstance()->update();
 	

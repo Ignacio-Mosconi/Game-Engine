@@ -1,6 +1,7 @@
 #include "GameBase.h"
 #include "Renderer.h"
 #include "Window.h"
+#include <GLFW\glfw3.h>
 
 GameBase::GameBase()
 {
@@ -47,11 +48,15 @@ void GameBase::run()
 	cout << "GameBase::run()" << endl;
 
 	bool update = true;
+	double currentTime = glfwGetTime();
+	float deltaTime = currentTime - _lastTime;
+	_lastTime = currentTime;
+	
 	_renderer->setClearColor(0.0f, 0.25f, 0.0f, 1.0f);
 
 	while (update && !_window->shouldClose())
 	{
-		update = onUpdate();
+		update = onUpdate(deltaTime);
 
 		_renderer->clearScreen();
 		onDraw();

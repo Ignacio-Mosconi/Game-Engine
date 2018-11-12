@@ -31,7 +31,7 @@ private:
 protected:
 	bool onStart() override;
 	bool onStop() override;
-	bool onUpdate() override;
+	bool onUpdate(float deltaTime) override;
 	bool onDraw() override;
 
 public:
