@@ -5,11 +5,12 @@
 #include "Material.h"
 #include "Texture.h"
 #include "CollisionManager.h"
+#include "Animation.h"
 
 Material* GameEntity::_textureMaterial = NULL;
 
-GameEntity::GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer) :
-_sprite(createSprite(renderer, imagePath)), _texture(NULL)
+GameEntity::GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer, bool animated) :
+_sprite(createSprite(renderer, imagePath)), _idleAnimation(NULL), _texture(NULL), _animated(animated)
 {
 	cout << "GameEntity::GameEntity(renderer, imagePath, collisionLayer)" << endl;
 
@@ -19,14 +20,17 @@ _sprite(createSprite(renderer, imagePath)), _texture(NULL)
 	float bbWidth = (float)(_sprite->getFrameWidth());
 	float bbHeight = (float)(_sprite->getFrameHeight());
 
-	_boundingBox = new BoundingBox(bbWidth, bbHeight);
-	_boundingBox->attachToEntity(_sprite);
-	CollisionManager::getInstance()->registerBoundingBox(_boundingBox, collisionLayer);
+	createBoundingBox(bbWidth, bbHeight, false, 1.0f, collisionLayer);
+
+	if (animated)
+		createAnimation();
 }
 
-GameEntity::GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer, float x, float y,
-						int spriteRows, int spriteColumns, int frameWidth, int frameHeight, bool isStatic, float mass) :
-_sprite(createSprite(renderer, imagePath, spriteRows, spriteColumns, frameWidth, frameHeight))
+GameEntity::GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer,
+						float x, float y, int spriteRows, int spriteColumns, int frameWidth, int frameHeight, 
+						bool isStatic, float mass, bool animated) :
+_sprite(createSprite(renderer, imagePath, spriteRows, spriteColumns, frameWidth, frameHeight)),
+_idleAnimation(NULL), _texture(NULL), _animated(animated)
 {
 	cout << "GameEntity::GameEntity(renderer, imagePath, collisionLayer, x, y)" << endl;
 
@@ -36,9 +40,10 @@ _sprite(createSprite(renderer, imagePath, spriteRows, spriteColumns, frameWidth,
 	float bbWidth = (float)(_sprite->getFrameWidth());
 	float bbHeight = (float)(_sprite->getFrameHeight());
 
-	_boundingBox = new BoundingBox(bbWidth, bbHeight, isStatic, mass);
-	_boundingBox->attachToEntity(_sprite);
-	CollisionManager::getInstance()->registerBoundingBox(_boundingBox, collisionLayer);
+	createBoundingBox(bbWidth, bbHeight, isStatic, mass, collisionLayer);
+
+	if (animated)
+		createAnimation();
 }
 
 GameEntity::~GameEntity()
@@ -47,6 +52,8 @@ GameEntity::~GameEntity()
 
 	delete _sprite;
 	delete _boundingBox;
+	if (_idleAnimation)
+		delete _idleAnimation;
 	if (_texture)
 	{
 		Texture::destroyTexture(_texture);
@@ -71,6 +78,19 @@ Sprite* GameEntity::createSprite(Renderer* renderer, string& imagePath, int spri
 	_sprite->setAnimationFrame(0);
 
 	return _sprite;
+}
+
+void GameEntity::createBoundingBox(float width, float height, bool isStatic, float mass, string& collisionLayer)
+{
+	_boundingBox = new BoundingBox(width, height, isStatic, mass);
+	_boundingBox->attachToEntity(_sprite);
+	CollisionManager::getInstance()->registerBoundingBox(_boundingBox, collisionLayer);
+}
+
+void GameEntity::createAnimation()
+{
+	unsigned int frames[2] = { 0, 1 };
+	_idleAnimation = new Animation(_sprite, frames, 24.0f, true);
 }
 
 void GameEntity::setBoundingBoxDimensions(float width, float height)
@@ -98,6 +118,12 @@ void GameEntity::destroyTextureMaterial()
 		Material::destroyMaterial(_textureMaterial);
 		_textureMaterial = NULL;
 	}
+}
+
+void GameEntity::update(float deltaTime)
+{
+	if (_animated)
+		_idleAnimation->update(deltaTime);
 }
 
 void GameEntity::draw() const

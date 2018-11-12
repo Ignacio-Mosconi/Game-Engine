@@ -41,8 +41,8 @@ bool Game::onStart()
 	string imagePath(SPRITE_SHEET_TEXTURE_PATH);
 	string layerA("Group A");
 	string layerB("Group B");
-	_gameEntity1 = new GameEntity(_renderer, imagePath, layerA, 128, 500, 2, 2, 256, 256, false, 2.0f);
-	_gameEntity2 = new GameEntity(_renderer, imagePath, layerB, 1152, 500, 2, 2, 256, 256, false, 4.0f);
+	_gameEntity1 = new GameEntity(_renderer, imagePath, layerA, 128, 500, 2, 2, 256, 256, false, 2.0f, true);
+	_gameEntity2 = new GameEntity(_renderer, imagePath, layerB, 1152, 500, 2, 2, 256, 256, false, 4.0f, false);
 
 	float rectangleColorData[] =
 	{
@@ -116,6 +116,9 @@ bool Game::onUpdate(float deltaTime)
 
 	_gameEntity1->getSprite()->translate(offset * deltaTime, 0, 0);
 	_gameEntity2->getSprite()->translate(-offset * deltaTime, 0, 0);
+
+	_gameEntity1->update(deltaTime);
+	_gameEntity2->update(deltaTime);
 
 	CollisionManager::getInstance()->update();
 	
