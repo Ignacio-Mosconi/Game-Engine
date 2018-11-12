@@ -114,8 +114,6 @@ bool Game::onUpdate()
 	_circle->translate(0, offset, 0);
 	_circle->rotate(0, 0, -offset);
 
-	//_sprite->translate(0, -offset, 0);
-
 	_gameEntity1->getSprite()->translate(offset, 0, 0);
 	_gameEntity2->getSprite()->translate(-offset, 0, 0);
 

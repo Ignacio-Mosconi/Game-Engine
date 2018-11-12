@@ -47,8 +47,6 @@ void BoundingBox::onCollision(BoundingBox* collider, float penetration, Collisio
 			float massRatio = _mass / collider->getMass();
 			float penetrationMult = 1.0f / (1.0f + massRatio);
 
-			cout << penetrationMult << endl;
-
 			switch (direction)
 			{
 			case Left:
