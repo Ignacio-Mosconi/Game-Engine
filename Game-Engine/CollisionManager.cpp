@@ -32,11 +32,36 @@ void CollisionManager::deleteInstance()
 		delete _instance;
 }
 
-void CollisionManager::registerBoundingBox(BoundingBox* box, string layer)
+void CollisionManager::registerBoundingBox(BoundingBox* box, string& layer)
 {	
 	cout << "CollisionManager::registerBoundingBox(box, layer)" << endl;
 
 	_collisionLayers[layer].push_back(box);
+}
+
+bool CollisionManager::deregisterBoundingBox(BoundingBox* box)
+{	
+	cout << "CollisionManager::deregisterBoundingBox(box, layer)" << endl;
+
+	bool wasDeregistered = false;
+
+	map<string, vector<BoundingBox*>>::iterator mapIt;
+	vector<BoundingBox*>::iterator vecIt;
+
+	for (mapIt = _collisionLayers.begin(); mapIt != _collisionLayers.end(); mapIt++)
+	{
+		for (vecIt = mapIt->second.begin(); vecIt != mapIt->second.end(); vecIt++)
+			if (*vecIt == box)
+			{
+				mapIt->second.erase(vecIt);
+				wasDeregistered = true;
+				break;
+			}
+		if (wasDeregistered)
+			break;
+	}	
+
+	return wasDeregistered;
 }
 
 void CollisionManager::update()

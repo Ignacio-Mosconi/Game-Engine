@@ -24,7 +24,8 @@ public:
 	static CollisionManager* getInstance();
 	static void deleteInstance();
 
-	void registerBoundingBox(BoundingBox* box, string layer);
+	void registerBoundingBox(BoundingBox* box, string& layer);
+	bool deregisterBoundingBox(BoundingBox* box);
 
 	void update();
 };

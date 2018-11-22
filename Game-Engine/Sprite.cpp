@@ -74,7 +74,7 @@ void Sprite::setAnimationFrame(unsigned int frameID)
 	
 	int uvBufferSize = sizeof(float) * _vertexCount * 2;
 	unsigned int x = (frameID % _columns) * _frameWidth;
-	unsigned int y = (int)(frameID / _rows) * _frameHeight;
+	unsigned int y = (frameID / _rows) * _frameHeight;
 	
 	_uvBufferData = setVerticesUV(x, y);
 	_uvBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
