@@ -3,12 +3,18 @@
 #include <iostream>
 #include <string>
 #include "Exports.h"
+
 using namespace std;
+
+/*
+Represents the context in which the application will actually run.
+*/
 
 class ENGINE_API Window
 {
 private:
 	void* _actualWindow;
+	
 	int _width;
 	int _height;
 	string _title;

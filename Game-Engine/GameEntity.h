@@ -17,6 +17,12 @@ class Sprite;
 class BoundingBox;
 class Animation;
 
+/*
+A complex class that is meant to be used as a base for all the characters and/or interactables of a game;
+they contain a "Sprite" (for rendering) and a "BoundingBox" (for collision detection), and they also have
+the possibility to include animations.
+*/
+
 class ENGINE_API GameEntity
 {
 private:

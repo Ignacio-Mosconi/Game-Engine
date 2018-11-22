@@ -8,6 +8,11 @@ using namespace glm;
 
 class Renderer;
 
+/*
+An "Entity" is used as a base class for all the sorts of enities that the game will have, from simple
+shapes to detailed sprites.
+*/
+
 class ENGINE_API Entity
 {
 protected:

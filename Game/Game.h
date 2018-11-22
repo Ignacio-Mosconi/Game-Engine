@@ -18,14 +18,16 @@ private:
 	Material* _simpleMaterial;
 	Material* _customMaterial;
 	Material* _textureMaterial;
+
 	Texture* _texture;
+
 	Triangle* _triangle;
 	Rectangle* _rectangle;
 	Circle* _circle;
 	Sprite* _sprite;
 	GameEntity* _gameEntity1;
 	GameEntity* _gameEntity2;
-	
+
 	int _frame;
 
 protected:

@@ -2,6 +2,11 @@
 
 #include "Shape.h"
 
+/*
+A "Shape" that represents a quad; it always has four vertices, and it supports individually
+colored vertices through the use of a vertex shader.
+*/
+
 class ENGINE_API Rectangle : public Shape
 {
 public:

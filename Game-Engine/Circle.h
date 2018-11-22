@@ -3,6 +3,11 @@
 #include "Exports.h"
 #include "Shape.h"
 
+/*
+A "Shape" that represents a circle; it may have multiple vertices to define its
+circumference.
+*/
+
 class ENGINE_API Circle : public Shape
 {
 public:

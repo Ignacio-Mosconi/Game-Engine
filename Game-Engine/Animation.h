@@ -7,10 +7,16 @@ using namespace std;
 
 class Sprite;
 
+/*
+The "Animation" class represents an animation that can be a part of a "GameEntity".
+It handles the logic behind the swapping of different frames from a spritesheet.
+*/
+
 class ENGINE_API Animation
 {
-	queue<unsigned int>* _frames;
 	Sprite* _sprite;
+	queue<unsigned int>* _frames;
+	
 	unsigned int _currentFrame;
 	unsigned int _lastFrame;
 	float _speed;

@@ -8,6 +8,11 @@
 using namespace std;
 using namespace glm;
 
+/* 
+The "CollisionManager" is a singleton class that is used to detect collisons
+between entities; their bounding boxes must first be registered inside this manager.
+*/
+
 class BoundingBox;
 
 class ENGINE_API CollisionManager

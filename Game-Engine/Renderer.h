@@ -15,6 +15,11 @@ enum PrimitiveType
 	TRIANGLE_FAN = 6
 };
 
+/*
+A "Renderer" will handle all of the rendering of the game, taking into considerations tasks such
+as swapping between buffers and manipualating the model, view and projection matrices.
+*/
+
 class ENGINE_API Renderer
 {
 private:

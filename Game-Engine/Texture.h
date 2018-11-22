@@ -8,6 +8,10 @@
 
 using namespace std;
 
+/*
+A class used to store the information related to an image in the bitmap format.
+*/
+
 class ENGINE_API Texture
 {
 private:
