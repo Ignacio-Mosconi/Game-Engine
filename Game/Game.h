@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "GameBase.h"
+
 using namespace std;
 
 class Material;
@@ -11,6 +12,7 @@ class Rectangle;
 class Circle;
 class Sprite;
 class GameEntity;
+class Tilemap;
 
 class Game : public GameBase
 {
@@ -27,6 +29,8 @@ private:
 	Sprite* _sprite;
 	GameEntity* _gameEntity1;
 	GameEntity* _gameEntity2;
+
+	Tilemap* _tilemap;
 
 	int _frame;
 

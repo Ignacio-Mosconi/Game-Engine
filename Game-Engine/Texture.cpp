@@ -1,5 +1,5 @@
 #include "Texture.h"
-#include <GL/glew.h>
+#include <GL\glew.h>
 
 Texture::Texture() : _textureID(-1)
 {

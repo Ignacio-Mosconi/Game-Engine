@@ -2,10 +2,16 @@
 
 #include <iostream>
 #include "Exports.h"
+
 using namespace std;
 
 class Window;
 class Renderer;
+
+/*
+The base class of the game; the "Game" class has to be a child of it.
+It implements the basic functionality of the game.
+*/
 
 class ENGINE_API GameBase
 {
@@ -15,6 +21,7 @@ private:
 protected:
 	Window* _window;
 	Renderer* _renderer;
+	
 	virtual bool onStart() = 0;
 	virtual bool onStop() = 0;
 	virtual bool onUpdate(float deltaTime) = 0;

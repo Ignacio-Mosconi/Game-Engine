@@ -3,6 +3,10 @@
 #include "Exports.h"
 #include "Shape.h"
 
+/*
+A "Shape" that represents a triangle; it is a really simple "Entity", with only three verices.
+*/
+
 class ENGINE_API Triangle : public Shape
 {
 public:

@@ -1,6 +1,6 @@
 #include "Material.h"
 #include "Texture.h"
-#include <GL/glew.h>
+#include <GL\glew.h>
 
 Material::Material() : _texture(NULL), _programID(-1), _matrixID(-1), _textureID(-1)
 {

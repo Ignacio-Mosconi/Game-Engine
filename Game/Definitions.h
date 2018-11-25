@@ -13,5 +13,7 @@
 #define TEXTURE_PIXEL_SHADER_PATH "Shaders/TexturePixelShader.pixelshader"
 #define SPRITE_TEXTURE_PATH "Textures/Sprite Texture.bmp"
 #define SPRITE_SHEET_TEXTURE_PATH "Textures/Sprite Sheet Texture.bmp"
+#define TILESET_TEXTURE_PATH "Textures/Tileset.bmp"
+#define LEVEL_CSV_PATH "Levels/Level 1.oel"
 // Miscellaneous
 #define MAX_FRAMES 5000

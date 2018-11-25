@@ -172,6 +172,7 @@
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
@@ -189,6 +190,7 @@
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>

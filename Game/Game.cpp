@@ -9,6 +9,7 @@
 #include "Sprite.h"
 #include "GameEntity.h"
 #include "CollisionManager.h"
+#include "Tilemap.h"
 
 Game::Game() : GameBase()
 {
@@ -64,6 +65,8 @@ bool Game::onStart()
 	_circle->setPosition(600, 400, 0);
 	_sprite->setPosition(128, 128, 0);
 
+	_tilemap = new Tilemap(TILESET_TEXTURE_PATH, LEVEL_CSV_PATH, 3840, 720, 32, 32);
+
 	return true;
 }
 
@@ -83,6 +86,8 @@ bool Game::onStop()
 
 	delete _gameEntity1;
 	delete _gameEntity2;
+
+	delete _tilemap;
 
 	Material::destroyMaterial(_simpleMaterial);
 	Material::destroyMaterial(_customMaterial);
