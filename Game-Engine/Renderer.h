@@ -61,4 +61,5 @@ public:
 	void multiplyModelMatrix(mat4 matrix);
 
 	inline mat4& getMVP() { return _mvp; }
+	inline Window* getRenderWindow() { return _renderWindow;  }
 };

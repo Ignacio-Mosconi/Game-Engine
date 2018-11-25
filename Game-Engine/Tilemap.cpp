@@ -1,14 +1,28 @@
 #include "Tilemap.h"
 #include "Texture.h"
 #include "Material.h"
+#include "Renderer.h"
+#include "Window.h"
 
-Tilemap::Tilemap(const string& tilesetPath, const string& levelPath, int levelWidth, int levelHeight, int tileWidth, int tileHeight) : 
-_tileset(Texture::generateTextureBMP(tilesetPath)), _level(loadLevelCSV(levelPath, levelWidth, levelHeight, tileWidth, tileHeight))
+Tilemap::Tilemap(Renderer* renderer, const string& tilesetPath, const string& levelPath, 
+				int levelWidth, int levelHeight, int tileWidth, int tileHeight, unsigned int tilesetRows, unsigned int tilesetColumns) :
+_renderer(renderer),
+_tileset(Texture::generateTextureBMP(tilesetPath)), _tiles(loadTiles(tilesetRows, tilesetColumns)),
+_levelWidth(levelWidth), _levelHeight(levelHeight), _tileWidth(tileWidth), _tileHeight(tileHeight)
 {
 	cout << "Tilemap::Tilemap(tilesetPath, levelPath, levelWidth, levelHeight, tileWidth, tileHeight)";
 
 	_material = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
-	_material->setTexture(_tileset, "textureSmapler");
+	_material->setTexture(_tileset, "textureSampler");
+
+	int windowWidth = _renderer->getRenderWindow()->getWidth();
+	int windowHeight = _renderer->getRenderWindow()->getHeight();
+
+	_onScreenTilesRows = (windowHeight % _tileHeight == 0) ? windowHeight/ _tileHeight : windowHeight / _tileHeight + 1;
+	_onScreenTilesColumns = (windowWidth % _tileWidth == 0) ? windowWidth / _tileWidth : windowWidth / _tileWidth + 1;
+	
+	_onScreenTiles = createOnScreenTiles();
+	_level = loadLevelCSV(levelPath);
 }
 
 Tilemap::~Tilemap()
@@ -18,24 +32,35 @@ Tilemap::~Tilemap()
 	Texture::destroyTexture(_tileset);
 	Material::destroyMaterial(_material);
 	
+	for (int i = 0; i < _tilesRows; i++)
+		delete[] _tiles[i];
+	delete[] _tiles;
+	
+	for (int i = 0; i < _onScreenTilesRows; i++)
+		delete[] _onScreenTiles[i];
+	delete[] _onScreenTiles;
+
+	for (int i = 0; i < _levelRows; i++)
+		delete[] _level[i];
 	delete[] _level;
+	
 }
 
-int** Tilemap::loadLevelCSV(const string& levelPath, int levelWidth, int levelHeight, int tileWidth, int tileHeight)
+int** Tilemap::loadLevelCSV(const string& levelPath)
 {
-	cout << "Tilemap::loadLevelCSV(levelPath, levelWidth, levelHeight, tileWidth, tileHeight)";
+	cout << "Tilemap::loadLevelCSV(levelPath)";
 
 	try
 	{
 		ifstream levelFile;
 		int** level;
 		char buffer[CHARS_BUFFER_SIZE];
-		unsigned int mapRows = (levelHeight % tileHeight == 0) ? levelHeight / tileHeight : levelHeight / tileHeight + 1;
-		unsigned int mapColumns = (levelWidth % tileWidth == 0) ? levelWidth / tileWidth : levelWidth / tileWidth + 1;
+		_levelRows = (_levelHeight % _tileHeight == 0) ? _levelHeight / _tileHeight : _levelHeight / _tileHeight + 1;
+		_levelColumns = (_levelWidth % _tileWidth == 0) ? _levelWidth / _tileWidth : _levelWidth / _tileWidth + 1;
 		
-		level = new int*[mapRows];
-		for (int i = 0; i < mapRows; i++)
-			level[i] = new int[mapColumns];	
+		level = new int*[_levelRows];
+		for (int i = 0; i < _levelRows; i++)
+			level[i] = new int[_levelColumns];	
 
 		cout << "Opening the level file..." << endl;
 		levelFile.open(levelPath, ios::in);
@@ -53,11 +78,11 @@ int** Tilemap::loadLevelCSV(const string& levelPath, int levelWidth, int levelHe
 
 		while (isdigit(nextChar) && !levelFile.eof())
 		{
-			if (x < mapColumns - 1)
+			if (x < _levelColumns - 1)
 				levelFile.get(buffer, CHARS_BUFFER_SIZE, ',');
 			else
 			{
-				if (y < mapRows - 1)
+				if (y < _levelRows - 1)
 					levelFile.get(buffer, CHARS_BUFFER_SIZE, '\n');
 				else
 					levelFile.get(buffer, CHARS_BUFFER_SIZE, '<');
@@ -73,7 +98,7 @@ int** Tilemap::loadLevelCSV(const string& levelPath, int levelWidth, int levelHe
 
 			level[y][x] = value;
 			
-			if (x < mapColumns - 1)
+			if (x < _levelColumns - 1)
 				x++;
 			else
 			{
@@ -91,4 +116,87 @@ int** Tilemap::loadLevelCSV(const string& levelPath, int levelWidth, int levelHe
 	{
 		cerr << exception.what() << endl;
 	}
+}
+
+Tile** Tilemap::loadTiles(unsigned int rows, unsigned int columns)
+{	
+	_tilesRows = rows;
+	_tilesColumns = columns;
+
+	Tile** tiles = new Tile*[_tilesRows];
+	
+	for (int i = 0; i < _tilesRows; i++)
+		tiles[i] = new Tile[_tilesColumns];
+
+	return tiles;
+}
+
+void Tilemap::setTileInfo(unsigned int tileIndex, TileType tileType)
+{
+	unsigned int column = tileIndex % _tilesColumns;
+	unsigned int row = tileIndex / _tilesRows;
+
+	float uvBufferSize = sizeof(float) * 16;
+
+	_tiles[row][column].tileType = tileType;
+	_tiles[row][column].uvBufferData = setTileVerticesUV(column, row);
+	_tiles[row][column].uvBufferId = _renderer->generateVertexBuffer(_tiles[row][column].vertexBufferData, uvBufferSize);
+}
+
+float* Tilemap::setTileVerticesUV(unsigned int x, unsigned int y) const
+{
+	cout << "Tilemap::setVerticesUV()" << endl;
+
+	float minU = (float)x / (float)_material->getTextureWidth();
+	float minV = 1.0f - (float)(y + _tileHeight) / (float)_material->getTextureHeight();
+	float maxU = (float)(x + _tileWidth) / (float)_material->getTextureWidth();
+	float maxV = 1.0f - (float)y / (float)_material->getTextureHeight();
+
+	float* uvBufferData = new float[8]
+	{
+		minU, maxV,
+		maxU, maxV,
+		minU, minV,
+		maxU, minV
+	};
+
+	return uvBufferData;
+}
+
+Tile** Tilemap::createOnScreenTiles()
+{
+	Tile** onScreenTiles = new Tile*[_onScreenTilesRows];
+
+	for (int i = 0; i < _onScreenTilesRows; i++)
+		onScreenTiles[i] = new Tile[_onScreenTilesColumns];
+
+	float vertexBufferSize = sizeof(float) * 8;
+
+	for (int y = 0; y < _onScreenTilesRows; y++)
+		for (int x = 0; x < _onScreenTilesRows; x++)
+		{
+			onScreenTiles[y][x].vertexBufferData = setOnScreenTileVertices(x, y);
+			onScreenTiles[y][x].vertexBufferId = _renderer->generateVertexBuffer(onScreenTiles[y][x].vertexBufferData, 
+																					vertexBufferSize);
+		}
+
+	return onScreenTiles;
+}
+
+float* Tilemap::setOnScreenTileVertices(unsigned int x, unsigned int y) const
+{
+	float minX = x * _tileWidth;
+	float maxX = x * _tileWidth + _tileWidth;
+	float minY = _renderer->getRenderWindow()->getHeight() - y * _tileHeight;
+	float maxY = _renderer->getRenderWindow()->getHeight() - y * _tileHeight + _tileHeight;
+
+	float* vertexBufferData = new float[8]
+	{
+		minX, maxY,
+		maxX, maxY,
+		minX, minY,
+		maxX, minY
+	};
+
+	return vertexBufferData;
 }

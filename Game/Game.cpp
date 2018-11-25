@@ -65,7 +65,7 @@ bool Game::onStart()
 	_circle->setPosition(600, 400, 0);
 	_sprite->setPosition(128, 128, 0);
 
-	_tilemap = new Tilemap(TILESET_TEXTURE_PATH, LEVEL_CSV_PATH, 3840, 720, 32, 32);
+	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_CSV_PATH, 3840, 720, 32, 32, 6, 6);
 
 	return true;
 }
