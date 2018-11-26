@@ -1,10 +1,10 @@
 #include "Animation.h"
 #include "Sprite.h"
 
-Animation::Animation(Sprite* sprite, unsigned int frames[], float speed, bool looped) :
-_frames(new queue<unsigned int>), _sprite(sprite),
+Animation::Animation(unsigned int frames[], float speed, bool looped) :
+_frames(new queue<unsigned int>),
 _currentFrame(0), _lastFrame(0), _speed(speed), _frameTime(1.0f / speed),
-_looped(looped), _finished(false), _timer(0.0f)
+_looped(looped), _stopped(true), _finished(false), _timer(0.0f)
 {
 	unsigned int arraySize = sizeof(frames) / sizeof(unsigned int);
 

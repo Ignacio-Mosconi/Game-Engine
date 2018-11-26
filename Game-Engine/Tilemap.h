@@ -6,8 +6,8 @@
 
 #include "Exports.h"
 
-#define TEXTURE_VERTEX_SHADER_PATH "Shaders/TextureVertexShader.vertexshader"
-#define TEXTURE_PIXEL_SHADER_PATH "Shaders/TexturePixelShader.pixelshader"
+#define TEXTURE_VERTEX_SHADER_PATH "Assets/Shaders/TextureVertexShader.vertexshader"
+#define TEXTURE_PIXEL_SHADER_PATH "Assets/Shaders/TexturePixelShader.pixelshader"
 #define CHARS_BUFFER_SIZE 64
 
 using namespace std;

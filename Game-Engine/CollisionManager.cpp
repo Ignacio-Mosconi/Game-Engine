@@ -32,7 +32,7 @@ void CollisionManager::deleteInstance()
 		delete _instance;
 }
 
-void CollisionManager::registerBoundingBox(BoundingBox* box, string& layer)
+void CollisionManager::registerBoundingBox(BoundingBox* box, const string& layer)
 {	
 	cout << "CollisionManager::registerBoundingBox(box, layer)" << endl;
 

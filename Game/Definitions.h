@@ -4,16 +4,19 @@
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 768
 #define WINDOW_TITLE "My Game & Engine"
-// Paths
-#define SIMPLE_VERTEX_SHADER_PATH "Shaders/SimpleVertexShader.vertexshader"
-#define SIMPLE_PIXEL_SHADER_PATH "Shaders/SimpleFragmentShader.fragmentshader"
-#define CUSTOM_VERTEX_SHADER_PATH "Shaders/CustomVertexShader.vertexshader"
-#define CUSTOM_PIXEL_SHADER_PATH "Shaders/CustomPixelShader.pixelshader"
-#define TEXTURE_VERTEX_SHADER_PATH "Shaders/TextureVertexShader.vertexshader"
-#define TEXTURE_PIXEL_SHADER_PATH "Shaders/TexturePixelShader.pixelshader"
-#define SPRITE_TEXTURE_PATH "Textures/Sprite Texture.bmp"
-#define SPRITE_SHEET_TEXTURE_PATH "Textures/Sprite Sheet Texture.bmp"
-#define TILESET_TEXTURE_PATH "Textures/Tileset.bmp"
-#define LEVEL_CSV_PATH "Levels/Level 1.oel"
+// Shader Paths
+#define SIMPLE_VERTEX_SHADER_PATH "Assets/Shaders/SimpleVertexShader.vertexshader"
+#define SIMPLE_PIXEL_SHADER_PATH "Assets/Shaders/SimpleFragmentShader.fragmentshader"
+#define CUSTOM_VERTEX_SHADER_PATH "Assets/Shaders/CustomVertexShader.vertexshader"
+#define CUSTOM_PIXEL_SHADER_PATH "Assets/Shaders/CustomPixelShader.pixelshader"
+#define TEXTURE_VERTEX_SHADER_PATH "Assets/Shaders/TextureVertexShader.vertexshader"
+#define TEXTURE_PIXEL_SHADER_PATH "Assets/Shaders/TexturePixelShader.pixelshader"
+// Texture Paths
+#define SPRITE_TEXTURE_PATH "Assets/Sprites/Sprite Texture.bmp"
+#define SPRITE_SHEET_TEXTURE_PATH "Assets/Sprites/Sprite Sheet Texture.bmp"
+#define NINJA_TEXTURE_PATH "Assets/Sprites/Ninja.bmp"
+#define TILESET_TEXTURE_PATH "Assets/Sprites/Tileset.bmp"
+// Level Paths
+#define LEVEL_1_PATH "Assets/Levels/Level 1.oel"
 // Miscellaneous
 #define MAX_FRAMES 5000

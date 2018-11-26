@@ -27,7 +27,7 @@ class ENGINE_API Animation
 	float _timer;
 
 public:
-	Animation(Sprite* sprite, unsigned int frames[], float speed, bool _looped);
+	Animation(unsigned int frames[], float speed, bool _looped);
 	~Animation();
 
 	void update(float deltaTime);

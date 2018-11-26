@@ -1,11 +1,12 @@
 #pragma once
 
 #include <string>
+#include <map>
 #include <glm.hpp>
 #include "Exports.h"
 
-#define TEXTURE_VERTEX_SHADER_PATH "Shaders/TextureVertexShader.vertexshader"
-#define TEXTURE_PIXEL_SHADER_PATH "Shaders/TexturePixelShader.pixelshader"
+#define TEXTURE_VERTEX_SHADER_PATH "Assets/Shaders/TextureVertexShader.vertexshader"
+#define TEXTURE_PIXEL_SHADER_PATH "Assets/Shaders/TexturePixelShader.pixelshader"
 
 using namespace std;
 using namespace glm;
@@ -28,29 +29,28 @@ class ENGINE_API GameEntity
 private:
 	Sprite* _sprite;
 	BoundingBox* _boundingBox;
-	Animation* _idleAnimation;
+	map<string, Animation*> _animations;
 
-	bool _animated;
-
-	static Material* _textureMaterial;
+	Material* _material;
 	Texture* _texture;
 
-	Sprite* createSprite(Renderer* renderer, string& imagePath, int spriteRows = 1, int spriteColumns = 1, 
+	Sprite* createSprite(Renderer* renderer, const string& imagePath, int spriteRows = 1, int spriteColumns = 1, 
 		int frameWidth = -1, int frameHeight = -1);
-	void createBoundingBox(float width, float height, bool isStatic, float mass, string& collisionLayer);
-	void createAnimation();
+	void createBoundingBox(float width, float height, bool isStatic, float mass, const string& collisionLayer);
 
 public:
-	GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer, bool animated = true);
-	GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer,
+	GameEntity(Renderer* renderer, const string& imagePath, const string& collisionLayer);
+	GameEntity(Renderer* renderer, const string& imagePath, const string& collisionLayer,
 				float x, float y, int spriteRows, int spriteColumns, int frameWidth, int frameHeight, 
-				bool isStatic = false, float mass = 1, bool animated = true);
+				bool isStatic = false, float mass = 1);
 	~GameEntity();
 
 	void setBoundingBoxDimensions(float width, float height);
 	
-	static Material* getTextureMaterial();
-	static void destroyTextureMaterial();
+	//static Material* getTextureMaterial();
+	//static void destroyTextureMaterial();
+
+	void addAnimation(Animation* animation, const string& animName);
 
 	void update(float deltaTime);
 	void draw() const;

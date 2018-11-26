@@ -9,6 +9,7 @@
 #include "Sprite.h"
 #include "GameEntity.h"
 #include "CollisionManager.h"
+#include "Animation.h"
 #include "Tilemap.h"
 
 Game::Game() : GameBase()
@@ -39,11 +40,23 @@ bool Game::onStart()
 	_circle = new Circle(_renderer, _simpleMaterial, 20);
 	_sprite = new Sprite(_renderer, _textureMaterial);
 
-	string imagePath(SPRITE_SHEET_TEXTURE_PATH);
-	string layerA("Group A");
-	string layerB("Group B");
-	_gameEntity1 = new GameEntity(_renderer, imagePath, layerA, 128, 500, 2, 2, 256, 256, false, 2.0f, true);
-	_gameEntity2 = new GameEntity(_renderer, imagePath, layerB, 1152, 500, 2, 2, 256, 256, false, 4.0f, false);
+	_gameEntity1 = new GameEntity(_renderer, SPRITE_SHEET_TEXTURE_PATH, "Layer A", 128, 360, 2, 2, 256, 256, false, 2.0f);
+	_gameEntity2 = new GameEntity(_renderer, NINJA_TEXTURE_PATH, "Layer B", 1152, 360, 6, 6, 192, 288, false, 4.0f);
+
+	_gameEntity1->setBoundingBoxDimensions(200.0f, 200.0f);
+	_gameEntity2->setBoundingBoxDimensions(180.0f, 250.0f);
+
+	unsigned int framesIdle[2] = { 0, 1 };
+	unsigned int framesWalk[6] = { 23, 22, 21, 20, 19, 18 };
+
+	_gameEntity1Idle = new Animation(framesIdle, 24.0f, true);
+	_gameEntity2Walk = new Animation(framesWalk, 30.0f, true);
+
+	_gameEntity1->addAnimation(_gameEntity1Idle, "Idle");
+	_gameEntity2->addAnimation(_gameEntity2Walk, "Walking");
+
+	_gameEntity1Idle->play();
+	_gameEntity2Walk->play();
 
 	float rectangleColorData[] =
 	{
@@ -60,21 +73,21 @@ bool Game::onStart()
 	_sprite->setFramesInfo(2, 2, 256, 256);
 	_sprite->setAnimationFrame(1);
 
-	_triangle->setPosition(200, 600, 0);
-	_rectangle->setPosition(300, 500, 0);
-	_circle->setPosition(600, 400, 0);
-	_sprite->setPosition(128, 128, 0);
+	_triangle->setPosition(200, 100, 0);
+	_rectangle->setPosition(300, 100, 0);
+	_circle->setPosition(600, 600, 0);
+	_sprite->setPosition(1152, 128, 0);
 
-	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_CSV_PATH, 3840, 720, 32, 32, 6, 6);
-	_tilemap->setTileInfo(0, Background);
-	for (int i = 1; i < 6; i++)
-		_tilemap->setTileInfo(i, Wall);	
-	for (int i = 6; i < 27; i++)
-		_tilemap->setTileInfo(i, Background);
-	for (int i = 27; i < 31; i++)
-		_tilemap->setTileInfo(i, Wall);
+	//_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_1_PATH, 3840, 720, 32, 32, 6, 6);
+	//_tilemap->setTileInfo(0, Background);
+	//for (int i = 1; i < 6; i++)
+	//	_tilemap->setTileInfo(i, Wall);	
+	//for (int i = 6; i < 27; i++)
+	//	_tilemap->setTileInfo(i, Background);
+	//for (int i = 27; i < 31; i++)
+	//	_tilemap->setTileInfo(i, Wall);
 
-	_tilemap->setOnScreenTiles();
+	//_tilemap->setOnScreenTiles();
 
 	return true;
 }
@@ -96,14 +109,16 @@ bool Game::onStop()
 	delete _gameEntity1;
 	delete _gameEntity2;
 
-	delete _tilemap;
+	delete _gameEntity1Idle;
+	delete _gameEntity2Walk;
+
+	//delete _tilemap;
 
 	Material::destroyMaterial(_simpleMaterial);
 	Material::destroyMaterial(_customMaterial);
 	Material::destroyMaterial(_textureMaterial);
 	
 	Texture::destroyTexture(_texture);
-	GameEntity::destroyTextureMaterial();
 
 	CollisionManager::deleteInstance();
 
@@ -143,7 +158,7 @@ bool Game::onDraw()
 {
 	cout << "Game::onDraw()" << endl;
 
-	_tilemap->draw();
+	//_tilemap->draw();
 
 	_triangle->draw();
 	_rectangle->draw();

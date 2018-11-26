@@ -7,10 +7,8 @@
 #include "CollisionManager.h"
 #include "Animation.h"
 
-Material* GameEntity::_textureMaterial = NULL;
-
-GameEntity::GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer, bool animated) :
-_sprite(createSprite(renderer, imagePath)), _idleAnimation(NULL), _texture(NULL), _animated(animated)
+GameEntity::GameEntity(Renderer* renderer, const string& imagePath, const string& collisionLayer) :
+_sprite(createSprite(renderer, imagePath)), _material(NULL), _texture(NULL)
 {
 	cout << "GameEntity::GameEntity(renderer, imagePath, collisionLayer)" << endl;
 
@@ -21,16 +19,12 @@ _sprite(createSprite(renderer, imagePath)), _idleAnimation(NULL), _texture(NULL)
 	float bbHeight = (float)(_sprite->getFrameHeight());
 
 	createBoundingBox(bbWidth, bbHeight, false, 1.0f, collisionLayer);
-
-	if (animated)
-		createAnimation();
 }
 
-GameEntity::GameEntity(Renderer* renderer, string& imagePath, string& collisionLayer,
+GameEntity::GameEntity(Renderer* renderer, const string& imagePath, const string& collisionLayer,
 						float x, float y, int spriteRows, int spriteColumns, int frameWidth, int frameHeight, 
-						bool isStatic, float mass, bool animated) :
-_sprite(createSprite(renderer, imagePath, spriteRows, spriteColumns, frameWidth, frameHeight)),
-_idleAnimation(NULL), _texture(NULL), _animated(animated)
+						bool isStatic, float mass) :
+_sprite(createSprite(renderer, imagePath, spriteRows, spriteColumns, frameWidth, frameHeight)), _material(NULL), _texture(NULL)
 {
 	cout << "GameEntity::GameEntity(renderer, imagePath, collisionLayer, x, y)" << endl;
 
@@ -41,56 +35,53 @@ _idleAnimation(NULL), _texture(NULL), _animated(animated)
 	float bbHeight = (float)(_sprite->getFrameHeight());
 
 	createBoundingBox(bbWidth, bbHeight, isStatic, mass, collisionLayer);
-
-	if (animated)
-		createAnimation();
 }
 
 GameEntity::~GameEntity()
 {
 	cout << "GameEntity::~GameEntity()" << endl;
 
+	_sprite->dispose();
+
 	delete _sprite;
 	delete _boundingBox;
-	if (_idleAnimation)
-		delete _idleAnimation;
-	if (_texture)
-	{
-		Texture::destroyTexture(_texture);
-		_texture = NULL;
-	}
+	
+	Texture::destroyTexture(_texture);
+	Material::destroyMaterial(_material);
 }
 
-Sprite* GameEntity::createSprite(Renderer* renderer, string& imagePath, int spriteRows, int spriteColumns, 
+Sprite* GameEntity::createSprite(Renderer* renderer, const string& imagePath, int spriteRows, int spriteColumns, 
 								int frameWidth, int frameHeight)
 {
 	cout << "GameEntity::createSprite(renderer, imagePath)" << endl;
 
+	_material = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
 	_texture = Texture::generateTextureBMP(imagePath);
-	getTextureMaterial()->setTexture(_texture, "textureSampler");
-	_sprite = new Sprite(renderer, getTextureMaterial());
-	_sprite->create(3, NULL, frameWidth, frameHeight);
+	_material->setTexture(_texture, "textureSampler");
+	
+	_sprite = new Sprite(renderer, _material);
 	if (frameWidth == -1)
 		frameWidth = _texture->getWidth();
 	if (frameHeight == -1)
 		frameHeight = _texture->getHeight();
+	_sprite->create(3, NULL, frameWidth, frameHeight);
 	_sprite->setFramesInfo(spriteRows, spriteColumns, frameWidth, frameHeight);
 	_sprite->setAnimationFrame(0);
 
 	return _sprite;
 }
 
-void GameEntity::createBoundingBox(float width, float height, bool isStatic, float mass, string& collisionLayer)
+void GameEntity::createBoundingBox(float width, float height, bool isStatic, float mass, const string& collisionLayer)
 {
 	_boundingBox = new BoundingBox(width, height, isStatic, mass);
 	_boundingBox->attachToEntity(_sprite);
 	CollisionManager::getInstance()->registerBoundingBox(_boundingBox, collisionLayer);
 }
 
-void GameEntity::createAnimation()
+void GameEntity::addAnimation(Animation* animation, const string& animName)
 {
-	unsigned int frames[2] = { 0, 1 };
-	_idleAnimation = new Animation(_sprite, frames, 24.0f, true);
+	_animations[animName] = animation;
+	animation->setSprite(_sprite);
 }
 
 void GameEntity::setBoundingBoxDimensions(float width, float height)
@@ -101,29 +92,11 @@ void GameEntity::setBoundingBoxDimensions(float width, float height)
 	_boundingBox->setHeight(height);
 }
 
-Material* GameEntity::getTextureMaterial()
-{
-	cout << "GameEntity::getTextureMaterial()" << endl;
-
-	if (!_textureMaterial)
-		_textureMaterial = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
-
-	return _textureMaterial;
-}
-
-void GameEntity::destroyTextureMaterial()
-{
-	if (_textureMaterial)
-	{
-		Material::destroyMaterial(_textureMaterial);
-		_textureMaterial = NULL;
-	}
-}
-
 void GameEntity::update(float deltaTime)
 {
-	if (_animated)
-		_idleAnimation->update(deltaTime);
+	map<string, Animation*>::iterator mapIt;
+	for (mapIt = _animations.begin(); mapIt != _animations.end(); mapIt++)
+		mapIt->second->update(deltaTime);
 }
 
 void GameEntity::draw() const

@@ -12,6 +12,7 @@ class Rectangle;
 class Circle;
 class Sprite;
 class GameEntity;
+class Animation;
 class Tilemap;
 
 class Game : public GameBase
@@ -29,6 +30,9 @@ private:
 	Sprite* _sprite;
 	GameEntity* _gameEntity1;
 	GameEntity* _gameEntity2;
+
+	Animation* _gameEntity1Idle;
+	Animation* _gameEntity2Walk;
 
 	Tilemap* _tilemap;
 
