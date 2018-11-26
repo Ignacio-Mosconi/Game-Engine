@@ -66,6 +66,15 @@ bool Game::onStart()
 	_sprite->setPosition(128, 128, 0);
 
 	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_CSV_PATH, 3840, 720, 32, 32, 6, 6);
+	_tilemap->setTileInfo(0, Background);
+	for (int i = 1; i < 6; i++)
+		_tilemap->setTileInfo(i, Wall);	
+	for (int i = 6; i < 27; i++)
+		_tilemap->setTileInfo(i, Background);
+	for (int i = 27; i < 31; i++)
+		_tilemap->setTileInfo(i, Wall);
+
+	_tilemap->setOnScreenTiles();
 
 	return true;
 }
@@ -133,6 +142,8 @@ bool Game::onUpdate(float deltaTime)
 bool Game::onDraw()
 {
 	cout << "Game::onDraw()" << endl;
+
+	_tilemap->draw();
 
 	_triangle->draw();
 	_rectangle->draw();

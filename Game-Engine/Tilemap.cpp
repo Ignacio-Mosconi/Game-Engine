@@ -10,7 +10,7 @@ _renderer(renderer),
 _tileset(Texture::generateTextureBMP(tilesetPath)), _tiles(loadTiles(tilesetRows, tilesetColumns)),
 _levelWidth(levelWidth), _levelHeight(levelHeight), _tileWidth(tileWidth), _tileHeight(tileHeight)
 {
-	cout << "Tilemap::Tilemap(tilesetPath, levelPath, levelWidth, levelHeight, tileWidth, tileHeight)";
+	cout << "Tilemap::Tilemap(tilesetPath, levelPath, levelWidth, levelHeight, tileWidth, tileHeight)" << endl;
 
 	_material = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
 	_material->setTexture(_tileset, "textureSampler");
@@ -48,7 +48,7 @@ Tilemap::~Tilemap()
 
 int** Tilemap::loadLevelCSV(const string& levelPath)
 {
-	cout << "Tilemap::loadLevelCSV(levelPath)";
+	cout << "Tilemap::loadLevelCSV(levelPath)" << endl;
 
 	try
 	{
@@ -104,11 +104,12 @@ int** Tilemap::loadLevelCSV(const string& levelPath)
 			{
 				x = 0;
 				y++;
-				cout << endl;
 			}
 			levelFile.get();
 			nextChar = levelFile.peek();
 		}
+
+		cout << "The level file was read properly." << endl;
 
 		return level;
 	}
@@ -120,6 +121,8 @@ int** Tilemap::loadLevelCSV(const string& levelPath)
 
 Tile** Tilemap::loadTiles(unsigned int rows, unsigned int columns)
 {	
+	cout << "Tilemap::loadTiles(rows, columns)" << endl;
+
 	_tilesRows = rows;
 	_tilesColumns = columns;
 
@@ -133,14 +136,16 @@ Tile** Tilemap::loadTiles(unsigned int rows, unsigned int columns)
 
 void Tilemap::setTileInfo(unsigned int tileIndex, TileType tileType)
 {
+	cout << "Tilemap::setTileInfo(tileIndex, tyleType)" << endl;
+
 	unsigned int column = tileIndex % _tilesColumns;
 	unsigned int row = tileIndex / _tilesRows;
 
-	float uvBufferSize = sizeof(float) * 16;
+	float uvBufferSize = sizeof(float) * 8;
 
 	_tiles[row][column].tileType = tileType;
 	_tiles[row][column].uvBufferData = setTileVerticesUV(column, row);
-	_tiles[row][column].uvBufferId = _renderer->generateVertexBuffer(_tiles[row][column].vertexBufferData, uvBufferSize);
+	_tiles[row][column].uvBufferID = _renderer->generateVertexBuffer(_tiles[row][column].uvBufferData, uvBufferSize);
 }
 
 float* Tilemap::setTileVerticesUV(unsigned int x, unsigned int y) const
@@ -165,18 +170,20 @@ float* Tilemap::setTileVerticesUV(unsigned int x, unsigned int y) const
 
 Tile** Tilemap::createOnScreenTiles()
 {
+	cout << "Tilemap::createOnScreenTiles()" << endl;
+
 	Tile** onScreenTiles = new Tile*[_onScreenTilesRows];
 
 	for (int i = 0; i < _onScreenTilesRows; i++)
 		onScreenTiles[i] = new Tile[_onScreenTilesColumns];
 
-	float vertexBufferSize = sizeof(float) * 8;
+	float vertexBufferSize = sizeof(float) * 12;
 
 	for (int y = 0; y < _onScreenTilesRows; y++)
 		for (int x = 0; x < _onScreenTilesRows; x++)
 		{
 			onScreenTiles[y][x].vertexBufferData = setOnScreenTileVertices(x, y);
-			onScreenTiles[y][x].vertexBufferId = _renderer->generateVertexBuffer(onScreenTiles[y][x].vertexBufferData, 
+			onScreenTiles[y][x].vertexBufferID = _renderer->generateVertexBuffer(onScreenTiles[y][x].vertexBufferData, 
 																					vertexBufferSize);
 		}
 
@@ -185,18 +192,63 @@ Tile** Tilemap::createOnScreenTiles()
 
 float* Tilemap::setOnScreenTileVertices(unsigned int x, unsigned int y) const
 {
+	cout << "Tilemap::setOnScreenTileVertices(x , y)" << endl;
+
 	float minX = x * _tileWidth;
 	float maxX = x * _tileWidth + _tileWidth;
 	float minY = _renderer->getRenderWindow()->getHeight() - y * _tileHeight;
 	float maxY = _renderer->getRenderWindow()->getHeight() - y * _tileHeight + _tileHeight;
 
-	float* vertexBufferData = new float[8]
+	float* vertexBufferData = new float[12]
 	{
-		minX, maxY,
-		maxX, maxY,
-		minX, minY,
-		maxX, minY
+		minX, maxY, 0.0f,
+		maxX, maxY, 0.0f,
+		minX, minY, 0.0f,
+		maxX, minY, 0.0f
 	};
 
 	return vertexBufferData;
+}
+
+void Tilemap::setOnScreenTiles()
+{
+	for (int y = 0; y < _onScreenTilesRows; y++)
+		for (int x = 0; x < _onScreenTilesColumns; x++)
+		{
+			Tile tile = getTile(_level[y][x]);
+			_onScreenTiles[y][x].uvBufferData = tile.uvBufferData;
+			_onScreenTiles[y][x].uvBufferID = tile.uvBufferID;
+		}
+}
+
+Tile Tilemap::getTile(unsigned int tileIndex)
+{
+	unsigned int column = tileIndex % _tilesColumns;
+	unsigned int row = tileIndex / _tilesRows;
+
+	return _tiles[row][column];
+}
+
+void Tilemap::draw() const
+{
+	_material->bind();
+	_material->setMatrixProperty("MVP", _renderer->getMVP());
+	_material->bindTexture();
+
+	_renderer->enableBlend();
+	
+	for (int y = 0; y < _onScreenTilesRows; y++)
+		for (int x = 0; x < _onScreenTilesColumns; x++)
+		{
+			_renderer->enableAttribute(0);
+			_renderer->enableAttribute(1);
+			_renderer->bindBuffer(0, 3, _onScreenTiles[y][x].vertexBufferID);
+			_renderer->bindBuffer(1, 2, _onScreenTiles[y][x].uvBufferID);
+			_renderer->drawBuffer(TRIANGLE_STRIP, 4);
+			_renderer->disableAttribute(0);
+			_renderer->disableAttribute(1);
+		}
+	
+	_renderer->disableBlend();
+	_renderer->loadIdentityMatrix();
 }

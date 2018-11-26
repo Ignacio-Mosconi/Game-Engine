@@ -27,8 +27,8 @@ struct Tile
 	TileType tileType;
 	float* vertexBufferData;
 	float* uvBufferData;
-	unsigned int vertexBufferId;
-	unsigned int uvBufferId;
+	unsigned int vertexBufferID;
+	unsigned int uvBufferID;
 };
 
 class ENGINE_API Tilemap
@@ -73,4 +73,8 @@ public:
 	~Tilemap();
 	
 	void setTileInfo(unsigned int tileIndex, TileType tileType);
+	void setOnScreenTiles();
+	Tile getTile(unsigned int tileIndex);
+
+	void draw() const;
 };
