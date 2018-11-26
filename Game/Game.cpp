@@ -78,7 +78,7 @@ bool Game::onStart()
 	_circle->setPosition(600, 600, 0);
 	_sprite->setPosition(1152, 128, 0);
 
-	//_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_1_PATH, 3840, 720, 32, 32, 6, 6);
+	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_1_PATH, 3840, 720, 32, 32, 6, 6);
 	//_tilemap->setTileInfo(0, Background);
 	//for (int i = 1; i < 6; i++)
 	//	_tilemap->setTileInfo(i, Wall);	
@@ -86,8 +86,6 @@ bool Game::onStart()
 	//	_tilemap->setTileInfo(i, Background);
 	//for (int i = 27; i < 31; i++)
 	//	_tilemap->setTileInfo(i, Wall);
-
-	//_tilemap->setOnScreenTiles();
 
 	return true;
 }
@@ -112,7 +110,7 @@ bool Game::onStop()
 	delete _gameEntity1Idle;
 	delete _gameEntity2Walk;
 
-	//delete _tilemap;
+	delete _tilemap;
 
 	Material::destroyMaterial(_simpleMaterial);
 	Material::destroyMaterial(_customMaterial);

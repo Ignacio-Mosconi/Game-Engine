@@ -2,7 +2,7 @@
 
 // Window Properties
 #define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 768
+#define SCREEN_HEIGHT 720
 #define WINDOW_TITLE "My Game & Engine"
 // Shader Paths
 #define SIMPLE_VERTEX_SHADER_PATH "Assets/Shaders/SimpleVertexShader.vertexshader"

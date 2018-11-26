@@ -4,6 +4,7 @@
 #include <fstream>
 #include <glm.hpp>
 
+#include "Entity.h"
 #include "Exports.h"
 
 #define TEXTURE_VERTEX_SHADER_PATH "Assets/Shaders/TextureVertexShader.vertexshader"
@@ -24,26 +25,29 @@ enum TileType
 
 struct Tile
 {
+	static const int vertices = 4;
+	static const int vertexComponents = 3;
 	TileType tileType;
-	float* vertexBufferData;
-	float* uvBufferData;
-	unsigned int vertexBufferID;
-	unsigned int uvBufferID;
 };
 
-class ENGINE_API Tilemap
+class ENGINE_API Tilemap : Entity
 {
 private:
-	Renderer* _renderer;
-	Texture* _tileset;
+	Texture* _texture;
 	Material* _material;
 	
 	Tile** _tiles;
 	Tile** _onScreenTiles;
 	int** _level;
 
+	float* _vertexBufferData;
+	float* _uvBufferData;
+	unsigned int _vertexBufferID;
+	unsigned int _uvBufferID;
+
 	unsigned int _levelWidth;
 	unsigned int _levelHeight;
+	
 	unsigned int _tileWidth;
 	unsigned int _tileHeight;
 	
@@ -58,23 +62,24 @@ private:
 
 	Tile** loadTiles(unsigned int rows, unsigned int columns);
 	Tile** createOnScreenTiles();
-/*	
-Used to parse a CSV-exported "oel" file made with the Ogmo Editor; make sure the tileset's empty tiles are
-are actually filled with a transparent tile at the "0" index for the loader to work properly.
-*/
-	int** loadLevelCSV(const string& levelPath);
+
+	int** loadLevelCSV(const string& levelPath); // Used to parse a CSV - exported "oel" file made with the Ogmo Editor; 
+												// make sure the tileset's empty tiles are are actually filled with a transparent
+												// tile at the "0" index for the loader to work properly.
+
+	float* setOnScreenTilesVertices(int totalTiles) const;
 	
-	float* setTileVerticesUV(unsigned int x, unsigned int y) const;
-	float* setOnScreenTileVertices(unsigned int x, unsigned int y) const;
+	//float* setTileVerticesUV(unsigned int x, unsigned int y) const;
+	//float* setOnScreenTileVertices(unsigned int x, unsigned int y) const;
 
 public:
 	Tilemap(Renderer* renderer, const string& tilesetPath, const string& levelPath,
 			int levelWidth, int levelHeight, int tileWidth, int tileHeight, unsigned int tilesetRows, unsigned int tilesetColumns);
 	~Tilemap();
 	
-	void setTileInfo(unsigned int tileIndex, TileType tileType);
-	void setOnScreenTiles();
-	Tile getTile(unsigned int tileIndex);
+	//void setTileInfo(unsigned int tileIndex, TileType tileType);
+	//void setOnScreenTiles();
+	//Tile getTile(unsigned int tileIndex);
 
-	void draw() const;
+	void draw() const override;
 };
