@@ -21,8 +21,8 @@ _levelWidth(levelWidth), _levelHeight(levelHeight), _tileWidth(tileWidth), _tile
 	_onScreenTilesRows = (windowHeight % _tileHeight == 0) ? windowHeight / _tileHeight : windowHeight / _tileHeight + 1;
 	_onScreenTilesColumns = (windowWidth % _tileWidth == 0) ? windowWidth / _tileWidth : windowWidth / _tileWidth + 1;
 	
-	_onScreenTiles = createOnScreenTiles();
 	_level = loadLevelCSV(levelPath);
+	_onScreenTiles = createOnScreenTiles();
 }
 
 Tilemap::~Tilemap()
@@ -33,7 +33,10 @@ Tilemap::~Tilemap()
 	Material::destroyMaterial(_material);
 	
 	for (int i = 0; i < _tilesRows; i++)
+	{
+		delete[] _tiles[i]->uvVertices;
 		delete[] _tiles[i];
+	}
 	delete[] _tiles;
 	
 	for (int i = 0; i < _onScreenTilesRows; i++)
@@ -130,6 +133,36 @@ Tile** Tilemap::loadTiles(unsigned int rows, unsigned int columns)
 	for (int i = 0; i < _tilesRows; i++)
 		tiles[i] = new Tile[_tilesColumns];
 
+	int totalTiles = _tilesRows * _tilesColumns;
+	float uvBufferSize = sizeof(float) * Tile::vertices * 2 * totalTiles;
+	_uvBufferData = new float[Tile::vertices * 2 * totalTiles];
+
+	int counter = 0;
+	
+	for (int y = 0; y < _tilesRows; y++)
+		for (int x = 0; x < _tilesColumns; x++)
+		{
+			float minU = (float)(x * _tileWidth) / (float)_texture->getWidth();
+			float maxU = (float)(x * _tileWidth + _tileWidth) / (float)_texture->getWidth();
+			float minV = 1.0f - (float)(y * _tileHeight + _tileHeight) / (float)_texture->getHeight();
+			float maxV = 1.0f - (float)(y * _tileHeight) / (float)_texture->getHeight();
+
+			float* uvVertices = new float[8]
+			{
+				minU, maxV,
+				maxU, maxV,
+				minU, minV,
+				maxU, minV
+			};
+
+			tiles[y][x].uvVertices = uvVertices;
+
+			for (int i = 0; i < Tile::vertices * 2; i++, counter++)
+				_uvBufferData[counter] = uvVertices[i];
+		}
+
+	_uvBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
+
 	return tiles;
 }
 
@@ -181,7 +214,50 @@ float* Tilemap::setOnScreenTilesVertices(int totalTiles) const
 	return vertexBufferData;
 }
 
+void Tilemap::updateVerticesUV()
+{
+	int totalTiles = _tilesRows * _tilesColumns;
+	int uvBufferSize = sizeof(float) * Tile::vertices * 2 * totalTiles;
+
+	int counter = 0;
+
+	for (int y = 0; y < _onScreenTilesRows; y++)
+		for (int x = 0; x < _onScreenTilesColumns; x++)
+		{
+			Tile tile = getTile(_level[y][x]);
+			for (int i = 0; i < Tile::vertices * 2; i++, counter++)
+				_vertexBufferData[counter] = tile.uvVertices[i];
+		}
+
+	_vertexBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
+}
+
+Tile Tilemap::getTile(unsigned int tileIndex) const
+{
+	unsigned int column = tileIndex % _tilesColumns;
+	unsigned int row = tileIndex / _tilesRows;
+
+	return _tiles[row][column];
+}
+
 void Tilemap::draw() const
 {
+	_renderer->loadIdentityMatrix();
+	_renderer->setModelMatrix(_modelMatrix);
 
+	_material->bind();
+	_material->setMatrixProperty("MVP", _renderer->getMVP());
+	_material->bindTexture();
+
+	_renderer->enableBlend();
+
+	_renderer->enableAttribute(0);
+	_renderer->enableAttribute(1);
+	_renderer->bindBuffer(0, 3, _vertexBufferID);
+	_renderer->bindBuffer(1, 2, _uvBufferID);
+	_renderer->drawBuffer(TRIANGLE_STRIP, Tile::vertices);
+	_renderer->disableAttribute(0);
+	_renderer->disableAttribute(1);
+
+	_renderer->disableBlend();
 }

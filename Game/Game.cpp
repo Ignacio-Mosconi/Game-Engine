@@ -79,6 +79,7 @@ bool Game::onStart()
 	_sprite->setPosition(1152, 128, 0);
 
 	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_1_PATH, 3840, 720, 32, 32, 6, 6);
+	_tilemap->updateVerticesUV();
 	//_tilemap->setTileInfo(0, Background);
 	//for (int i = 1; i < 6; i++)
 	//	_tilemap->setTileInfo(i, Wall);	
@@ -156,7 +157,7 @@ bool Game::onDraw()
 {
 	cout << "Game::onDraw()" << endl;
 
-	//_tilemap->draw();
+	_tilemap->draw();
 
 	_triangle->draw();
 	_rectangle->draw();

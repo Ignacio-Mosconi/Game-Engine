@@ -27,7 +27,9 @@ struct Tile
 {
 	static const int vertices = 4;
 	static const int vertexComponents = 3;
+	
 	TileType tileType;
+	float* uvVertices;
 };
 
 class ENGINE_API Tilemap : Entity
@@ -68,9 +70,7 @@ private:
 												// tile at the "0" index for the loader to work properly.
 
 	float* setOnScreenTilesVertices(int totalTiles) const;
-	
-	//float* setTileVerticesUV(unsigned int x, unsigned int y) const;
-	//float* setOnScreenTileVertices(unsigned int x, unsigned int y) const;
+	Tile getTile(unsigned int tileIndex) const;
 
 public:
 	Tilemap(Renderer* renderer, const string& tilesetPath, const string& levelPath,
@@ -78,8 +78,8 @@ public:
 	~Tilemap();
 	
 	//void setTileInfo(unsigned int tileIndex, TileType tileType);
-	//void setOnScreenTiles();
 	//Tile getTile(unsigned int tileIndex);
 
+	void updateVerticesUV();
 	void draw() const override;
 };
