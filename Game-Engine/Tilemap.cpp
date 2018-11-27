@@ -187,6 +187,8 @@ Tile** Tilemap::createOnScreenTiles()
 
 float* Tilemap::setOnScreenTilesVertices(int totalTiles) const
 {
+	cout << "Tilemap::setOnScreenTilesVerices(int totalTiles)" << endl;
+
 	float* vertexBufferData = new float[Tile::vertexAmount * Tile::vertexComponents * totalTiles];
 
 	int counter = 0;
@@ -216,6 +218,8 @@ float* Tilemap::setOnScreenTilesVertices(int totalTiles) const
 
 float* Tilemap::createUvBuffer() const
 {
+	cout << "Tilemap::createUVBuffer()" << endl;
+
 	int totalTiles = _onScreenTilesRows * _onScreenTilesColumns;
 
 	float* uvBufferData = new float[Tile::vertexAmount * 2 * totalTiles];
@@ -240,14 +244,28 @@ float* Tilemap::createUvBuffer() const
 
 Tile Tilemap::getTile(unsigned int tileIndex) const
 {
+	cout << "Tilemap::getTile(tileIndex)" << endl;
+
 	unsigned int column = tileIndex % _tilesColumns;
 	unsigned int row = tileIndex / _tilesRows;
 
 	return _tiles[row][column];
 }
 
+void Tilemap::setTileProperty(unsigned int tileIndex, TileType tileType)
+{
+	cout << "Tilemap::setTileProperty(tileIndex, tileType)" << endl;
+
+	unsigned int row = tileIndex / _tilesRows;
+	unsigned int column = tileIndex % _tilesColumns;
+	
+	_tiles[row][column].tileType = tileType;
+}
+
 void Tilemap::updateVerticesUV()
 {
+	cout << "Tilemap::updateVerticesUV()" << endl;
+
 	int totalTiles = _onScreenTilesRows * _onScreenTilesColumns;
 	int uvBufferSize = sizeof(float) * Tile::vertexAmount * 2 * totalTiles;
 
@@ -256,7 +274,7 @@ void Tilemap::updateVerticesUV()
 	for (int y = 0; y < _onScreenTilesRows; y++)
 		for (int x = 0; x < _onScreenTilesColumns; x++)
 		{
-			Tile tile = getTile(1);
+			Tile tile = getTile(_level[y][x]);
 
 			for (int i = 0; i < Tile::vertexAmount * 2; i++, counter++)
 				_uvBufferData[counter] = tile.uvVertices[i];
@@ -267,6 +285,8 @@ void Tilemap::updateVerticesUV()
 
 void Tilemap::draw() const
 {
+	cout << "Tilemap::draw()" << endl;
+
 	_renderer->loadIdentityMatrix();
 	_renderer->setModelMatrix(_modelMatrix);
 

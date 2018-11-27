@@ -77,6 +77,8 @@ public:
 			int levelWidth, int levelHeight, int tileWidth, int tileHeight, unsigned int tilesetRows, unsigned int tilesetColumns);
 	~Tilemap();
 
+	void setTileProperty(unsigned int tyleIndex, TileType tileType);
+
 	void updateVerticesUV();
 	
 	void draw() const override;
