@@ -34,7 +34,6 @@ _vertexBufferID(-1), _uvBufferID(-1)
 	_onScreenTiles = createOnScreenTiles();
 
 	updateVerticesUV();
-	setPosition(100, -100, 0);
 }
 
 Tilemap::~Tilemap()
@@ -249,7 +248,7 @@ Tile Tilemap::getTile(unsigned int tileIndex) const
 
 void Tilemap::updateVerticesUV()
 {
-	int totalTiles = _tilesRows * _tilesColumns;
+	int totalTiles = _onScreenTilesRows * _onScreenTilesColumns;
 	int uvBufferSize = sizeof(float) * Tile::vertexAmount * 2 * totalTiles;
 
 	int counter = 0;
