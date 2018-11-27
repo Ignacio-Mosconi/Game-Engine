@@ -32,7 +32,7 @@ struct Tile
 	float* uvVertices;
 };
 
-class ENGINE_API Tilemap : Entity
+class ENGINE_API Tilemap : public Entity
 {
 private:
 	Texture* _texture;
@@ -62,9 +62,8 @@ private:
 	unsigned int _levelRows;
 	unsigned int _levelColumns;
 
-	Tile** loadTiles(unsigned int rows, unsigned int columns);
+	Tile** loadTiles(unsigned int rows, unsigned int columns, int tileWidth, int tileHeight);
 	Tile** createOnScreenTiles();
-
 	int** loadLevelCSV(const string& levelPath); // Used to parse a CSV - exported "oel" file made with the Ogmo Editor; 
 												// make sure the tileset's empty tiles are are actually filled with a transparent
 												// tile at the "0" index for the loader to work properly.
@@ -78,7 +77,6 @@ public:
 	~Tilemap();
 	
 	//void setTileInfo(unsigned int tileIndex, TileType tileType);
-	//Tile getTile(unsigned int tileIndex);
 
 	void updateVerticesUV();
 	void draw() const override;

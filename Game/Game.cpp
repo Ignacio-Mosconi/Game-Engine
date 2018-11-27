@@ -69,7 +69,7 @@ bool Game::onStart()
 	_triangle->create(3, NULL, 100, 100);
 	_rectangle->create(3, rectangleColorData, 200, 200);
 	_circle->create(3, NULL, 75);
-	_sprite->create(3, NULL, 256, 256);
+	_sprite->create(3, NULL, 192, 192);
 	_sprite->setFramesInfo(2, 2, 256, 256);
 	_sprite->setAnimationFrame(1);
 
@@ -79,7 +79,7 @@ bool Game::onStart()
 	_sprite->setPosition(1152, 128, 0);
 
 	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_1_PATH, 3840, 720, 32, 32, 6, 6);
-	_tilemap->updateVerticesUV();
+
 	//_tilemap->setTileInfo(0, Background);
 	//for (int i = 1; i < 6; i++)
 	//	_tilemap->setTileInfo(i, Wall);	

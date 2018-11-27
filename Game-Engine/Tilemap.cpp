@@ -7,7 +7,9 @@
 Tilemap::Tilemap(Renderer* renderer, const string& tilesetPath, const string& levelPath, 
 				int levelWidth, int levelHeight, int tileWidth, int tileHeight, 
 				unsigned int tilesetRows, unsigned int tilesetColumns) : Entity(renderer),
-_texture(Texture::generateTextureBMP(tilesetPath)), _tiles(loadTiles(tilesetRows, tilesetColumns)),
+_texture(Texture::generateTextureBMP(tilesetPath)), _tiles(loadTiles(tilesetRows, tilesetColumns, tileWidth, tileHeight)),
+_vertexBufferData(NULL), _uvBufferData(new float[tilesetRows * tilesetColumns * Tile::vertices * 2]),
+_vertexBufferID(-1), _uvBufferID(-1),
 _levelWidth(levelWidth), _levelHeight(levelHeight), _tileWidth(tileWidth), _tileHeight(tileHeight)
 {
 	cout << "Tilemap::Tilemap(tilesetPath, levelPath, levelWidth, levelHeight, tileWidth, tileHeight)" << endl;
@@ -23,6 +25,8 @@ _levelWidth(levelWidth), _levelHeight(levelHeight), _tileWidth(tileWidth), _tile
 	
 	_level = loadLevelCSV(levelPath);
 	_onScreenTiles = createOnScreenTiles();
+
+	updateVerticesUV();
 }
 
 Tilemap::~Tilemap()
@@ -121,7 +125,7 @@ int** Tilemap::loadLevelCSV(const string& levelPath)
 	}
 }
 
-Tile** Tilemap::loadTiles(unsigned int rows, unsigned int columns)
+Tile** Tilemap::loadTiles(unsigned int rows, unsigned int columns, int tileWidth, int tileHeight)
 {	
 	cout << "Tilemap::loadTiles(rows, columns)" << endl;
 
@@ -132,20 +136,14 @@ Tile** Tilemap::loadTiles(unsigned int rows, unsigned int columns)
 	
 	for (int i = 0; i < _tilesRows; i++)
 		tiles[i] = new Tile[_tilesColumns];
-
-	int totalTiles = _tilesRows * _tilesColumns;
-	float uvBufferSize = sizeof(float) * Tile::vertices * 2 * totalTiles;
-	_uvBufferData = new float[Tile::vertices * 2 * totalTiles];
-
-	int counter = 0;
 	
 	for (int y = 0; y < _tilesRows; y++)
 		for (int x = 0; x < _tilesColumns; x++)
 		{
-			float minU = (float)(x * _tileWidth) / (float)_texture->getWidth();
-			float maxU = (float)(x * _tileWidth + _tileWidth) / (float)_texture->getWidth();
-			float minV = 1.0f - (float)(y * _tileHeight + _tileHeight) / (float)_texture->getHeight();
-			float maxV = 1.0f - (float)(y * _tileHeight) / (float)_texture->getHeight();
+			float minU = (float)(x * tileWidth) / (float)_texture->getWidth();
+			float maxU = (float)(x * tileWidth + tileWidth) / (float)_texture->getWidth();
+			float minV = 1.0f - (float)(y * tileHeight + tileHeight) / (float)_texture->getHeight();
+			float maxV = 1.0f - (float)(y * tileHeight) / (float)_texture->getHeight();
 
 			float* uvVertices = new float[8]
 			{
@@ -156,12 +154,7 @@ Tile** Tilemap::loadTiles(unsigned int rows, unsigned int columns)
 			};
 
 			tiles[y][x].uvVertices = uvVertices;
-
-			for (int i = 0; i < Tile::vertices * 2; i++, counter++)
-				_uvBufferData[counter] = uvVertices[i];
 		}
-
-	_uvBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
 
 	return tiles;
 }
@@ -196,8 +189,8 @@ float* Tilemap::setOnScreenTilesVertices(int totalTiles) const
 		{
 			float minX = x * _tileWidth;
 			float maxX = x * _tileWidth + _tileWidth;
-			float minY = _renderer->getRenderWindow()->getHeight() - (float)(y * _tileHeight + _tileHeight);
-			float maxY = _renderer->getRenderWindow()->getHeight() - y * _tileHeight;
+			float minY = (float)_renderer->getRenderWindow()->getHeight() - (float)(y * _tileHeight + _tileHeight);
+			float maxY = (float)_renderer->getRenderWindow()->getHeight() - (float)(y * _tileHeight);
 
 			float vertices[Tile::vertices * Tile::vertexComponents] =
 			{
@@ -229,7 +222,7 @@ void Tilemap::updateVerticesUV()
 				_vertexBufferData[counter] = tile.uvVertices[i];
 		}
 
-	_vertexBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
+	_uvBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
 }
 
 Tile Tilemap::getTile(unsigned int tileIndex) const

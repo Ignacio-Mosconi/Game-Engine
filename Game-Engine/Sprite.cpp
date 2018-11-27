@@ -51,8 +51,8 @@ float* Sprite::setVerticesUV(unsigned int x, unsigned int y) const
 	cout << "Sprite::setVerticesUV()" << endl;
 
 	float minU = (float)x / (float)_material->getTextureWidth();
-	float minV = 1.0f - (float)(y + _frameHeight) / (float)_material->getTextureHeight();
 	float maxU = (float)(x + _frameWidth) / (float)_material->getTextureWidth();
+	float minV = 1.0f - (float)(y + _frameHeight) / (float)_material->getTextureHeight();
 	float maxV = 1.0f - (float)y / (float)_material->getTextureHeight();
 
 	float* uvBufferData = new float[_vertexCount * 2]
