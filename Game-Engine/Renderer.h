@@ -13,7 +13,8 @@ enum PrimitiveType
 {
 	TRIANGLE = 4,
 	TRIANGLE_STRIP = 5,
-	TRIANGLE_FAN = 6
+	TRIANGLE_FAN = 6,
+	QUAD = 7
 };
 
 /*

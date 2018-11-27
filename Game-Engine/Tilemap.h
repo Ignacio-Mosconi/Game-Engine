@@ -25,8 +25,11 @@ enum TileType
 
 struct Tile
 {
-	static const int vertices = 4;
+	static const int vertexAmount = 4;
 	static const int vertexComponents = 3;
+	
+	static unsigned int tileWidth;
+	static unsigned int tileHeight;
 	
 	TileType tileType;
 	float* uvVertices;
@@ -50,9 +53,6 @@ private:
 	unsigned int _levelWidth;
 	unsigned int _levelHeight;
 	
-	unsigned int _tileWidth;
-	unsigned int _tileHeight;
-	
 	unsigned int _tilesRows;
 	unsigned int _tilesColumns;
 	
@@ -62,22 +62,22 @@ private:
 	unsigned int _levelRows;
 	unsigned int _levelColumns;
 
+	int** loadLevelCSV(const string& levelPath);
 	Tile** loadTiles(unsigned int rows, unsigned int columns, int tileWidth, int tileHeight);
+	
 	Tile** createOnScreenTiles();
-	int** loadLevelCSV(const string& levelPath); // Used to parse a CSV - exported "oel" file made with the Ogmo Editor; 
-												// make sure the tileset's empty tiles are are actually filled with a transparent
-												// tile at the "0" index for the loader to work properly.
 
 	float* setOnScreenTilesVertices(int totalTiles) const;
+	float* createUvBuffer() const;
+	
 	Tile getTile(unsigned int tileIndex) const;
 
 public:
 	Tilemap(Renderer* renderer, const string& tilesetPath, const string& levelPath,
 			int levelWidth, int levelHeight, int tileWidth, int tileHeight, unsigned int tilesetRows, unsigned int tilesetColumns);
 	~Tilemap();
-	
-	//void setTileInfo(unsigned int tileIndex, TileType tileType);
 
 	void updateVerticesUV();
+	
 	void draw() const override;
 };
