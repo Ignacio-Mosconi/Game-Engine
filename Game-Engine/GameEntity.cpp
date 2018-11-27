@@ -8,7 +8,7 @@
 #include "Animation.h"
 
 GameEntity::GameEntity(Renderer* renderer, const string& imagePath, const string& collisionLayer) :
-_sprite(createSprite(renderer, imagePath)), _material(NULL), _texture(NULL)
+_sprite(createSprite(renderer, imagePath)), _material(NULL), _texture(NULL), _tilemap(NULL)
 {
 	cout << "GameEntity::GameEntity(renderer, imagePath, collisionLayer)" << endl;
 
@@ -21,10 +21,11 @@ _sprite(createSprite(renderer, imagePath)), _material(NULL), _texture(NULL)
 	createBoundingBox(bbWidth, bbHeight, false, 1.0f, collisionLayer);
 }
 
-GameEntity::GameEntity(Renderer* renderer, const string& imagePath, const string& collisionLayer,
+GameEntity::GameEntity(Renderer* renderer, Tilemap* tilemap, const string& imagePath, const string& collisionLayer,
 						float x, float y, int spriteRows, int spriteColumns, int frameWidth, int frameHeight, 
 						bool isStatic, float mass) :
-_sprite(createSprite(renderer, imagePath, spriteRows, spriteColumns, frameWidth, frameHeight)), _material(NULL), _texture(NULL)
+_sprite(createSprite(renderer, imagePath, spriteRows, spriteColumns, frameWidth, frameHeight)),
+_material(NULL), _texture(NULL), _tilemap(tilemap)
 {
 	cout << "GameEntity::GameEntity(renderer, imagePath, collisionLayer, x, y)" << endl;
 
@@ -92,8 +93,17 @@ void GameEntity::setBoundingBoxDimensions(float width, float height)
 	_boundingBox->setHeight(height);
 }
 
+void GameEntity::move(float x, float y, float z)
+{
+	cout << "GameEntity::move(x, y, z)" << endl;
+
+	_sprite->translate(x, y, z);
+}
+
 void GameEntity::update(float deltaTime)
 {
+	cout << "GameEntity::update()" << endl;
+
 	map<string, Animation*>::iterator mapIt;
 	for (mapIt = _animations.begin(); mapIt != _animations.end(); mapIt++)
 		mapIt->second->update(deltaTime);

@@ -306,3 +306,23 @@ void Tilemap::draw() const
 
 	_renderer->disableBlend();
 }
+
+vec2 Tilemap::worldToGrid(float posX, float posY) const
+{
+	cout << "Tilemap::draw()" << endl;
+
+	unsigned int row = (posY - _renderer->getCameraPosition().y) / Tile::tileHeight;
+	unsigned int col = (posX - _renderer->getCameraPosition().x) / Tile::tileWidth;
+
+	return vec2(row, col);
+}
+
+vec2 Tilemap::gridToWorld(unsigned int row, unsigned int col) const
+{
+	cout << "Tilemap::draw()" << endl;
+
+	float posX = col * Tile::tileWidth + _renderer->getCameraPosition().x;
+	float posY = row * Tile::tileHeight + _renderer->getCameraPosition().y;
+
+	return vec2(posX, posY);
+}

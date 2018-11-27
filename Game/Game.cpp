@@ -40,8 +40,12 @@ bool Game::onStart()
 	_circle = new Circle(_renderer, _simpleMaterial, 20);
 	_sprite = new Sprite(_renderer, _textureMaterial);
 
-	_gameEntity1 = new GameEntity(_renderer, SPRITE_SHEET_TEXTURE_PATH, "Layer A", 128, 360, 2, 2, 256, 256, false, 2.0f);
-	_gameEntity2 = new GameEntity(_renderer, NINJA_TEXTURE_PATH, "Layer B", 1152, 360, 6, 6, 192, 288, false, 4.0f);
+	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_1_PATH, 3840, 720, 32, 32, 6, 6);
+
+	_gameEntity1 = new GameEntity(_renderer, _tilemap, SPRITE_SHEET_TEXTURE_PATH, "Layer A", 
+									128, 360, 2, 2, 256, 256, false, 2.0f);
+	_gameEntity2 = new GameEntity(_renderer, _tilemap, NINJA_TEXTURE_PATH, "Layer B", 
+									1152, 360, 6, 6, 192, 288, false, 4.0f);
 
 	_gameEntity1->setBoundingBoxDimensions(200.0f, 200.0f);
 	_gameEntity2->setBoundingBoxDimensions(180.0f, 250.0f);
@@ -77,8 +81,6 @@ bool Game::onStart()
 	_rectangle->setPosition(300, 100, 0);
 	_circle->setPosition(600, 600, 0);
 	_sprite->setPosition(1152, 128, 0);
-
-	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_1_PATH, 3840, 720, 32, 32, 6, 6);
 
 	_tilemap->setTileProperty(0, Background);
 	for (int i = 1; i < 6; i++)
@@ -142,8 +144,8 @@ bool Game::onUpdate(float deltaTime)
 	_circle->translate(0, offset * deltaTime, 0);
 	_circle->rotate(0, 0, -offset * deltaTime);
 
-	_gameEntity1->getSprite()->translate(offset * deltaTime, 0, 0);
-	_gameEntity2->getSprite()->translate(-offset * deltaTime, 0, 0);
+	_gameEntity1->move(offset * deltaTime, 0, 0);
+	_gameEntity2->move(-offset * deltaTime, 0, 0);
 
 	_gameEntity1->update(deltaTime);
 	_gameEntity2->update(deltaTime);

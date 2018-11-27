@@ -82,4 +82,7 @@ public:
 	void updateVerticesUV();
 	
 	void draw() const override;
+
+	vec2 worldToGrid(float posX, float posY) const;
+	vec2 gridToWorld(unsigned int row, unsigned int col) const;
 };
