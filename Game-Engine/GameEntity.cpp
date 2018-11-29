@@ -104,44 +104,68 @@ void GameEntity::move(float x, float y, float z)
 	float verOffset = _boundingBox->getHeight() / 2.0f;
 	float newPosX = _sprite->getPosition().x;
 	float newPosY = _sprite->getPosition().y;
+	int possibleHorCols = glm::max(_boundingBox->getHeight() / Tile::tileHeight, 2.0f);
+	int possibleVerCols = glm::max(_boundingBox->getWidth() / Tile::tileWidth, 2.0f);
 	
 	if (x != 0.0f)
 	{
-		if (x > 0.0f)
+		for (int i = -possibleHorCols / 2; i < possibleHorCols / 2; i++)
 		{
-			vec2 rightTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x + horOffset, _sprite->getPosition().y);
-			TileType rightTileType = _tilemap->getTileType(rightTileCoord.x, rightTileCoord.y);
+			if (x > 0.0f)
+			{
+				vec2 rightTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x + horOffset, 
+															_sprite->getPosition().y + (verOffset / (float)possibleHorCols / 2.0f) * i);
+				TileType rightTileType = _tilemap->getTileType(rightTileCoord.x, rightTileCoord.y);
 
-			if (rightTileType == Wall)
-				newPosX = (_tilemap->gridToWorld(rightTileCoord.y, rightTileCoord.x)).x - horOffset;
+				if (rightTileType == Wall)
+				{
+					newPosX = (_tilemap->gridToWorld(rightTileCoord.x, rightTileCoord.y)).x - horOffset;
+					break;
+				}
+			}
+			else
+			{
+				vec2 leftTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x - horOffset, 
+															_sprite->getPosition().y + (verOffset / (float)possibleHorCols / 2.0f) * i);
+				TileType leftTileType = _tilemap->getTileType(leftTileCoord.x, leftTileCoord.y);
+
+				if (leftTileType == Wall)
+				{
+					newPosX = (_tilemap->gridToWorld(leftTileCoord.x, leftTileCoord.y)).x + horOffset + Tile::tileWidth;
+					break;
+				}
+			}
 		}
-		else
-		{
-			vec2 leftTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x - horOffset, _sprite->getPosition().y);
-			TileType leftTileType = _tilemap->getTileType(leftTileCoord.x, leftTileCoord.y);
-
-			if (leftTileType == Wall)
-				newPosX = (_tilemap->gridToWorld(leftTileCoord.y, leftTileCoord.x)).x + horOffset;
-		}	
 	}
 	
 	if (y != 0.0f)
 	{
-		if (y > 0.0f)
+		for (int i = -possibleVerCols / 2; i < possibleVerCols / 2; i++)
 		{
-			vec2 upperTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x, _sprite->getPosition().y + verOffset);
-			TileType upperTileType = _tilemap->getTileType(upperTileCoord.x, upperTileCoord.y);
+			if (y > 0.0f)
+			{
+				vec2 upperTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x + (horOffset / (float)possibleVerCols / 2.0f) * i, 
+															_sprite->getPosition().y + verOffset);
+				TileType upperTileType = _tilemap->getTileType(upperTileCoord.x, upperTileCoord.y);
 
-			if (upperTileType == Wall)
-				newPosY = (_tilemap->gridToWorld(upperTileCoord.y, upperTileCoord.x)).y - verOffset;
-		}
-		else
-		{
-			vec2 lowerTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x, _sprite->getPosition().y - verOffset);
-			TileType lowerTileType = _tilemap->getTileType(lowerTileCoord.x, lowerTileCoord.y);
+				if (upperTileType == Wall)
+				{
+					newPosY = (_tilemap->gridToWorld(upperTileCoord.x, upperTileCoord.y)).y - verOffset - Tile::tileHeight;
+					break;
+				}
+			}
+			else
+			{
+				vec2 lowerTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x + (horOffset / (float)possibleVerCols / 2.0f) * i,
+															_sprite->getPosition().y - verOffset);
+				TileType lowerTileType = _tilemap->getTileType(lowerTileCoord.x, lowerTileCoord.y);
 
-			if (lowerTileType == Wall)
-				newPosY = (_tilemap->gridToWorld(lowerTileCoord.y, lowerTileCoord.x)).y + verOffset;
+				if (lowerTileType == Wall)
+				{
+					newPosY = (_tilemap->gridToWorld(lowerTileCoord.x, lowerTileCoord.y)).y + verOffset;
+					break;
+				}
+			}
 		}
 	}
 

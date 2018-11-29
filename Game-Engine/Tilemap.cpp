@@ -328,7 +328,7 @@ vec2 Tilemap::gridToWorld(unsigned int row, unsigned int col) const
 	cout << "Tilemap::draw()" << endl;
 
 	float posX = col * Tile::tileWidth + _renderer->getCameraPosition().x;
-	float posY = row * Tile::tileHeight + _renderer->getCameraPosition().y;
+	float posY = -(int)row * Tile::tileHeight + _renderer->getRenderWindow()->getHeight();
 
 	return vec2(posX, posY);
 }
