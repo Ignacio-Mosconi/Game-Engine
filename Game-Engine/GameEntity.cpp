@@ -6,6 +6,7 @@
 #include "Texture.h"
 #include "CollisionManager.h"
 #include "Animation.h"
+#include "Tilemap.h"
 
 GameEntity::GameEntity(Renderer* renderer, const string& imagePath, const string& collisionLayer) :
 _sprite(createSprite(renderer, imagePath)), _material(NULL), _texture(NULL), _tilemap(NULL)
@@ -98,6 +99,54 @@ void GameEntity::move(float x, float y, float z)
 	cout << "GameEntity::move(x, y, z)" << endl;
 
 	_sprite->translate(x, y, z);
+
+	float horOffset = _boundingBox->getWidth() / 2.0f;
+	float verOffset = _boundingBox->getHeight() / 2.0f;
+	float newPosX = _sprite->getPosition().x;
+	float newPosY = _sprite->getPosition().y;
+	
+	if (x != 0.0f)
+	{
+		if (x > 0.0f)
+		{
+			vec2 rightTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x + horOffset, _sprite->getPosition().y);
+			TileType rightTileType = _tilemap->getTileType(rightTileCoord.x, rightTileCoord.y);
+
+			if (rightTileType == Wall)
+				newPosX = (_tilemap->gridToWorld(rightTileCoord.y, rightTileCoord.x)).x - horOffset;
+		}
+		else
+		{
+			vec2 leftTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x - horOffset, _sprite->getPosition().y);
+			TileType leftTileType = _tilemap->getTileType(leftTileCoord.x, leftTileCoord.y);
+
+			if (leftTileType == Wall)
+				newPosX = (_tilemap->gridToWorld(leftTileCoord.y, leftTileCoord.x)).x + horOffset;
+		}	
+	}
+	
+	if (y != 0.0f)
+	{
+		if (y > 0.0f)
+		{
+			vec2 upperTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x, _sprite->getPosition().y + verOffset);
+			TileType upperTileType = _tilemap->getTileType(upperTileCoord.x, upperTileCoord.y);
+
+			if (upperTileType == Wall)
+				newPosY = (_tilemap->gridToWorld(upperTileCoord.y, upperTileCoord.x)).y - verOffset;
+		}
+		else
+		{
+			vec2 lowerTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x, _sprite->getPosition().y - verOffset);
+			TileType lowerTileType = _tilemap->getTileType(lowerTileCoord.x, lowerTileCoord.y);
+
+			if (lowerTileType == Wall)
+				newPosY = (_tilemap->gridToWorld(lowerTileCoord.y, lowerTileCoord.x)).y + verOffset;
+		}
+	}
+
+	if (newPosX != _sprite->getPosition().x || newPosY != _sprite->getPosition().y)
+		_sprite->setPosition(newPosX, newPosY, _sprite->getPosition().z);
 }
 
 void GameEntity::update(float deltaTime)

@@ -242,16 +242,6 @@ float* Tilemap::createUvBuffer() const
 	return uvBufferData;
 }
 
-Tile Tilemap::getTile(unsigned int tileIndex) const
-{
-	cout << "Tilemap::getTile(tileIndex)" << endl;
-
-	unsigned int column = tileIndex % _tilesColumns;
-	unsigned int row = tileIndex / _tilesRows;
-
-	return _tiles[row][column];
-}
-
 void Tilemap::setTileProperty(unsigned int tileIndex, TileType tileType)
 {
 	cout << "Tilemap::setTileProperty(tileIndex, tileType)" << endl;
@@ -276,6 +266,7 @@ void Tilemap::updateVerticesUV()
 		{
 			Tile tile = getTile(_level[y][x]);
 
+			_onScreenTiles[y][x].tileType = tile.tileType;
 			for (int i = 0; i < Tile::vertexAmount * 2; i++, counter++)
 				_uvBufferData[counter] = tile.uvVertices[i];
 		}
@@ -307,11 +298,26 @@ void Tilemap::draw() const
 	_renderer->disableBlend();
 }
 
+Tile Tilemap::getTile(unsigned int tileIndex) const
+{
+	//cout << "Tilemap::getTile(tileIndex)" << endl;
+
+	unsigned int column = tileIndex % _tilesColumns;
+	unsigned int row = tileIndex / _tilesRows;
+
+	return _tiles[row][column];
+}
+
+TileType Tilemap::getTileType(unsigned int row, unsigned int column) const
+{
+	return _onScreenTiles[row][column].tileType;
+}
+
 vec2 Tilemap::worldToGrid(float posX, float posY) const
 {
 	cout << "Tilemap::draw()" << endl;
 
-	unsigned int row = (posY - _renderer->getCameraPosition().y) / Tile::tileHeight;
+	unsigned int row = (_renderer->getRenderWindow()->getHeight() - posY) / Tile::tileHeight;
 	unsigned int col = (posX - _renderer->getCameraPosition().x) / Tile::tileWidth;
 
 	return vec2(row, col);

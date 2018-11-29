@@ -70,7 +70,6 @@ private:
 	float* setOnScreenTilesVertices(int totalTiles) const;
 	float* createUvBuffer() const;
 	
-	Tile getTile(unsigned int tileIndex) const;
 
 public:
 	Tilemap(Renderer* renderer, const string& tilesetPath, const string& levelPath,
@@ -83,6 +82,9 @@ public:
 	
 	void draw() const override;
 
+	Tile getTile(unsigned int tileIndex) const;
+	TileType getTileType(unsigned int row, unsigned int column) const;
+	
 	vec2 worldToGrid(float posX, float posY) const;
 	vec2 gridToWorld(unsigned int row, unsigned int col) const;
 };

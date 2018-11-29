@@ -169,4 +169,6 @@ void Renderer::moveCamera(float x, float y)
 	
 	_cameraPosition += movement;
 	_view = lookAt(vec3(0, 0, 1), _cameraPosition, vec3(0, 1, 0));
+
+	updateMVP();
 }
