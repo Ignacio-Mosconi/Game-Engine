@@ -10,7 +10,7 @@ unsigned int Tile::tileHeight = 0;
 Tilemap::Tilemap(Renderer* renderer, const string& tilesetPath, const string& levelPath, 
 				int levelWidth, int levelHeight, int tileWidth, int tileHeight, 
 				unsigned int tilesetRows, unsigned int tilesetColumns) : Entity(renderer),
-_levelWidth(levelWidth), _levelHeight(levelHeight),
+_levelWidth(levelWidth), _levelHeight(levelHeight), _cameraPosition(0.0f, 0.0f),
 _texture(Texture::generateTextureBMP(tilesetPath)), _tiles(loadTiles(tilesetRows, tilesetColumns, tileWidth, tileHeight)),
 _vertexBufferData(NULL), _uvBufferData(NULL),
 _vertexBufferID(-1), _uvBufferID(-1)
@@ -212,7 +212,7 @@ float* Tilemap::setOnScreenTilesVertices(int totalTiles) const
 			for (int i = 0; i < Tile::vertexAmount * Tile::vertexComponents; i++, counter++)
 				vertexBufferData[counter] = vertices[i];
 		}
-	
+
 	return vertexBufferData;
 }
 
@@ -248,7 +248,7 @@ void Tilemap::setTileProperty(unsigned int tileIndex, TileType tileType)
 
 	unsigned int row = tileIndex / _tilesRows;
 	unsigned int column = tileIndex % _tilesColumns;
-	
+
 	_tiles[row][column].tileType = tileType;
 }
 
@@ -264,7 +264,8 @@ void Tilemap::updateVerticesUV()
 	for (int y = 0; y < _onScreenTilesRows; y++)
 		for (int x = 0; x < _onScreenTilesColumns; x++)
 		{
-			Tile tile = getTile(_level[y][x]);
+			vec2 tilingOffset(_cameraPosition.x / Tile::tileWidth, _cameraPosition.y / Tile::tileHeight);
+			Tile tile = getTile(_level[y + (int)tilingOffset.y][x + (int)tilingOffset.x]);
 
 			_onScreenTiles[y][x].tileType = tile.tileType;
 			for (int i = 0; i < Tile::vertexAmount * 2; i++, counter++)
@@ -272,6 +273,54 @@ void Tilemap::updateVerticesUV()
 		}
 
 	_uvBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
+}
+
+void Tilemap::scrollView(float x, float y)
+{
+	vec2 previousCameraPos = _cameraPosition;
+	float screenOffsetX = _renderer->getRenderWindow()->getWidth() / 2.0f;
+	float screenOffsetY = _renderer->getRenderWindow()->getHeight() / 2.0f;
+	float translateX = x;
+	float translateY = y;
+
+	if (_cameraPosition.x + x + screenOffsetX < _levelWidth)
+	{
+		if (_cameraPosition.x + x >= 0.0f)
+			_cameraPosition.x += x;
+		else
+		{
+			translateX = -_cameraPosition.x;
+			_cameraPosition.x = 0.0f;
+		}
+	}
+	else
+	{
+		translateX = _levelWidth - screenOffsetX - _cameraPosition.x;
+		_cameraPosition.x = _levelWidth - screenOffsetX;	
+	}
+	
+	if (_cameraPosition.y + y + screenOffsetY < _levelHeight)
+	{
+		if (_cameraPosition.y + y >= 0.0f)
+			_cameraPosition.y += y;
+		else
+		{
+			translateY = -_cameraPosition.y;
+			_cameraPosition.y = 0.0f;
+		}
+	}
+	else
+	{
+		translateY = _levelHeight - screenOffsetY - _cameraPosition.y;
+		_cameraPosition.y = _levelHeight - screenOffsetY;
+	}
+
+	if (_cameraPosition != previousCameraPos)
+	{
+		translate(x, y, 0.0f);
+		updateVerticesUV();
+		_renderer->updateView(_cameraPosition.x, _cameraPosition.y);
+	}
 }
 
 void Tilemap::draw() const
@@ -302,23 +351,43 @@ Tile Tilemap::getTile(unsigned int tileIndex) const
 {
 	//cout << "Tilemap::getTile(tileIndex)" << endl;
 
-	unsigned int column = tileIndex % _tilesColumns;
-	unsigned int row = tileIndex / _tilesRows;
+	try
+	{
+		if (tileIndex >= _tilesRows * _tilesColumns)
+			throw logic_error("The tile index is out of the tileset range.");
+		
+		unsigned int column = tileIndex % _tilesColumns;
+		unsigned int row = tileIndex / _tilesRows;
 
-	return _tiles[row][column];
+		return _tiles[row][column];
+	}
+	catch (logic_error& exc)
+	{
+		cerr << exc.what() << endl;
+	}
 }
 
 TileType Tilemap::getTileType(unsigned int row, unsigned int column) const
 {
-	return _onScreenTiles[row][column].tileType;
+	try
+	{
+		if (row * column > _onScreenTilesRows * _onScreenTilesColumns)
+			throw logic_error("The tile that is trying to be accessed is out of the screen range.");
+		
+		return _onScreenTiles[row][column].tileType;
+	}
+	catch (logic_error& exc)
+	{
+		cerr << exc.what() << endl;
+	}
 }
 
 vec2 Tilemap::worldToGrid(float posX, float posY) const
 {
 	cout << "Tilemap::draw()" << endl;
 
-	unsigned int row = (_renderer->getRenderWindow()->getHeight() - posY) / Tile::tileHeight;
-	unsigned int col = (posX - _renderer->getCameraPosition().x) / Tile::tileWidth;
+	unsigned int row = (_cameraPosition.y - posY) / Tile::tileHeight;
+	unsigned int col = (posX - _cameraPosition.x) / Tile::tileWidth;
 
 	return vec2(row, col);
 }
@@ -327,7 +396,7 @@ vec2 Tilemap::gridToWorld(unsigned int row, unsigned int col) const
 {
 	cout << "Tilemap::draw()" << endl;
 
-	float posX = col * Tile::tileWidth + _renderer->getCameraPosition().x;
+	float posX = col * Tile::tileWidth + _cameraPosition.x;
 	float posY = -(int)row * Tile::tileHeight + _renderer->getRenderWindow()->getHeight();
 
 	return vec2(posX, posY);

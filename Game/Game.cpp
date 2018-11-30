@@ -11,6 +11,7 @@
 #include "CollisionManager.h"
 #include "Animation.h"
 #include "Tilemap.h"
+#include "Renderer.h"
 
 Game::Game() : GameBase()
 {
@@ -42,24 +43,24 @@ bool Game::onStart()
 
 	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_1_PATH, 3840, 720, 32, 32, 6, 6);
 
-	_gameEntity1 = new GameEntity(_renderer, _tilemap, SPRITE_SHEET_TEXTURE_PATH, "Layer A", 
-									128, 360, 2, 2, 256, 256, false, 2.0f);
+	//_gameEntity1 = new GameEntity(_renderer, _tilemap, SPRITE_SHEET_TEXTURE_PATH, "Layer A", 
+									//128, 360, 2, 2, 256, 256, false, 2.0f);
 	_gameEntity2 = new GameEntity(_renderer, _tilemap, NINJA_TEXTURE_PATH, "Layer B", 
-									1152, 280, 6, 6, 96, 144, false, 4.0f);
+									128, 300, 6, 6, 96, 144, false, 4.0f);
 
-	_gameEntity1->setBoundingBoxDimensions(200.0f, 200.0f);
+	//_gameEntity1->setBoundingBoxDimensions(200.0f, 200.0f);
 	_gameEntity2->setBoundingBoxDimensions(90.0f, 125.0f);
 
-	unsigned int framesIdle[2] = { 0, 1 };
-	unsigned int framesWalk[6] = { 23, 22, 21, 20, 19, 18 };
+	//unsigned int framesIdle[2] = { 0, 1 };
+	unsigned int framesWalk[6] = { 12, 13, 14, 15, 16, 17 };
 
-	_gameEntity1Idle = new Animation(framesIdle, 24.0f, true);
+	//_gameEntity1Idle = new Animation(framesIdle, 24.0f, true);
 	_gameEntity2Walk = new Animation(framesWalk, 30.0f, true);
 
-	_gameEntity1->addAnimation(_gameEntity1Idle, "Idle");
+	//_gameEntity1->addAnimation(_gameEntity1Idle, "Idle");
 	_gameEntity2->addAnimation(_gameEntity2Walk, "Walking");
 
-	_gameEntity1Idle->play();
+	//_gameEntity1Idle->play();
 	_gameEntity2Walk->play();
 
 	float rectangleColorData[] =
@@ -109,10 +110,10 @@ bool Game::onStop()
 	//delete _circle;
 	//delete _sprite;
 
-	delete _gameEntity1;
+	//delete _gameEntity1;
 	delete _gameEntity2;
 
-	delete _gameEntity1Idle;
+	//delete _gameEntity1Idle;
 	delete _gameEntity2Walk;
 
 	delete _tilemap;
@@ -137,6 +138,10 @@ bool Game::onUpdate(float deltaTime)
 
 	float offset = 25.0f;
 
+	_tilemap->scrollView(offset * deltaTime, 0.0f);
+
+	//_renderer->moveCamera(offset * deltaTime, 0.0f);
+
 	//_triangle->translate(offset * deltaTime, 0, 0);
 	//_triangle->rotate(0, 0, offset * deltaTime);
 	//
@@ -146,10 +151,10 @@ bool Game::onUpdate(float deltaTime)
 	//_circle->translate(0, offset * deltaTime, 0);
 	//_circle->rotate(0, 0, -offset * deltaTime);
 
-	_gameEntity1->move(0, -offset * deltaTime, 0);
-	_gameEntity2->move(-offset * deltaTime, 0, 0);
+	//_gameEntity1->move(0, -offset * deltaTime, 0);
+	_gameEntity2->move(offset * deltaTime, 0, 0);
 
-	_gameEntity1->update(deltaTime);
+	//_gameEntity1->update(deltaTime);
 	_gameEntity2->update(deltaTime);
 
 	CollisionManager::getInstance()->update();
@@ -168,7 +173,7 @@ bool Game::onDraw()
 	//_circle->draw();
 	//_sprite->draw();
 
-	_gameEntity1->draw();
+	//_gameEntity1->draw();
 	_gameEntity2->draw();
 
 	return true;

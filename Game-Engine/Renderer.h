@@ -28,8 +28,6 @@ private:
 	Window* _renderWindow;
 	unsigned int _vertexArrayID;
 
-	vec3 _cameraPosition;
-
 	mat4 _model;
 	mat4 _view;
 	mat4 _projection;
@@ -63,9 +61,8 @@ public:
 	void setModelMatrix(mat4 matrix);
 	void multiplyModelMatrix(mat4 matrix);
 
-	void moveCamera(float x, float y);
+	void updateView(float x, float y);
 
 	inline mat4& getMVP() { return _mvp; }
 	inline Window* getRenderWindow() { return _renderWindow;  }
-	inline vec3 getCameraPosition() { return _cameraPosition; }
 };

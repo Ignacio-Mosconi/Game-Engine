@@ -4,7 +4,7 @@
 #include <GLFW\glfw3.h>
 #include <gtc\matrix_transform.hpp>
 
-Renderer::Renderer() : _cameraPosition(0.0f, 0.0f, 0.0f)
+Renderer::Renderer()
 {
 	cout << "Renderer::Renderer()" << endl;
 }
@@ -37,7 +37,7 @@ bool Renderer::start(Window* renderWindow)
 	glBindVertexArray(_vertexArrayID);
 
 	_model = mat4(1.0f);
-	_view = lookAt(vec3(0, 0, 1), _cameraPosition, vec3(0, 1, 0));
+	_view = lookAt(vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 	_projection = ortho(0.0f, (float)_renderWindow->getWidth(), 0.0f, (float)_renderWindow->getHeight(), 0.0f, 1.0f);
 
 	updateMVP();
@@ -163,12 +163,11 @@ void Renderer::multiplyModelMatrix(mat4 matrix)
 	updateMVP();
 }
 
-void Renderer::moveCamera(float x, float y)
+void Renderer::updateView(float x, float y)
 {
-	vec3 movement(x, y, 0.0f);
+	vec3 newCameraPos(x, y, 1.0f);
 	
-	_cameraPosition += movement;
-	_view = lookAt(vec3(0, 0, 1), _cameraPosition, vec3(0, 1, 0));
+	_view = lookAt(newCameraPos, vec3(newCameraPos.x, newCameraPos.y, 0.0f), vec3(0.0f, 1.0f, 0.0f));
 
 	updateMVP();
 }
