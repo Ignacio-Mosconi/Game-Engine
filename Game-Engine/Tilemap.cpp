@@ -10,7 +10,7 @@ unsigned int Tile::tileHeight = 0;
 Tilemap::Tilemap(Renderer* renderer, const string& tilesetPath, const string& levelPath, 
 				int levelWidth, int levelHeight, int tileWidth, int tileHeight, 
 				unsigned int tilesetRows, unsigned int tilesetColumns) : Entity(renderer),
-_levelWidth(levelWidth), _levelHeight(levelHeight), _cameraPosition(0.0f, 0.0f),
+_levelWidth(levelWidth), _levelHeight(levelHeight),
 _texture(Texture::generateTextureBMP(tilesetPath)), _tiles(loadTiles(tilesetRows, tilesetColumns, tileWidth, tileHeight)),
 _vertexBufferData(NULL), _uvBufferData(NULL),
 _vertexBufferID(-1), _uvBufferID(-1)
@@ -259,13 +259,19 @@ void Tilemap::updateVerticesUV()
 	int totalTiles = _onScreenTilesRows * _onScreenTilesColumns;
 	int uvBufferSize = sizeof(float) * Tile::vertexAmount * 2 * totalTiles;
 
+	vec2 tilingOffset((int)_position.x / Tile::tileWidth, (int)_position.y / Tile::tileHeight);
+	int lastRow = (int)_levelHeight / (int)Tile::tileHeight - 1;
+	int lastColumn= (int)_levelWidth/ (int)Tile::tileWidth - 1;
+	
 	int counter = 0;
-
+	
 	for (int y = 0; y < _onScreenTilesRows; y++)
 		for (int x = 0; x < _onScreenTilesColumns; x++)
 		{
-			vec2 tilingOffset(_cameraPosition.x / Tile::tileWidth, _cameraPosition.y / Tile::tileHeight);
-			Tile tile = getTile(_level[y + (int)tilingOffset.y][x + (int)tilingOffset.x]);
+			int levelRow = min(y + (int)tilingOffset.y, lastRow);
+			int levelColumn = min(x + (int)tilingOffset.x, lastColumn);
+
+			Tile tile = getTile(_level[levelRow][levelColumn]);
 
 			_onScreenTiles[y][x].tileType = tile.tileType;
 			for (int i = 0; i < Tile::vertexAmount * 2; i++, counter++)
@@ -277,49 +283,29 @@ void Tilemap::updateVerticesUV()
 
 void Tilemap::scrollView(float x, float y)
 {
-	vec2 previousCameraPos = _cameraPosition;
+	vec3 previousPos = _position;
 	float screenOffsetX = _renderer->getRenderWindow()->getWidth() / 2.0f;
 	float screenOffsetY = _renderer->getRenderWindow()->getHeight() / 2.0f;
-	float translateX = x;
-	float translateY = y;
+	float translateX = 0.0f;
+	float translateY = 0.0f;
 
-	if (_cameraPosition.x + x + screenOffsetX < _levelWidth)
-	{
-		if (_cameraPosition.x + x >= 0.0f)
-			_cameraPosition.x += x;
-		else
-		{
-			translateX = -_cameraPosition.x;
-			_cameraPosition.x = 0.0f;
-		}
-	}
+	cout << _position.x << endl;
+
+	if (_position.x + x + screenOffsetX < _levelWidth)
+		translateX = (_position.x + x > 0.0f) ? x : -_position.x;
 	else
-	{
-		translateX = _levelWidth - screenOffsetX - _cameraPosition.x;
-		_cameraPosition.x = _levelWidth - screenOffsetX;	
-	}
+		translateX = _levelWidth - screenOffsetX - _position.x;
 	
-	if (_cameraPosition.y + y + screenOffsetY < _levelHeight)
-	{
-		if (_cameraPosition.y + y >= 0.0f)
-			_cameraPosition.y += y;
-		else
-		{
-			translateY = -_cameraPosition.y;
-			_cameraPosition.y = 0.0f;
-		}
-	}
+	if (_position.y + y + screenOffsetY < _levelHeight)
+		translateY = (_position.y + y > 0.0f) ? y : -_position.y;
 	else
-	{
-		translateY = _levelHeight - screenOffsetY - _cameraPosition.y;
-		_cameraPosition.y = _levelHeight - screenOffsetY;
-	}
+		translateY = _levelHeight - screenOffsetY - _position.y;
 
-	if (_cameraPosition != previousCameraPos)
+	if (vec3(_position.x + translateX, _position.y + translateY, 0.0f) != previousPos)
 	{
 		translate(x, y, 0.0f);
 		updateVerticesUV();
-		_renderer->updateView(_cameraPosition.x, _cameraPosition.y);
+		_renderer->updateView(_position.x, _position.y);
 	}
 }
 
@@ -386,8 +372,8 @@ vec2 Tilemap::worldToGrid(float posX, float posY) const
 {
 	cout << "Tilemap::draw()" << endl;
 
-	unsigned int row = (_cameraPosition.y - posY) / Tile::tileHeight;
-	unsigned int col = (posX - _cameraPosition.x) / Tile::tileWidth;
+	unsigned int row = (_position.y - posY) / Tile::tileHeight;
+	unsigned int col = (posX - _position.x) / Tile::tileWidth;
 
 	return vec2(row, col);
 }
@@ -396,7 +382,7 @@ vec2 Tilemap::gridToWorld(unsigned int row, unsigned int col) const
 {
 	cout << "Tilemap::draw()" << endl;
 
-	float posX = col * Tile::tileWidth + _cameraPosition.x;
+	float posX = col * Tile::tileWidth + _position.x;
 	float posY = -(int)row * Tile::tileHeight + _renderer->getRenderWindow()->getHeight();
 
 	return vec2(posX, posY);

@@ -62,8 +62,6 @@ private:
 	unsigned int _levelRows;
 	unsigned int _levelColumns;
 
-	vec2 _cameraPosition;
-
 	int** loadLevelCSV(const string& levelPath);
 	Tile** loadTiles(unsigned int rows, unsigned int columns, int tileWidth, int tileHeight);
 	
