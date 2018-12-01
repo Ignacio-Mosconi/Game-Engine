@@ -289,8 +289,6 @@ void Tilemap::scrollView(float x, float y)
 	float translateX = 0.0f;
 	float translateY = 0.0f;
 
-	cout << _position.x << endl;
-
 	if (_position.x + x + screenOffsetX < _levelWidth)
 		translateX = (_position.x + x > 0.0f) ? x : -_position.x;
 	else
@@ -303,7 +301,7 @@ void Tilemap::scrollView(float x, float y)
 
 	if (vec3(_position.x + translateX, _position.y + translateY, 0.0f) != previousPos)
 	{
-		translate(x, y, 0.0f);
+		translate(translateX, translateY, 0.0f);
 		updateVerticesUV();
 		_renderer->updateView(_position.x, _position.y);
 	}
