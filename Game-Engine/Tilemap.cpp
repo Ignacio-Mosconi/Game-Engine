@@ -26,8 +26,12 @@ _vertexBufferID(-1), _uvBufferID(-1)
 	int windowWidth = _renderer->getRenderWindow()->getWidth();
 	int windowHeight = _renderer->getRenderWindow()->getHeight();
 
-	_onScreenTilesRows = (windowHeight % tileHeight == 0) ? windowHeight / tileHeight : windowHeight / tileHeight + 1;
-	_onScreenTilesColumns = (windowWidth % tileWidth == 0) ? windowWidth / tileWidth : windowWidth / tileWidth + 1;
+	_lastRowOffset = windowHeight % tileHeight;
+	_lastColumnOffset = windowWidth % tileWidth;
+	
+	_onScreenTilesRows = (_lastRowOffset == 0) ? windowHeight / tileHeight : windowHeight / tileHeight + 1;
+	_onScreenTilesColumns = (_lastColumnOffset == 0) ? windowWidth / tileWidth : windowWidth / tileWidth + 1;
+
 
 	_level = loadLevelCSV(levelPath);
 	_uvBufferData = createUvBuffer();
@@ -246,10 +250,34 @@ void Tilemap::setTileProperty(unsigned int tileIndex, TileType tileType)
 {
 	cout << "Tilemap::setTileProperty(tileIndex, tileType)" << endl;
 
-	unsigned int row = tileIndex / _tilesRows;
-	unsigned int column = tileIndex % _tilesColumns;
+	try
+	{
+		if (tileIndex > _tilesRows * _tilesColumns)
+			throw logic_error("Could not set the tile property because the tile index is out of range.");
+		
+		unsigned int row = tileIndex / _tilesRows;
+		unsigned int column = tileIndex % _tilesColumns;
 
-	_tiles[row][column].tileType = tileType;
+		_tiles[row][column].tileType = tileType;
+
+		vec2 tilingOffset((int)_position.x / Tile::tileWidth, (int)_position.y / Tile::tileHeight);
+		int lastRow = (int)_levelHeight / (int)Tile::tileHeight - 1;
+		int lastColumn = (int)_levelWidth / (int)Tile::tileWidth - 1;
+
+		for (int y = 0; y < _onScreenTilesRows; y++)
+			for (int x = 0; x < _onScreenTilesColumns; x++)
+			{
+				int levelRow = min(y + (int)tilingOffset.y, lastRow);
+				int levelColumn = min(x + (int)tilingOffset.x, lastColumn);
+				
+				if (_level[levelRow][levelColumn] == tileIndex)
+					_onScreenTiles[y][x].tileType = tileType;
+			}
+	}
+	catch (logic_error& exc)
+	{
+		cerr << exc.what() << endl;
+	}
 }
 
 void Tilemap::updateVerticesUV()
@@ -368,9 +396,9 @@ TileType Tilemap::getTileType(unsigned int row, unsigned int column) const
 
 vec2 Tilemap::worldToGrid(float posX, float posY) const
 {
-	cout << "Tilemap::draw()" << endl;
+	cout << "Tilemap::worldToGrid(posX, posY)" << endl;
 
-	unsigned int row = (_position.y - posY) / Tile::tileHeight;
+	unsigned int row = (_levelRows - 1) - (int)(posY - _position.y) / Tile::tileHeight;
 	unsigned int col = (posX - _position.x) / Tile::tileWidth;
 
 	return vec2(row, col);
@@ -378,10 +406,10 @@ vec2 Tilemap::worldToGrid(float posX, float posY) const
 
 vec2 Tilemap::gridToWorld(unsigned int row, unsigned int col) const
 {
-	cout << "Tilemap::draw()" << endl;
+	cout << "Tilemap::gridToWorld(row, column)" << endl;
 
 	float posX = col * Tile::tileWidth + _position.x;
-	float posY = -(int)row * Tile::tileHeight + _renderer->getRenderWindow()->getHeight();
+	float posY = -((int)(row - _levelRows + 1) * (int)Tile::tileHeight - _position.y) + _lastRowOffset;
 
 	return vec2(posX, posY);
 }

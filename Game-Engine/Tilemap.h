@@ -62,6 +62,9 @@ private:
 	unsigned int _levelRows;
 	unsigned int _levelColumns;
 
+	float _lastRowOffset;
+	float _lastColumnOffset;
+
 	int** loadLevelCSV(const string& levelPath);
 	Tile** loadTiles(unsigned int rows, unsigned int columns, int tileWidth, int tileHeight);
 	
@@ -70,7 +73,6 @@ private:
 	float* setOnScreenTilesVertices(int totalTiles) const;
 	float* createUvBuffer() const;
 	
-
 public:
 	Tilemap(Renderer* renderer, const string& tilesetPath, const string& levelPath,
 			int levelWidth, int levelHeight, int tileWidth, int tileHeight, unsigned int tilesetRows, unsigned int tilesetColumns);
@@ -85,7 +87,10 @@ public:
 
 	Tile getTile(unsigned int tileIndex) const;
 	TileType getTileType(unsigned int row, unsigned int column) const;
-	
+
 	vec2 worldToGrid(float posX, float posY) const;
 	vec2 gridToWorld(unsigned int row, unsigned int col) const;
+
+	float getLastRowOffset() { return _lastRowOffset; }
+	float getLastColumnOffset() { return _lastColumnOffset; }
 };

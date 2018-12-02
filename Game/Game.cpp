@@ -44,9 +44,9 @@ bool Game::onStart()
 	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_1_PATH, 3840, 720, 32, 32, 6, 6);
 
 	//_gameEntity1 = new GameEntity(_renderer, _tilemap, SPRITE_SHEET_TEXTURE_PATH, "Layer A", 
-									//128, 360, 2, 2, 256, 256, false, 2.0f);
+									//128, 500, 2, 2, 256, 256, false, 2.0f);
 	_gameEntity2 = new GameEntity(_renderer, _tilemap, NINJA_TEXTURE_PATH, "Layer B", 
-									128, 300, 6, 6, 96, 144, false, 4.0f);
+									280, 666, 6, 6, 96, 144, false, 4.0f);
 
 	//_gameEntity1->setBoundingBoxDimensions(200.0f, 200.0f);
 	_gameEntity2->setBoundingBoxDimensions(90.0f, 125.0f);
@@ -55,7 +55,7 @@ bool Game::onStart()
 	unsigned int framesWalk[6] = { 12, 13, 14, 15, 16, 17 };
 
 	//_gameEntity1Idle = new Animation(framesIdle, 24.0f, true);
-	_gameEntity2Walk = new Animation(framesWalk, 30.0f, true);
+	_gameEntity2Walk = new Animation(framesWalk, 24.0f, true);
 
 	//_gameEntity1->addAnimation(_gameEntity1Idle, "Idle");
 	_gameEntity2->addAnimation(_gameEntity2Walk, "Walking");
@@ -91,7 +91,8 @@ bool Game::onStart()
 	for (int i = 27; i < 31; i++)
 		_tilemap->setTileProperty(i, Wall);
 
-	_tilemap->updateVerticesUV();
+	//_tilemap->worldToGrid(0, 0);
+	//_tilemap->gridToWorld(20, 0);
 
 	return true;
 }
@@ -136,7 +137,7 @@ bool Game::onUpdate(float deltaTime)
 	_frame++;
 	cout << "Frame: " << _frame << endl;
 
-	float offset = 25.0f;
+	float offset = 15.0f;
 
 	_tilemap->scrollView(offset * deltaTime, 0.0f);
 
@@ -152,7 +153,7 @@ bool Game::onUpdate(float deltaTime)
 	//_circle->rotate(0, 0, -offset * deltaTime);
 
 	//_gameEntity1->move(0, -offset * deltaTime, 0);
-	_gameEntity2->move(offset * deltaTime, 0, 0);
+	_gameEntity2->move(offset * deltaTime, 0);
 
 	//_gameEntity1->update(deltaTime);
 	_gameEntity2->update(deltaTime);
