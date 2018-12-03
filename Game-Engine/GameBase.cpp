@@ -50,7 +50,7 @@ void GameBase::run()
 	bool update = true;
 	_lastTime = glfwGetTime();
 	
-	_renderer->setClearColor(0.0f, 0.25f, 0.0f, 1.0f);
+	_renderer->setClearColor(0.1f, 0.4f, 0.6f, 1.0f);
 
 	while (update && !_window->shouldClose())
 	{

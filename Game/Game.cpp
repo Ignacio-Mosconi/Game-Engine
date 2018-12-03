@@ -45,7 +45,7 @@ bool Game::onStart()
 	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_1_PATH, 3840, 720, 32, 32, 6, 6);
 
 	_gameEntity1 = new GameEntity(_renderer, _tilemap, SPRITE_SHEET_TEXTURE_PATH, "Layer A", 
-									600, 400, 2, 2, 128, 128, false, 2.0f);
+									600, 650, 2, 2, 128, 128, false, 2.0f);
 	_gameEntity2 = new GameEntity(_renderer, _tilemap, NINJA_TEXTURE_PATH, "Layer B", 
 									280, 666, 6, 6, 96, 144, false, 4.0f);
 
@@ -72,17 +72,17 @@ bool Game::onStart()
 		0.7f, 0.7f, 0.2f
 	};
 
-	_triangle->create(3, NULL, 100, 100);
-	_rectangle->create(3, rectangleColorData, 200, 200);
-	_circle->create(3, NULL, 75);
+	_triangle->create(3, NULL, 50, 50);
+	_rectangle->create(3, rectangleColorData, 100, 100);
+	_circle->create(3, NULL, 25);
 	_sprite->create(3, NULL, 128, 128);
 	_sprite->setFramesInfo(2, 2, 128, 128);
 	_sprite->setAnimationFrame(1);
 
-	_triangle->setPosition(200, 100, 0);
-	_rectangle->setPosition(300, 100, 0);
-	_circle->setPosition(600, 600, 0);
-	_sprite->setPosition(1152, 128, 0);
+	_triangle->setPosition(128, 256, 0);
+	_rectangle->setPosition(256, 128, 0);
+	_circle->setPosition(640, 0, 0);
+	_sprite->setPosition(1152, 272, 0);
 
 	_tilemap->setTileProperty(0, Background);
 	for (int i = 1; i < 6; i++)
@@ -140,27 +140,27 @@ bool Game::onUpdate(float deltaTime)
 	cout << "Frame: " << _frame << endl;
 	cout << deltaTime << endl;
 
-	float moveSpeed = 250.0f;
-	float cameraLeftBoundOffset = _renderer->getRenderWindow()->getWidth() / 5.0f;
+	float movementSpeed = 250.0f;
+	float rotationSpeed = 5.0f;
 
-
-	_triangle->translate(-moveSpeed * deltaTime, 0.0f, 0.0f);
-	_triangle->rotate(0.0f, 0.0f, moveSpeed * deltaTime);
+	_triangle->translate(movementSpeed * 0.1f * deltaTime, 0.0f, 0.0f);
+	_triangle->rotate(0.0f, 0.0f, rotationSpeed * deltaTime);
 	
-	_rectangle->translate(-moveSpeed * deltaTime, 0.0f, 0.0f);
-	_rectangle->rotate(0.0f, 0.0f, -moveSpeed * deltaTime);
+	_rectangle->translate(movementSpeed * 0.25f * deltaTime, 0.0f, 0.0f);
+	_rectangle->rotate(0.0f, 0.0f, -rotationSpeed * deltaTime);
 
-	_circle->translate(0.0f, moveSpeed * deltaTime, 0.0f);
-	_circle->rotate(0.0f, 0.0f, -moveSpeed * deltaTime);
+	_circle->translate(0.0f, movementSpeed * 0.3f * deltaTime, 0.0f);
+	_circle->rotate(0.0f, 0.0f, -rotationSpeed * deltaTime);
 
-	_gameEntity1->move(moveSpeed * deltaTime, 0.0f);
-	_gameEntity2->move(moveSpeed * deltaTime, 0.0f);
+	_gameEntity1->move(-movementSpeed * deltaTime, 0.0f);
+	_gameEntity2->move(movementSpeed * deltaTime, 0.0f);
 
 	_gameEntity1->update(deltaTime);
 	_gameEntity2->update(deltaTime);
 
 	CollisionManager::getInstance()->update();
 
+	float cameraLeftBoundOffset = _renderer->getRenderWindow()->getWidth() / 5.0f;
 	float tilemapHorScroll = _gameEntity2->getSprite()->getPosition().x - _tilemap->getPosition().x - cameraLeftBoundOffset;
 	
 	_tilemap->scrollView(tilemapHorScroll * deltaTime, 0.0f);
