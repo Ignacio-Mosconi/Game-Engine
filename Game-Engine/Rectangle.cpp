@@ -14,8 +14,6 @@ Rectangle::~Rectangle()
 
 void Rectangle::draw() const
 {
-	cout << "Rectangle::draw()" << endl;
-
 	Shape::draw();
 
 	_renderer->enableAttribute(0);
@@ -29,8 +27,6 @@ void Rectangle::draw() const
 
 float* Rectangle::setVertices(unsigned int vertexComponents, float width, float height) const
 {
-	cout << "Rectangle::setVertices(vertexComponents)" << endl;
-
 	float valueX = (float)width / 2;
 	float valueY = (float)height / 2;
 

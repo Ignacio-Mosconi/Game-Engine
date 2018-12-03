@@ -16,8 +16,6 @@ Material::~Material()
 
 unsigned int Material::loadShaders(const string& vertexShaderPath, const string& pixelShaderPath)
 {
-	cout << "Material::loadShaders(vertexShaderPath, pixelShaderPath)" << endl;
-
 	GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint pixelShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
@@ -103,8 +101,6 @@ unsigned int Material::loadShaders(const string& vertexShaderPath, const string&
 
 Material* Material::generateMaterial(const string& vertexShaderPath, const string& pixelShaderPath)
 {
-	cout << "Material::generateMaterial(vertexShaderPath, pixelShaderPath)" << endl;
-
 	Material* material = new Material;
 
 	material->_programID = material->loadShaders(vertexShaderPath, pixelShaderPath);
@@ -114,23 +110,17 @@ Material* Material::generateMaterial(const string& vertexShaderPath, const strin
 
 void Material::destroyMaterial(Material* material)
 {
-	cout << "Material::destroyMaterial(material)" << endl;
-
 	if (material)
 		delete material;
 }
 
 void Material::bind()
 {
-	cout << "Material::bind()" << endl;
-
 	glUseProgram(_programID);
 }
 
 void Material::setMatrixProperty(const char* propertyName, mat4& matrix)
 {
-	cout << "Material::serMatrixProperty(propertyName, matrix)" << endl;
-
 	_matrixID = glGetUniformLocation(_programID, propertyName);
 
 	glUniformMatrix4fv(_matrixID, 1, GL_FALSE, &matrix[0][0]);
@@ -138,16 +128,12 @@ void Material::setMatrixProperty(const char* propertyName, mat4& matrix)
 
 void Material::setTexture(Texture* texture, const char* propertyName)
 {
-	cout << "Material::setTexture(texture, propertyName)" << endl;
-
 	_texture = texture;
 	_textureID = glGetUniformLocation(_programID, propertyName);
 }
 
 void Material::bindTexture()
 {
-	cout << "Material::bindTexture()" << endl;
-
 	if (_textureID != -1)
 	{
 		glActiveTexture(GL_TEXTURE0);

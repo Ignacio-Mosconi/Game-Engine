@@ -17,8 +17,6 @@ Circle::~Circle()
 
 void Circle::draw() const
 {
-	cout << "Circle::draw()" << endl;
-
 	Shape::draw();
 
 	_renderer->enableAttribute(0);
@@ -29,8 +27,6 @@ void Circle::draw() const
 
 float* Circle::setVertices(unsigned int vertexComponents,float width, float height) const
 {
-	cout << "Circle::setVertices(vertexComponents)" << endl;
-
 	float angle = 0;
 	float* vertexBufferData = new float[_vertexCount * vertexComponents];
 

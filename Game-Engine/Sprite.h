@@ -32,6 +32,6 @@ public:
 
 	void draw() const override;
 
-	inline unsigned int getFrameWidth() { return _frameWidth; }
-	inline unsigned int getFrameHeight() { return _frameHeight; }
+	inline unsigned int getFrameWidth() const { return _frameWidth; }
+	inline unsigned int getFrameHeight() const { return _frameHeight; }
 };

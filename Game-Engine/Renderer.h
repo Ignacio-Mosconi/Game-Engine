@@ -64,5 +64,5 @@ public:
 	void updateView(float x, float y);
 
 	inline mat4& getMVP() { return _mvp; }
-	inline Window* getRenderWindow() { return _renderWindow;  }
+	inline Window* getRenderWindow() const { return _renderWindow;  }
 };

@@ -18,8 +18,6 @@ Shape::~Shape()
 
 bool Shape::create(unsigned int vertexComponents, float* colorBufferData, float width, float height)
 {
-	cout << "Shape::create(vertexComponents, colorBufferData)" << endl;
-
 	if (_vertexBufferID != -1)
 		dispose();
 
@@ -37,8 +35,6 @@ bool Shape::create(unsigned int vertexComponents, float* colorBufferData, float 
 
 float* Shape::setVerticesColor(float* colorBufferData, unsigned int vertexComponents) const
 {
-	cout << "Shape::setVerticesColor(colorBufferData, vertexComponents)" << endl;
-
 	int arrayLength = _vertexCount * vertexComponents;
 	float* newColorBufferData = new float[arrayLength];
 
@@ -50,8 +46,6 @@ float* Shape::setVerticesColor(float* colorBufferData, unsigned int vertexCompon
 
 bool Shape::dispose()
 {
-	cout << "Shape::dispose()" << endl;
-
 	bool wasDisposed = false;
 
 	if (_vertexBufferID != -1)
@@ -73,8 +67,6 @@ bool Shape::dispose()
 
 void Shape::draw() const
 {
-	cout << "Shape::draw()" << endl;
-
 	_renderer->loadIdentityMatrix();
 	_renderer->setModelMatrix(_modelMatrix);
 

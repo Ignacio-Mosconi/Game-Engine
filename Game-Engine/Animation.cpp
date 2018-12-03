@@ -6,15 +6,20 @@ _frames(new queue<unsigned int>),
 _currentFrame(0), _lastFrame(0), _speed(speed), _frameTime(1.0f / speed),
 _looped(looped), _stopped(true), _finished(false), _timer(0.0f)
 {
+	cout << "Animation::Animation()" << endl;
+
 	unsigned int arraySize = sizeof(frames) / sizeof(unsigned int);
 
 	for (int i = 0; i < arraySize; i++)
 		_frames->push(frames[i]);
+	_currentFrame = _frames->front();
 	_lastFrame = _frames->back();
 }
 
 Animation::~Animation()
 {
+	cout << "Animation::~Animation()" << endl;
+
 	delete _frames;
 }
 

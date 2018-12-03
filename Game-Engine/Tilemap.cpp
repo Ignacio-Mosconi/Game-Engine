@@ -65,8 +65,6 @@ Tilemap::~Tilemap()
 
 int** Tilemap::loadLevelCSV(const string& levelPath)
 {
-	cout << "Tilemap::loadLevelCSV(levelPath)" << endl;
-
 	try
 	{
 		ifstream levelFile;
@@ -138,8 +136,6 @@ int** Tilemap::loadLevelCSV(const string& levelPath)
 
 Tile** Tilemap::loadTiles(unsigned int rows, unsigned int columns, int tileWidth, int tileHeight)
 {	
-	cout << "Tilemap::loadTiles(rows, columns)" << endl;
-
 	_tilesRows = rows;
 	_tilesColumns = columns;
 
@@ -172,8 +168,6 @@ Tile** Tilemap::loadTiles(unsigned int rows, unsigned int columns, int tileWidth
 
 Tile** Tilemap::createOnScreenTiles()
 {
-	cout << "Tilemap::createOnScreenTiles()" << endl;
-
 	Tile** onScreenTiles = new Tile*[_onScreenTilesRows];
 
 	for (int i = 0; i < _onScreenTilesRows; i++)
@@ -191,8 +185,6 @@ Tile** Tilemap::createOnScreenTiles()
 
 float* Tilemap::setOnScreenTilesVertices(int totalTiles) const
 {
-	cout << "Tilemap::setOnScreenTilesVerices(int totalTiles)" << endl;
-
 	float* vertexBufferData = new float[Tile::vertexAmount * Tile::vertexComponents * totalTiles];
 
 	int counter = 0;
@@ -222,8 +214,6 @@ float* Tilemap::setOnScreenTilesVertices(int totalTiles) const
 
 float* Tilemap::createUvBuffer() const
 {
-	cout << "Tilemap::createUVBuffer()" << endl;
-
 	int totalTiles = _onScreenTilesRows * _onScreenTilesColumns;
 
 	float* uvBufferData = new float[Tile::vertexAmount * 2 * totalTiles];
@@ -248,8 +238,6 @@ float* Tilemap::createUvBuffer() const
 
 void Tilemap::setTileProperty(unsigned int tileIndex, TileType tileType)
 {
-	cout << "Tilemap::setTileProperty(tileIndex, tileType)" << endl;
-
 	try
 	{
 		if (tileIndex > _tilesRows * _tilesColumns)
@@ -282,8 +270,6 @@ void Tilemap::setTileProperty(unsigned int tileIndex, TileType tileType)
 
 void Tilemap::updateVerticesUV()
 {
-	cout << "Tilemap::updateVerticesUV()" << endl;
-
 	int totalTiles = _onScreenTilesRows * _onScreenTilesColumns;
 	int uvBufferSize = sizeof(float) * Tile::vertexAmount * 2 * totalTiles;
 
@@ -337,8 +323,6 @@ void Tilemap::scrollView(float x, float y)
 
 void Tilemap::draw() const
 {
-	cout << "Tilemap::draw()" << endl;
-
 	_renderer->loadIdentityMatrix();
 	_renderer->setModelMatrix(_modelMatrix);
 
@@ -361,8 +345,6 @@ void Tilemap::draw() const
 
 Tile Tilemap::getTile(unsigned int tileIndex) const
 {
-	//cout << "Tilemap::getTile(tileIndex)" << endl;
-
 	try
 	{
 		if (tileIndex >= _tilesRows * _tilesColumns)
@@ -396,8 +378,6 @@ TileType Tilemap::getTileType(unsigned int row, unsigned int column) const
 
 vec2 Tilemap::worldToGrid(float posX, float posY) const
 {
-	cout << "Tilemap::worldToGrid(posX, posY)" << endl;
-
 	unsigned int row = (_levelRows - 1) - (int)(posY - _position.y) / Tile::tileHeight;
 	unsigned int col = (posX - _position.x) / Tile::tileWidth;
 
@@ -406,8 +386,6 @@ vec2 Tilemap::worldToGrid(float posX, float posY) const
 
 vec2 Tilemap::gridToWorld(unsigned int row, unsigned int col) const
 {
-	cout << "Tilemap::gridToWorld(row, column)" << endl;
-
 	float posX = col * Tile::tileWidth + _position.x;
 	float posY = -((int)(row - _levelRows + 1) * (int)Tile::tileHeight - _position.y) + _lastRowOffset;
 

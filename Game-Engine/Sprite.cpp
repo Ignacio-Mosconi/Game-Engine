@@ -18,8 +18,6 @@ Sprite::~Sprite()
 
 bool Sprite::create(unsigned int vertexComponents, float* colorBufferData, float width, float height)
 {
-	cout << "Sprite::create(vertexComponents, colorBufferData)" << endl;
-
 	int uvBufferSize = sizeof(float) * _vertexCount * 2;
 
 	_uvBufferData = setVerticesUV(0, 0);
@@ -30,8 +28,6 @@ bool Sprite::create(unsigned int vertexComponents, float* colorBufferData, float
 
 float* Sprite::setVertices(unsigned int vertexComponents, float width, float height) const
 {
-	cout << "Sprite::setVertices(vertexComponents)" << endl;
-
 	float valueX = (float)width / 2;
 	float valueY = (float)height / 2;
 
@@ -48,8 +44,6 @@ float* Sprite::setVertices(unsigned int vertexComponents, float width, float hei
 
 float* Sprite::setVerticesUV(unsigned int x, unsigned int y) const
 {
-	cout << "Sprite::setVerticesUV()" << endl;
-
 	float minU = (float)x / (float)_material->getTextureWidth();
 	float maxU = (float)(x + _frameWidth) / (float)_material->getTextureWidth();
 	float minV = 1.0f - (float)(y + _frameHeight) / (float)_material->getTextureHeight();
@@ -68,8 +62,6 @@ float* Sprite::setVerticesUV(unsigned int x, unsigned int y) const
 
 void Sprite::setAnimationFrame(unsigned int frameID)
 {
-	cout << "Sprite::setAnimationFrame(frameID)" << endl;
-
 	_frameID = frameID;
 	
 	int uvBufferSize = sizeof(float) * _vertexCount * 2;
@@ -82,8 +74,6 @@ void Sprite::setAnimationFrame(unsigned int frameID)
 
 void Sprite::setFramesInfo(unsigned int rows, unsigned int columns, unsigned int frameWidth, unsigned int frameHeight)
 {
-	cout << "Sprite::setFrameInfo(rows, columns, frameWidth, frameHeight)" << endl;
-
 	_rows = rows;
 	_columns = columns;
 	_frameWidth = frameWidth;
@@ -92,8 +82,6 @@ void Sprite::setFramesInfo(unsigned int rows, unsigned int columns, unsigned int
 
 void Sprite::draw() const
 {
-	cout << "Sprite::draw()" << endl;
-
 	Shape::draw();
 
 	_renderer->enableBlend();

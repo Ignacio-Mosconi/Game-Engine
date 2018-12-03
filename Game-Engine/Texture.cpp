@@ -15,8 +15,6 @@ Texture::~Texture()
 
 unsigned int Texture::loadBMP(const string& imagePath)
 {
-	cout << "Texture::loadBMP(imagePath)" << endl;
-
 	try
 	{
 		ifstream bmpFile;
@@ -70,8 +68,6 @@ unsigned int Texture::loadBMP(const string& imagePath)
 
 Texture* Texture::generateTextureBMP(const string& imagePath)
 {
-	cout << "Texture::generateTextureBMP(imagePath)" << endl;
-
 	Texture* texture = new Texture;
 
 	texture->_textureID = texture->loadBMP(imagePath);
@@ -81,8 +77,6 @@ Texture* Texture::generateTextureBMP(const string& imagePath)
 
 void Texture::destroyTexture(Texture* texture)
 {
-	cout << "Texture::destroyTexture(texture)" << endl;
-
 	if (texture)
 		delete texture;
 }

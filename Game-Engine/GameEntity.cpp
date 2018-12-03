@@ -55,8 +55,6 @@ GameEntity::~GameEntity()
 Sprite* GameEntity::createSprite(Renderer* renderer, const string& imagePath, int spriteRows, int spriteColumns, 
 								int frameWidth, int frameHeight)
 {
-	cout << "GameEntity::createSprite(renderer, imagePath)" << endl;
-
 	_material = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
 	_texture = Texture::generateTextureBMP(imagePath);
 	_material->setTexture(_texture, "textureSampler");
@@ -88,16 +86,12 @@ void GameEntity::addAnimation(Animation* animation, const string& animName)
 
 void GameEntity::setBoundingBoxDimensions(float width, float height)
 {
-	cout << "GameEntity::setBoundingBoxDimensions(width, height)" << endl;
-
 	_boundingBox->setWidth(width);
 	_boundingBox->setHeight(height);
 }
 
 void GameEntity::move(float x, float y, float z)
 {
-	cout << "GameEntity::move(x, y, z)" << endl;
-
 	_sprite->translate(x, y, z);
 
 	float horOffset = _boundingBox->getWidth() / 2.0f;
@@ -179,8 +173,6 @@ void GameEntity::move(float x, float y, float z)
 
 void GameEntity::update(float deltaTime)
 {
-	cout << "GameEntity::update()" << endl;
-
 	map<string, Animation*>::iterator mapIt;
 	for (mapIt = _animations.begin(); mapIt != _animations.end(); mapIt++)
 		mapIt->second->update(deltaTime);
@@ -188,7 +180,5 @@ void GameEntity::update(float deltaTime)
 
 void GameEntity::draw() const
 {
-	cout << "GameEntity::draw()" << endl;
-
 	_sprite->draw();
 }

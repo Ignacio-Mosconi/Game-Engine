@@ -28,6 +28,7 @@ private:
 
 	Material();
 	~Material();
+	
 	unsigned int loadShaders(const string& vertexShaderPath, const string& pixelShaderPath);
 
 public:

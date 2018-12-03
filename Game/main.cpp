@@ -14,6 +14,7 @@ int main()
 
 	delete game;
 
+	cout << "The Game-Engine demo has ended." << endl;
 	cin.get();
 	return 0;
 }

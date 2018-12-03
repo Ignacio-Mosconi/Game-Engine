@@ -14,8 +14,6 @@ Triangle::~Triangle()
 
 void Triangle::draw() const
 {
-	cout << "Triangle::draw()" << endl;
-	
 	Shape::draw();
 
 	_renderer->enableAttribute(0);
@@ -26,8 +24,6 @@ void Triangle::draw() const
 
 float* Triangle::setVertices(unsigned int vertexComponents, float width, float height) const
 {
-	cout << "Triangle::setVertices(vertexComponents)" << endl;
-
 	float valueX = (float)width / 2;
 	float valueY = (float)height / 2;
 

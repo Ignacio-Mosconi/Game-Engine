@@ -16,8 +16,6 @@ CollisionManager::~CollisionManager()
 
 CollisionManager* CollisionManager::getInstance()
 {
-	cout << "CollisionManager::getInstance()" << endl;
-
 	if (!_instance)
 		_instance = new CollisionManager;
 
@@ -26,23 +24,17 @@ CollisionManager* CollisionManager::getInstance()
 
 void CollisionManager::deleteInstance()
 {
-	cout << "CollisionManager::deleteInstance()" << endl;
-
 	if (_instance)
 		delete _instance;
 }
 
 void CollisionManager::registerBoundingBox(BoundingBox* box, const string& layer)
 {	
-	cout << "CollisionManager::registerBoundingBox(box, layer)" << endl;
-
 	_collisionLayers[layer].push_back(box);
 }
 
 bool CollisionManager::deregisterBoundingBox(BoundingBox* box)
 {	
-	cout << "CollisionManager::deregisterBoundingBox(box, layer)" << endl;
-
 	bool wasDeregistered = false;
 
 	map<string, vector<BoundingBox*>>::iterator mapIt;
@@ -66,8 +58,6 @@ bool CollisionManager::deregisterBoundingBox(BoundingBox* box)
 
 void CollisionManager::update()
 {
-	cout << "CollisionManager::update()" << endl;
-
 	map<string, vector<BoundingBox*>>::iterator mapItA;
 	map<string, vector<BoundingBox*>>::iterator mapItB;
 	vector<BoundingBox*>::iterator vecItA;

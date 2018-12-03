@@ -91,6 +91,6 @@ public:
 	vec2 worldToGrid(float posX, float posY) const;
 	vec2 gridToWorld(unsigned int row, unsigned int col) const;
 
-	float getLastRowOffset() { return _lastRowOffset; }
-	float getLastColumnOffset() { return _lastColumnOffset; }
+	float getLastRowOffset() const { return _lastRowOffset; }
+	float getLastColumnOffset() const { return _lastColumnOffset; }
 };

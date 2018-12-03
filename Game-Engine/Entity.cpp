@@ -18,15 +18,11 @@ Entity::~Entity()
 
 void Entity::updateModelMatrix()
 {
-	cout << "Entity::updateModelMatrix()" << endl;
-
 	_modelMatrix = _traMatrix * _rotMatrix * _scaMatrix;
 }
 
 void Entity::setPosition(float x, float y, float z)
 {
-	cout << "Entity::setPosition(x, y, z)" << endl;
-
 	_position = vec3(x, y, z);
 	
 	_traMatrix = glm::translate(mat4(1.0f), _position);
@@ -36,8 +32,6 @@ void Entity::setPosition(float x, float y, float z)
 
 void Entity::setRotation(float x, float y, float z)
 {
-	cout << "Entity::setRotation(x, y, z)" << endl;
-
 	_rotation = vec3(x, y, z);
 
 	mat4 rotationX = glm::rotate(mat4(1.0f), x, vec3(1, 0, 0));
@@ -51,8 +45,6 @@ void Entity::setRotation(float x, float y, float z)
 
 void Entity::setScale(float x, float y, float z)
 {
-	cout << "Entity::setScale(x, y, z)" << endl;
-
 	_scale = vec3(x, y, z);
 
 	_scaMatrix = glm::scale(mat4(1.0f), _scale);
@@ -62,8 +54,6 @@ void Entity::setScale(float x, float y, float z)
 
 void Entity::translate(float x, float y, float z)
 {
-	cout << "Entity::translate(x, y, z)" << endl;
-
 	_position += vec3(x, y, z);
 
 	_traMatrix = glm::translate(mat4(1.0f), _position);
@@ -73,8 +63,6 @@ void Entity::translate(float x, float y, float z)
 
 void Entity::rotate(float x, float y, float z)
 {
-	cout << "Entity::rotate(x, y, z)" << endl;
-
 	_rotation += vec3(x, y, z);
 
 	mat4 rotationX = glm::rotate(mat4(1.0f), _rotation.x, vec3(1, 0, 0));
@@ -88,8 +76,6 @@ void Entity::rotate(float x, float y, float z)
 
 void Entity::scale(float x, float y, float z)
 {
-	cout << "Entity::scale(x, y, z)" << endl;
-
 	_scale += vec3(x, y, z);
 
 	_scaMatrix = glm::scale(mat4(1.0f), _scale);

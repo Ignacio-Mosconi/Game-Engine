@@ -13,15 +13,11 @@ BoundingBox::~BoundingBox()
 
 void BoundingBox::attachToEntity(Entity* entity)
 {
-	cout << "BoundingBox::attachToEnitity()" << endl;
-
 	_entityAttached = entity;
 }
 
 void BoundingBox::onCollision(BoundingBox* collider, float penetration, CollisionDir direction)
-{
-	cout << "BoundingBox::onCollision()" << endl;
-	
+{	
 	if (!_staticObject)
 	{
 		if (collider->isStatic())
@@ -68,8 +64,6 @@ void BoundingBox::onCollision(BoundingBox* collider, float penetration, Collisio
 
 void BoundingBox::setPhysicalProperties(bool staticObject, float mass)
 {
-	cout << "BoundingBox::setPhysicalProperties(staticObject, mass)" << endl;
-
 	_staticObject = staticObject;
 	_mass = mass;
 }
