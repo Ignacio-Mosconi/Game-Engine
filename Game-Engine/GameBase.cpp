@@ -48,14 +48,16 @@ void GameBase::run()
 	cout << "GameBase::run()" << endl;
 
 	bool update = true;
-	double currentTime = glfwGetTime();
-	float deltaTime = currentTime - _lastTime;
-	_lastTime = currentTime;
+	_lastTime = glfwGetTime();
 	
 	_renderer->setClearColor(0.0f, 0.25f, 0.0f, 1.0f);
 
 	while (update && !_window->shouldClose())
 	{
+		double currentTime = glfwGetTime();
+		float deltaTime = currentTime - _lastTime;
+		_lastTime = currentTime;
+
 		update = onUpdate(deltaTime);
 
 		_renderer->clearScreen();

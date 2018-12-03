@@ -45,7 +45,7 @@ bool Game::onStart()
 	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_1_PATH, 3840, 720, 32, 32, 6, 6);
 
 	_gameEntity1 = new GameEntity(_renderer, _tilemap, SPRITE_SHEET_TEXTURE_PATH, "Layer A", 
-									1200, 650, 2, 2, 128, 128, false, 2.0f);
+									600, 650, 2, 2, 128, 128, false, 2.0f);
 	_gameEntity2 = new GameEntity(_renderer, _tilemap, NINJA_TEXTURE_PATH, "Layer B", 
 									280, 666, 6, 6, 96, 144, false, 4.0f);
 
@@ -55,8 +55,8 @@ bool Game::onStart()
 	unsigned int framesIdle[2] = { 0, 1 };
 	unsigned int framesWalk[6] = { 12, 13, 14, 15, 16, 17 };
 	
-	_gameEntity1Idle = new Animation(framesIdle, 1.0f, true);
-	_gameEntity2Walk = new Animation(framesWalk, 2.0f, true);
+	_gameEntity1Idle = new Animation(framesIdle, 6.0f, true);
+	_gameEntity2Walk = new Animation(framesWalk, 6.0f, true);
 
 	_gameEntity1->addAnimation(_gameEntity1Idle, "Idle");
 	_gameEntity2->addAnimation(_gameEntity2Walk, "Walking");
@@ -136,7 +136,7 @@ bool Game::onUpdate(float deltaTime)
 	cout << "Frame: " << _frame << endl;
 	cout << deltaTime << endl;
 
-	float moveSpeed = 5.0f;
+	float moveSpeed = 200.0f;
 	float cameraLeftBoundOffset = _renderer->getRenderWindow()->getWidth() / 5.0f;
 	float tilemapHorScroll = _gameEntity2->getSprite()->getPosition().x - _tilemap->getPosition().x - cameraLeftBoundOffset;
 
@@ -151,7 +151,7 @@ bool Game::onUpdate(float deltaTime)
 	_circle->translate(0.0f, moveSpeed * deltaTime, 0.0f);
 	_circle->rotate(0.0f, 0.0f, -moveSpeed * deltaTime);
 
-	_gameEntity1->move(moveSpeed * deltaTime, 0.0f);
+	_gameEntity1->move(-moveSpeed * deltaTime, 0.0f);
 	_gameEntity2->move(moveSpeed * deltaTime, 0.0f);
 
 	_gameEntity1->update(deltaTime);
