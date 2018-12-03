@@ -74,7 +74,7 @@ Sprite* GameEntity::createSprite(Renderer* renderer, const string& imagePath, in
 void GameEntity::createBoundingBox(float width, float height, bool isStatic, float mass, const string& collisionLayer)
 {
 	_boundingBox = new BoundingBox(width, height, isStatic, mass);
-	_boundingBox->attachToEntity(_sprite);
+	_boundingBox->attachToGameEntity(this);
 	CollisionManager::getInstance()->registerBoundingBox(_boundingBox, collisionLayer);
 }
 

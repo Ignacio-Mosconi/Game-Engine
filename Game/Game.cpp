@@ -45,11 +45,11 @@ bool Game::onStart()
 	_tilemap = new Tilemap(_renderer, TILESET_TEXTURE_PATH, LEVEL_1_PATH, 3840, 720, 32, 32, 6, 6);
 
 	_gameEntity1 = new GameEntity(_renderer, _tilemap, SPRITE_SHEET_TEXTURE_PATH, "Layer A", 
-									600, 650, 2, 2, 128, 128, false, 2.0f);
+									600, 400, 2, 2, 128, 128, false, 2.0f);
 	_gameEntity2 = new GameEntity(_renderer, _tilemap, NINJA_TEXTURE_PATH, "Layer B", 
 									280, 666, 6, 6, 96, 144, false, 4.0f);
 
-	_gameEntity1->setBoundingBoxDimensions(100.0f, 100.0f);
+	_gameEntity1->setBoundingBoxDimensions(120.0f, 120.0f);
 	_gameEntity2->setBoundingBoxDimensions(90.0f, 125.0f);
 
 	unsigned int framesIdle[2] = { 0, 1 };
@@ -87,9 +87,13 @@ bool Game::onStart()
 	_tilemap->setTileProperty(0, Background);
 	for (int i = 1; i < 6; i++)
 		_tilemap->setTileProperty(i, Wall);	
-	for (int i = 6; i < 27; i++)
+	for (int i = 6; i < 19; i++)
 		_tilemap->setTileProperty(i, Background);
-	for (int i = 27; i < 31; i++)
+	for (int i = 19; i < 23; i++)
+		_tilemap->setTileProperty(i, Wall);
+	for (int i = 23; i < 26; i++)
+		_tilemap->setTileProperty(i, Background);
+	for (int i = 26; i < 31; i++)
 		_tilemap->setTileProperty(i, Wall);
 
 	return true;
@@ -136,10 +140,10 @@ bool Game::onUpdate(float deltaTime)
 	cout << "Frame: " << _frame << endl;
 	cout << deltaTime << endl;
 
-	float moveSpeed = 200.0f;
+	float moveSpeed = 250.0f;
 	float cameraLeftBoundOffset = _renderer->getRenderWindow()->getWidth() / 5.0f;
 	float tilemapHorScroll = _gameEntity2->getSprite()->getPosition().x - _tilemap->getPosition().x - cameraLeftBoundOffset;
-
+	
 	_tilemap->scrollView(tilemapHorScroll, 0.0f);
 
 	_triangle->translate(-moveSpeed * deltaTime, 0.0f, 0.0f);
@@ -151,7 +155,7 @@ bool Game::onUpdate(float deltaTime)
 	_circle->translate(0.0f, moveSpeed * deltaTime, 0.0f);
 	_circle->rotate(0.0f, 0.0f, -moveSpeed * deltaTime);
 
-	_gameEntity1->move(-moveSpeed * deltaTime, 0.0f);
+	_gameEntity1->move(moveSpeed * deltaTime, 0.0f);
 	_gameEntity2->move(moveSpeed * deltaTime, 0.0f);
 
 	_gameEntity1->update(deltaTime);

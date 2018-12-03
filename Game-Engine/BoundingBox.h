@@ -13,15 +13,18 @@ enum CollisionDir
 	Left, Right, Up, Down
 };
 
+class GameEntity;
+
 /*
 The "BoundingBox" is a box collider that is used as a way of detecting collisions between entities;
-each of these must be attached to an "Entity", as well as be registered inside the "CollisionManger" class.
+each of these must be attached to an "Entity", as well as be registered inside the "CollisionManager" class.
 */
 
 class ENGINE_API BoundingBox
 {
 private:
 	Entity* _entityAttached;
+	GameEntity* _gameEntityAttached;
 	bool _staticObject;
 	float _width;
 	float _height;
@@ -32,6 +35,7 @@ public:
 	~BoundingBox();
 
 	void attachToEntity(Entity* entity);
+	void attachToGameEntity(GameEntity* entity);
 	void onCollision(BoundingBox* collider, float penetration, CollisionDir direction);
 	void setPhysicalProperties(bool staticObject, float mass);
 

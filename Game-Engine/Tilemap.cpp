@@ -298,8 +298,8 @@ void Tilemap::updateVerticesUV()
 void Tilemap::scrollView(float x, float y)
 {
 	vec3 previousPos = _position;
-	float screenOffsetX = _renderer->getRenderWindow()->getWidth() / 2.0f;
-	float screenOffsetY = _renderer->getRenderWindow()->getHeight() / 2.0f;
+	float screenOffsetX = _renderer->getRenderWindow()->getWidth();
+	float screenOffsetY = _renderer->getRenderWindow()->getHeight();
 	float translateX = 0.0f;
 	float translateY = 0.0f;
 
@@ -365,10 +365,10 @@ TileType Tilemap::getTileType(unsigned int row, unsigned int column) const
 {
 	try
 	{
-		if (row * column > _onScreenTilesRows * _onScreenTilesColumns)
-			throw logic_error("The tile that is trying to be accessed is out of the screen range.");
+		if (row * column > _levelRows * _levelColumns)
+			throw logic_error("The tile that is trying to be accessed is out of the level boundaries.");
 		
-		return _onScreenTiles[row][column].tileType;
+		return getTile(_level[row][column]).tileType;
 	}
 	catch (logic_error& exc)
 	{
@@ -378,16 +378,16 @@ TileType Tilemap::getTileType(unsigned int row, unsigned int column) const
 
 vec2 Tilemap::worldToGrid(float posX, float posY) const
 {
-	unsigned int row = (_levelRows - 1) - (int)(posY - _position.y) / Tile::tileHeight;
-	unsigned int col = (posX - _position.x) / Tile::tileWidth;
+	unsigned int row = (_levelRows - 1) - (int)posY / Tile::tileHeight;
+	unsigned int col = posX / Tile::tileWidth;
 
 	return vec2(row, col);
 }
 
 vec2 Tilemap::gridToWorld(unsigned int row, unsigned int col) const
 {
-	float posX = col * Tile::tileWidth + _position.x;
-	float posY = -((int)(row - _levelRows + 1) * (int)Tile::tileHeight - _position.y) + _lastRowOffset;
+	float posX = col * Tile::tileWidth;
+	float posY = -((int)(row - _levelRows + 1) * (int)Tile::tileHeight) + _lastRowOffset;
 
 	return vec2(posX, posY);
 }
