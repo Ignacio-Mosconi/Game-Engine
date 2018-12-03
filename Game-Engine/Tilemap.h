@@ -65,6 +65,8 @@ private:
 	float _lastRowOffset;
 	float _lastColumnOffset;
 
+	vec2 _accumulatedTranslation;
+
 	int** loadLevelCSV(const string& levelPath);
 	Tile** loadTiles(unsigned int rows, unsigned int columns, int tileWidth, int tileHeight);
 	

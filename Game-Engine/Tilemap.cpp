@@ -29,9 +29,8 @@ _vertexBufferID(-1), _uvBufferID(-1)
 	_lastRowOffset = windowHeight % tileHeight;
 	_lastColumnOffset = windowWidth % tileWidth;
 	
-	_onScreenTilesRows = (_lastRowOffset == 0) ? windowHeight / tileHeight : windowHeight / tileHeight + 1;
-	_onScreenTilesColumns = (_lastColumnOffset == 0) ? windowWidth / tileWidth : windowWidth / tileWidth + 1;
-
+	_onScreenTilesRows = windowHeight / tileHeight + 1;
+	_onScreenTilesColumns = windowWidth / tileWidth + 1;
 
 	_level = loadLevelCSV(levelPath);
 	_uvBufferData = createUvBuffer();
@@ -297,27 +296,52 @@ void Tilemap::updateVerticesUV()
 
 void Tilemap::scrollView(float x, float y)
 {
-	vec3 previousPos = _position;
 	float screenOffsetX = _renderer->getRenderWindow()->getWidth();
 	float screenOffsetY = _renderer->getRenderWindow()->getHeight();
 	float translateX = 0.0f;
 	float translateY = 0.0f;
 
-	if (_position.x + x + screenOffsetX < _levelWidth)
-		translateX = (_position.x + x > 0.0f) ? x : -_position.x;
+	if (_position.x + _accumulatedTranslation.x + x < _levelWidth - screenOffsetX)
+		translateX = (_position.x + _accumulatedTranslation.x + x > 0.0f) ? x : -(_position.x + _accumulatedTranslation.x);
 	else
-		translateX = _levelWidth - screenOffsetX - _position.x;
+		translateX = _levelWidth - screenOffsetX - _position.x - _accumulatedTranslation.x;
 	
-	if (_position.y + y + screenOffsetY < _levelHeight)
-		translateY = (_position.y + y > 0.0f) ? y : -_position.y;
+	if (_position.y + _accumulatedTranslation.y + y < _levelHeight - screenOffsetY)
+		translateY = (_position.y + _accumulatedTranslation.y + y > 0.0f) ? y : -(_position.y + _accumulatedTranslation.y);
 	else
-		translateY = _levelHeight - screenOffsetY - _position.y;
+		translateY = _levelHeight - screenOffsetY - _position.y - _accumulatedTranslation.y;
 
-	if (vec3(_position.x + translateX, _position.y + translateY, 0.0f) != previousPos)
+	_accumulatedTranslation.x += translateX;
+	_accumulatedTranslation.y += translateY;
+
+	_renderer->updateView(_position.x + _accumulatedTranslation.x, _position.y + _accumulatedTranslation.y);
+
+	float accumTransX = abs(_accumulatedTranslation.x);
+	float accumTransY = abs(_accumulatedTranslation.y);
+	
+	if (accumTransX >= Tile::tileWidth || accumTransY >= Tile::tileHeight)
 	{
-		translate(translateX, translateY, 0.0f);
+		if (accumTransX >= Tile::tileWidth)
+		{
+			translate(Tile::tileWidth, 0.0f, 0.0f);
+			
+			if (_accumulatedTranslation.x >= 0.0f)
+				_accumulatedTranslation.x -= Tile::tileWidth;
+			else
+				_accumulatedTranslation.x += Tile::tileWidth;
+
+		}
+
+		if (accumTransY >= Tile::tileHeight)
+		{
+			translate(0.0f, Tile::tileHeight, 0.0f);
+			if (_accumulatedTranslation.y >= 0.0f)
+				_accumulatedTranslation.y -= Tile::tileHeight;
+			else
+				_accumulatedTranslation.y += Tile::tileHeight;
+		}
+
 		updateVerticesUV();
-		_renderer->updateView(_position.x, _position.y);
 	}
 }
 
@@ -365,7 +389,7 @@ TileType Tilemap::getTileType(unsigned int row, unsigned int column) const
 {
 	try
 	{
-		if (row * column > _levelRows * _levelColumns)
+		if (row >= _levelRows || (int)row < 0 || column >= _levelColumns || (int)column < 0)
 			throw logic_error("The tile that is trying to be accessed is out of the level boundaries.");
 		
 		return getTile(_level[row][column]).tileType;

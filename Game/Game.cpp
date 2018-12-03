@@ -142,9 +142,7 @@ bool Game::onUpdate(float deltaTime)
 
 	float moveSpeed = 250.0f;
 	float cameraLeftBoundOffset = _renderer->getRenderWindow()->getWidth() / 5.0f;
-	float tilemapHorScroll = _gameEntity2->getSprite()->getPosition().x - _tilemap->getPosition().x - cameraLeftBoundOffset;
-	
-	_tilemap->scrollView(tilemapHorScroll, 0.0f);
+
 
 	_triangle->translate(-moveSpeed * deltaTime, 0.0f, 0.0f);
 	_triangle->rotate(0.0f, 0.0f, moveSpeed * deltaTime);
@@ -162,6 +160,10 @@ bool Game::onUpdate(float deltaTime)
 	_gameEntity2->update(deltaTime);
 
 	CollisionManager::getInstance()->update();
+
+	float tilemapHorScroll = _gameEntity2->getSprite()->getPosition().x - _tilemap->getPosition().x - cameraLeftBoundOffset;
+	
+	_tilemap->scrollView(tilemapHorScroll * deltaTime, 0.0f);
 	
 	return (_frame < MAX_FRAMES) ? true : false;
 }
