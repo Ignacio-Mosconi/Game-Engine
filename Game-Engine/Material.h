@@ -5,8 +5,11 @@
 #include <fstream>
 #include <vector>
 #include <glm.hpp>
-#include "Exports.h"
+
 #include "Texture.h"
+
+#include "Exports.h"
+
 using namespace std;
 using namespace glm;
 

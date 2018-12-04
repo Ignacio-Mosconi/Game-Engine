@@ -13,6 +13,8 @@
 #include "Tilemap.h"
 #include "Renderer.h"
 #include "Window.h"
+#include "Player.h"
+#include "InputManager.h"
 
 Game::Game() : GameBase()
 {
@@ -30,6 +32,8 @@ bool Game::onStart()
 
 	_frame = 0;
 
+	InputManager::getInstance()->attachToWindow(_window);
+
 	_simpleMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
 	_customMaterial = Material::generateMaterial(CUSTOM_VERTEX_SHADER_PATH, CUSTOM_PIXEL_SHADER_PATH);
 	_textureMaterial = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
@@ -46,23 +50,19 @@ bool Game::onStart()
 
 	_gameEntity1 = new GameEntity(_renderer, _tilemap, SPRITE_SHEET_TEXTURE_PATH, "Layer A", 
 									600, 650, 2, 2, 128, 128, false, 2.0f);
-	_gameEntity2 = new GameEntity(_renderer, _tilemap, NINJA_TEXTURE_PATH, "Layer B", 
-									280, 666, 6, 6, 96, 144, false, 4.0f);
+
+	_player = new Player(_renderer, _tilemap, NINJA_TEXTURE_PATH, "Layer B",
+							280, 666, 6, 6, 96, 144, 10.0f, 250.0f);
 
 	_gameEntity1->setBoundingBoxDimensions(120.0f, 120.0f);
-	_gameEntity2->setBoundingBoxDimensions(90.0f, 125.0f);
 
 	unsigned int framesIdle[2] = { 0, 1 };
-	unsigned int framesWalk[6] = { 12, 13, 14, 15, 16, 17 };
 	
-	_gameEntity1Idle = new Animation(framesIdle, 6.0f, true);
-	_gameEntity2Walk = new Animation(framesWalk, 6.0f, true);
+	_gameEntity1Idle = new Animation("Idle", framesIdle, 6.0f, true);
 
-	_gameEntity1->addAnimation(_gameEntity1Idle, "Idle");
-	_gameEntity2->addAnimation(_gameEntity2Walk, "Walking");
+	_gameEntity1->addAnimation(_gameEntity1Idle, _gameEntity1Idle->getName());
 
 	_gameEntity1Idle->play();
-	_gameEntity2Walk->play();
 
 	float rectangleColorData[] =
 	{
@@ -119,7 +119,8 @@ bool Game::onStop()
 	delete _gameEntity2;
 
 	delete _gameEntity1Idle;
-	delete _gameEntity2Walk;
+
+	delete _player;
 
 	delete _tilemap;
 
@@ -142,7 +143,7 @@ bool Game::onUpdate(float deltaTime)
 	cout << "Frame: " << _frame << endl;
 	cout << deltaTime << endl;
 
-	float movementSpeed = 250.0f;
+	float movementSpeed = 150.0f;
 	float rotationSpeed = 5.0f;
 
 	_triangle->translate(movementSpeed * 0.1f * deltaTime, 0.0f, 0.0f);
@@ -155,17 +156,14 @@ bool Game::onUpdate(float deltaTime)
 	_circle->rotate(0.0f, 0.0f, -rotationSpeed * deltaTime);
 
 	_gameEntity1->move(-movementSpeed * deltaTime, 0.0f);
-	_gameEntity2->move(movementSpeed * deltaTime, 0.0f);
 
 	_gameEntity1->update(deltaTime);
-	_gameEntity2->update(deltaTime);
+	
+	_player->update(deltaTime);
 
 	CollisionManager::getInstance()->update();
-
-	float cameraLeftBoundOffset = _renderer->getRenderWindow()->getWidth() / 5.0f;
-	float tilemapHorScroll = _gameEntity2->getSprite()->getPosition().x - _tilemap->getPosition().x - cameraLeftBoundOffset;
 	
-	_tilemap->scrollView(tilemapHorScroll * deltaTime, 0.0f);
+	_tilemap->scrollView(50.0f * deltaTime, 0.0f);
 	
 	return true;
 }
@@ -182,7 +180,8 @@ bool Game::onDraw()
 	_sprite->draw();
 
 	_gameEntity1->draw();
-	_gameEntity2->draw();
+
+	_player->draw();
 
 	return true;
 }

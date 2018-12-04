@@ -1,8 +1,8 @@
 #include "Animation.h"
 #include "Sprite.h"
 
-Animation::Animation(unsigned int frames[], float speed, bool looped) :
-_frames(new queue<unsigned int>),
+Animation::Animation(const string& name, unsigned int frames[], float speed, bool looped) :
+_frames(new queue<unsigned int>), _name(name),
 _currentFrame(0), _lastFrame(0), _speed(speed), _frameTime(1.0f / speed),
 _looped(looped), _stopped(true), _finished(false), _timer(0.0f)
 {

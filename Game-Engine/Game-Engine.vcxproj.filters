@@ -87,6 +87,9 @@
     <ClInclude Include="Tilemap.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files\Engine Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEntity.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="Tilemap.cpp">
       <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Engine Logic</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -152,10 +152,12 @@ xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s</Command>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Game-Engine\Game-Engine.vcxproj">

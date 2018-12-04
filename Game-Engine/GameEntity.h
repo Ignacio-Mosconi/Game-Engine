@@ -30,7 +30,8 @@ class ENGINE_API GameEntity
 private:
 	Sprite* _sprite;
 	BoundingBox* _boundingBox;
-	map<string, Animation*> _animations;
+	
+	mutable map<string, Animation*> _animations;
 
 	Material* _material;
 	Texture* _texture;
@@ -54,9 +55,10 @@ public:
 
 	void move(float x, float y, float z = 0.0f);
 
-	void update(float deltaTime);
-	void draw() const;
+	virtual void update(float deltaTime);
+	virtual void draw() const;
 
+	inline Animation* getCurrentAnimation() const;
 	inline Sprite* getSprite() const { return _sprite; }
 	inline BoundingBox* getBoundingBox() const { return _boundingBox; }
 };

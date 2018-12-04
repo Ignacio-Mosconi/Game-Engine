@@ -83,6 +83,7 @@ public:
 	void setTileProperty(unsigned int tyleIndex, TileType tileType);
 
 	void updateVerticesUV();
+	
 	void scrollView(float x, float y);
 
 	void dispose();

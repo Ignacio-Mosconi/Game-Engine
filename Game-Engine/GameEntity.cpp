@@ -84,6 +84,22 @@ void GameEntity::addAnimation(Animation* animation, const string& animName)
 	animation->setSprite(_sprite);
 }
 
+Animation* GameEntity::getCurrentAnimation() const
+{
+	map<string, Animation*>::iterator mapIt;
+
+	Animation* anim = NULL;
+
+	for (mapIt = _animations.begin(); mapIt != _animations.end(); mapIt++)
+		if (mapIt->second->isPlaying())
+		{
+			anim = mapIt->second;
+			break;
+		}
+
+	return anim;
+}
+
 void GameEntity::setBoundingBoxDimensions(float width, float height)
 {
 	_boundingBox->setWidth(width);
@@ -174,6 +190,7 @@ void GameEntity::move(float x, float y, float z)
 void GameEntity::update(float deltaTime)
 {
 	map<string, Animation*>::iterator mapIt;
+	
 	for (mapIt = _animations.begin(); mapIt != _animations.end(); mapIt++)
 		mapIt->second->update(deltaTime);
 }

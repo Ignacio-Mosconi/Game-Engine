@@ -14,6 +14,7 @@ class Sprite;
 class GameEntity;
 class Animation;
 class Tilemap;
+class Player;
 
 class Game : public GameBase
 {
@@ -35,6 +36,8 @@ private:
 	Animation* _gameEntity2Walk;
 
 	Tilemap* _tilemap;
+
+	Player* _player;
 
 	int _frame;
 

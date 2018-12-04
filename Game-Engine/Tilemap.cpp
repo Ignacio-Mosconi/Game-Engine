@@ -321,22 +321,14 @@ void Tilemap::scrollView(float x, float y)
 	{
 		if (accumTransX >= Tile::tileWidth)
 		{
-			translate(Tile::tileWidth, 0.0f, 0.0f);
-			
-			if (_accumulatedTranslation.x >= 0.0f)
-				_accumulatedTranslation.x -= Tile::tileWidth;
-			else
-				_accumulatedTranslation.x += Tile::tileWidth;
-
+			translate(sign(_accumulatedTranslation.x) * (int)Tile::tileWidth, 0.0f, 0.0f);
+			_accumulatedTranslation.x -= sign(_accumulatedTranslation.x) * (int)Tile::tileWidth;
 		}
 
 		if (accumTransY >= Tile::tileHeight)
 		{
-			translate(0.0f, Tile::tileHeight, 0.0f);
-			if (_accumulatedTranslation.y >= 0.0f)
-				_accumulatedTranslation.y -= Tile::tileHeight;
-			else
-				_accumulatedTranslation.y += Tile::tileHeight;
+			translate(0.0f, sign(_accumulatedTranslation.y) * (int)Tile::tileHeight, 0.0f);
+			_accumulatedTranslation.y -= sign(_accumulatedTranslation.y) * (int)Tile::tileWidth;
 		}
 
 		updateVerticesUV();
