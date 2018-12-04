@@ -2,40 +2,44 @@
 
 #include <iostream>
 #include "GameBase.h"
+#include "Window.h"
+#include "Renderer.h"
+#include "Material.h"
+#include "Texture.h"
+#include "Entity.h"
+#include "Shape.h"
+#include "Triangle.h"
+#include "Rectangle.h"
+#include "Circle.h"
+#include "Sprite.h"
+#include "GameEntity.h"
+#include "Animation.h"
+#include "Tilemap.h"
+#include "CollisionManager.h"
+#include "InputManager.h"
+#include "Definitions.h"
 
-using namespace std;
-
-class Material;
-class Texture;
-class Triangle;
-class Rectangle;
-class Circle;
-class Sprite;
-class GameEntity;
-class Animation;
-class Tilemap;
 class Player;
 
-class Game : public GameBase
+class Game : public gn::GameBase
 {
 private:
-	Material* _simpleMaterial;
-	Material* _customMaterial;
-	Material* _textureMaterial;
+	gn::Material* _simpleMaterial;
+	gn::Material* _customMaterial;
+	gn::Material* _textureMaterial;
 
-	Texture* _texture;
+	gn::Texture* _texture;
 
-	Triangle* _triangle;
-	Rectangle* _rectangle;
-	Circle* _circle;
-	Sprite* _sprite;
-	GameEntity* _gameEntity1;
-	GameEntity* _gameEntity2;
+	gn::Triangle* _triangle;
+	gn::Rectangle* _rectangle;
+	gn::Circle* _circle;
+	gn::Sprite* _sprite;
 
-	Animation* _gameEntity1Idle;
-	Animation* _gameEntity2Walk;
+	gn::GameEntity* _gameEntity1;
 
-	Tilemap* _tilemap;
+	gn::Animation* _gameEntity1Idle;
+
+	gn::Tilemap* _tilemap;
 
 	Player* _player;
 

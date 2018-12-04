@@ -2,100 +2,97 @@
 
 #include <iostream>
 #include <fstream>
-#include <glm.hpp>
-
+#include <glm\vec2.hpp>
+#include <glm\gtx\common.hpp>
 #include "Entity.h"
 #include "Exports.h"
 
-#define TEXTURE_VERTEX_SHADER_PATH "Assets/Shaders/TextureVertexShader.vertexshader"
-#define TEXTURE_PIXEL_SHADER_PATH "Assets/Shaders/TexturePixelShader.pixelshader"
 #define CHARS_BUFFER_SIZE 64
 
-using namespace std;
-using namespace glm;
-
-class Texture;
-class Material;
-class Renderer;
-
-enum TileType
+namespace gn
 {
-	Background, Wall
-};
+	class Texture;
+	class Material;
 
-struct Tile
-{
-	static const int VERTEX_AMOUNT = 4;
-	static const int VERTEX_COMPONENTS = 3;
+	enum TileType
+	{
+		Background, Wall
+	};
+
+	struct Tile
+	{
+		static const int VERTEX_AMOUNT = 4;
+		static const int VERTEX_COMPONENTS = 3;
 	
-	static unsigned int tileWidth;
-	static unsigned int tileHeight;
+		static unsigned int width;
+		static unsigned int height;
 	
-	TileType tileType;
-	float* uvVertices;
-};
+		TileType tileType;
+		float* uvVertices;
+	};
 
-class ENGINE_API Tilemap : public Entity
-{
-private:
-	Texture* _texture;
-	Material* _material;
+	class ENGINE_API Tilemap : public Entity
+	{
+	private:
+		Texture* _texture;
+		Material* _material;
 	
-	Tile** _tiles;
-	Tile** _onScreenTiles;
-	int** _level;
+		Tile** _tiles;
+		Tile** _onScreenTiles;
+		int** _level;
 
-	float* _vertexBufferData;
-	float* _uvBufferData;
-	unsigned int _vertexBufferID;
-	unsigned int _uvBufferID;
+		float* _vertexBufferData;
+		float* _uvBufferData;
+		unsigned int _vertexBufferID;
+		unsigned int _uvBufferID;
 
-	unsigned int _levelWidth;
-	unsigned int _levelHeight;
+		unsigned int _levelWidth;
+		unsigned int _levelHeight;
 	
-	unsigned int _tilesRows;
-	unsigned int _tilesColumns;
+		unsigned int _tilesRows;
+		unsigned int _tilesColumns;
 	
-	unsigned int _onScreenTilesRows;
-	unsigned int _onScreenTilesColumns;
+		unsigned int _screenTilesRows;
+		unsigned int _screenTilesColumns;
 
-	unsigned int _levelRows;
-	unsigned int _levelColumns;
+		unsigned int _levelRows;
+		unsigned int _levelColumns;
 
-	float _lastRowOffset;
-	float _lastColumnOffset;
+		float _lastRowOffset;
+		float _lastColumnOffset;
 
-	vec2 _accumulatedTranslation;
+		glm::vec2 _accumTrans;
 
-	int** loadLevelCSV(const string& levelPath);
-	Tile** loadTiles(unsigned int rows, unsigned int columns, int tileWidth, int tileHeight);
+		int** loadLevelCSV(const std::string& levelPath);
+		Tile** loadTiles(unsigned int rows, unsigned int columns, int tileWidth, int tileHeight);
 	
-	Tile** createOnScreenTiles();
+		Tile** createOnScreenTiles();
 
-	float* setOnScreenTilesVertices(int totalTiles) const;
-	float* createUvBuffer() const;
+		float* setScreenTilesVertices(int totalTiles) const;
+		float* createUvBuffer() const;
 	
-public:
-	Tilemap(Renderer* renderer, const string& tilesetPath, const string& levelPath,
-			int levelWidth, int levelHeight, int tileWidth, int tileHeight, unsigned int tilesetRows, unsigned int tilesetColumns);
-	~Tilemap();
+	public:
+		Tilemap(Renderer* renderer, const std::string& tilesetPath, const std::string& levelPath,
+				int levelWidth, int levelHeight, int tileWidth, int tileHeight, unsigned int tilesetRows, unsigned int tilesetColumns);
+		~Tilemap();
 
-	void setTileProperty(unsigned int tyleIndex, TileType tileType);
+		void setTileProperty(unsigned int tyleIndex, TileType tileType);
 
-	void updateVerticesUV();
+		void updateVerticesUV();
 	
-	void scrollView(float x, float y);
+		void scrollView(float x, float y);
 
-	void dispose();
+		void dispose();
 	
-	void draw() const override;
+		void draw() const override;
 
-	Tile getTile(unsigned int tileIndex) const;
-	TileType getTileType(unsigned int row, unsigned int column) const;
+		Tile getTile(unsigned int tileIndex) const;
+		TileType getTileType(unsigned int row, unsigned int column) const;
 
-	vec2 worldToGrid(float posX, float posY) const;
-	vec2 gridToWorld(unsigned int row, unsigned int col) const;
+		glm::vec2 worldToGrid(float posX, float posY) const;
+		glm::vec2 gridToWorld(unsigned int row, unsigned int col) const;
 
-	float getLastRowOffset() const { return _lastRowOffset; }
-	float getLastColumnOffset() const { return _lastColumnOffset; }
-};
+		float getLastRowOffset() const { return _lastRowOffset; }
+		float getLastColumnOffset() const { return _lastColumnOffset; }
+	};
+}

@@ -2,144 +2,146 @@
 #include "Window.h"
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
-#include <gtc\matrix_transform.hpp>
 
-Renderer::Renderer()
+namespace gn
 {
-	cout << "Renderer::Renderer()" << endl;
-}
-
-Renderer::~Renderer()
-{
-	cout << "Renderer::~Renderer()" << endl;
-}
-
-void Renderer::updateMVP()
-{
-	_mvp = _projection * _view * _model;
-}
-
-bool Renderer::start(Window* renderWindow)
-{
-	cout << "Renderer::start(renderWindow)" << endl;
-
-	_renderWindow = renderWindow;
-
-	glfwMakeContextCurrent((GLFWwindow*)_renderWindow->getWindowPtr());
-
-	if (glewInit() != GLEW_OK)
+	Renderer::Renderer()
 	{
-		cerr << "Failed to initialize Glew." << endl;
-		return false;
+		std::cout << "Renderer::Renderer()" << std::endl;
 	}
 
-	glGenVertexArrays(1, &_vertexArrayID);
-	glBindVertexArray(_vertexArrayID);
+	Renderer::~Renderer()
+	{
+		std::cout << "Renderer::~Renderer()" << std::endl;
+	}
 
-	_model = mat4(1.0f);
-	_view = lookAt(vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
-	_projection = ortho(0.0f, (float)_renderWindow->getWidth(), 0.0f, (float)_renderWindow->getHeight(), 0.0f, 1.0f);
+	void Renderer::updateMVP()
+	{
+		_mvp = _projection * _view * _model;
+	}
 
-	updateMVP();
+	bool Renderer::start(Window* renderWindow)
+	{
+		std::cout << "Renderer::start(renderWindow)" << std::endl;
 
-	return true;
-}
+		_renderWindow = renderWindow;
 
-bool Renderer::stop()
-{
-	cout << "Renderer::stop()" << endl;
+		glfwMakeContextCurrent((GLFWwindow*)_renderWindow->getWindowPtr());
 
-	glDeleteVertexArrays(1, &_vertexArrayID);
+		if (glewInit() != GLEW_OK)
+		{
+			std::cerr << "Failed to initialize Glew." << std::endl;
+			return false;
+		}
 
-	return true;
-}
+		glGenVertexArrays(1, &_vertexArrayID);
+		glBindVertexArray(_vertexArrayID);
 
-void Renderer::setClearColor(float r, float g, float b, float a)
-{
-	glClearColor(r, g, b, a);
-}
+		_model = glm::mat4(1.0f);
+		_view = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		_projection = glm::ortho(0.0f, (float)_renderWindow->getWidth(), 0.0f, (float)_renderWindow->getHeight(), 0.0f, 1.0f);
 
-void Renderer::clearScreen()
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
+		updateMVP();
 
-void Renderer::swapBuffers()
-{
-	glfwSwapBuffers((GLFWwindow*)_renderWindow->getWindowPtr());
-}
+		return true;
+	}
 
-unsigned int Renderer::generateVertexBuffer(float* vertexBufferData, int size)
-{
-	GLuint vertexBuffer;
+	bool Renderer::stop()
+	{
+		std::cout << "Renderer::stop()" << std::endl;
 
-	glGenBuffers(1, &vertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, size, vertexBufferData, GL_STATIC_DRAW);
+		glDeleteVertexArrays(1, &_vertexArrayID);
 
-	return vertexBuffer;
-}
+		return true;
+	}
 
-void Renderer::destroyVertexBuffer(unsigned int vertexBufferID)
-{
-	glDeleteBuffers(1, &vertexBufferID);
-}
+	void Renderer::setClearColor(float r, float g, float b, float a)
+	{
+		glClearColor(r, g, b, a);
+	}
 
-void Renderer::enableAttribute(unsigned int attrib) const
-{
-	glEnableVertexAttribArray(attrib);
-}
+	void Renderer::clearScreen()
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
 
-void Renderer::disableAttribute(unsigned int attrib) const
-{
-	glDisableVertexAttribArray(attrib);
-}
+	void Renderer::swapBuffers()
+	{
+		glfwSwapBuffers((GLFWwindow*)_renderWindow->getWindowPtr());
+	}
 
-void Renderer::enableBlend() const
-{
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-}
+	unsigned int Renderer::generateVertexBuffer(float* vertexBufferData, int size)
+	{
+		GLuint vertexBuffer;
 
-void Renderer::disableBlend() const
-{
-	glDisable(GL_BLEND);
-}
+		glGenBuffers(1, &vertexBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+		glBufferData(GL_ARRAY_BUFFER, size, vertexBufferData, GL_STATIC_DRAW);
 
-void Renderer::bindBuffer(unsigned int attrib, unsigned int vertexComponents, unsigned int vertexBufferID) const
-{
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
-	glVertexAttribPointer(attrib, vertexComponents, GL_FLOAT, GL_FALSE, 0, (void*)0);
-}
+		return vertexBuffer;
+	}
 
-void Renderer::drawBuffer(PrimitiveType primitive, unsigned int vertexCount) const
-{
-	glDrawArrays(primitive, 0, vertexCount);
-}
+	void Renderer::destroyVertexBuffer(unsigned int vertexBufferID)
+	{
+		glDeleteBuffers(1, &vertexBufferID);
+	}
 
-void Renderer::loadIdentityMatrix()
-{
-	_model = mat4(1.0f);
-	updateMVP();
-}
+	void Renderer::enableAttribute(unsigned int attrib) const
+	{
+		glEnableVertexAttribArray(attrib);
+	}
 
-void Renderer::setModelMatrix(mat4 matrix)
-{
-	_model = matrix;
-	updateMVP();
-}
+	void Renderer::disableAttribute(unsigned int attrib) const
+	{
+		glDisableVertexAttribArray(attrib);
+	}
 
-void Renderer::multiplyModelMatrix(mat4 matrix)
-{
-	_model *= matrix;
-	updateMVP();
-}
+	void Renderer::enableBlend() const
+	{
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
 
-void Renderer::updateView(float x, float y)
-{
-	vec3 newCameraPos(x, y, 1.0f);
+	void Renderer::disableBlend() const
+	{
+		glDisable(GL_BLEND);
+	}
+
+	void Renderer::bindBuffer(unsigned int attrib, unsigned int vertexComponents, unsigned int vertexBufferID) const
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
+		glVertexAttribPointer(attrib, vertexComponents, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	}
+
+	void Renderer::drawBuffer(PrimitiveType primitive, unsigned int vertexCount) const
+	{
+		glDrawArrays(primitive, 0, vertexCount);
+	}
+
+	void Renderer::loadIdentityMatrix()
+	{
+		_model = glm::mat4(1.0f);
+		updateMVP();
+	}
+
+	void Renderer::setModelMatrix(glm::mat4 matrix)
+	{
+		_model = matrix;
+		updateMVP();
+	}
+
+	void Renderer::multiplyModelMatrix(glm::mat4 matrix)
+	{
+		_model *= matrix;
+		updateMVP();
+	}
+
+	void Renderer::updateView(float x, float y)
+	{
+		glm::vec3 newCameraPos(x, y, 1.0f);
 	
-	_view = lookAt(newCameraPos, vec3(newCameraPos.x, newCameraPos.y, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+		_view = glm::lookAt(newCameraPos, glm::vec3(newCameraPos.x, newCameraPos.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-	updateMVP();
+		updateMVP();
+	}
 }

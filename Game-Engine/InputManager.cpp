@@ -1,39 +1,42 @@
 #include "InputManager.h"
-#include <GLFW\glfw3.h>
 #include "Window.h"
+#include <GLFW\glfw3.h>
 
-InputManager* InputManager::_instance = NULL;
-
-InputManager::InputManager()
+namespace gn
 {
-	cout << "InputManager::InputManager()" << endl;
-}
+	InputManager* InputManager::_instance = NULL;
 
-InputManager::~InputManager()
-{
-	cout << "InputManager::InputManager()" << endl;
-}
+	InputManager::InputManager()
+	{
+		std::cout << "InputManager::InputManager()" << std::endl;
+	}
 
-InputManager* InputManager::getInstance()
-{
-	if (!_instance)
-		_instance = new InputManager();
+	InputManager::~InputManager()
+	{
+		std::cout << "InputManager::InputManager()" << std::endl;
+	}
 
-	return _instance;
-}
+	InputManager* InputManager::getInstance()
+	{
+		if (!_instance)
+			_instance = new InputManager();
 
-void InputManager::deleteInstance()
-{
-	if (_instance)
-		delete _instance;
-}
+		return _instance;
+	}
 
-void InputManager::attachToWindow(Window* window)
-{
-	_window = window;
-}
+	void InputManager::deleteInstance()
+	{
+		if (_instance)
+			delete _instance;
+	}
 
-bool InputManager::getKey(Key key)
-{
-	return (glfwGetKey((GLFWwindow*)_window->getWindowPtr(), key) == GLFW_PRESS);
+	void InputManager::attachToWindow(Window* window)
+	{
+		_window = window;
+	}
+
+	bool InputManager::getKey(Key key)
+	{
+		return (glfwGetKey((GLFWwindow*)_window->getWindowPtr(), key) == GLFW_PRESS);
+	}
 }

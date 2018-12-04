@@ -1,8 +1,8 @@
 #include "Player.h"
-#include "Animation.h"
-#include "InputManager.h"
 
-Player::Player(Renderer* renderer, Tilemap* tilemap, const string& imagePath, const string& collisionLayer,
+using namespace gn;
+
+Player::Player(Renderer* renderer, Tilemap* tilemap, const std::string& imagePath, const std::string& collisionLayer,
 	float x, float y, int spriteRows, int spriteColumns, int frameWidth, int frameHeight, float mass, float movementSpeed) :
 GameEntity(renderer, tilemap, imagePath, collisionLayer, x, y, spriteRows, spriteColumns, frameWidth, frameHeight, false, mass),
 _facing(Right), _movementSpeed(movementSpeed)

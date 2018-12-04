@@ -2,37 +2,40 @@
 #include "Material.h"
 #include "Renderer.h"
 
-Triangle::Triangle(Renderer* renderer, Material* material) : Shape(renderer, material, 3)
+namespace gn
 {
-	cout << "Triangle::Triangle()" << endl;
-}
-
-Triangle::~Triangle()
-{
-	cout << "Triangle::~Triangle()" << endl;
-}
-
-void Triangle::draw() const
-{
-	Shape::draw();
-
-	_renderer->enableAttribute(0);
-	_renderer->bindBuffer(0, 3, _vertexBufferID);
-	_renderer->drawBuffer(TRIANGLE, _vertexCount);
-	_renderer->disableAttribute(0);
-}
-
-float* Triangle::setVertices(unsigned int vertexComponents, float width, float height) const
-{
-	float valueX = (float)width / 2;
-	float valueY = (float)height / 2;
-
-	float* vertexBufferData = new float[_vertexCount * vertexComponents]
+	Triangle::Triangle(Renderer* renderer, Material* material) : Shape(renderer, material, 3)
 	{
-		-valueX, -valueY, 0.0f,
-		valueX, -valueY, 0.0f,
-		0.0f, valueY, 0.0f
-	};
+		std::cout << "Triangle::Triangle()" << std::endl;
+	}
 
-	return vertexBufferData;
+	Triangle::~Triangle()
+	{
+		std::cout << "Triangle::~Triangle()" << std::endl;
+	}
+
+	void Triangle::draw() const
+	{
+		Shape::draw();
+
+		_renderer->enableAttribute(0);
+		_renderer->bindBuffer(0, 3, _vertexBufferID);
+		_renderer->drawBuffer(TRIANGLE, _vertexCount);
+		_renderer->disableAttribute(0);
+	}
+
+	float* Triangle::setVertices(unsigned int vertexComponents, float width, float height) const
+	{
+		float valueX = (float)width / 2;
+		float valueY = (float)height / 2;
+
+		float* vertexBufferData = new float[_vertexCount * vertexComponents]
+		{
+			-valueX, -valueY, 0.0f,
+			valueX, -valueY, 0.0f,
+			0.0f, valueY, 0.0f
+		};
+
+		return vertexBufferData;
+	}
 }

@@ -1,84 +1,85 @@
 #include "Entity.h"
-#include <glm.hpp>
-#include <gtc\matrix_transform.hpp>
-#include <gtx\transform.hpp>
+#include "Renderer.h"
 
-Entity::Entity(Renderer* renderer) :
-_renderer(renderer),
-_position(vec3(0, 0, 0)), _rotation(vec3(0, 0, 0)), _scale(vec3(1, 1, 1)),
-_traMatrix(mat4(1.0f)), _rotMatrix(mat4(1.0f)), _scaMatrix(mat4(1.0f)), _modelMatrix(mat4(1.0f))
+namespace gn
 {
-	cout << "Entity::Entity()" << endl;
-}
+	Entity::Entity(Renderer* renderer) :
+	_renderer(renderer),
+	_position(glm::vec3(0, 0, 0)), _rotation(glm::vec3(0, 0, 0)), _scale(glm::vec3(1, 1, 1)),
+	_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f)), _modelMatrix(glm::mat4(1.0f))
+	{
+		std::cout << "Entity::Entity()" << std::endl;
+	}
 
-Entity::~Entity()
-{
-	cout << "Entity::~Entity()" << endl;
-}
+	Entity::~Entity()
+	{
+		std::cout << "Entity::~Entity()" << std::endl;
+	}
 
-void Entity::updateModelMatrix()
-{
-	_modelMatrix = _traMatrix * _rotMatrix * _scaMatrix;
-}
+	void Entity::updateModelMatrix()
+	{
+		_modelMatrix = _traMatrix * _rotMatrix * _scaMatrix;
+	}
 
-void Entity::setPosition(float x, float y, float z)
-{
-	_position = vec3(x, y, z);
+	void Entity::setPosition(float x, float y, float z)
+	{
+		_position = glm::vec3(x, y, z);
 	
-	_traMatrix = glm::translate(mat4(1.0f), _position);
+		_traMatrix = glm::translate(glm::mat4(1.0f), _position);
 
-	updateModelMatrix();
-}
+		updateModelMatrix();
+	}
 
-void Entity::setRotation(float x, float y, float z)
-{
-	_rotation = vec3(x, y, z);
+	void Entity::setRotation(float x, float y, float z)
+	{
+		_rotation = glm::vec3(x, y, z);
 
-	mat4 rotationX = glm::rotate(mat4(1.0f), x, vec3(1, 0, 0));
-	mat4 rotationY = glm::rotate(mat4(1.0f), y, vec3(0, 1, 0));
-	mat4 rotationZ = glm::rotate(mat4(1.0f), z, vec3(0, 0, 1));
+		glm::mat4 rotationX = glm::rotate(glm::mat4(1.0f), x, glm::vec3(1, 0, 0));
+		glm::mat4 rotationY = glm::rotate(glm::mat4(1.0f), y, glm::vec3(0, 1, 0));
+		glm::mat4 rotationZ = glm::rotate(glm::mat4(1.0f), z, glm::vec3(0, 0, 1));
 
-	_rotMatrix = rotationX * rotationY * rotationZ;
+		_rotMatrix = rotationX * rotationY * rotationZ;
 
-	updateModelMatrix();
-}
+		updateModelMatrix();
+	}
 
-void Entity::setScale(float x, float y, float z)
-{
-	_scale = vec3(x, y, z);
+	void Entity::setScale(float x, float y, float z)
+	{
+		_scale = glm::vec3(x, y, z);
 
-	_scaMatrix = glm::scale(mat4(1.0f), _scale);
+		_scaMatrix = glm::scale(glm::mat4(1.0f), _scale);
 
-	updateModelMatrix();
-}
+		updateModelMatrix();
+	}
 
-void Entity::translate(float x, float y, float z)
-{
-	_position += vec3(x, y, z);
+	void Entity::translate(float x, float y, float z)
+	{
+		_position += glm::vec3(x, y, z);
 
-	_traMatrix = glm::translate(mat4(1.0f), _position);
+		_traMatrix = glm::translate(glm::mat4(1.0f), _position);
 
-	updateModelMatrix();
-}
+		updateModelMatrix();
+	}
 
-void Entity::rotate(float x, float y, float z)
-{
-	_rotation += vec3(x, y, z);
+	void Entity::rotate(float x, float y, float z)
+	{
+		_rotation += glm::vec3(x, y, z);
 
-	mat4 rotationX = glm::rotate(mat4(1.0f), _rotation.x, vec3(1, 0, 0));
-	mat4 rotationY = glm::rotate(mat4(1.0f), _rotation.y, vec3(0, 1, 0));
-	mat4 rotationZ = glm::rotate(mat4(1.0f), _rotation.z, vec3(0, 0, 1));
+		glm::mat4 rotationX = glm::rotate(glm::mat4(1.0f), _rotation.x, glm::vec3(1, 0, 0));
+		glm::mat4 rotationY = glm::rotate(glm::mat4(1.0f), _rotation.y, glm::vec3(0, 1, 0));
+		glm::mat4 rotationZ = glm::rotate(glm::mat4(1.0f), _rotation.z, glm::vec3(0, 0, 1));
 
-	_rotMatrix = rotationX * rotationY * rotationZ;
+		_rotMatrix = rotationX * rotationY * rotationZ;
 
-	updateModelMatrix();
-}
+		updateModelMatrix();
+	}
 
-void Entity::scale(float x, float y, float z)
-{
-	_scale += vec3(x, y, z);
+	void Entity::scale(float x, float y, float z)
+	{
+		_scale += glm::vec3(x, y, z);
 
-	_scaMatrix = glm::scale(mat4(1.0f), _scale);
+		_scaMatrix = glm::scale(glm::mat4(1.0f), _scale);
 
-	updateModelMatrix();
+		updateModelMatrix();
+	}
 }

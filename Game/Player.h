@@ -1,26 +1,29 @@
 #pragma once
 
-#include <iostream>
 #include "GameEntity.h"
+#include "Renderer.h"
+#include "Tilemap.h"
+#include "Animation.h"
+#include "InputManager.h"
 
 enum MoveDirection
 {
 	Left, Right
 };
 
-class Player : public GameEntity
+class Player : public gn::GameEntity
 {
 private:
-	Animation* _idleRightAnimation;
-	Animation* _idleLeftAnimation;
-	Animation* _walkRightAnimation;
-	Animation* _walkLeftAnimation;
+	gn::Animation* _idleRightAnimation;
+	gn::Animation* _idleLeftAnimation;
+	gn::Animation* _walkRightAnimation;
+	gn::Animation* _walkLeftAnimation;
 
 	MoveDirection _facing;
 	float _movementSpeed;
 
 public:
-	Player(Renderer* renderer, Tilemap* tilemap, const string& imagePath, const string& collisionLayer,
+	Player(gn::Renderer* renderer, gn::Tilemap* tilemap, const std::string& imagePath, const std::string& collisionLayer,
 		float x, float y, int spriteRows, int spriteColumns, int frameWidth, int frameHeight,
 		float mass = 1.0f, float movementSpeed = 200.0f);
 	

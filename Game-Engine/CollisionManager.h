@@ -1,37 +1,34 @@
 #pragma once
 
 #include <map>
+#include <string>
 #include <vector>
-#include <glm.hpp>
 #include "Exports.h"
 
-using namespace std;
-using namespace glm;
-
-/* 
-The "CollisionManager" is a singleton class that is used to detect collisons
-between entities; their bounding boxes must first be registered inside this manager.
-*/
-
-class BoundingBox;
-
-class ENGINE_API CollisionManager
+namespace gn
 {
-private:
-	static CollisionManager* _instance;
+	class BoundingBox;
+/* 
+	The "CollisionManager" is a singleton class that is used to detect collisons
+	between entities; their bounding boxes must first be registered inside this manager.
+*/
+	class ENGINE_API CollisionManager
+	{
+	private:
+		static CollisionManager* _instance;
 
-	map<string, vector<BoundingBox*>> _collisionLayers;
+		std::map<std::string, std::vector<BoundingBox*>> _collisionLayers;
 
-	CollisionManager();
-	~CollisionManager();
+		CollisionManager();
+		~CollisionManager();
 
-public:
-	static CollisionManager* getInstance();
-	static void deleteInstance();
+	public:
+		static CollisionManager* getInstance();
+		static void deleteInstance();
 
-	void registerBoundingBox(BoundingBox* box, const string& layer);
-	bool deregisterBoundingBox(BoundingBox* box);
+		void registerBoundingBox(BoundingBox* box, const std::string& layer);
+		bool deregisterBoundingBox(BoundingBox* box);
 
-	void update();
-};
-
+		void update();
+	};
+}

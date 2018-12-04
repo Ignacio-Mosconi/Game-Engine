@@ -1,34 +1,21 @@
-#include "Definitions.h"
 #include "Game.h"
-#include "Material.h"
-#include "Texture.h"
-#include "Entity.h"
-#include "Triangle.h"
-#include "Rectangle.h"
-#include "Circle.h"
-#include "Sprite.h"
-#include "GameEntity.h"
-#include "CollisionManager.h"
-#include "Animation.h"
-#include "Tilemap.h"
-#include "Renderer.h"
-#include "Window.h"
 #include "Player.h"
-#include "InputManager.h"
+
+using namespace gn;
 
 Game::Game() : GameBase()
 {
-	cout << "Game::Game()" << endl;
+	std::cout << "Game::Game()" << std::endl;
 }
 
 Game::~Game()
 {
-	cout << "Game::~Game()" << endl;
+	std::cout << "Game::~Game()" << std::endl;
 }
 
 bool Game::onStart()
 {
-	cout << "Game::onStart()" << endl;
+	std::cout << "Game::onStart()" << std::endl;
 
 	_frame = 0;
 
@@ -101,7 +88,7 @@ bool Game::onStart()
 
 bool Game::onStop()
 {
-	cout << "Game::onStop()" << endl;
+	std::cout << "Game::onStop()" << std::endl;
 
 	_tilemap->dispose();
 
@@ -116,7 +103,6 @@ bool Game::onStop()
 	delete _sprite;
 
 	delete _gameEntity1;
-	delete _gameEntity2;
 
 	delete _gameEntity1Idle;
 
@@ -137,11 +123,11 @@ bool Game::onStop()
 
 bool Game::onUpdate(float deltaTime)
 {
-	cout << "Game::onUpdate()" << endl;
+	std::cout << "Game::onUpdate()" << std::endl;
 
 	_frame++;
-	cout << "Frame: " << _frame << endl;
-	cout << deltaTime << endl;
+	std::cout << "Frame: " << _frame << std::endl;
+	std::cout << deltaTime << std::endl;
 
 	float movementSpeed = 150.0f;
 	float rotationSpeed = 5.0f;
@@ -170,7 +156,7 @@ bool Game::onUpdate(float deltaTime)
 
 bool Game::onDraw()
 {
-	cout << "Game::onDraw()" << endl;
+	std::cout << "Game::onDraw()" << std::endl;
 
 	_tilemap->draw();
 

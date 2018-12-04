@@ -1,35 +1,34 @@
 #pragma once
 
 #include <iostream>
-#include <string>
-
 #include "Exports.h"
 
-using namespace std;
-
-/*
-Represents the context in which the application will actually run.
-*/
-
-class ENGINE_API Window
+namespace gn
 {
-private:
-	void* _actualWindow;
+/*
+	Represents the context in which the application will actually run.
+*/
+	class ENGINE_API Window
+	{
+	private:
+		void* _actualWindow;
 	
-	int _width;
-	int _height;
-	string _title;
+		int _width;
+		int _height;
+		
+		std::string _title;
 
-public:
-	Window();
-	~Window();
+	public:
+		Window();
+		~Window();
 
-	bool start(const int& width, const int& height, const char* title);
-	bool stop();
-	bool shouldClose();
-	void pollEvents();
+		bool start(const int& width, const int& height, const char* title);
+		bool stop();
+		bool shouldClose();
+		void pollEvents();
 	
-	inline void* getWindowPtr() const { return _actualWindow; }
-	inline int getWidth() const { return _width; }
-	inline int getHeight() const { return _height; }
-};
+		inline void* getWindowPtr() const { return _actualWindow; }
+		inline int getWidth() const { return _width; }
+		inline int getHeight() const { return _height; }
+	};
+}

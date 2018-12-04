@@ -91,10 +91,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0\glm;$(SolutionDir)Game-Engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Game-Engine</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL</PreprocessorDefinitions>
     </ClCompile>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)Dependencies\glew-2.1.0\dlls\x32\glew32.dll" "$(OutDir)"</Command>
+      <Command>copy "$(SolutionDir)Dependencies\glew-2.1.0\dlls\x86\glew32.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -103,7 +104,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0\glm;$(SolutionDir)Game-Engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Game-Engine</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <PostBuildEvent>
@@ -118,7 +119,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0\glm;$(SolutionDir)Game-Engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Game-Engine</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -126,7 +128,7 @@
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)Dependencies\glew-2.1.0\dlls\x86\glew32.dll" "$(OutDir)"
-xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s
+xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s/y
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -138,7 +140,8 @@ xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0\glm;$(SolutionDir)Game-Engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Game-Engine</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -146,7 +149,7 @@ xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)Dependencies\glew-2.1.0\dlls\x64\glew32.dll" "$(OutDir)"
-xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s</Command>
+xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s/y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

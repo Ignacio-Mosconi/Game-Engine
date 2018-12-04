@@ -1,36 +1,38 @@
 #pragma once
 
 #include <iostream>
-
 #include "Exports.h"
 
-using namespace std;
-
-class Window;
-
-enum Key
+namespace gn
 {
-	UpKey = 265,
-	DownKey = 264,
-	LeftKey = 263,
-	RightKey = 262
-};
+	class Window;
 
-class ENGINE_API InputManager
-{
-private:
-	static InputManager* _instance;
+	enum Key
+	{
+		UpKey = 265,
+		DownKey = 264,
+		LeftKey = 263,
+		RightKey = 262
+	};
+/*
+	The "InputManager" handles all of the input detection for the application.
+*/
+	class ENGINE_API InputManager
+	{
+	private:
+		static InputManager* _instance;
 	
-	Window* _window;
+		Window* _window;
 
-	InputManager();
-	~InputManager();
+		InputManager();
+		~InputManager();
 
-public:
-	static InputManager* getInstance();
-	static void deleteInstance();
+	public:
+		static InputManager* getInstance();
+		static void deleteInstance();
 	
-	void attachToWindow(Window* window);
+		void attachToWindow(Window* window);
 
-	bool getKey(Key key);
-};
+		bool getKey(Key key);
+	};
+}
