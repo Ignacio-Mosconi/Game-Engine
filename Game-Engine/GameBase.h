@@ -16,9 +16,13 @@ It implements the basic functionality of the game.
 class ENGINE_API GameBase
 {
 private:
+	const float DRAW_FRAME_TIME = 1.0f / 60.0f;
+	
 	double _lastTime;
+	float _drawTimer;
 
 protected:
+
 	Window* _window;
 	Renderer* _renderer;
 	

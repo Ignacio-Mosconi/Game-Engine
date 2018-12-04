@@ -18,5 +18,3 @@
 #define TILESET_TEXTURE_PATH "Assets/Sprites/Tileset.bmp"
 // Level Paths
 #define LEVEL_1_PATH "Assets/Levels/Level 1.oel"
-// Miscellaneous
-#define MAX_FRAMES 5000

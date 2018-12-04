@@ -48,7 +48,9 @@ void GameBase::run()
 	cout << "GameBase::run()" << endl;
 
 	bool update = true;
+	
 	_lastTime = glfwGetTime();
+	_drawTimer = 0.0f;
 	
 	_renderer->setClearColor(0.1f, 0.4f, 0.6f, 1.0f);
 
@@ -60,9 +62,16 @@ void GameBase::run()
 
 		update = onUpdate(deltaTime);
 
-		_renderer->clearScreen();
-		onDraw();
-		_renderer->swapBuffers();
+		_drawTimer += deltaTime;
+		
+		if (_drawTimer >= DRAW_FRAME_TIME)
+		{
+			_drawTimer -= DRAW_FRAME_TIME;
+
+			_renderer->clearScreen();
+			onDraw();
+			_renderer->swapBuffers();
+		}
 		
 		_window->pollEvents();
 	}

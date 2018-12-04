@@ -10,7 +10,7 @@ unsigned int Tile::tileHeight = 0;
 Tilemap::Tilemap(Renderer* renderer, const string& tilesetPath, const string& levelPath, 
 				int levelWidth, int levelHeight, int tileWidth, int tileHeight, 
 				unsigned int tilesetRows, unsigned int tilesetColumns) : Entity(renderer),
-_levelWidth(levelWidth), _levelHeight(levelHeight),
+_levelWidth(levelWidth), _levelHeight(levelHeight), _accumulatedTranslation(vec2(0.0f, 0.0f)),
 _texture(Texture::generateTextureBMP(tilesetPath)), _tiles(loadTiles(tilesetRows, tilesetColumns, tileWidth, tileHeight)),
 _vertexBufferData(NULL), _uvBufferData(NULL),
 _vertexBufferID(-1), _uvBufferID(-1)
@@ -174,7 +174,7 @@ Tile** Tilemap::createOnScreenTiles()
 
 	int totalTiles = _onScreenTilesRows * _onScreenTilesColumns;
 
-	float vertexBufferSize = sizeof(float) * Tile::vertexAmount * Tile::vertexComponents * totalTiles;
+	float vertexBufferSize = sizeof(float) * Tile::VERTEX_AMOUNT * Tile::VERTEX_COMPONENTS * totalTiles;
 
 	_vertexBufferData = setOnScreenTilesVertices(totalTiles);
 	_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
@@ -184,7 +184,7 @@ Tile** Tilemap::createOnScreenTiles()
 
 float* Tilemap::setOnScreenTilesVertices(int totalTiles) const
 {
-	float* vertexBufferData = new float[Tile::vertexAmount * Tile::vertexComponents * totalTiles];
+	float* vertexBufferData = new float[Tile::VERTEX_AMOUNT * Tile::VERTEX_COMPONENTS * totalTiles];
 
 	int counter = 0;
 
@@ -196,7 +196,7 @@ float* Tilemap::setOnScreenTilesVertices(int totalTiles) const
 			float minY = (float)_renderer->getRenderWindow()->getHeight() - (float)(y * Tile::tileHeight + Tile::tileHeight);
 			float maxY = (float)_renderer->getRenderWindow()->getHeight() - (float)(y * Tile::tileHeight);
 
-			float vertices[Tile::vertexAmount * Tile::vertexComponents] =
+			float vertices[Tile::VERTEX_AMOUNT * Tile::VERTEX_COMPONENTS] =
 			{
 				minX, minY, 0.0f,
 				minX, maxY, 0.0f,
@@ -204,7 +204,7 @@ float* Tilemap::setOnScreenTilesVertices(int totalTiles) const
 				maxX, minY, 0.0f
 			};
 
-			for (int i = 0; i < Tile::vertexAmount * Tile::vertexComponents; i++, counter++)
+			for (int i = 0; i < Tile::VERTEX_AMOUNT * Tile::VERTEX_COMPONENTS; i++, counter++)
 				vertexBufferData[counter] = vertices[i];
 		}
 
@@ -215,7 +215,7 @@ float* Tilemap::createUvBuffer() const
 {
 	int totalTiles = _onScreenTilesRows * _onScreenTilesColumns;
 
-	float* uvBufferData = new float[Tile::vertexAmount * 2 * totalTiles];
+	float* uvBufferData = new float[Tile::VERTEX_AMOUNT * 2 * totalTiles];
 
 	int counter = 0;
 
@@ -229,7 +229,7 @@ float* Tilemap::createUvBuffer() const
 
 	for (int y = 0; y < _onScreenTilesRows; y++)
 		for (int x = 0; x < _onScreenTilesColumns; x++)
-			for (int i = 0; i < Tile::vertexAmount * 2; i++, counter++)
+			for (int i = 0; i < Tile::VERTEX_AMOUNT * 2; i++, counter++)
 				uvBufferData[counter] = defaultUvVertices[i];
 
 	return uvBufferData;
@@ -270,7 +270,7 @@ void Tilemap::setTileProperty(unsigned int tileIndex, TileType tileType)
 void Tilemap::updateVerticesUV()
 {
 	int totalTiles = _onScreenTilesRows * _onScreenTilesColumns;
-	int uvBufferSize = sizeof(float) * Tile::vertexAmount * 2 * totalTiles;
+	int uvBufferSize = sizeof(float) * Tile::VERTEX_AMOUNT * 2 * totalTiles;
 
 	vec2 tilingOffset((int)_position.x / Tile::tileWidth, (int)_position.y / Tile::tileHeight);
 	int lastRow = (int)_levelHeight / (int)Tile::tileHeight - 1;
@@ -287,7 +287,7 @@ void Tilemap::updateVerticesUV()
 			Tile tile = getTile(_level[levelRow][levelColumn]);
 
 			_onScreenTiles[y][x].tileType = tile.tileType;
-			for (int i = 0; i < Tile::vertexAmount * 2; i++, counter++)
+			for (int i = 0; i < Tile::VERTEX_AMOUNT * 2; i++, counter++)
 				_uvBufferData[counter] = tile.uvVertices[i];
 		}
 
@@ -313,8 +313,6 @@ void Tilemap::scrollView(float x, float y)
 
 	_accumulatedTranslation.x += translateX;
 	_accumulatedTranslation.y += translateY;
-
-	_renderer->updateView(_position.x + _accumulatedTranslation.x, _position.y + _accumulatedTranslation.y);
 
 	float accumTransX = abs(_accumulatedTranslation.x);
 	float accumTransY = abs(_accumulatedTranslation.y);
@@ -343,6 +341,27 @@ void Tilemap::scrollView(float x, float y)
 
 		updateVerticesUV();
 	}
+
+	_renderer->updateView(_position.x + _accumulatedTranslation.x, _position.y + _accumulatedTranslation.y);
+}
+
+void Tilemap::dispose()
+{	
+	if (_vertexBufferID != -1)
+	{
+		_renderer->destroyVertexBuffer(_vertexBufferID);
+		delete _vertexBufferData;
+		_vertexBufferData = NULL;
+		_vertexBufferID = -1;
+	}
+
+	if (_uvBufferID != -1)
+	{
+		_renderer->destroyVertexBuffer(_uvBufferID);
+		delete _uvBufferData;
+		_uvBufferData = NULL;
+		_uvBufferID = -1;
+	}
 }
 
 void Tilemap::draw() const
@@ -360,7 +379,7 @@ void Tilemap::draw() const
 	_renderer->enableAttribute(1);
 	_renderer->bindBuffer(0, 3, _vertexBufferID);
 	_renderer->bindBuffer(1, 2, _uvBufferID);
-	_renderer->drawBuffer(QUAD, Tile::vertexAmount * _onScreenTilesRows *_onScreenTilesColumns);
+	_renderer->drawBuffer(QUAD, Tile::VERTEX_AMOUNT * _onScreenTilesRows *_onScreenTilesColumns);
 	_renderer->disableAttribute(0);
 	_renderer->disableAttribute(1);
 

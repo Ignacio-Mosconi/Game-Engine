@@ -103,6 +103,8 @@ bool Game::onStop()
 {
 	cout << "Game::onStop()" << endl;
 
+	_tilemap->dispose();
+
 	_triangle->dispose();
 	_rectangle->dispose();
 	_circle->dispose();
@@ -165,7 +167,7 @@ bool Game::onUpdate(float deltaTime)
 	
 	_tilemap->scrollView(tilemapHorScroll * deltaTime, 0.0f);
 	
-	return (_frame < MAX_FRAMES) ? true : false;
+	return true;
 }
 
 bool Game::onDraw()

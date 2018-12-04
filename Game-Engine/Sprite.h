@@ -30,6 +30,8 @@ public:
 	void setAnimationFrame(unsigned int id);
 	void setFramesInfo(unsigned int rows, unsigned int columns, unsigned int frameWidth, unsigned int frameHeight);
 
+	virtual void dispose() override;
+	
 	void draw() const override;
 
 	inline unsigned int getFrameWidth() const { return _frameWidth; }

@@ -27,7 +27,7 @@ public:
 	virtual float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f) const = 0;
 	virtual float* setVerticesColor(float* colorBufferData, unsigned int vertexComponents) const;
 	
-	bool dispose();
+	virtual void dispose();
 
 	void draw() const;
 

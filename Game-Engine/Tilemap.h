@@ -25,8 +25,8 @@ enum TileType
 
 struct Tile
 {
-	static const int vertexAmount = 4;
-	static const int vertexComponents = 3;
+	static const int VERTEX_AMOUNT = 4;
+	static const int VERTEX_COMPONENTS = 3;
 	
 	static unsigned int tileWidth;
 	static unsigned int tileHeight;
@@ -84,6 +84,8 @@ public:
 
 	void updateVerticesUV();
 	void scrollView(float x, float y);
+
+	void dispose();
 	
 	void draw() const override;
 

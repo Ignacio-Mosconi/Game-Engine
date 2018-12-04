@@ -44,25 +44,23 @@ float* Shape::setVerticesColor(float* colorBufferData, unsigned int vertexCompon
 	return newColorBufferData;
 }
 
-bool Shape::dispose()
+void Shape::dispose()
 {
-	bool wasDisposed = false;
-
 	if (_vertexBufferID != -1)
 	{
 		_renderer->destroyVertexBuffer(_vertexBufferID);
 		delete _vertexBufferData;
-		if (_colorBufferData)
-			delete _colorBufferData;
 		_vertexBufferData = NULL;
-		_colorBufferData = NULL;
 		_vertexBufferID = -1;
-		_colorBufferID = -1;
-
-		wasDisposed = true;
 	}
 
-	return wasDisposed;
+	if (_colorBufferID != -1)
+	{
+		_renderer->destroyVertexBuffer(_colorBufferID);
+		delete _colorBufferData;
+		_colorBufferData = NULL;
+		_colorBufferID = -1;
+	}
 }
 
 void Shape::draw() const
