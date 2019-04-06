@@ -24,16 +24,16 @@ namespace gn
 		_renderer->disableAttribute(0);
 	}
 
-	float* Triangle::setVertices(unsigned int vertexComponents, float width, float height) const
+	float* Triangle::setVertices(unsigned int vertexComponents, float width, float height, float depth) const
 	{
-		float valueX = (float)width / 2;
-		float valueY = (float)height / 2;
+		float valueX = width * 0.5f;
+		float valueY = height * 0.5f;
 
 		float* vertexBufferData = new float[_vertexCount * vertexComponents]
 		{
-			-valueX, -valueY, 0.0f,
-			valueX, -valueY, 0.0f,
-			0.0f, valueY, 0.0f
+			-valueX, -valueY, depth,
+			valueX, -valueY, depth,
+			0.0f, valueY, depth
 		};
 
 		return vertexBufferData;

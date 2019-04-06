@@ -18,14 +18,14 @@ namespace gn
 		std::cout << "Shape::~Shape()" << std::endl;
 	}
 
-	bool Shape::create(unsigned int vertexComponents, float* colorBufferData, float width, float height)
+	bool Shape::create(unsigned int vertexComponents, float* colorBufferData, float width, float height, float depth)
 	{
 		if (_vertexBufferID != -1)
 			dispose();
 
 		int vertexBufferSize = sizeof(float) * _vertexCount * vertexComponents;
 
-		_vertexBufferData = setVertices(vertexComponents, width, height);
+		_vertexBufferData = setVertices(vertexComponents, width, height, depth);
 		if (colorBufferData)
 			_colorBufferData = setVerticesColor(colorBufferData, vertexComponents);
 
@@ -40,7 +40,7 @@ namespace gn
 		int arrayLength = _vertexCount * vertexComponents;
 		float* newColorBufferData = new float[arrayLength];
 
-		for (unsigned int i = 0; i <arrayLength; i++)
+		for (unsigned int i = 0; i < arrayLength; i++)
 			newColorBufferData[i] = colorBufferData[i];
 
 		return newColorBufferData;

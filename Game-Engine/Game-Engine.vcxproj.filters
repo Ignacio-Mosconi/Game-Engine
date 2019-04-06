@@ -96,6 +96,9 @@
     <ClInclude Include="Enums.h">
       <Filter>Header Files\Definitions</Filter>
     </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEntity.cpp">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Engine Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

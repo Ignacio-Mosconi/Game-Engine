@@ -120,6 +120,8 @@ namespace gn
 
 	void Renderer::drawBuffer(PrimitiveType primitive, unsigned int vertexCount) const
 	{
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
 		glDrawArrays(primitive, 0, vertexCount);
 	}
 

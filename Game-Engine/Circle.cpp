@@ -24,7 +24,7 @@ namespace gn
 		_renderer->disableAttribute(0);
 	}
 
-	float* Circle::setVertices(unsigned int vertexComponents,float width, float height) const
+	float* Circle::setVertices(unsigned int vertexComponents, float width, float height, float depth) const
 	{
 		float angle = 0;
 		float* vertexBufferData = new float[_vertexCount * vertexComponents];
@@ -33,7 +33,7 @@ namespace gn
 		{
 			vertexBufferData[i] = (float)width * cos(angle);
 			vertexBufferData[i + 1] = (float)width * sin(angle);
-			vertexBufferData[i + 2] = 0.0f;
+			vertexBufferData[i + 2] = depth;
 
 			angle += 2 * glm::pi<float>() / _vertexCount;
 		}
