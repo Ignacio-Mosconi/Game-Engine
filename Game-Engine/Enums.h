@@ -1,41 +1,56 @@
 #pragma once
 
 // Input Manager
-enum Key
+enum class Key
 {
-	UpKey = 265,
-	DownKey = 264,
-	LeftKey = 263,
-	RightKey = 262
+	UP_KEY = 265,
+	DOWN_KEY = 264,
+	LEFT_KEY = 263,
+	RIGHT_KEY = 262
 };
 
 // Bounding Boxes
-enum CollisionDir
+enum class CollisionDir
 {
-	LeftCollision, 
-	RightCollision, 
-	UpCollision, 
-	DownCollision
+	LEFT, 
+	RIGHT, 
+	UP, 
+	DOWN
 };
 
 // Tilemap
-enum TileType
+enum class TileType
 {
-	Background,
-	Wall
+	BACKGROUND,
+	WALL
 };
 
 // Renderer
-enum ProjectionType
+enum class ProjectionType
 {
 	ORTHOGRAPHIC,
 	PERSPECTIVE
 };
 
-enum PrimitiveType
+enum class PrimitiveType
 {
 	TRIANGLE = 4,
 	TRIANGLE_STRIP = 5,
 	TRIANGLE_FAN = 6,
 	QUAD = 7
+};
+
+// Camera
+enum class CameraMovementType
+{
+	STRAFE,
+	WALK,
+	VERTICAL,
+};
+
+enum class CameraRotationType
+{
+	YAW,
+	PITCH,
+	ROLL,
 };

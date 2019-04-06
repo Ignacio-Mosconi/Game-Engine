@@ -123,7 +123,7 @@ namespace gn
 
 	void Renderer::drawBuffer(PrimitiveType primitive, unsigned int vertexCount) const
 	{
-		glDrawArrays(primitive, 0, vertexCount);
+		glDrawArrays((int)primitive, 0, vertexCount);
 	}
 
 	void Renderer::loadIdentityMatrix()
@@ -184,10 +184,10 @@ namespace gn
 	{
 		switch (projectionType)
 		{
-			case ORTHOGRAPHIC:
+			case ProjectionType::ORTHOGRAPHIC:
 				_projection = _orthoProjection;
 				break;
-			case PERSPECTIVE:
+			case ProjectionType::PERSPECTIVE:
 				_projection = _perspProjection;
 				break;
 			default:

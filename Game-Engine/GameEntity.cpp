@@ -130,7 +130,7 @@ namespace gn
 
 					TileType rightTileType = _tilemap->getTileType(rightTileCoord.x, rightTileCoord.y);
 
-					if (rightTileType == Wall)
+					if (rightTileType == TileType::WALL)
 					{
 						newPosX = (_tilemap->gridToWorld(rightTileCoord.x, rightTileCoord.y)).x - horOffset;
 						break;
@@ -143,7 +143,7 @@ namespace gn
 				
 					TileType leftTileType = _tilemap->getTileType(leftTileCoord.x, leftTileCoord.y);
 
-					if (leftTileType == Wall)
+					if (leftTileType == TileType::WALL)
 					{
 						newPosX = (_tilemap->gridToWorld(leftTileCoord.x, leftTileCoord.y)).x + horOffset + Tile::width;
 						break;
@@ -163,7 +163,7 @@ namespace gn
 				
 					TileType upperTileType = _tilemap->getTileType(upperTileCoord.x, upperTileCoord.y);
 
-					if (upperTileType == Wall)
+					if (upperTileType == TileType::WALL)
 					{
 						newPosY = (_tilemap->gridToWorld(upperTileCoord.x, upperTileCoord.y)).y - verOffset - _tilemap->getLastRowOffset();
 						break;
@@ -176,7 +176,7 @@ namespace gn
 				
 					TileType lowerTileType = _tilemap->getTileType(lowerTileCoord.x, lowerTileCoord.y);
 
-					if (lowerTileType == Wall)
+					if (lowerTileType == TileType::WALL)
 					{
 						newPosY = (_tilemap->gridToWorld(lowerTileCoord.x, lowerTileCoord.y)).y + verOffset;
 						break;

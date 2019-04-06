@@ -22,7 +22,7 @@ namespace gn
 		_renderer->enableAttribute(1);
 		_renderer->bindBuffer(0, 3, _vertexBufferID);
 		_renderer->bindBuffer(1, 3, _colorBufferID);
-		_renderer->drawBuffer(TRIANGLE, _vertexCount);
+		_renderer->drawBuffer(PrimitiveType::TRIANGLE, _vertexCount);
 		_renderer->disableAttribute(0);
 		_renderer->disableAttribute(1);
 	}

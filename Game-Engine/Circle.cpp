@@ -20,7 +20,7 @@ namespace gn
 
 		_renderer->enableAttribute(0);
 		_renderer->bindBuffer(0, 3, _vertexBufferID);
-		_renderer->drawBuffer(TRIANGLE_FAN, _vertexCount);
+		_renderer->drawBuffer(PrimitiveType::TRIANGLE_FAN, _vertexCount);
 		_renderer->disableAttribute(0);
 	}
 

@@ -37,6 +37,6 @@ namespace gn
 
 	bool InputManager::getKey(Key key)
 	{
-		return (glfwGetKey((GLFWwindow*)_window->getWindowPtr(), key) == GLFW_PRESS);
+		return (glfwGetKey((GLFWwindow*)_window->getWindowPtr(), (int)key) == GLFW_PRESS);
 	}
 }

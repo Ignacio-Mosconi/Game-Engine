@@ -32,7 +32,8 @@ namespace gn
 		GameBase();
 		~GameBase();
 
-		bool start(const int& width, const int& height, const char* title, ProjectionType projectionType = ORTHOGRAPHIC);
+		bool start(const int& width, const int& height, const char* title, 
+					ProjectionType projectionType = ProjectionType::ORTHOGRAPHIC);
 		bool stop();
 		void run();
 	};

@@ -105,7 +105,7 @@ namespace gn
 		_renderer->enableAttribute(1);
 		_renderer->bindBuffer(0, 3, _vertexBufferID);
 		_renderer->bindBuffer(1, 2, _uvBufferID);
-		_renderer->drawBuffer(TRIANGLE_STRIP, _vertexCount);
+		_renderer->drawBuffer(PrimitiveType::TRIANGLE_STRIP, _vertexCount);
 		_renderer->disableAttribute(0);
 		_renderer->disableAttribute(1);
 

@@ -35,25 +35,25 @@ namespace gn
 			{
 				switch (direction)
 				{
-					case LeftCollision:
+					case CollisionDir::LEFT:
 						if (_gameEntityAttached)
 							_gameEntityAttached->move(-penetration, 0, 0);
 						else
 							_entityAttached->translate(-penetration, 0, 0);
 						break;
-					case RightCollision:
+					case CollisionDir::RIGHT:
 						if (_gameEntityAttached)
 							_gameEntityAttached->move(penetration, 0, 0);
 						else
 							_entityAttached->translate(penetration, 0, 0);
 						break;
-					case UpCollision:
+					case CollisionDir::UP:
 						if (_gameEntityAttached)
 							_gameEntityAttached->move(0, penetration, 0);
 						else
 							_entityAttached->translate(0, penetration, 0);
 						break;
-					case DownCollision:
+					case CollisionDir::DOWN:
 						if (_gameEntityAttached)
 							_gameEntityAttached->move(0, -penetration, 0);
 						else
@@ -68,25 +68,25 @@ namespace gn
 
 				switch (direction)
 				{
-					case LeftCollision:
+					case CollisionDir::LEFT:
 						if (_gameEntityAttached)
 							_gameEntityAttached->move(-penetration * penetrationMult, 0, 0);
 						else
 							_entityAttached->translate(-penetration * penetrationMult, 0, 0);
 						break;
-					case RightCollision:
+					case CollisionDir::RIGHT:
 						if (_gameEntityAttached)
 							_gameEntityAttached->move(penetration * penetrationMult, 0, 0);
 						else
 							_entityAttached->translate(penetration * penetrationMult, 0, 0);
 						break;
-					case UpCollision:
+					case CollisionDir::UP:
 						if (_gameEntityAttached)
 							_gameEntityAttached->move(0, penetration * penetrationMult, 0);
 						else
 							_entityAttached->translate(0, penetration * penetrationMult, 0);
 						break;
-					case DownCollision:
+					case CollisionDir::DOWN:
 						if (_gameEntityAttached)
 							_gameEntityAttached->move(0, -penetration * penetrationMult, 0);
 						else

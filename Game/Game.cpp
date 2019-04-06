@@ -13,6 +13,8 @@ Game::~Game()
 
 bool Game::onStart()
 {
+	_camera = new Camera(_renderer, glm::vec3(0.0f, 0.0f, 300.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+
 	_customColorMaterial = Material::generateMaterial(CUSTOM_VERTEX_SHADER_PATH, CUSTOM_PIXEL_SHADER_PATH);	
 	
 	_cube = new Cube(_renderer, _customColorMaterial);
@@ -36,6 +38,7 @@ bool Game::onStop()
 	_cube->dispose();
 
 	delete _cube;
+	delete _camera;
 	
 	Material::destroyMaterial(_customColorMaterial);
 	
@@ -46,12 +49,7 @@ bool Game::onUpdate(float deltaTime)
 {	
 	timer += deltaTime;;
 
-	float radius = 300.0f;
-
-	float camX = glm::sin(timer) * radius;
-	float camZ = glm::cos(timer) * radius;
-
-	_renderer->updateView(glm::vec3(camX, -300.0f, camZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	_camera->move(CameraMovementType::VERTICAL, -10.0f * deltaTime);
 
 	return true;
 }
