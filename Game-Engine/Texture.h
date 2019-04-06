@@ -3,8 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include "Exports.h"
-
-#define BMP_HEADER_SIZE 54
+#include "EngineConstants.h"
 
 namespace gn
 {

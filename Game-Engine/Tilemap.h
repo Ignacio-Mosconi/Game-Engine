@@ -5,9 +5,7 @@
 #include <glm\vec2.hpp>
 #include <glm\gtx\common.hpp>
 #include "Entity.h"
-#include "Exports.h"
-
-#define CHARS_BUFFER_SIZE 64
+#include "EngineConstants.h"
 
 namespace gn
 {

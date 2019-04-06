@@ -90,6 +90,9 @@
     <ClInclude Include="InputManager.h">
       <Filter>Header Files\Engine Logic</Filter>
     </ClInclude>
+    <ClInclude Include="EngineConstants.h">
+      <Filter>Header Files\Definitions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEntity.cpp">

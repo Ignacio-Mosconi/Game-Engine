@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Shape.h"
-#include "Exports.h"
 
 namespace gn
 {

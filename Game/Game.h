@@ -17,7 +17,8 @@
 #include "Tilemap.h"
 #include "CollisionManager.h"
 #include "InputManager.h"
-#include "Definitions.h"
+#include "EngineConstants.h"
+#include "GameConstants.h"
 
 class Player;
 

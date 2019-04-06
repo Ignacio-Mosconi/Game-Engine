@@ -1,8 +1,7 @@
 #include <iostream>
 #include "Game.h"
-#include "Definitions.h"
+#include "GameConstants.h"
 
-using namespace std;
 using namespace gn;
 
 int main()
@@ -17,6 +16,6 @@ int main()
 	delete game;
 
 	std::cout << "The game engine demo has ended." << std::endl;
-	cin.get();
+	std::cin.get();
 	return 0;
 }

@@ -158,7 +158,7 @@ xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s/y</Command>
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Definitions.h" />
+    <ClInclude Include="GameConstants.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>

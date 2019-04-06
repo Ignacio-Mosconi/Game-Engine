@@ -7,13 +7,7 @@
 #include <glm\mat4x4.hpp>
 #include "Texture.h"
 #include "Exports.h"
-
-#define SIMPLE_VERTEX_SHADER_PATH "Assets/Shaders/SimpleVertexShader.vertexshader"
-#define SIMPLE_PIXEL_SHADER_PATH "Assets/Shaders/SimpleFragmentShader.fragmentshader"
-#define CUSTOM_VERTEX_SHADER_PATH "Assets/Shaders/CustomVertexShader.vertexshader"
-#define CUSTOM_PIXEL_SHADER_PATH "Assets/Shaders/CustomPixelShader.pixelshader"
-#define TEXTURE_VERTEX_SHADER_PATH "Assets/Shaders/TextureVertexShader.vertexshader"
-#define TEXTURE_PIXEL_SHADER_PATH "Assets/Shaders/TexturePixelShader.pixelshader"
+#include "EngineConstants.h"
 
 namespace gn
 {

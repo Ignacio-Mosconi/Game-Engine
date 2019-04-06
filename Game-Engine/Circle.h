@@ -2,7 +2,6 @@
 
 #include <glm\gtc\constants.hpp>
 #include "Shape.h"
-#include "Exports.h"
 
 namespace gn
 {

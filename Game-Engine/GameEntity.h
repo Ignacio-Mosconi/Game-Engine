@@ -4,6 +4,7 @@
 #include <string>
 #include "Material.h"
 #include "Exports.h"
+#include "EngineConstants.h"
 
 namespace gn
 {

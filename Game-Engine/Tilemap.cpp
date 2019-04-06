@@ -71,7 +71,7 @@ namespace gn
 		{
 			std::ifstream levelFile;
 			int** level;
-			char buffer[CHARS_BUFFER_SIZE];
+			char buffer[LEVEL_LOAD_CHARS_BUFFER_SIZE];
 			
 			float rows = _levelHeight / Tile::height;
 			float columns = _levelWidth / Tile::width;
@@ -88,8 +88,8 @@ namespace gn
 			if (!levelFile.good())
 				throw std::ios::failure("The level file could not be opened.");
 
-			levelFile.getline(buffer, CHARS_BUFFER_SIZE);
-			levelFile.get(buffer, CHARS_BUFFER_SIZE, '>');
+			levelFile.getline(buffer, LEVEL_LOAD_CHARS_BUFFER_SIZE);
+			levelFile.get(buffer, LEVEL_LOAD_CHARS_BUFFER_SIZE, '>');
 			levelFile.get();
 			memset(buffer, 0, sizeof(buffer));
 
@@ -100,13 +100,13 @@ namespace gn
 			while (isdigit(nextChar) && !levelFile.eof())
 			{
 				if (x < _levelColumns - 1)
-					levelFile.get(buffer, CHARS_BUFFER_SIZE, ',');
+					levelFile.get(buffer, LEVEL_LOAD_CHARS_BUFFER_SIZE, ',');
 				else
 				{
 					if (y < _levelRows - 1)
-						levelFile.get(buffer, CHARS_BUFFER_SIZE, '\n');
+						levelFile.get(buffer, LEVEL_LOAD_CHARS_BUFFER_SIZE, '\n');
 					else
-						levelFile.get(buffer, CHARS_BUFFER_SIZE, '<');
+						levelFile.get(buffer, LEVEL_LOAD_CHARS_BUFFER_SIZE, '<');
 				}
 			
 				int digits = 0;
