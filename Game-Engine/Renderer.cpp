@@ -34,6 +34,9 @@ namespace gn
 			return false;
 		}
 
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+
 		glGenVertexArrays(1, &_vertexArrayID);
 		glBindVertexArray(_vertexArrayID);
 
@@ -120,8 +123,6 @@ namespace gn
 
 	void Renderer::drawBuffer(PrimitiveType primitive, unsigned int vertexCount) const
 	{
-		glEnable(GL_DEPTH_TEST);
-		glDepthFunc(GL_LESS);
 		glDrawArrays(primitive, 0, vertexCount);
 	}
 

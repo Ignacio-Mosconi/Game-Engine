@@ -13,8 +13,10 @@
 class Game : public gn::GameBase
 {
 private:
-	gn::Material* _simpleMaterial;
+	gn::Material* _customColorMaterial;
 	gn::Cube* _cube;
+
+	float timer;
 
 protected:
 	bool onStart() override;
