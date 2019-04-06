@@ -4,18 +4,11 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\mat4x4.hpp>
 #include "Exports.h"
+#include "Enums.h"
 
 namespace gn
 {
 	class Window;
-
-	enum PrimitiveType
-	{
-		TRIANGLE = 4,
-		TRIANGLE_STRIP = 5,
-		TRIANGLE_FAN = 6,
-		QUAD = 7
-	};
 /*
 	A "Renderer" will handle all of the rendering of the game, taking into considerations tasks such
 	as swapping between buffers and manipualating the model, view and projection matrices.
@@ -30,6 +23,9 @@ namespace gn
 		glm::mat4 _view;
 		glm::mat4 _projection;
 
+		glm::mat4 _orthoProjection;
+		glm::mat4 _perspProjection;
+
 		glm::mat4 _mvp;
 
 		void updateMVP();
@@ -38,7 +34,7 @@ namespace gn
 		Renderer();
 		~Renderer();
 
-		bool start(Window* renderWindow);
+		bool start(Window* renderWindow, ProjectionType defaultProjectionType);
 		bool stop();
 	
 		void setClearColor(float r, float g, float b, float a);
@@ -60,6 +56,12 @@ namespace gn
 		void multiplyModelMatrix(glm::mat4 matrix);
 
 		void updateView(float x, float y);
+		void updateView(glm::vec3 cameraPos, glm::vec3 center, glm::vec3 upVector);
+
+		void changeOrthoProjection(float left, float right, float bottom, float top, float nearPlane, float farPlane);
+		void changePerspProjection(float fieldOfView, float right, float nearPlane, float farPlane);
+
+		void setProjectionType(ProjectionType projectionType);
 
 		inline glm::mat4& getMVP() { return _mvp; }
 		inline Window* getRenderWindow() const { return _renderWindow;  }

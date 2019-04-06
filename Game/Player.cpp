@@ -50,7 +50,7 @@ void Player::update(float deltaTime)
 	}
 	else
 	{
-		if (_facing == Left)
+		if (_facing == LeftCollision)
 		{
 			if (currAnim->getName() != _idleLeftAnimation->getName())
 			{
@@ -77,7 +77,7 @@ void Player::move(MoveDirection moveDirection, float amount)
 
 	switch (moveDirection)
 	{
-		case Left:		
+		case LeftCollision:		
 			if (currentAnim->getName() != _walkLeftAnimation->getName())
 			{
 				currentAnim->stop();	
@@ -86,7 +86,7 @@ void Player::move(MoveDirection moveDirection, float amount)
 			GameEntity::move(-amount, 0.0f);
 			break;
 
-		case Right: 
+		case RightCollision: 
 			if (currentAnim->getName() != _walkRightAnimation->getName())
 			{
 				currentAnim->stop();

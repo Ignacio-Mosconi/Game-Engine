@@ -20,7 +20,7 @@ namespace gn
 		_mvp = _projection * _view * _model;
 	}
 
-	bool Renderer::start(Window* renderWindow)
+	bool Renderer::start(Window* renderWindow, ProjectionType defaultProjection)
 	{
 		std::cout << "Renderer::start(renderWindow)" << std::endl;
 
@@ -38,10 +38,15 @@ namespace gn
 		glBindVertexArray(_vertexArrayID);
 
 		_model = glm::mat4(1.0f);
-		_view = glm::lookAt(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		_projection = glm::ortho(0.0f, (float)_renderWindow->getWidth(), 0.0f, (float)_renderWindow->getHeight(), 0.0f, 1.0f);
+		_view = glm::lookAt(glm::vec3(0.0f, 0.0f, 1000.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-		updateMVP();
+		float windowWidth = (float)_renderWindow->getWidth();
+		float windowHeight = (float)_renderWindow->getHeight();
+		
+		_orthoProjection = glm::ortho(0.0f, windowWidth, 0.0f, windowHeight, 0.0f, 1.0f);
+		_perspProjection = glm::perspective(glm::radians(45.0f), windowWidth / windowHeight, 0.1f, 1000.0f);
+
+		setProjectionType(defaultProjection);
 
 		return true;
 	}
@@ -141,6 +146,51 @@ namespace gn
 		glm::vec3 newCameraPos(x, y, 1.0f);
 	
 		_view = glm::lookAt(newCameraPos, glm::vec3(newCameraPos.x, newCameraPos.y, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+		updateMVP();
+	}
+
+	void Renderer::updateView(glm::vec3 cameraPos, glm::vec3 center, glm::vec3 upVector)
+	{
+		_view = glm::lookAt(cameraPos, center, upVector);
+
+		updateMVP();
+	}
+
+	void Renderer::changeOrthoProjection(float left, float right, float bottom, float top, float nearPlane, float farPlane)
+	{
+		bool updateProjection = (_projection == _orthoProjection) ? true : false;
+
+		_orthoProjection = glm::ortho(left, right, bottom, top, nearPlane, farPlane);
+
+		if (updateProjection)
+			updateMVP();
+	}
+
+	void Renderer::changePerspProjection(float fieldOfView, float aspectRatio, float nearPlane, float farPlane)
+	{
+		bool updateProjection = (_projection == _perspProjection) ? true : false;
+
+		_perspProjection = glm::perspective(glm::radians(fieldOfView), aspectRatio, nearPlane, farPlane);
+
+		if (updateProjection)
+			updateMVP();
+	}
+
+	void Renderer::setProjectionType(ProjectionType projectionType)
+	{
+		switch (projectionType)
+		{
+			case ORTHOGRAPHIC:
+				_projection = _orthoProjection;
+				break;
+			case PERSPECTIVE:
+				_projection = _perspProjection;
+				break;
+			default:
+				_projection = _orthoProjection;
+				break;
+		}
 
 		updateMVP();
 	}

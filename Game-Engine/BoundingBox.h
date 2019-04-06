@@ -3,16 +3,12 @@
 #include <iostream>
 #include <glm\vec3.hpp>
 #include "Exports.h"
+#include "Enums.h"
 
 namespace gn
 {
 	class Entity;
 	class GameEntity;
-
-	enum CollisionDir
-	{
-		Left, Right, Up, Down
-	};
 /*
 	The "BoundingBox" is a box collider that is used as a way of detecting collisions between entities;
 	each of these must be attached to an "Entity", as well as be registered inside the "CollisionManager" class.

@@ -15,7 +15,7 @@ namespace gn
 		std::cout << "GameBase::~GameBase()" << std::endl;
 	}
 
-	bool GameBase::start(const int& width, const int& height, const char* title)
+	bool GameBase::start(const int& width, const int& height, const char* title, ProjectionType projectionType)
 	{
 		std::cout << "GameBase::start()" << std::endl;
 
@@ -24,7 +24,7 @@ namespace gn
 			return false;
 
 		_renderer = new Renderer;
-		if (!_renderer->start(_window))
+		if (!_renderer->start(_window, projectionType))
 			return false;
 
 		return onStart();

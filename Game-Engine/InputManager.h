@@ -2,18 +2,11 @@
 
 #include <iostream>
 #include "Exports.h"
+#include "Enums.h"
 
 namespace gn
 {
 	class Window;
-
-	enum Key
-	{
-		UpKey = 265,
-		DownKey = 264,
-		LeftKey = 263,
-		RightKey = 262
-	};
 /*
 	The "InputManager" handles all of the input detection for the application.
 */

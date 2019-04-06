@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include "Exports.h"
+#include "EngineConstants.h"
+#include "Enums.h"
 
 namespace gn
 {
@@ -14,13 +16,10 @@ namespace gn
 	class ENGINE_API GameBase
 	{
 	private:
-		const float DRAW_FRAME_TIME = 1.0f / 60.0f;
-	
 		double _lastTime;
 		float _drawTimer;
 
 	protected:
-
 		Window* _window;
 		Renderer* _renderer;
 	
@@ -33,7 +32,7 @@ namespace gn
 		GameBase();
 		~GameBase();
 
-		bool start(const int& width, const int& height, const char* title);
+		bool start(const int& width, const int& height, const char* title, ProjectionType projectionType = ORTHOGRAPHIC);
 		bool stop();
 		void run();
 	};

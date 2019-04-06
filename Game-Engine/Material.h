@@ -31,7 +31,6 @@ namespace gn
 		unsigned int loadShaders(const std::string& vertexShaderPath, const std::string& pixelShaderPath);
 
 	public:
-
 		static Material* generateMaterial(const std::string& vertexShaderPath, const std::string& pixelShaderPath);
 		static void destroyMaterial(Material* material);
 	

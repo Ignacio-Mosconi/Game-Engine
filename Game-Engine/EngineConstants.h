@@ -11,3 +11,5 @@ constexpr const char* TEXTURE_PIXEL_SHADER_PATH = "Assets/Shaders/TexturePixelSh
 constexpr int BMP_HEADER_SIZE = 54;
 // Level Loading
 constexpr int LEVEL_LOAD_CHARS_BUFFER_SIZE = 64;
+// Performance Properties
+constexpr float DRAW_FRAME_TIME = 1.0f / 60.0f;

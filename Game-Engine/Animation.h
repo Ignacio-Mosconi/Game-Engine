@@ -12,6 +12,7 @@ namespace gn
 */
 	class ENGINE_API Animation
 	{
+	private:
 		std::queue<unsigned int>* _frames;
 		Sprite* _sprite;
 	

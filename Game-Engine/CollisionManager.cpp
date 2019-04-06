@@ -101,26 +101,26 @@ namespace gn
 								{
 									if (diff.y > 0)
 									{
-										boxADir = Up;
-										boxBDir = Down;
+										boxADir = UpCollision;
+										boxBDir = DownCollision;
 									}
 									else
 									{
-										boxADir = Down;
-										boxBDir = Up;
+										boxADir = DownCollision;
+										boxBDir = UpCollision;
 									}
 								}
 								else
 								{
 									if (diff.x > 0)
 									{
-										boxADir = Left;
-										boxBDir = Right;
+										boxADir = LeftCollision;
+										boxBDir = RightCollision;
 									}
 									else
 									{
-										boxADir = Right;
-										boxBDir = Left;
+										boxADir = RightCollision;
+										boxBDir = LeftCollision;
 									}
 								}
 							

@@ -6,16 +6,12 @@
 #include <glm\gtx\common.hpp>
 #include "Entity.h"
 #include "EngineConstants.h"
+#include "Enums.h"
 
 namespace gn
 {
 	class Texture;
 	class Material;
-
-	enum TileType
-	{
-		Background, Wall
-	};
 
 	struct Tile
 	{
