@@ -149,7 +149,7 @@ bool Game::onUpdate(float deltaTime)
 
 	CollisionManager::getInstance()->update();
 	
-	//_tilemap->scrollView(50.0f * deltaTime, 0.0f);
+	_tilemap->scrollView(50.0f * deltaTime, 0.0f);
 	
 	return true;
 }

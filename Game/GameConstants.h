@@ -3,7 +3,7 @@
 // Window Properties
 constexpr int SCREEN_WIDTH = 1280;
 constexpr int SCREEN_HEIGHT = 720;
-constexpr auto WINDOW_TITLE = "Green Nacho - Game Engine";
+constexpr const char* WINDOW_TITLE = "Green Nacho - Game Engine";
 // Texture Paths
 constexpr const char* SPRITE_TEXTURE_PATH = "Assets/Sprites/Sprite Texture.bmp";
 constexpr const char* SPRITE_SHEET_TEXTURE_PATH = "Assets/Sprites/Sprite Sheet Texture.bmp";

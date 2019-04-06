@@ -8,7 +8,7 @@ int main()
 {
 	Game* game = new Game();
 
-	if (game->start(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE, PERSPECTIVE))
+	if (game->start(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE, ORTHOGRAPHIC))
 		game->run();
 
 	game->stop();
