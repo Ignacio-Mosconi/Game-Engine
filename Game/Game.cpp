@@ -9,11 +9,12 @@ Game::Game() : GameBase()
 
 Game::~Game()
 {
+
 }
 
 bool Game::onStart()
 {
-	_camera = new Camera(_renderer, glm::vec3(0.0f, 0.0f, 300.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+	_camera = new Camera(_renderer, glm::vec3(0.0f, 0.0f, 300.0f));
 
 	_customColorMaterial = Material::generateMaterial(CUSTOM_VERTEX_SHADER_PATH, CUSTOM_PIXEL_SHADER_PATH);	
 	
@@ -29,6 +30,8 @@ bool Game::onStart()
 	float topColor[3] = { 1.0f, 1.0f, 0.0f };
 	
 	_cube->setFaceColors(frontColor, backColor, leftColor, rightColor, bottomColor, topColor);
+	
+	_camera->roll(45.0f);
 	
 	return true;
 }
@@ -47,9 +50,15 @@ bool Game::onStop()
 
 bool Game::onUpdate(float deltaTime)
 {	
-	timer += deltaTime;;
+	timer += deltaTime;
 
-	_camera->move(CameraMovementType::VERTICAL, -10.0f * deltaTime);
+	//_camera->advance(30.0f * deltaTime);
+	//_camera->strafe(30.0f * deltaTime);
+	//_camera->ascend(30.0f * deltaTime);
+
+	_camera->pitch(30.0f * deltaTime);
+	//_camera->yaw(30.0f * deltaTime);
+	_camera->roll(30.0f * deltaTime);
 
 	return true;
 }

@@ -4,7 +4,6 @@
 #include <glm\mat4x4.hpp>
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtx\transform.hpp>
-#include "Enums.h"
 #include "Exports.h"
 
 namespace gn
@@ -25,11 +24,16 @@ namespace gn
 
 	public:
 		Camera(Renderer* renderer);
-		Camera(Renderer* renderer, glm::vec3 pos, glm::vec3 rot,
-			glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3 forward = glm::vec3(0.0f, 0.0f, -1.0f),
+		Camera(Renderer* renderer, glm::vec3 pos, glm::vec3 rot = glm::vec3(0.0f, 0.0f, 0.0f),
+			glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3 forward = glm::vec3(0.0f, 0.0f, 1.0f),
 			glm::vec3 right = glm::vec3(1.0f, 0.0f, 0.0f));
 
-		void move(CameraMovementType movementType, float distance);
-		void rotate(CameraRotationType rotationType, float degrees);
+		void advance(const float distance);
+		void strafe(const float distance);
+		void ascend(const float distance);
+		
+		void pitch(const float angle);
+		void yaw(const float angle);
+		void roll(const float angle);
 	};
 }

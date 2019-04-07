@@ -39,18 +39,3 @@ enum class PrimitiveType
 	TRIANGLE_FAN = 6,
 	QUAD = 7
 };
-
-// Camera
-enum class CameraMovementType
-{
-	STRAFE,
-	WALK,
-	VERTICAL,
-};
-
-enum class CameraRotationType
-{
-	YAW,
-	PITCH,
-	ROLL,
-};
