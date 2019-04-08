@@ -23,6 +23,8 @@ namespace gn
 		glm::vec3 _forward;
 		glm::vec3 _right;
 
+		void updateRenderer();
+
 	public:
 		Camera(Renderer* renderer);
 		Camera(Renderer* renderer, glm::vec3 pos, glm::vec3 rot = glm::vec3(0.0f, 0.0f, 0.0f),
