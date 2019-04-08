@@ -42,7 +42,7 @@ namespace gn
 		if (_rotation.x < 0.0f || _rotation.x > FULL_ROTATION)
 			_rotation.x = glm::abs(FULL_ROTATION - glm::abs(_rotation.x));
 		
-		float pitch = -glm::radians(angle);
+		float pitch = glm::radians(angle);
 
 		_forward = glm::normalize(_forward * glm::cos(pitch) + _up * glm::sin(pitch));
 		_up = -glm::normalize(glm::cross(_forward, _right));

@@ -72,8 +72,6 @@ namespace gn
 		if (_rotation.z < 0 || _rotation.z > FULL_ROTATION)
 			_rotation.z = glm::abs(FULL_ROTATION - glm::abs(_rotation.z));
 
-		std::cout << _rotation.x << ", " << _rotation.y << ", " << _rotation.z << std::endl;
-
 		glm::mat4 rotationX = glm::rotate(glm::mat4(1.0f), _rotation.x, glm::vec3(1, 0, 0));
 		glm::mat4 rotationY = glm::rotate(glm::mat4(1.0f), _rotation.y, glm::vec3(0, 1, 0));
 		glm::mat4 rotationZ = glm::rotate(glm::mat4(1.0f), _rotation.z, glm::vec3(0, 0, 1));
