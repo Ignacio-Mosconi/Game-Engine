@@ -31,7 +31,7 @@ bool Game::onStart()
 	
 	_cube->setFaceColors(frontColor, backColor, leftColor, rightColor, bottomColor, topColor);
 	
-	_camera->roll(45.0f);
+	//_camera->roll(45.0f);
 	
 	return true;
 }
@@ -52,13 +52,15 @@ bool Game::onUpdate(float deltaTime)
 {	
 	timer += deltaTime;
 
+	_cube->rotate(-3.0f * deltaTime, -3.0f * deltaTime, -3.0f * deltaTime);
+
 	//_camera->advance(30.0f * deltaTime);
 	//_camera->strafe(30.0f * deltaTime);
 	//_camera->ascend(30.0f * deltaTime);
 
-	_camera->pitch(30.0f * deltaTime);
+	//_camera->pitch(-30.0f * deltaTime);
 	//_camera->yaw(30.0f * deltaTime);
-	_camera->roll(30.0f * deltaTime);
+	//_camera->roll(30.0f * deltaTime);
 
 	return true;
 }

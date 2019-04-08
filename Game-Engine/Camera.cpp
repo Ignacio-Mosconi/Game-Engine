@@ -38,11 +38,14 @@ namespace gn
 	void Camera::pitch(const float angle)
 	{
 		_rotation.x += angle;
+
+		if (_rotation.x < 0.0f || _rotation.x > FULL_ROTATION)
+			_rotation.x = glm::abs(FULL_ROTATION - glm::abs(_rotation.x));
 		
 		float pitch = -glm::radians(angle);
 
 		_forward = glm::normalize(_forward * glm::cos(pitch) + _up * glm::sin(pitch));
-		_up = glm::normalize(glm::cross(_forward, _right));
+		_up = -glm::normalize(glm::cross(_forward, _right));
 
 		_renderer->updateView(_position, _position - _forward, _up);
 	}	
@@ -50,6 +53,9 @@ namespace gn
 	void Camera::yaw(const float angle)
 	{
 		_rotation.y += angle;
+
+		if (_rotation.y < 0.0f || _rotation.y > FULL_ROTATION)
+			_rotation.y = glm::abs(FULL_ROTATION - glm::abs(_rotation.y));
 		
 		float yaw = glm::radians(angle);
 
@@ -63,10 +69,13 @@ namespace gn
 	{
 		_rotation.z += angle;
 
+		if (_rotation.z < 0.0f || _rotation.z > FULL_ROTATION)
+			_rotation.z = glm::abs(FULL_ROTATION - glm::abs(_rotation.z));
+
 		float roll = glm::radians(angle);
 
 		_right = glm::normalize(_right * glm::cos(roll) + _up * glm::sin(roll));
-		_up = glm::normalize(glm::cross(_forward, _right));
+		_up = -glm::normalize(glm::cross(_forward, _right));
 
 		_renderer->updateView(_position, _position - _forward, _up);
 	}

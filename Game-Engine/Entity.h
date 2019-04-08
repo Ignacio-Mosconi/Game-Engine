@@ -6,6 +6,7 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtx\transform.hpp>
 #include "Exports.h"
+#include "EngineConstants.h"
 
 namespace gn
 {
