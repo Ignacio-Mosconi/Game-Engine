@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <GLFW\glfw3.h>
+#include <glm\vec2.hpp>
 #include "Exports.h"
 #include "Enums.h"
 
@@ -16,9 +18,13 @@ namespace gn
 		static InputManager* _instance;
 	
 		Window* _window;
+		
+		glm::vec2 _mousePosition;
 
 		InputManager();
 		~InputManager();
+
+		//void mousePosCallback(GLFWwindow* window, double mouseX, double mouseY);
 
 	public:
 		static InputManager* getInstance();
@@ -27,5 +33,10 @@ namespace gn
 		void attachToWindow(Window* window);
 
 		bool getKey(Key key);
+		void hideCursor();
+		
+		inline glm::vec2 getMousePosition() { return _mousePosition; }
+		
+		inline void setMousePosition(glm::vec2 mousePosition) { _mousePosition = mousePosition; }
 	};
 }

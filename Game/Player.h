@@ -1,5 +1,6 @@
 #pragma once
 
+#include <glm\vec2.hpp>
 #include "Entity.h"
 #include "Camera.h"
 #include "Renderer.h"
@@ -21,6 +22,7 @@ private:
 	float _movementSpeed;
 
 	void move(MoveDir moveDir, float distance);
+	void moveCamera(glm::vec2 mousePosition);
 
 public:
 	Player(gn::Renderer* renderer, float movementSpeed = 2.0f);

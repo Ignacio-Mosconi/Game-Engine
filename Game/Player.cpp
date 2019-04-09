@@ -43,6 +43,11 @@ void Player::move(MoveDir moveDir, float distance)
 	}
 }
 
+void Player::moveCamera(glm::vec2 mousePosition)
+{
+
+}
+
 void Player::update(float deltaTime)
 {
 	if (InputManager::getInstance()->getKey(Key::W_KEY))
