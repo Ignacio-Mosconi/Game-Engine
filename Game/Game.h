@@ -8,17 +8,20 @@
 #include "Camera.h"
 #include "Entity.h"
 #include "Cube.h"
+#include "InputManager.h"
 #include "EngineConstants.h"
 #include "GameConstants.h"
+
+class Player;
 
 class Game : public gn::GameBase
 {
 private:
-	gn::Camera* _camera;
+	gn::InputManager* _inputManager;
 	gn::Material* _customColorMaterial;
+	
+	Player* _player;
 	gn::Cube* _cube;
-
-	float timer;
 
 protected:
 	bool onStart() override;

@@ -1,10 +1,11 @@
 #include "Game.h"
+#include "Player.h"
 
 using namespace gn;
 
 Game::Game() : GameBase()
 {
-	timer = 0.0f;
+
 }
 
 Game::~Game()
@@ -14,12 +15,15 @@ Game::~Game()
 
 bool Game::onStart()
 {
-	_camera = new Camera(_renderer, glm::vec3(0.0f, 0.0f, 300.0f));
+	_inputManager = InputManager::getInstance();
+	_inputManager->attachToWindow(_window);
 
 	_customColorMaterial = Material::generateMaterial(CUSTOM_VERTEX_SHADER_PATH, CUSTOM_PIXEL_SHADER_PATH);	
+
+	_player = new Player(_renderer, 0.0f, 0.0f, 10.0f, 5.0f);
 	
 	_cube = new Cube(_renderer, _customColorMaterial);
-	_cube->create(3, NULL, 100.0f, 100.0f, 100.0f);
+	_cube->create(3, NULL, 2.0f, 2.0f, 2.0f);
 	_cube->setPosition(0.0f, 0.0f, 0.0f);
 
 	float frontColor[3] = { 0.0f, 1.0f, 0.0f };
@@ -31,10 +35,6 @@ bool Game::onStart()
 	
 	_cube->setFaceColors(frontColor, backColor, leftColor, rightColor, bottomColor, topColor);
 	
-	//_camera->pitch(20.0f);
-	//_camera->yaw(20.0f);
-	//_camera->roll(20.0f);
-	
 	return true;
 }
 
@@ -42,9 +42,10 @@ bool Game::onStop()
 {
 	_cube->dispose();
 
+	delete _player;
 	delete _cube;
-	delete _camera;
 	
+	InputManager::deleteInstance();
 	Material::destroyMaterial(_customColorMaterial);
 	
 	return true;
@@ -52,23 +53,16 @@ bool Game::onStop()
 
 bool Game::onUpdate(float deltaTime)
 {	
-	timer += deltaTime;
+	_player->update(deltaTime);
 
-	//_cube->rotate(-3.0f * deltaTime, -3.0f * deltaTime, -3.0f * deltaTime);
-
-	//_camera->advance(30.0f * deltaTime);
-	//_camera->strafe(30.0f * deltaTime);
-	//_camera->ascend(30.0f * deltaTime);
-
-	_camera->pitch(30.0f * deltaTime);
-	_camera->yaw(30.0f * deltaTime);
-	_camera->roll(30.0f * deltaTime);
+	_cube->rotate(3.0f * deltaTime, 3.0f * deltaTime, 3.0f * deltaTime);
 
 	return true;
 }
 
 bool Game::onDraw()
 {
+	_player->draw();
 	_cube->draw();
 
 	return true;

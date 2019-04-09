@@ -6,7 +6,12 @@ enum class Key
 	UP_KEY = 265,
 	DOWN_KEY = 264,
 	LEFT_KEY = 263,
-	RIGHT_KEY = 262
+	RIGHT_KEY = 262,
+
+	W_KEY = 87,
+	A_KEY = 65,
+	S_KEY = 83,
+	D_KEY = 68,
 };
 
 // Bounding Boxes
