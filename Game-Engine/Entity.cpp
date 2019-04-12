@@ -9,6 +9,14 @@ namespace gn
 	_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f)), _modelMatrix(glm::mat4(1.0f))
 	{
 		std::cout << "Entity::Entity()" << std::endl;
+	}	
+	
+	Entity::Entity(Renderer* renderer, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) :
+	_renderer(renderer),
+	_position(position), _rotation(rotation), _scale(scale),
+	_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f)), _modelMatrix(glm::mat4(1.0f))
+	{
+		std::cout << "Entity::Entity()" << std::endl;
 	}
 
 	Entity::~Entity()

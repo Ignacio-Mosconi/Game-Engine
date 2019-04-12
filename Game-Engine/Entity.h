@@ -34,9 +34,8 @@ namespace gn
 
 	public:
 		Entity(Renderer* renderer);
+		Entity(Renderer* renderer, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 		virtual ~Entity();
-
-		virtual void draw() const = 0;
 
 		void setPosition(float x, float y, float z);
 		void setRotation(float x, float y, float z);

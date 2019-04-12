@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <GLFW\glfw3.h>
 #include <glm\vec2.hpp>
 #include "Exports.h"
 #include "Enums.h"

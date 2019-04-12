@@ -55,7 +55,7 @@ bool Game::onUpdate(float deltaTime)
 {	
 	_player->update(deltaTime);
 
-	_cube->rotate(3.0f * deltaTime, 3.0f * deltaTime, 3.0f * deltaTime);
+	//_cube->rotate(3.0f * deltaTime, 3.0f * deltaTime, 3.0f * deltaTime);
 
 	return true;
 }

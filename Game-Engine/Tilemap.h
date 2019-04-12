@@ -78,7 +78,7 @@ namespace gn
 
 		void dispose();
 	
-		void draw() const override;
+		void draw() const;
 
 		Tile getTile(unsigned int tileIndex) const;
 		TileType getTileType(unsigned int row, unsigned int column) const;

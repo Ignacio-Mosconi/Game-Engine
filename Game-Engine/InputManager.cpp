@@ -1,8 +1,15 @@
+#include <GLFW\glfw3.h>
 #include "InputManager.h"
 #include "Window.h"
 
 namespace gn
 {
+	// Find a better way of doing this!
+	void mousePosCallback(GLFWwindow* window, double mouseX, double mouseY)
+	{
+		InputManager::getInstance()->setMousePosition(glm::vec2((float)mouseX, (float)mouseY));
+	}
+
 	InputManager* InputManager::_instance = NULL;
 
 	InputManager::InputManager() : _mousePosition(glm::vec2(0.0f, 0.0f))
@@ -45,10 +52,4 @@ namespace gn
 	{
 		glfwSetInputMode((GLFWwindow*)_window->getWindowPtr(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}	
-
-	// Find a better way of doing this!
-	void mousePosCallback(GLFWwindow* window, double mouseX, double mouseY)
-	{
-		InputManager::getInstance()->setMousePosition(glm::vec2((float)mouseX, (float)mouseY));
-	}
 }

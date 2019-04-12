@@ -4,13 +4,14 @@ using namespace gn;
 
 Player::Player(Renderer* renderer, float movementSpeed) : Entity(renderer), _movementSpeed(movementSpeed)
 {
-	_fpsCamera = new Camera(_renderer);
+	_fpsCamera = new Camera(renderer, _position, _rotation);
 }
 
-Player::Player(Renderer* renderer, float posX, float posY, float posZ, float movementSpeed) : Entity(renderer),
+Player::Player(Renderer* renderer, float posX, float posY, float posZ, float movementSpeed) : 
+Entity(renderer, glm::vec3(posX, posY, posZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 (1.0f, 1.0f, 1.0f)), 
 _movementSpeed(movementSpeed)
 {
-	_fpsCamera = new Camera(_renderer, glm::vec3(posX, posY, posZ));
+	_fpsCamera = new Camera(renderer, _position, _rotation) ;
 }
 
 Player::~Player()
@@ -22,24 +23,24 @@ void Player::move(MoveDir moveDir, float distance)
 {
 	switch (moveDir)
 	{
-	case MoveDir::FORWARD:
-		translate(0.0f, 0.0f, distance);
-		_fpsCamera->advance(distance);
-		break;
-	case MoveDir::BACKWARD:
-		translate(0.0f, 0.0f, -distance);
-		_fpsCamera->advance(-distance);
-		break;
-	case MoveDir::LEFT:
-		translate(-distance, 0.0f, 0.0f);
-		_fpsCamera->strafe(-distance);
-		break;
-	case MoveDir::RIGHT:
-		translate(distance, 0.0f, 0.0f);
-		_fpsCamera->strafe(distance);
-		break;
-	default:
-		break;
+		case MoveDir::FORWARD:
+			translate(0.0f, 0.0f, distance);
+			_fpsCamera->advance(distance);
+			break;
+		case MoveDir::BACKWARD:
+			translate(0.0f, 0.0f, -distance);
+			_fpsCamera->advance(-distance);
+			break;
+		case MoveDir::LEFT:
+			translate(-distance, 0.0f, 0.0f);
+			_fpsCamera->strafe(-distance);
+			break;
+		case MoveDir::RIGHT:
+			translate(distance, 0.0f, 0.0f);
+			_fpsCamera->strafe(distance);
+			break;
+		default:
+			break;
 	}
 }
 

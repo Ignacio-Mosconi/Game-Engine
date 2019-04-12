@@ -31,7 +31,7 @@ namespace gn
 	
 		virtual void dispose();
 
-		void draw() const;
+		virtual void draw() const = 0;
 
 		inline Material* getMaterial() const { return _material;  }
 	};

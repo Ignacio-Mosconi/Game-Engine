@@ -30,5 +30,5 @@ public:
 	~Player();
 
 	void update(float deltaTime);
-	void draw() const override;
+	void draw() const;
 };
