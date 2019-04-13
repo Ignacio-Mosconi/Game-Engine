@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "Player.h"
 
 using namespace gn;
 
@@ -21,7 +20,7 @@ bool Game::onStart()
 	_simpleColorMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
 	_customColorMaterial = Material::generateMaterial(CUSTOM_VERTEX_SHADER_PATH, CUSTOM_PIXEL_SHADER_PATH);
 
-	_player = new Player(_renderer, 0.0f, 0.0f, 10.0f, 5.0f);
+	_navCamera = new NavigationCamera(_renderer, 0.0f, 0.0f, 10.0f);
 	
 	_cube = new Cube(_renderer, _customColorMaterial);
 	_cube->create(3, NULL, 2.0f, 2.0f, 2.0f);
@@ -39,7 +38,7 @@ bool Game::onStop()
 {
 	_cube->dispose();
 
-	delete _player;
+	delete _navCamera;
 	delete _cube;
 	
 	InputManager::deleteInstance();
@@ -51,16 +50,15 @@ bool Game::onStop()
 
 bool Game::onUpdate(float deltaTime)
 {	
-	_player->update(deltaTime);
+	_navCamera->update(deltaTime);
 
-	//_cube->rotate(3.0f * deltaTime, 3.0f * deltaTime, 3.0f * deltaTime);
+	_cube->rotate(3.0f * deltaTime, 3.0f * deltaTime, 3.0f * deltaTime);
 
 	return true;
 }
 
 bool Game::onDraw()
 {
-	_player->draw();
 	_cube->draw();
 
 	return true;

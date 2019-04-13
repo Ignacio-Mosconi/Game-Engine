@@ -5,14 +5,12 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "Material.h"
-#include "Camera.h"
+#include "NavigationCamera.h"
 #include "Entity.h"
 #include "Cube.h"
 #include "InputManager.h"
 #include "EngineConstants.h"
 #include "GameConstants.h"
-
-class Player;
 
 class Game : public gn::GameBase
 {
@@ -21,7 +19,7 @@ private:
 	gn::Material* _simpleColorMaterial;
 	gn::Material* _customColorMaterial;
 	
-	Player* _player;
+	gn::NavigationCamera* _navCamera;
 	gn::Cube* _cube;
 
 protected:

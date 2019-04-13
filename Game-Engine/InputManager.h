@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <glm\vec2.hpp>
+#include <glm\gtx\transform.hpp>
 #include "Exports.h"
 #include "Enums.h"
 
@@ -13,12 +14,14 @@ namespace gn
 */
 	class ENGINE_API InputManager
 	{
-	private:
+	private: 
 		static InputManager* _instance;
 	
 		Window* _window;
 		
-		glm::vec2 _mousePosition;
+		bool _firstMouseMovement;
+		glm::vec2 _lastMousePosition;
+		glm::vec2 _currentMousePosition;
 
 		InputManager();
 		~InputManager();
@@ -30,10 +33,15 @@ namespace gn
 		void attachToWindow(Window* window);
 
 		bool getKey(Key key);
+		float getAxis(InputAxis inputAxis);
 		void hideCursor();
+
+		inline bool firstMouseMovement() { return _firstMouseMovement; }
+		inline glm::vec2 getLastMousePosition() { return _lastMousePosition; }
+		inline glm::vec2 getCurrentMousePosition() { return _currentMousePosition; }
 		
-		inline glm::vec2 getMousePosition() { return _mousePosition; }
-		
-		inline void setMousePosition(glm::vec2 mousePosition) { _mousePosition = mousePosition; }
+		inline void setFirstMouseMovement(bool value) { _firstMouseMovement = value; }
+		inline void setLastMousePosition(glm::vec2 mousePosition) { _lastMousePosition = mousePosition; }
+		inline void setCurrentMousePosition(glm::vec2 mousePosition) { _currentMousePosition = mousePosition; }
 	};
 }

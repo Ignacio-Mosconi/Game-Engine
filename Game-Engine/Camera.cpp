@@ -10,6 +10,11 @@ namespace gn
 		updateRenderer();
 	}
 
+	Camera::~Camera()
+	{
+
+	}
+
 	void Camera::updateRenderer()
 	{
 		_renderer->updateView(_position, _position - _forward, _up);

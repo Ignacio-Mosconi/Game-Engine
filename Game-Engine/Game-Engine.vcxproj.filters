@@ -212,5 +212,8 @@
     <ClCompile Include="GameEntity2D.cpp">
       <Filter>Source Files\Entities\Base Classes</Filter>
     </ClCompile>
+    <ClCompile Include="NavigationCamera.cpp">
+      <Filter>Source Files\Entities\Entities 3D</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

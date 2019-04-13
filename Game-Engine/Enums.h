@@ -12,6 +12,15 @@ enum class Key
 	A_KEY = 65,
 	S_KEY = 83,
 	D_KEY = 68,
+
+	E_KEY = 69,
+	Q_KEY = 81
+};
+
+enum class InputAxis
+{
+	HORIZONTAL,
+	VERTICAL
 };
 
 // Bounding Boxes
@@ -43,4 +52,15 @@ enum class PrimitiveType
 	TRIANGLE_STRIP = 5,
 	TRIANGLE_FAN = 6,
 	QUAD = 7
+};
+
+// Camera
+enum class MoveDir
+{
+	FORWARD,
+	BACKWARD,
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
 };
