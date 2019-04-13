@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\mat4x4.hpp>
 #include "Exports.h"
@@ -42,14 +43,17 @@ namespace gn
 		void swapBuffers();
 	
 		unsigned int generateVertexBuffer(float* vertexBufferData, int size);
-		void destroyVertexBuffer(unsigned int vertexBufferID);
+		unsigned int generateIndexBuffer(std::vector<unsigned short>* indexBufferData, int size);
+		void destroyBuffer(unsigned int vertexBufferID);
 
 		void enableAttribute(unsigned int attrib) const;
 		void disableAttribute(unsigned int attrib) const;
 		void enableBlend() const;
 		void disableBlend() const;
 		void bindBuffer(unsigned int attrib, unsigned int vertexComponents, unsigned int vertexBufferID) const;
+		void bindIndexBuffer(unsigned int vertexBufferID) const;
 		void drawBuffer(PrimitiveType primitive, unsigned int vertexCount) const;
+		void drawIndexedBuffer(PrimitiveType primitive, unsigned int vertexCount) const;
 
 		void loadIdentityMatrix();
 		void setModelMatrix(glm::mat4 matrix);

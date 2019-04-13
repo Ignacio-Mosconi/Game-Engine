@@ -8,7 +8,7 @@ namespace gn
 {
 	class Renderer;
 
-	class ENGINE_API Camera : Entity
+	class ENGINE_API Camera : public Entity
 	{
 	private:
 		glm::vec3 _up;

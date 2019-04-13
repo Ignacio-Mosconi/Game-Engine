@@ -88,7 +88,7 @@ namespace gn
 
 		if (_uvBufferID != -1)
 		{
-			_renderer->destroyVertexBuffer(_uvBufferID);
+			_renderer->destroyBuffer(_uvBufferID);
 			delete _uvBufferData;
 			_uvBufferData = NULL;
 			_uvBufferID = -1;

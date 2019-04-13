@@ -15,7 +15,7 @@ enum class MoveDir
 	RIGHT
 };
 
-class Player : gn::Entity
+class Player : public gn::Entity
 {
 private:
 	gn::Camera* _fpsCamera;

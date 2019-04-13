@@ -87,11 +87,22 @@ namespace gn
 		glBufferData(GL_ARRAY_BUFFER, size, vertexBufferData, GL_STATIC_DRAW);
 
 		return vertexBuffer;
+	}	
+	
+	unsigned int Renderer::generateIndexBuffer(std::vector<unsigned short>* indexBufferData, int size)
+	{
+		GLuint vertexBuffer;
+
+		glGenBuffers(1, &vertexBuffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vertexBuffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indexBufferData, GL_STATIC_DRAW);
+
+		return vertexBuffer;
 	}
 
-	void Renderer::destroyVertexBuffer(unsigned int vertexBufferID)
+	void Renderer::destroyBuffer(unsigned int bufferID)
 	{
-		glDeleteBuffers(1, &vertexBufferID);
+		glDeleteBuffers(1, &bufferID);
 	}
 
 	void Renderer::enableAttribute(unsigned int attrib) const
@@ -119,11 +130,21 @@ namespace gn
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
 		glVertexAttribPointer(attrib, vertexComponents, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	}	
+	
+	void Renderer::bindIndexBuffer(unsigned int indexBufferID) const
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferID);
 	}
 
 	void Renderer::drawBuffer(PrimitiveType primitive, unsigned int vertexCount) const
 	{
 		glDrawArrays((int)primitive, 0, vertexCount);
+	}	
+	
+	void Renderer::drawIndexedBuffer(PrimitiveType primitive, unsigned int indexesSize) const
+	{
+		glDrawElements((int)primitive, indexesSize, GL_UNSIGNED_SHORT, (void*)0);
 	}
 
 	void Renderer::loadIdentityMatrix()

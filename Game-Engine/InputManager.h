@@ -23,8 +23,6 @@ namespace gn
 		InputManager();
 		~InputManager();
 
-		//void mousePosCallback(GLFWwindow* window, double mouseX, double mouseY);
-
 	public:
 		static InputManager* getInstance();
 		static void deleteInstance();

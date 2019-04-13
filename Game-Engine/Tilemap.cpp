@@ -348,7 +348,7 @@ namespace gn
 	{	
 		if (_vertexBufferID != -1)
 		{
-			_renderer->destroyVertexBuffer(_vertexBufferID);
+			_renderer->destroyBuffer(_vertexBufferID);
 			delete _vertexBufferData;
 			_vertexBufferData = NULL;
 			_vertexBufferID = -1;
@@ -356,7 +356,7 @@ namespace gn
 
 		if (_uvBufferID != -1)
 		{
-			_renderer->destroyVertexBuffer(_uvBufferID);
+			_renderer->destroyBuffer(_uvBufferID);
 			delete _uvBufferData;
 			_uvBufferData = NULL;
 			_uvBufferID = -1;

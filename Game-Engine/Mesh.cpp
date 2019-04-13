@@ -1,24 +1,24 @@
-#include "Shape.h"
+#include "Mesh.h"
 #include "Renderer.h"
 #include "Material.h"
 
 namespace gn
 {
-	Shape::Shape(Renderer* renderer, Material* material, unsigned int vertexCount) : Entity(renderer),
-	_material(material),
-	_vertexBufferData(NULL), _colorBufferData(NULL),
-	_vertexBufferID(-1), _colorBufferID(-1),
-	_vertexCount(vertexCount)
+	Mesh::Mesh(Renderer* renderer, Material* material, unsigned int vertexCount) : Entity(renderer),
+		_material(material),
+		_vertexBufferData(NULL), _colorBufferData(NULL), _indexBufferData(NULL),
+		_vertexBufferID(-1), _colorBufferID(-1), _indexBufferID(-1),
+		_vertexCount(vertexCount)
 	{
-		std::cout << "Shape::Shape()" << std::endl;
+		std::cout << "Mesh::Mesh()" << std::endl;
 	}
 
-	Shape::~Shape()
+	Mesh::~Mesh()
 	{
-		std::cout << "Shape::~Shape()" << std::endl;
+		std::cout << "Mesh::~Mesh()" << std::endl;
 	}
 
-	bool Shape::create(unsigned int vertexComponents, float* colorBufferData, float width, float height, float depth)
+	bool Mesh::create(unsigned int vertexComponents, float* colorBufferData, float width, float height, float depth)
 	{
 		if (_vertexBufferID != -1)
 			dispose();
@@ -26,16 +26,20 @@ namespace gn
 		int vertexBufferSize = sizeof(float) * _vertexCount * vertexComponents;
 
 		_vertexBufferData = setVertices(vertexComponents, width, height, depth);
+		_indexBufferData = setVerticesIndexes();
 		if (colorBufferData)
 			_colorBufferData = setVerticesColor(colorBufferData, vertexComponents);
 
+		int indexBufferSize = sizeof(unsigned short) * _indexBufferData->size();
+
 		_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
+		_indexBufferID = _renderer->generateIndexBuffer(&_indexBufferData[0], indexBufferSize);
 		_colorBufferID = (_colorBufferData) ? _renderer->generateVertexBuffer(_colorBufferData, vertexBufferSize) : -1;
 
 		return _vertexBufferID != -1;
 	}
 
-	float* Shape::setVerticesColor(float* colorBufferData, unsigned int vertexComponents) const
+	float* Mesh::setVerticesColor(float* colorBufferData, unsigned int vertexComponents) const
 	{
 		int arrayLength = _vertexCount * vertexComponents;
 		float* newColorBufferData = new float[arrayLength];
@@ -46,7 +50,7 @@ namespace gn
 		return newColorBufferData;
 	}
 
-	void Shape::dispose()
+	void Mesh::dispose()
 	{
 		if (_vertexBufferID != -1)
 		{
@@ -54,6 +58,14 @@ namespace gn
 			delete _vertexBufferData;
 			_vertexBufferData = NULL;
 			_vertexBufferID = -1;
+		}
+
+		if (_indexBufferID != -1)
+		{
+			_renderer->destroyBuffer(_indexBufferID);
+			delete _indexBufferData;
+			_indexBufferData = NULL;
+			_indexBufferID = -1;
 		}
 
 		if (_colorBufferID != -1)
@@ -65,7 +77,7 @@ namespace gn
 		}
 	}
 
-	void Shape::draw() const
+	void Mesh::draw() const
 	{
 		_renderer->loadIdentityMatrix();
 		_renderer->setModelMatrix(_modelMatrix);

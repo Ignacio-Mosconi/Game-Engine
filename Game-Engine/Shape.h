@@ -22,7 +22,7 @@ namespace gn
 
 	public:
 		Shape(Renderer* renderer, Material* material, unsigned int vertexCount);
-		~Shape();
+		virtual ~Shape();
 
 		virtual bool create(unsigned int vertexComponents, float* colorBufferData = NULL, 
 							float width = 1.0f, float height = 1.0f, float depth = 0.0f);

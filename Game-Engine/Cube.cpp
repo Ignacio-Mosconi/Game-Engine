@@ -4,7 +4,7 @@
 
 namespace gn
 {
-	Cube::Cube(Renderer* renderer, Material* material) : Shape(renderer, material, 36)
+	Cube::Cube(Renderer* renderer, Material* material) : Mesh(renderer, material, 8)
 	{
 		std::cout << "Cube::Cube()" << std::endl;
 	}
@@ -16,13 +16,14 @@ namespace gn
 
 	void Cube::draw() const
 	{
-		Shape::draw();
+		Mesh::draw();
 
 		_renderer->enableAttribute(0);
 		_renderer->enableAttribute(1);
 		_renderer->bindBuffer(0, 3, _vertexBufferID);
 		_renderer->bindBuffer(1, 3, _colorBufferID);
-		_renderer->drawBuffer(PrimitiveType::TRIANGLE, _vertexCount);
+		_renderer->bindIndexBuffer(_indexBufferID);
+		_renderer->drawIndexedBuffer(PrimitiveType::TRIANGLE, _indexBufferData->size());
 		_renderer->disableAttribute(0);
 		_renderer->disableAttribute(1);
 	}
@@ -36,60 +37,37 @@ namespace gn
 		float* vertexBufferData = new float[_vertexCount * vertexComponents]
 		{
 			-valueX ,-valueY, -valueZ,
-			-valueX, -valueY, valueZ,
-			-valueX, valueY, valueZ,
-
-			valueX, valueY, -valueZ, 
-			-valueX, -valueY, -valueZ,
 			-valueX, valueY, -valueZ,
-
-			valueX, -valueY, valueZ,
-			-valueX, -valueY, -valueZ,
-			valueX, -valueY, -valueZ,
-
 			valueX, valueY, -valueZ,
 			valueX, -valueY, -valueZ,
-			-valueX, -valueY, -valueZ,
-
-			-valueX, -valueY, -valueZ,
-			-valueX, valueY, valueZ,
-			-valueX, valueY, -valueZ,
 
 			valueX, -valueY, valueZ,
-			-valueX, -valueY, -valueZ,
-			-valueX, -valueY, valueZ,
-
+			valueX, valueY, valueZ,
 			-valueX, valueY, valueZ,
 			-valueX, -valueY, valueZ,
-			valueX, -valueY, valueZ,
-
-			valueX, valueY, valueZ,
-			valueX, -valueY, -valueZ,
-			valueX, valueY, -valueZ,
-
-			valueX, -valueY, -valueZ,
-			valueX, valueY, valueZ,
-			valueX, -valueY, valueZ,
-
-			valueX, valueY, valueZ,
-			valueX, valueY, -valueZ,
-			-valueX, valueY,-valueZ,
-
-			valueX, valueY, valueZ,
-			-valueX, valueY, -valueZ,
-			-valueX, valueY, valueZ,
-
-			valueX, valueY, valueZ,
-			-valueX, valueY, valueZ,
-			valueX, -valueY, valueZ
 		};
 
 		return vertexBufferData;
 	}
 
+	std::vector<unsigned short>* Cube::setVerticesIndexes() const
+	{
+		std::vector<unsigned short>* indexBufferData = new std::vector<unsigned short>
+		{
+			0, 1, 2,
+			0, 2, 3,
+			2, 3, 4,
+			4, 2, 5,
+			4, 5, 6,
+			4, 6, 7
+		};
+
+		return indexBufferData;
+	}
+
 	void Cube::setFaceColors(float front[3], float back[3], float left[3], float right[3], float bottom[3], float top[3])
 	{
-		float* colorBufferData = new float[_vertexCount * 3]
+		/*float* colorBufferData = new float[_vertexCount * 3]
 		{
 			right[0], right[1], right[2],
 			right[0], right[1], right[2],
@@ -148,6 +126,6 @@ namespace gn
 			_colorBufferID = _renderer->generateVertexBuffer(_colorBufferData, bufferSize);
 		}
 
-		delete colorBufferData;
+		delete colorBufferData;*/
 	}
 }
