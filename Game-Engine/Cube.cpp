@@ -65,54 +65,16 @@ namespace gn
 		return indexBufferData;
 	}
 
-	void Cube::setFaceColors(float front[3], float back[3], float left[3], float right[3], float bottom[3], float top[3])
+	void Cube::setFaceColors(float front[3], float back[3])
 	{
-		/*float* colorBufferData = new float[_vertexCount * 3]
-		{
-			right[0], right[1], right[2],
-			right[0], right[1], right[2],
-			right[0], right[1], right[2],
-			
+		float* colorBufferData = new float[_vertexCount * 3]
+		{	
 			back[0], back[1], back[2],
 			back[0], back[1], back[2],
 			back[0], back[1], back[2],
-			
-			bottom[0], bottom[1], bottom[2],
-			bottom[0], bottom[1], bottom[2],
-			bottom[0], bottom[1], bottom[2],
-
 			back[0], back[1], back[2],
-			back[0], back[1], back[2],
-			back[0], back[1], back[2],
-			
-			right[0], right[1], right[2],
-			right[0], right[1], right[2],
-			right[0], right[1], right[2],
-
-			bottom[0], bottom[1], bottom[2],
-			bottom[0], bottom[1], bottom[2],
-			bottom[0], bottom[1], bottom[2],
 
 			front[0], front[1], front[2],
-			front[0], front[1], front[2],
-			front[0], front[1], front[2],			
-			
-			left[0], left[1], left[2],
-			left[0], left[1], left[2],
-			left[0], left[1], left[2],
-
-			left[0], left[1], left[2],
-			left[0], left[1], left[2],
-			left[0], left[1], left[2],
-
-			top[0], top[1], top[2],
-			top[0], top[1], top[2],
-			top[0], top[1], top[2],
-
-			top[0], top[1], top[2],
-			top[0], top[1], top[2],
-			top[0], top[1], top[2],
-
 			front[0], front[1], front[2],
 			front[0], front[1], front[2],
 			front[0], front[1], front[2]
@@ -120,12 +82,10 @@ namespace gn
 		
 		_colorBufferData = setVerticesColor(colorBufferData, 3);
 
-		if (_colorBufferID == -1)
-		{
-			int bufferSize = sizeof(float) * _vertexCount * 3;
-			_colorBufferID = _renderer->generateVertexBuffer(_colorBufferData, bufferSize);
-		}
+		int bufferSize = sizeof(float) * _vertexCount * 3;
+		
+		_colorBufferID = _renderer->generateVertexBuffer(_colorBufferData, bufferSize);
 
-		delete colorBufferData;*/
+		delete colorBufferData;
 	}
 }

@@ -18,23 +18,19 @@ bool Game::onStart()
 	_inputManager = InputManager::getInstance();
 	_inputManager->attachToWindow(_window);
 
-	_simpleMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
+	_simpleColorMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
 	_customColorMaterial = Material::generateMaterial(CUSTOM_VERTEX_SHADER_PATH, CUSTOM_PIXEL_SHADER_PATH);
 
 	_player = new Player(_renderer, 0.0f, 0.0f, 10.0f, 5.0f);
 	
-	_cube = new Cube(_renderer, _simpleMaterial);
+	_cube = new Cube(_renderer, _customColorMaterial);
 	_cube->create(3, NULL, 2.0f, 2.0f, 2.0f);
 	_cube->setPosition(0.0f, 0.0f, 0.0f);
 
-	//float frontColor[3] = { 0.0f, 1.0f, 0.0f };
-	//float backColor[3] = { 1.0f, 0.0f, 0.0f };
-	//float leftColor[3] = { 0.0f, 0.0f, 1.0f };
-	//float rightColor[3] = { 1.0f, 0.0f, 1.0f };
-	//float bottomColor[3] = { 1.0f, 1.0f, 1.0f };
-	//float topColor[3] = { 1.0f, 1.0f, 0.0f };
-	//
-	//_cube->setFaceColors(frontColor, backColor, leftColor, rightColor, bottomColor, topColor);
+	float frontColor[4] = { 0.0f, 1.0f, 0.0f};
+	float backColor[4] = { 0.0f, 0.0f, 1.0f };
+
+	_cube->setFaceColors(frontColor, backColor);
 	
 	return true;
 }
@@ -47,7 +43,7 @@ bool Game::onStop()
 	delete _cube;
 	
 	InputManager::deleteInstance();
-	Material::destroyMaterial(_simpleMaterial);
+	Material::destroyMaterial(_simpleColorMaterial);
 	Material::destroyMaterial(_customColorMaterial);
 	
 	return true;
@@ -57,7 +53,7 @@ bool Game::onUpdate(float deltaTime)
 {	
 	_player->update(deltaTime);
 
-	_cube->rotate(3.0f * deltaTime, 3.0f * deltaTime, 3.0f * deltaTime);
+	//_cube->rotate(3.0f * deltaTime, 3.0f * deltaTime, 3.0f * deltaTime);
 
 	return true;
 }

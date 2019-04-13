@@ -168,12 +168,12 @@ xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s/y</Command>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\CustomPixelShader.pixelshader" />
-    <None Include="Shaders\CustomVertexShader.vertexshader" />
-    <None Include="Shaders\SimpleFragmentShader.fragmentshader" />
-    <None Include="Shaders\SimpleVertexShader.vertexshader" />
-    <None Include="Shaders\TexturePixelShader.pixelshader" />
-    <None Include="Shaders\TextureVertexShader.vertexshader" />
+    <None Include="Assets\Shaders\CustomPixelShader.pixelshader" />
+    <None Include="Assets\Shaders\CustomVertexShader.vertexshader" />
+    <None Include="Assets\Shaders\SimpleFragmentShader.fragmentshader" />
+    <None Include="Assets\Shaders\SimpleVertexShader.vertexshader" />
+    <None Include="Assets\Shaders\TexturePixelShader.pixelshader" />
+    <None Include="Assets\Shaders\TextureVertexShader.vertexshader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

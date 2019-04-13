@@ -37,22 +37,22 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\SimpleFragmentShader.fragmentshader">
+    <None Include="Assets\Shaders\CustomPixelShader.pixelshader">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Shaders\SimpleVertexShader.vertexshader">
+    <None Include="Assets\Shaders\CustomVertexShader.vertexshader">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Shaders\CustomPixelShader.pixelshader">
+    <None Include="Assets\Shaders\SimpleFragmentShader.fragmentshader">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Shaders\CustomVertexShader.vertexshader">
+    <None Include="Assets\Shaders\SimpleVertexShader.vertexshader">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Shaders\TexturePixelShader.pixelshader">
+    <None Include="Assets\Shaders\TexturePixelShader.pixelshader">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Shaders\TextureVertexShader.vertexshader">
+    <None Include="Assets\Shaders\TextureVertexShader.vertexshader">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

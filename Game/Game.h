@@ -18,7 +18,7 @@ class Game : public gn::GameBase
 {
 private:
 	gn::InputManager* _inputManager;
-	gn::Material* _simpleMaterial;
+	gn::Material* _simpleColorMaterial;
 	gn::Material* _customColorMaterial;
 	
 	Player* _player;
