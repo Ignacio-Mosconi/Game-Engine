@@ -14,11 +14,12 @@ namespace gn
 
 		float* _vertexBufferData;
 		float* _colorBufferData;
-		std::vector<unsigned short>* _indexBufferData;
+		std::vector<unsigned short> _indexBufferData;
 
 		unsigned int _vertexBufferID;
 		unsigned int _colorBufferID;
 		unsigned int _indexBufferID;
+		
 		unsigned int _vertexCount;
 
 	public:
@@ -28,8 +29,8 @@ namespace gn
 		virtual bool create(unsigned int vertexComponents, float* colorBufferData = NULL,
 			float width = 1.0f, float height = 1.0f, float depth = 0.0f);
 		virtual float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f, float depth = 0.0f) const = 0;
-		virtual std::vector<unsigned short>* setVerticesIndexes() const = 0;
 		virtual float* setVerticesColor(float* colorBufferData, unsigned int vertexComponents) const;
+		virtual std::vector<unsigned short> setVerticesIndexes() const = 0;
 
 		virtual void dispose();
 

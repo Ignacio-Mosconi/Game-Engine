@@ -18,16 +18,16 @@ namespace gn
 		std::cout << "Shape::~Shape()" << std::endl;
 	}
 
-	bool Shape::create(unsigned int vertexComponents, float* colorBufferData, float width, float height, float depth)
+	bool Shape::create(unsigned int vertexComponents, float* colorBufferData, float width, float height)
 	{
 		if (_vertexBufferID != -1)
 			dispose();
 
-		int vertexBufferSize = sizeof(float) * _vertexCount * vertexComponents;
-
-		_vertexBufferData = setVertices(vertexComponents, width, height, depth);
+		_vertexBufferData = setVertices(vertexComponents, width, height);
 		if (colorBufferData)
 			_colorBufferData = setVerticesColor(colorBufferData, vertexComponents);
+
+		int vertexBufferSize = sizeof(float) * _vertexCount * vertexComponents;
 
 		_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
 		_colorBufferID = (_colorBufferData) ? _renderer->generateVertexBuffer(_colorBufferData, vertexBufferSize) : -1;

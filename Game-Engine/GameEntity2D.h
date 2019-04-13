@@ -20,7 +20,7 @@ namespace gn
 	they contain a "Sprite" (for rendering) and a "BoundingBox" (for collision detection), and they also have
 	the possibility to include animations.
 */
-	class ENGINE_API GameEntity
+	class ENGINE_API GameEntity2D
 	{
 	private:
 		Sprite* _sprite;
@@ -38,11 +38,11 @@ namespace gn
 		void createBoundingBox(float width, float height, bool isStatic, float mass, const std::string& collisionLayer);
 
 	public:
-		GameEntity(Renderer* renderer, const std::string& imagePath, const std::string& collisionLayer);
-		GameEntity(Renderer* renderer, Tilemap* tilemap, const std::string& imagePath, const std::string& collisionLayer,
+		GameEntity2D(Renderer* renderer, const std::string& imagePath, const std::string& collisionLayer);
+		GameEntity2D(Renderer* renderer, Tilemap* tilemap, const std::string& imagePath, const std::string& collisionLayer,
 					float x, float y, int spriteRows, int spriteColumns, int frameWidth, int frameHeight, 
 					bool isStatic = false, float mass = 1);
-		~GameEntity();
+		virtual ~GameEntity2D();
 
 		void setBoundingBoxDimensions(float width, float height);
 

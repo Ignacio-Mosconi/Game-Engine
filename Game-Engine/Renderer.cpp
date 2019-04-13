@@ -89,13 +89,13 @@ namespace gn
 		return vertexBuffer;
 	}	
 	
-	unsigned int Renderer::generateIndexBuffer(std::vector<unsigned short>* indexBufferData, int size)
+	unsigned int Renderer::generateIndexBuffer(std::vector<unsigned short> indexBufferData, int size)
 	{
 		GLuint vertexBuffer;
 
 		glGenBuffers(1, &vertexBuffer);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vertexBuffer);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indexBufferData, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, &indexBufferData[0], GL_STATIC_DRAW);
 
 		return vertexBuffer;
 	}

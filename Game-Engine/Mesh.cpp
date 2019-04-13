@@ -23,17 +23,17 @@ namespace gn
 		if (_vertexBufferID != -1)
 			dispose();
 
-		int vertexBufferSize = sizeof(float) * _vertexCount * vertexComponents;
 
 		_vertexBufferData = setVertices(vertexComponents, width, height, depth);
-		_indexBufferData = setVerticesIndexes();
 		if (colorBufferData)
 			_colorBufferData = setVerticesColor(colorBufferData, vertexComponents);
+		_indexBufferData = setVerticesIndexes();
 
-		int indexBufferSize = sizeof(unsigned short) * _indexBufferData->size();
+		int vertexBufferSize = sizeof(float) * _vertexCount * vertexComponents;
+		int indexBufferSize = sizeof(unsigned short) * _indexBufferData.size();
 
 		_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
-		_indexBufferID = _renderer->generateIndexBuffer(&_indexBufferData[0], indexBufferSize);
+		_indexBufferID = _renderer->generateIndexBuffer(_indexBufferData, indexBufferSize);
 		_colorBufferID = (_colorBufferData) ? _renderer->generateVertexBuffer(_colorBufferData, vertexBufferSize) : -1;
 
 		return _vertexBufferID != -1;
@@ -60,20 +60,18 @@ namespace gn
 			_vertexBufferID = -1;
 		}
 
-		if (_indexBufferID != -1)
-		{
-			_renderer->destroyBuffer(_indexBufferID);
-			delete _indexBufferData;
-			_indexBufferData = NULL;
-			_indexBufferID = -1;
-		}
-
 		if (_colorBufferID != -1)
 		{
 			_renderer->destroyBuffer(_colorBufferID);
 			delete _colorBufferData;
 			_colorBufferData = NULL;
 			_colorBufferID = -1;
+		}
+
+		if (_indexBufferID != -1)
+		{
+			_renderer->destroyBuffer(_indexBufferID);
+			_indexBufferID = -1;
 		}
 	}
 

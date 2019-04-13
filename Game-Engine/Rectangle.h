@@ -14,7 +14,7 @@ namespace gn
 		Rectangle(Renderer* renderer, Material* material);
 		~Rectangle();
 
-		float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f, float depth = 0.0f) const override;
+		float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f) const override;
 
 		void draw() const override;
 	};

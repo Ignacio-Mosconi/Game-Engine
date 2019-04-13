@@ -18,27 +18,27 @@ namespace gn
 		std::cout << "Sprite::~Sprite()" << std::endl;
 	}
 
-	bool Sprite::create(unsigned int vertexComponents, float* colorBufferData, float width, float height, float depth)
+	bool Sprite::create(unsigned int vertexComponents, float* colorBufferData, float width, float height)
 	{
 		int uvBufferSize = sizeof(float) * _vertexCount * 2;
 
 		_uvBufferData = setVerticesUV(0, 0);
 		_uvBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
 
-		return Shape::create(vertexComponents, NULL, width, height, depth);
+		return Shape::create(vertexComponents, NULL, width, height);
 	}
 
-	float* Sprite::setVertices(unsigned int vertexComponents, float width, float height, float depth) const
+	float* Sprite::setVertices(unsigned int vertexComponents, float width, float height) const
 	{
 		float valueX = width * 0.5f;
 		float valueY = height * 0.5f;
 
 		float* vertexBufferData = new float[_vertexCount * vertexComponents]
 		{
-			-valueX, valueY, depth,
-			valueX, valueY, depth,
-			-valueX, -valueY, depth,
-			valueX, -valueY, depth
+			-valueX, valueY, 0.0f,
+			valueX, valueY, 0.0f,
+			-valueX, -valueY, 0.0f,
+			valueX, -valueY, 0.0f
 		};
 
 		return vertexBufferData;

@@ -27,17 +27,17 @@ namespace gn
 		_renderer->disableAttribute(1);
 	}
 
-	float* Rectangle::setVertices(unsigned int vertexComponents, float width, float height, float depth) const
+	float* Rectangle::setVertices(unsigned int vertexComponents, float width, float height) const
 	{
 		float valueX = width * 0.5f;
 		float valueY = height * 0.5f;
 
 		float* vertexBufferData = new float[_vertexCount * vertexComponents]
 		{
-			-valueX, -valueY, depth,
-			-valueX, valueY, depth,
-			valueX, -valueY, depth,
-			valueX, valueY, depth
+			-valueX, -valueY, 0.0f,
+			-valueX, valueY, 0.0f,
+			valueX, -valueY, 0.0f,
+			valueX, valueY, 0.0f
 		};
 
 		return vertexBufferData;

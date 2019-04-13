@@ -8,7 +8,7 @@
 namespace gn
 {
 	class Entity;
-	class GameEntity;
+	class GameEntity2D;
 /*
 	The "BoundingBox" is a box collider that is used as a way of detecting collisions between entities;
 	each of these must be attached to an "Entity", as well as be registered inside the "CollisionManager" class.
@@ -17,7 +17,7 @@ namespace gn
 	{
 	private:
 		Entity* _entityAttached;
-		GameEntity* _gameEntityAttached;
+		GameEntity2D* _gameEntityAttached;
 		
 		bool _staticObject;
 		float _width;
@@ -29,7 +29,7 @@ namespace gn
 		~BoundingBox();
 
 		void attachToEntity(Entity* entity);
-		void attachToGameEntity(GameEntity* entity);
+		void attachToGameEntity(GameEntity2D* entity);
 		void onCollision(BoundingBox* collider, float penetration, CollisionDir direction);
 		void setPhysicalProperties(bool staticObject, float mass);
 

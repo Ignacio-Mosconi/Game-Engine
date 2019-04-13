@@ -1,4 +1,4 @@
-#include "GameEntity.h"
+#include "GameEntity2D.h"
 #include "Sprite.h"
 #include "BoundingBox.h"
 #include "Renderer.h"
@@ -10,10 +10,10 @@
 
 namespace gn
 {
-	GameEntity::GameEntity(Renderer* renderer, const std::string& imagePath, const std::string& collisionLayer) :
+	GameEntity2D::GameEntity2D(Renderer* renderer, const std::string& imagePath, const std::string& collisionLayer) :
 	_sprite(createSprite(renderer, imagePath)), _material(NULL), _texture(NULL), _tilemap(NULL)
 	{
-		std::cout << "GameEntity::GameEntity(renderer, imagePath, collisionLayer)" << std::endl;
+		std::cout << "GameEntity2D::GameEntity2D(renderer, imagePath, collisionLayer)" << std::endl;
 
 		if (_sprite)
 			_sprite->setPosition(0, 0, 0);
@@ -24,13 +24,13 @@ namespace gn
 		createBoundingBox(bbWidth, bbHeight, false, 1.0f, collisionLayer);
 	}
 
-	GameEntity::GameEntity(Renderer* renderer, Tilemap* tilemap, const std::string& imagePath, const std::string& collisionLayer,
+	GameEntity2D::GameEntity2D(Renderer* renderer, Tilemap* tilemap, const std::string& imagePath, const std::string& collisionLayer,
 							float x, float y, int spriteRows, int spriteColumns, int frameWidth, int frameHeight, 
 							bool isStatic, float mass) :
 	_sprite(createSprite(renderer, imagePath, spriteRows, spriteColumns, frameWidth, frameHeight)),
 	_material(NULL), _texture(NULL), _tilemap(tilemap)
 	{
-		std::cout << "GameEntity::GameEntity(renderer, imagePath, collisionLayer, x, y)" << std::endl;
+		std::cout << "GameEntity2D::GameEntity2D(renderer, imagePath, collisionLayer, x, y)" << std::endl;
 
 		if (_sprite)
 			_sprite->setPosition(x, y, 0);
@@ -41,9 +41,9 @@ namespace gn
 		createBoundingBox(bbWidth, bbHeight, isStatic, mass, collisionLayer);
 	}
 
-	GameEntity::~GameEntity()
+	GameEntity2D::~GameEntity2D()
 	{
-		std::cout << "GameEntity::~GameEntity()" << std::endl;
+		std::cout << "GameEntity2D::~GameEntity2D()" << std::endl;
 
 		_sprite->dispose();
 
@@ -54,7 +54,7 @@ namespace gn
 		Material::destroyMaterial(_material);
 	}
 
-	Sprite* GameEntity::createSprite(Renderer* renderer, const std::string& imagePath, int spriteRows, int spriteColumns, 
+	Sprite* GameEntity2D::createSprite(Renderer* renderer, const std::string& imagePath, int spriteRows, int spriteColumns, 
 									int frameWidth, int frameHeight)
 	{
 		_material = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
@@ -73,20 +73,20 @@ namespace gn
 		return _sprite;
 	}
 
-	void GameEntity::createBoundingBox(float width, float height, bool isStatic, float mass, const std::string& collisionLayer)
+	void GameEntity2D::createBoundingBox(float width, float height, bool isStatic, float mass, const std::string& collisionLayer)
 	{
 		_boundingBox = new BoundingBox(width, height, isStatic, mass);
 		_boundingBox->attachToGameEntity(this);
 		CollisionManager::getInstance()->registerBoundingBox(_boundingBox, collisionLayer);
 	}
 
-	void GameEntity::addAnimation(Animation* animation, const std::string& animName)
+	void GameEntity2D::addAnimation(Animation* animation, const std::string& animName)
 	{
 		_animations[animName] = animation;
 		animation->setSprite(_sprite);
 	}
 
-	Animation* GameEntity::getCurrentAnimation() const
+	Animation* GameEntity2D::getCurrentAnimation() const
 	{
 		std::map<std::string, Animation*>::iterator mapIt;
 
@@ -102,13 +102,13 @@ namespace gn
 		return anim;
 	}
 
-	void GameEntity::setBoundingBoxDimensions(float width, float height)
+	void GameEntity2D::setBoundingBoxDimensions(float width, float height)
 	{
 		_boundingBox->setWidth(width);
 		_boundingBox->setHeight(height);
 	}
 
-	void GameEntity::move(float x, float y, float z)
+	void GameEntity2D::move(float x, float y, float z)
 	{
 		_sprite->translate(x, y, z);
 
@@ -189,7 +189,7 @@ namespace gn
 			_sprite->setPosition(newPosX, newPosY, _sprite->getPosition().z);
 	}
 
-	void GameEntity::update(float deltaTime)
+	void GameEntity2D::update(float deltaTime)
 	{
 		std::map<std::string, Animation*>::iterator mapIt;
 	
@@ -197,7 +197,7 @@ namespace gn
 			mapIt->second->update(deltaTime);
 	}
 
-	void GameEntity::draw() const
+	void GameEntity2D::draw() const
 	{
 		_sprite->draw();
 	}

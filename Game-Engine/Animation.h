@@ -7,7 +7,7 @@ namespace gn
 {
 	class Sprite;
 /*
-	The "Animation" class represents an animation that can be a part of a "GameEntity".
+	The "Animation" class represents an animation that can be a part of a "GameEntity2D".
 	It handles the logic behind the swapping of different frames from a spritesheet.
 */
 	class ENGINE_API Animation

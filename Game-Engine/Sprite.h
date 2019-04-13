@@ -24,9 +24,8 @@ namespace gn
 		Sprite(Renderer* renderer, Material* material);
 		~Sprite();
 
-		bool create(unsigned int vertexComponents, float* colorBufferData = NULL,
-					float width = 1.0f, float height = 1.0f, float depth = 0.0f) override;
-		float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f, float depth = 0.0f) const override;
+		bool create(unsigned int vertexComponents, float* colorBufferData = NULL, float width = 1.0f, float height = 1.0f) override;
+		float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f) const override;
 		float* setVerticesUV(unsigned int x, unsigned int y) const;
 	
 		void setAnimationFrame(unsigned int id);

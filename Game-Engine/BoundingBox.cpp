@@ -1,6 +1,6 @@
 #include "BoundingBox.h"
 #include "Entity.h"
-#include "GameEntity.h"
+#include "GameEntity2D.h"
 
 namespace gn
 {
@@ -21,7 +21,7 @@ namespace gn
 		_entityAttached = entity;
 	}
 
-	void BoundingBox::attachToGameEntity(GameEntity* gameEntity)
+	void BoundingBox::attachToGameEntity(GameEntity2D* gameEntity)
 	{
 		_gameEntityAttached = gameEntity;
 		_entityAttached = (Entity*)gameEntity->getSprite();
