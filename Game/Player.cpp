@@ -11,7 +11,7 @@ Player::Player(Renderer* renderer, float posX, float posY, float posZ, float mov
 Entity(renderer, glm::vec3(posX, posY, posZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 (1.0f, 1.0f, 1.0f)), 
 _movementSpeed(movementSpeed)
 {
-	_fpsCamera = new Camera(renderer, _position, _rotation) ;
+	_fpsCamera = new Camera(renderer, _position, _rotation);
 }
 
 Player::~Player()

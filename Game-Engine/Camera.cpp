@@ -15,6 +15,44 @@ namespace gn
 		_renderer->updateView(_position, _position - _forward, _up);
 	}
 
+	void Camera::setPosition(float x, float y, float z)
+	{
+		Entity::setPosition(x, y, z);
+		
+		updateRenderer();
+	}
+
+	void Camera::setRotation(float x, float y, float z)
+	{
+		float pitchAngle = x - _rotation.x;
+		float yawAngle = y - _rotation.y;
+		float rollAngle = z - _rotation.z;
+
+		pitch(pitchAngle);
+		yaw(yawAngle);
+		roll(rollAngle);
+		
+		updateRenderer();
+	}
+
+	void Camera::translate(float x, float y, float z)
+	{
+		strafe(x);
+		ascend(y);
+		advance(z);
+
+		updateRenderer();
+	}
+
+	void Camera::rotate(float x, float y, float z)
+	{
+		pitch(x);
+		yaw(y);
+		roll(z);
+
+		updateRenderer();
+	}
+
 	void Camera::advance(const float distance)
 	{
 		_position -= _forward * distance;
@@ -40,7 +78,7 @@ namespace gn
 	{
 		float pitch = -glm::radians(angle);
 		
-		rotate(angle, 0.0f, 0.0f);
+		Entity::rotate(angle, 0.0f, 0.0f);
 		
 		_forward = glm::normalize(_forward * glm::cos(pitch) + _up * glm::sin(pitch));
 		_up = glm::normalize(glm::cross(_forward, _right));
@@ -52,7 +90,7 @@ namespace gn
 	{	
 		float yaw = -glm::radians(angle);
 
-		rotate(0.0f, angle, 0.0f);
+		Entity::rotate(0.0f, angle, 0.0f);
 
 		_forward = glm::normalize(_forward * glm::cos(yaw) + _right * glm::sin(yaw));
 		_right = -glm::normalize(glm::cross(_forward, _up));
@@ -64,7 +102,7 @@ namespace gn
 	{
 		float roll = -glm::radians(angle);
 
-		rotate(0.0f, 0.0f, angle);
+		Entity::rotate(0.0f, 0.0f, angle);
 
 		_right = glm::normalize(_right * glm::cos(roll) + _up * glm::sin(roll));
 		_up = glm::normalize(glm::cross(_forward, _right));

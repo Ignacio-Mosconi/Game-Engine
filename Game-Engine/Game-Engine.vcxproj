@@ -173,6 +173,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="NavigationCamera.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shape.h" />

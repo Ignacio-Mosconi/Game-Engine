@@ -22,6 +22,12 @@ namespace gn
 		glm::vec3 forward = glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
 		glm::vec3 right = glm::vec3(1.0f, 0.0f, 0.0f));
 
+		void setPosition(float x, float y, float z) override;
+		void setRotation(float x, float y, float z) override;
+
+		virtual void translate(float x, float y, float z) override;
+		virtual void rotate(float x, float y, float z) override;
+
 		void advance(const float distance);
 		void strafe(const float distance);
 		void ascend(const float distance);

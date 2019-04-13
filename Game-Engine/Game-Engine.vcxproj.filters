@@ -147,6 +147,9 @@
     <ClInclude Include="GameEntity2D.h">
       <Filter>Header Files\Entities\Base Classes</Filter>
     </ClInclude>
+    <ClInclude Include="NavigationCamera.h">
+      <Filter>Header Files\Entities\Entities 3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
