@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game-Engine", "Game-Engine\Game-Engine.vcxproj", "{3B516390-F4D9-4B5C-8767-F59A2CB53FB5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Green-Nacho-Engine", "Green-Nacho-Engine\Green-Nacho-Engine.vcxproj", "{3B516390-F4D9-4B5C-8767-F59A2CB53FB5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{783CF191-1FB4-4929-8CE1-5E763160A957}"
 	ProjectSection(ProjectDependencies) = postProject
