@@ -16,6 +16,8 @@ namespace gn
 	{
 	private: 
 		static InputManager* _instance;
+
+		const float MOUSE_SENSITIVITY = 10.0f;
 	
 		Window* _window;
 		

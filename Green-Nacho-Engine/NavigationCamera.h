@@ -14,7 +14,7 @@ namespace gn
 		void move(MoveDir moveDir, float distance);
 
 	public:
-		NavigationCamera(gn::Renderer* renderer, float movementSpeed = 5.0f, float rotationSpeed = 100.0f);
+		NavigationCamera(gn::Renderer* renderer, float movementSpeed = 5.0f, float rotationSpeed = 270.0f);
 		NavigationCamera(gn::Renderer* renderer, float posX, float posY, float posZ, 
 							float movementSpeed = 5.0f, float rotationSpeed = 100.0f);
 		~NavigationCamera();

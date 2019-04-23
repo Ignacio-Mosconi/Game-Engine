@@ -68,7 +68,9 @@ namespace gn
 
 		float horRotation = inputManager->getAxis(InputAxis::HORIZONTAL);
 		float verRotation = inputManager->getAxis(InputAxis::VERTICAL);
-			
+		
+		std::cout << horRotation * _rotationSpeed << std::endl;
+
 		yaw(horRotation * _rotationSpeed * deltaTime);
 		pitch(verRotation * _rotationSpeed * deltaTime);
 	}
