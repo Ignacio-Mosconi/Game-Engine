@@ -8,7 +8,7 @@ namespace gn
 	_position(glm::vec3(0, 0, 0)), _rotation(glm::vec3(0, 0, 0)), _scale(glm::vec3(1, 1, 1)),
 	_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f)), _modelMatrix(glm::mat4(1.0f))
 	{
-		std::cout << "Entity::Entity()" << std::endl;
+		updateModelMatrix();
 	}	
 	
 	Entity::Entity(Renderer* renderer, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) :
@@ -16,12 +16,12 @@ namespace gn
 	_position(position), _rotation(rotation), _scale(scale),
 	_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f)), _modelMatrix(glm::mat4(1.0f))
 	{
-		std::cout << "Entity::Entity()" << std::endl;
+		updateModelMatrix();
 	}
 
 	Entity::~Entity()
 	{
-		std::cout << "Entity::~Entity()" << std::endl;
+
 	}
 
 	void Entity::updateModelMatrix()

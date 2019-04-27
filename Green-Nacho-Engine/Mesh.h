@@ -22,15 +22,15 @@ namespace gn
 		
 		unsigned int _vertexCount;
 
+		virtual bool create(float* colorBufferData = NULL);
+		virtual float* setVertices() const = 0;
+		virtual std::vector<unsigned short> setVerticesIndexes() const = 0;
+		
+		float* setVerticesColors(float* colorBufferData) const;
+
 	public:
 		Mesh(Renderer* renderer, Material* material, unsigned int vertexCount);
 		virtual ~Mesh();
-
-		virtual bool create(unsigned int vertexComponents, float* colorBufferData = NULL,
-			float width = 1.0f, float height = 1.0f, float depth = 0.0f);
-		virtual float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f, float depth = 0.0f) const = 0;
-		virtual float* setVerticesColor(float* colorBufferData, unsigned int vertexComponents) const;
-		virtual std::vector<unsigned short> setVerticesIndexes() const = 0;
 
 		virtual void dispose();
 

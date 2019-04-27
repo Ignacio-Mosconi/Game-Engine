@@ -9,13 +9,19 @@ namespace gn
 	*/
 	class ENGINE_API Cube : public Mesh
 	{
+	private:
+		float _width;
+		float _height;
+		float _depth;
+
 	public:
-		Cube(Renderer* renderer, Material* material);
+		Cube(Renderer* renderer, Material* material, float _width, float _height, float _depth);
 		~Cube();
 
-		float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f, float depth = 1.0f) const override;
+		float* setVertices() const override;
 		std::vector<unsigned short> setVerticesIndexes() const override;
-		void setFaceColors(float front[3], float back[3]);
+		
+		void setFaceColors(float front[VERTEX_COMPONENTS_3D], float back[VERTEX_COMPONENTS_3D]);
 
 		void draw() const override;
 	};
