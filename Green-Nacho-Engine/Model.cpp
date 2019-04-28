@@ -18,6 +18,8 @@ namespace gn
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(modelPath, aiProcess_Triangulate | aiProcess_FlipUVs);
 
+		std::cout << "Loading the 3D model... " << std::endl;
+
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
 			std::cout << "Error loading the model: " << importer.GetErrorString() << std::endl;
@@ -41,6 +43,7 @@ namespace gn
 	
 	ModelMesh Model::generateMesh(aiMesh* mesh, const aiScene* scene)
 	{
+		Material* testMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
 		std::vector<ModelMeshVertex> vertices;
 		std::vector<unsigned short> indexes;
 
@@ -67,7 +70,7 @@ namespace gn
 				indexes.push_back(face.mIndices[j]);
 		}
 
-		return ModelMesh(_renderer, vertices, indexes);
+		return ModelMesh(_renderer, testMaterial, vertices, indexes);
 	}
 
 	void Model::draw() const

@@ -20,7 +20,7 @@ namespace gn
 	class ENGINE_API ModelMesh : public Entity
 	{
 	private:
-		//Material* _material;
+		Material* _material;
 
 		std::vector<ModelMeshVertex> _vertices;
 		std::vector<unsigned short> _indexes;
@@ -32,7 +32,7 @@ namespace gn
 		void create();
 
 	public:
-		ModelMesh(Renderer* renderer, std::vector<ModelMeshVertex> vertices, std::vector<unsigned short> indexes);
+		ModelMesh(Renderer* renderer, Material* material, std::vector<ModelMeshVertex> vertices, std::vector<unsigned short> indexes);
 		virtual ~ModelMesh();
 
 		void draw() const;

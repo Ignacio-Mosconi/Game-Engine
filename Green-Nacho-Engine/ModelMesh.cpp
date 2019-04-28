@@ -2,8 +2,8 @@
 
 namespace gn
 {
-	ModelMesh::ModelMesh(Renderer* renderer, std::vector<ModelMeshVertex> vertices, std::vector<unsigned short> indexes) :
-	Entity(renderer), _vertices(vertices), _indexes(indexes)
+	ModelMesh::ModelMesh(Renderer* renderer, Material* material, std::vector<ModelMeshVertex> vertices, std::vector<unsigned short> indexes) :
+	Entity(renderer), _material(material), _vertices(vertices), _indexes(indexes)
 	{
 		create();
 	}
@@ -38,6 +38,9 @@ namespace gn
 		_renderer->generateVertexBuffer(vertexBufferData, vertexBufferSize);
 		_renderer->generateVertexBuffer(uvBufferData, uvBufferSize);
 		_renderer->generateIndexBuffer(_indexes, vertexBufferSize);
+
+		delete vertexBufferData;
+		delete uvBufferData;
 	}
 
 	void ModelMesh::draw() const
@@ -45,11 +48,11 @@ namespace gn
 		_renderer->loadIdentityMatrix();
 		_renderer->setModelMatrix(_modelMatrix);
 
-		//if (_material)
-		//{
-		//	_material->bind();
-		//	_material->setMatrixProperty("MVP", _renderer->getMVP());
-		//	_material->bindTexture();
-		//}
+		if (_material)
+		{
+			_material->bind();
+			_material->setMatrixProperty("MVP", _renderer->getMVP());
+			_material->bindTexture();
+		}
 	}
 }
