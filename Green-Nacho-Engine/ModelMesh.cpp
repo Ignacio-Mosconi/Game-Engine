@@ -54,5 +54,11 @@ namespace gn
 			_material->setMatrixProperty("MVP", _renderer->getMVP());
 			_material->bindTexture();
 		}
+
+		_renderer->enableAttribute(0);
+		_renderer->bindBuffer(0, VERTEX_COMPONENTS, _vertexBufferID);
+		_renderer->bindIndexBuffer(_indexBufferID);
+		_renderer->drawIndexedBuffer(PrimitiveType::TRIANGLE, _indexes.size());
+		_renderer->disableAttribute(0);
 	}
 }

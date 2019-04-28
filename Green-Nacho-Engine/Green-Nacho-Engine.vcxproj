@@ -173,7 +173,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="SimpleMesh.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="NavigationCamera.h" />
     <ClInclude Include="Rectangle.h" />
@@ -198,7 +198,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="SimpleMesh.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ModelMesh.cpp" />
     <ClCompile Include="NavigationCamera.cpp" />
     <ClCompile Include="Rectangle.cpp" />

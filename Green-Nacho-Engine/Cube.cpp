@@ -4,10 +4,11 @@
 
 namespace gn
 {
-	Cube::Cube(Renderer* renderer, Material* material, float width, float height, float depth) : SimpleMesh(renderer, material, 8),
+	Cube::Cube(Renderer* renderer, Material* material, float width, float height, float depth, float* colorBufferData) : 
+	Mesh(renderer, material),
 	_width(width), _height(height), _depth(depth)
 	{
-		create();
+		create(CUBE_VERTICES, colorBufferData);
 	}
 
 	Cube::~Cube()
@@ -17,7 +18,7 @@ namespace gn
 
 	void Cube::draw() const
 	{
-		SimpleMesh::draw();
+		Shape::draw();
 
 		_renderer->enableAttribute(0);
 		_renderer->enableAttribute(1);
@@ -29,13 +30,13 @@ namespace gn
 		_renderer->disableAttribute(1);
 	}
 
-	float* Cube::generateVertices() const
+	float* Cube::generateVertexBufferData() const
 	{
 		float valueX = _width * 0.5f;
 		float valueY = _height * 0.5f;
 		float valueZ = _depth * 0.5f;
 
-		float* vertexBufferData = new float[_vertexCount * VERTEX_COMPONENTS]
+		float* vertexBufferData = new float[CUBE_VERTICES * VERTEX_COMPONENTS]
 		{
 			-valueX ,-valueY, -valueZ,
 			-valueX, valueY, -valueZ,
@@ -51,7 +52,7 @@ namespace gn
 		return vertexBufferData;
 	}
 
-	std::vector<unsigned short> Cube::generateVerticesIndexes() const
+	std::vector<unsigned short> Cube::generateIndexBufferData() const
 	{
 		std::vector<unsigned short> indexBufferData = 
 		{
@@ -68,7 +69,7 @@ namespace gn
 
 	void Cube::setFaceColors(float front[VERTEX_COMPONENTS], float back[VERTEX_COMPONENTS])
 	{
-		float* colorBufferData = new float[_vertexCount * VERTEX_COMPONENTS]
+		float* colorBufferData = new float[CUBE_VERTICES * VERTEX_COMPONENTS]
 		{	
 			back[0], back[1], back[2],
 			back[0], back[1], back[2],
@@ -81,9 +82,9 @@ namespace gn
 			front[0], front[1], front[2]
 		};
 		
-		_colorBufferData = generateVerticesColors(colorBufferData);
+		_colorBufferData = generateColorBufferData(colorBufferData, CUBE_VERTICES);
 
-		int bufferSize = sizeof(float) * _vertexCount * VERTEX_COMPONENTS;
+		int bufferSize = sizeof(float) * CUBE_VERTICES * VERTEX_COMPONENTS;
 		
 		_colorBufferID = _renderer->generateVertexBuffer(_colorBufferData, bufferSize);
 

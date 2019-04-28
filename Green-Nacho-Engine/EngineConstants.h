@@ -13,6 +13,7 @@ constexpr int UV_COMPONENTS = 2;
 // Primitives Vertices
 constexpr int TRIANGLE_VERTICES = 3;
 constexpr int RECTANGLE_VERTICES = 4;
+constexpr int CUBE_VERTICES = 8;
 // Texture Loading
 constexpr int BMP_HEADER_SIZE = 54;
 // Level Loading

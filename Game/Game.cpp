@@ -64,7 +64,7 @@ bool Game::onUpdate(float deltaTime)
 
 bool Game::onDraw()
 {
-	_cube->draw();
+	//_cube->draw();
 	_rifle->draw();
 
 	return true;

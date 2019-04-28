@@ -150,10 +150,10 @@
     <ClInclude Include="ModelMesh.h">
       <Filter>Header Files\Entities\Base Classes</Filter>
     </ClInclude>
-    <ClInclude Include="SimpleMesh.h">
+    <ClInclude Include="Model.h">
       <Filter>Header Files\Entities\Base Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
+    <ClInclude Include="Mesh.h">
       <Filter>Header Files\Entities\Base Classes</Filter>
     </ClInclude>
   </ItemGroup>
@@ -221,10 +221,10 @@
     <ClCompile Include="ModelMesh.cpp">
       <Filter>Source Files\Entities\Base Classes</Filter>
     </ClCompile>
-    <ClCompile Include="SimpleMesh.cpp">
+    <ClCompile Include="Model.cpp">
       <Filter>Source Files\Entities\Base Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
+    <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\Entities\Base Classes</Filter>
     </ClCompile>
   </ItemGroup>
