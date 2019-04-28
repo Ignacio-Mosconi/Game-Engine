@@ -4,9 +4,7 @@
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 
-#include "Entity.h"
-#include "Renderer.h"
-#include "Material.h"
+#include "Mesh.h"
 #include "Exports.h"
 
 namespace gn
@@ -17,24 +15,29 @@ namespace gn
 		glm::vec2 uvCoordinates;
 	};
 
-	class ENGINE_API ModelMesh : public Entity
+	class ENGINE_API ModelMesh : public Mesh
 	{
 	private:
-		Material* _material;
-
 		std::vector<ModelMeshVertex> _vertices;
-		std::vector<unsigned short> _indexes;
+		std::vector<unsigned int> _indexes;
 
-		unsigned int _vertexBufferID;
+	protected:
+		float* _uvBufferData;
+
 		unsigned int _uvBufferID;
-		unsigned int _indexBufferID;
 
-		void create();
+		bool create(unsigned int vertexCount, float* colorBufferData = NULL) override;
+
+		float* generateVertexBufferData() const override;
+		float* generateUVBufferData() const;
+		std::vector<unsigned int> generateIndexBufferData() const override;
 
 	public:
-		ModelMesh(Renderer* renderer, Material* material, std::vector<ModelMeshVertex> vertices, std::vector<unsigned short> indexes);
-		virtual ~ModelMesh();
+		ModelMesh(Renderer* renderer, Material* material, std::vector<ModelMeshVertex> vertices, std::vector<unsigned int> indexes);
+		~ModelMesh();
 
-		void draw() const;
+		void dispose() override;
+
+		void draw() const override;
 	};
 }

@@ -89,7 +89,7 @@ namespace gn
 		return vertexBuffer;
 	}	
 	
-	unsigned int Renderer::generateIndexBuffer(std::vector<unsigned short> indexBufferData, int size)
+	unsigned int Renderer::generateIndexBuffer(std::vector<unsigned int> indexBufferData, int size)
 	{
 		GLuint vertexBuffer;
 

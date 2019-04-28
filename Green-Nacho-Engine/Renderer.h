@@ -43,7 +43,7 @@ namespace gn
 		void swapBuffers();
 	
 		unsigned int generateVertexBuffer(float* vertexBufferData, int size);
-		unsigned int generateIndexBuffer(std::vector<unsigned short> indexBufferData, int size);
+		unsigned int generateIndexBuffer(std::vector<unsigned int> indexBufferData, int size);
 		void destroyBuffer(unsigned int vertexBufferID);
 
 		void enableAttribute(unsigned int attrib) const;

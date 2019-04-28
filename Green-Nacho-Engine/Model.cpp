@@ -1,5 +1,6 @@
 #include "Model.h"
 #include "ModelMesh.h"
+#include "Material.h"
 
 namespace gn
 {
@@ -10,7 +11,7 @@ namespace gn
 
 	Model::~Model()
 	{
-
+		dispose();
 	}
 
 	void Model::loadModel(const std::string& modelPath)
@@ -45,7 +46,7 @@ namespace gn
 	{
 		Material* testMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
 		std::vector<ModelMeshVertex> vertices;
-		std::vector<unsigned short> indexes;
+		std::vector<unsigned int> indexes;
 
 		for (int i = 0; i < mesh->mNumVertices; i++)
 		{
@@ -71,6 +72,12 @@ namespace gn
 		}
 
 		return ModelMesh(_renderer, testMaterial, vertices, indexes);
+	}
+
+	void Model::dispose()
+	{
+		for (int i = 0; i < _modelMeshes.size(); i++)
+			_modelMeshes[i].dispose();
 	}
 
 	void Model::draw() const

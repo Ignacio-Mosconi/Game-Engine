@@ -19,7 +19,7 @@ namespace gn
 
 	bool Shape::create(unsigned int vertexCount, float* colorBufferData)
 	{
-		if (_vertexBufferID != -1)
+		if (_vertexBufferID != (unsigned int)-1)
 			dispose();
 
 		_vertexBufferData = generateVertexBufferData();
@@ -47,7 +47,7 @@ namespace gn
 
 	void Shape::dispose()
 	{
-		if (_vertexBufferID != -1)
+		if (_vertexBufferID != (unsigned int)-1)
 		{
 			_renderer->destroyBuffer(_vertexBufferID);
 			delete[] _vertexBufferData;
@@ -55,7 +55,7 @@ namespace gn
 			_vertexBufferID = -1;
 		}
 
-		if (_colorBufferID != -1)
+		if (_colorBufferID != (unsigned int)-1)
 		{
 			_renderer->destroyBuffer(_colorBufferID);
 			delete[] _colorBufferData;

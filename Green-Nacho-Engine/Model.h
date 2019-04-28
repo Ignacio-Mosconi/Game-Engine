@@ -27,6 +27,8 @@ namespace gn
 		Model(Renderer* _renderer, const char* modelPath);
 		~Model();
 
+		void dispose();
+
 		void draw() const;
 	};
 }

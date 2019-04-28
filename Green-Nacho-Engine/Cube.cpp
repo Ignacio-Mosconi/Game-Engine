@@ -52,9 +52,9 @@ namespace gn
 		return vertexBufferData;
 	}
 
-	std::vector<unsigned short> Cube::generateIndexBufferData() const
+	std::vector<unsigned int> Cube::generateIndexBufferData() const
 	{
-		std::vector<unsigned short> indexBufferData = 
+		std::vector<unsigned int> indexBufferData = 
 		{
 			0, 1, 2, 0, 2, 3,
 			2, 3, 4, 2, 4, 5,

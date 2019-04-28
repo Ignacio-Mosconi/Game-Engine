@@ -18,7 +18,7 @@ namespace gn
 	{
 		_indexBufferData = generateIndexBufferData();
 
-		int indexBufferSize = sizeof(unsigned short) * _indexBufferData.size();
+		int indexBufferSize = sizeof(unsigned int) * _indexBufferData.size();
 
 		_indexBufferID = _renderer->generateIndexBuffer(_indexBufferData, indexBufferSize);
 
@@ -30,7 +30,7 @@ namespace gn
 	{
 		Shape::dispose();
 
-		if (_indexBufferID != -1)
+		if (_indexBufferID != (unsigned int)-1)
 		{
 			_renderer->destroyBuffer(_indexBufferID);
 			_indexBufferID = -1;

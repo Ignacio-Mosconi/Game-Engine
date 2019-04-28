@@ -346,18 +346,18 @@ namespace gn
 
 	void Tilemap::dispose()
 	{	
-		if (_vertexBufferID != -1)
+		if (_vertexBufferID != (unsigned int)-1)
 		{
 			_renderer->destroyBuffer(_vertexBufferID);
-			delete _vertexBufferData;
+			delete[] _vertexBufferData;
 			_vertexBufferData = NULL;
 			_vertexBufferID = -1;
 		}
 
-		if (_uvBufferID != -1)
+		if (_uvBufferID != (unsigned int)-1)
 		{
 			_renderer->destroyBuffer(_uvBufferID);
-			delete _uvBufferData;
+			delete[] _uvBufferData;
 			_uvBufferData = NULL;
 			_uvBufferID = -1;
 		}
@@ -376,8 +376,8 @@ namespace gn
 
 		_renderer->enableAttribute(0);
 		_renderer->enableAttribute(1);
-		_renderer->bindBuffer(0, 3, _vertexBufferID);
-		_renderer->bindBuffer(1, 2, _uvBufferID);
+		_renderer->bindBuffer(0, VERTEX_COMPONENTS, _vertexBufferID);
+		_renderer->bindBuffer(1, UV_COMPONENTS, _uvBufferID);
 		_renderer->drawBuffer(PrimitiveType::QUAD, Tile::VERTEX_AMOUNT * _screenTilesRows *_screenTilesColumns);
 		_renderer->disableAttribute(0);
 		_renderer->disableAttribute(1);

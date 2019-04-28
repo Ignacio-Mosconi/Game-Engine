@@ -86,7 +86,7 @@ namespace gn
 	{
 		Shape::dispose();
 
-		if (_uvBufferID != -1)
+		if (_uvBufferID != (unsigned int)-1)
 		{
 			_renderer->destroyBuffer(_uvBufferID);
 			delete[] _uvBufferData;

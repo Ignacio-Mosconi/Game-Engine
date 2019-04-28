@@ -5,7 +5,7 @@
 namespace gn
 {
 	/*
-		A "Mesh" that represents a tridimensional object; it is composed of 8 vertices, thanks to the use of an index buffer.
+		A "Mesh" that represents a tridimensional figure; it is composed of 8 vertices, thanks to the use of an index buffer.
 	*/
 	class ENGINE_API Cube : public Mesh
 	{
@@ -13,9 +13,10 @@ namespace gn
 		float _width;
 		float _height;
 		float _depth;
-
+	
+	protected:
 		float* generateVertexBufferData() const override;
-		std::vector<unsigned short> generateIndexBufferData() const override;
+		std::vector<unsigned int> generateIndexBufferData() const override;
 
 	public:
 		Cube(Renderer* renderer, Material* material, float _width = 1.0f, float _height = 1.0f, float _depth = 1.0f, 
