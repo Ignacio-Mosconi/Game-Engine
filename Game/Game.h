@@ -6,8 +6,8 @@
 #include "Renderer.h"
 #include "Material.h"
 #include "NavigationCamera.h"
-#include "Entity.h"
 #include "Cube.h"
+#include "Model.h"
 #include "InputManager.h"
 #include "EngineConstants.h"
 #include "GameConstants.h"
@@ -21,6 +21,7 @@ private:
 	
 	gn::NavigationCamera* _navCamera;
 	gn::Cube* _cube;
+	gn::Model* _rifle;
 
 protected:
 	bool onStart() override;

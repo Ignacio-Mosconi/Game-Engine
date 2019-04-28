@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Green-Nacho-Engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Green-Nacho-Engine;$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\assimp-4.1.0\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL</PreprocessorDefinitions>
     </ClCompile>
     <PostBuildEvent>
@@ -104,11 +104,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Green-Nacho-Engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Green-Nacho-Engine;$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\assimp-4.1.0\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)Dependencies\glew-2.1.0\dlls\x64\glew32.dll" "$(OutDir)"</Command>
+      <Command>copy "$(SolutionDir)Dependencies\glew-2.1.0\dlls\x64\glew32.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\assimp-4.1.0\dlls\x64\assimp-vc140-mt.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -119,7 +120,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Green-Nacho-Engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Green-Nacho-Engine;$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\assimp-4.1.0\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -140,7 +141,7 @@ xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s/y
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Green-Nacho-Engine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Green-Nacho-Engine;$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\assimp-4.1.0\include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -149,6 +150,7 @@ xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s/y
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)Dependencies\glew-2.1.0\dlls\x64\glew32.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\assimp-4.0.1\dlls\x64\assimp-vc140-mt.dll" "$(OutDir)"
 xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s/y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

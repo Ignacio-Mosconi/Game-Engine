@@ -1,10 +1,8 @@
-#include "Mesh.h"
-#include "Renderer.h"
-#include "Material.h"
+#include "SimpleMesh.h"
 
 namespace gn
 {
-	Mesh::Mesh(Renderer* renderer, Material* material, unsigned int vertexCount) : Entity(renderer),
+	SimpleMesh::SimpleMesh(Renderer* renderer, Material* material, unsigned int vertexCount) : Entity(renderer),
 	_material(material),
 	_vertexBufferData(NULL), _colorBufferData(NULL), _indexBufferData(NULL),
 	_vertexBufferID(-1), _colorBufferID(-1), _indexBufferID(-1),
@@ -13,21 +11,21 @@ namespace gn
 
 	}
 
-	Mesh::~Mesh()
+	SimpleMesh::~SimpleMesh()
 	{
 
 	}
 
-	bool Mesh::create(float* colorBufferData)
+	bool SimpleMesh::create(float* colorBufferData)
 	{
 		if (_vertexBufferID != -1)
 			dispose();
 
-		_vertexBufferData = setVertices();
-		_colorBufferData = (colorBufferData) ? setVerticesColors(colorBufferData) : NULL;
-		_indexBufferData = setVerticesIndexes();
+		_vertexBufferData = generateVertices();
+		_colorBufferData = (colorBufferData) ? generateVerticesColors(colorBufferData) : NULL;
+		_indexBufferData = generateVerticesIndexes();
 
-		int vertexBufferSize = sizeof(float) * _vertexCount * VERTEX_COMPONENTS_3D;
+		int vertexBufferSize = sizeof(float) * _vertexCount * VERTEX_COMPONENTS;
 		int indexBufferSize = sizeof(unsigned short) * _indexBufferData.size();
 
 		_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
@@ -37,9 +35,9 @@ namespace gn
 		return (_vertexBufferID != -1);
 	}
 
-	float* Mesh::setVerticesColors(float* colorBufferData) const
+	float* SimpleMesh::generateVerticesColors(float* colorBufferData) const
 	{
-		int arrayLength = _vertexCount * VERTEX_COMPONENTS_3D;
+		int arrayLength = _vertexCount * VERTEX_COMPONENTS;
 		float* newColorBufferData = new float[arrayLength];
 
 		for (unsigned int i = 0; i < arrayLength; i++)
@@ -48,7 +46,7 @@ namespace gn
 		return newColorBufferData;
 	}
 
-	void Mesh::dispose()
+	void SimpleMesh::dispose()
 	{
 		if (_vertexBufferID != -1)
 		{
@@ -73,7 +71,7 @@ namespace gn
 		}
 	}
 
-	void Mesh::draw() const
+	void SimpleMesh::draw() const
 	{
 		_renderer->loadIdentityMatrix();
 		_renderer->setModelMatrix(_modelMatrix);

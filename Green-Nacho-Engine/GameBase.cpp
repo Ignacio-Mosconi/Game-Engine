@@ -1,7 +1,7 @@
+#include <GLFW\glfw3.h>
 #include "GameBase.h"
 #include "Renderer.h"
 #include "Window.h"
-#include <GLFW\glfw3.h>
 
 namespace gn
 {

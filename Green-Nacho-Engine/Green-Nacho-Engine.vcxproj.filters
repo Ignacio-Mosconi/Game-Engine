@@ -96,9 +96,6 @@
     <ClInclude Include="Entity.h">
       <Filter>Header Files\Entities\Base Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header Files\Entities\Base Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Shape.h">
       <Filter>Header Files\Entities\Base Classes</Filter>
     </ClInclude>
@@ -150,6 +147,15 @@
     <ClInclude Include="NavigationCamera.h">
       <Filter>Header Files\Entities\Entities 3D</Filter>
     </ClInclude>
+    <ClInclude Include="ModelMesh.h">
+      <Filter>Header Files\Entities\Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleMesh.h">
+      <Filter>Header Files\Entities\Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\Entities\Base Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -172,9 +178,6 @@
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>Source Files\Entities\Entities 2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Source Files\Entities\Base Classes</Filter>
     </ClCompile>
     <ClCompile Include="Triangle.cpp">
       <Filter>Source Files\Entities\Entities 2D</Filter>
@@ -214,6 +217,15 @@
     </ClCompile>
     <ClCompile Include="NavigationCamera.cpp">
       <Filter>Source Files\Entities\Entities 3D</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelMesh.cpp">
+      <Filter>Source Files\Entities\Base Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleMesh.cpp">
+      <Filter>Source Files\Entities\Base Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files\Entities\Base Classes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

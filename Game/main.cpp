@@ -2,8 +2,6 @@
 #include "Game.h"
 #include "GameConstants.h"
 
-using namespace gn;
-
 int main()
 {
 	Game* game = new Game();

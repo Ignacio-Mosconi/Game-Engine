@@ -2,12 +2,13 @@
 
 #include <vector>
 #include "Entity.h"
+#include "Renderer.h"
 #include "Material.h"
 #include "Exports.h"
 
 namespace gn
 {
-	class ENGINE_API Mesh : public Entity
+	class ENGINE_API SimpleMesh : public Entity
 	{
 	protected:
 		Material* _material;
@@ -23,14 +24,15 @@ namespace gn
 		unsigned int _vertexCount;
 
 		virtual bool create(float* colorBufferData = NULL);
-		virtual float* setVertices() const = 0;
-		virtual std::vector<unsigned short> setVerticesIndexes() const = 0;
-		
-		float* setVerticesColors(float* colorBufferData) const;
+
+		virtual float* generateVertices() const = 0;
+		virtual std::vector<unsigned short> generateVerticesIndexes() const = 0;
 
 	public:
-		Mesh(Renderer* renderer, Material* material, unsigned int vertexCount);
-		virtual ~Mesh();
+		SimpleMesh(Renderer* renderer, Material* material, unsigned int vertexCount);
+		virtual ~SimpleMesh();
+
+		float* generateVerticesColors(float* colorBufferData) const;
 
 		virtual void dispose();
 

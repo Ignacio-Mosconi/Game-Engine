@@ -8,8 +8,8 @@ constexpr const char* CUSTOM_PIXEL_SHADER_PATH = "Assets/Shaders/CustomPixelShad
 constexpr const char* TEXTURE_VERTEX_SHADER_PATH = "Assets/Shaders/TextureVertexShader.vertexshader";
 constexpr const char* TEXTURE_PIXEL_SHADER_PATH = "Assets/Shaders/TexturePixelShader.pixelshader";
 // Shader Properties
-constexpr int VERTEX_COMPONENTS_2D = 2;
-constexpr int VERTEX_COMPONENTS_3D = 3;
+constexpr int VERTEX_COMPONENTS = 3;
+constexpr int UV_COMPONENTS = 2;
 // Texture Loading
 constexpr int BMP_HEADER_SIZE = 54;
 // Level Loading

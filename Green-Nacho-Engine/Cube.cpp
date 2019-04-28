@@ -4,7 +4,7 @@
 
 namespace gn
 {
-	Cube::Cube(Renderer* renderer, Material* material, float width, float height, float depth) : Mesh(renderer, material, 8),
+	Cube::Cube(Renderer* renderer, Material* material, float width, float height, float depth) : SimpleMesh(renderer, material, 8),
 	_width(width), _height(height), _depth(depth)
 	{
 		create();
@@ -17,25 +17,25 @@ namespace gn
 
 	void Cube::draw() const
 	{
-		Mesh::draw();
+		SimpleMesh::draw();
 
 		_renderer->enableAttribute(0);
 		_renderer->enableAttribute(1);
-		_renderer->bindBuffer(0, VERTEX_COMPONENTS_3D, _vertexBufferID);
-		_renderer->bindBuffer(1, VERTEX_COMPONENTS_3D, _colorBufferID);
+		_renderer->bindBuffer(0, VERTEX_COMPONENTS, _vertexBufferID);
+		_renderer->bindBuffer(1, VERTEX_COMPONENTS, _colorBufferID);
 		_renderer->bindIndexBuffer(_indexBufferID);
 		_renderer->drawIndexedBuffer(PrimitiveType::TRIANGLE, _indexBufferData.size());
 		_renderer->disableAttribute(0);
 		_renderer->disableAttribute(1);
 	}
 
-	float* Cube::setVertices() const
+	float* Cube::generateVertices() const
 	{
 		float valueX = _width * 0.5f;
 		float valueY = _height * 0.5f;
 		float valueZ = _depth * 0.5f;
 
-		float* vertexBufferData = new float[_vertexCount * VERTEX_COMPONENTS_3D]
+		float* vertexBufferData = new float[_vertexCount * VERTEX_COMPONENTS]
 		{
 			-valueX ,-valueY, -valueZ,
 			-valueX, valueY, -valueZ,
@@ -51,7 +51,7 @@ namespace gn
 		return vertexBufferData;
 	}
 
-	std::vector<unsigned short> Cube::setVerticesIndexes() const
+	std::vector<unsigned short> Cube::generateVerticesIndexes() const
 	{
 		std::vector<unsigned short> indexBufferData = 
 		{
@@ -66,9 +66,9 @@ namespace gn
 		return indexBufferData;
 	}
 
-	void Cube::setFaceColors(float front[VERTEX_COMPONENTS_3D], float back[VERTEX_COMPONENTS_3D])
+	void Cube::setFaceColors(float front[VERTEX_COMPONENTS], float back[VERTEX_COMPONENTS])
 	{
-		float* colorBufferData = new float[_vertexCount * VERTEX_COMPONENTS_3D]
+		float* colorBufferData = new float[_vertexCount * VERTEX_COMPONENTS]
 		{	
 			back[0], back[1], back[2],
 			back[0], back[1], back[2],
@@ -81,9 +81,9 @@ namespace gn
 			front[0], front[1], front[2]
 		};
 		
-		_colorBufferData = setVerticesColors(colorBufferData);
+		_colorBufferData = generateVerticesColors(colorBufferData);
 
-		int bufferSize = sizeof(float) * _vertexCount * VERTEX_COMPONENTS_3D;
+		int bufferSize = sizeof(float) * _vertexCount * VERTEX_COMPONENTS;
 		
 		_colorBufferID = _renderer->generateVertexBuffer(_colorBufferData, bufferSize);
 
