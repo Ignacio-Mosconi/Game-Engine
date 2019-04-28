@@ -17,8 +17,12 @@ bool Game::onStart()
 	_inputManager = InputManager::getInstance();
 	_inputManager->attachToWindow(_window);
 
+	_spriteTexture = Texture::generateTextureBMP(SPRITE_PATH);
 	_simpleColorMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
 	_customColorMaterial = Material::generateMaterial(CUSTOM_VERTEX_SHADER_PATH, CUSTOM_PIXEL_SHADER_PATH);
+	_textureMaterial = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
+
+	_textureMaterial->setTexture(_spriteTexture, "textureSampler");
 
 	_navCamera = new NavigationCamera(_renderer, 0.0f, 0.0f, 10.0f);
 	
@@ -40,8 +44,11 @@ bool Game::onStop()
 	delete _rifle;
 	
 	InputManager::deleteInstance();
+
+	Texture::destroyTexture(_spriteTexture);
 	Material::destroyMaterial(_simpleColorMaterial);
 	Material::destroyMaterial(_customColorMaterial);
+	Material::destroyMaterial(_textureMaterial);
 	
 	return true;
 }

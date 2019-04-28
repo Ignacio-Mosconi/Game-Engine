@@ -5,35 +5,36 @@
 
 namespace gn
 {
-	Sprite::Sprite(Renderer* renderer, Material* material) : Shape(renderer, material, 4),
-	_uvBufferData(NULL),
-	_uvBufferID(-1),
+	Sprite::Sprite(Renderer* renderer, Material* material, float frameWidth, float frameHeight, unsigned int rows, unsigned int columns) : 
+	Shape(renderer, material),
+	_uvBufferData(NULL), _uvBufferID(-1),
 	_frameID(0), _rows(0), _columns(0), _frameWidth(0), _frameHeight(0)
 	{
-		std::cout << "Sprite::Sprite()" << std::endl;
+		setFramesInfo(rows, columns, frameWidth, frameHeight);
+		create(RECTANGLE_VERTICES);
 	}
 
 	Sprite::~Sprite()
 	{
-		std::cout << "Sprite::~Sprite()" << std::endl;
+		dispose();
 	}
 
-	bool Sprite::create(unsigned int vertexComponents, float* colorBufferData, float width, float height)
+	bool Sprite::create(unsigned int vertexCount, float* colorBufferData)
 	{
-		int uvBufferSize = sizeof(float) * _vertexCount * 2;
+		int uvBufferSize = sizeof(float) * vertexCount * UV_COMPONENTS;
 
-		_uvBufferData = setVerticesUV(0, 0);
+		_uvBufferData = generateUVBufferData(0, 0);
 		_uvBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
 
-		return Shape::create(vertexComponents, NULL, width, height);
+		return Shape::create(vertexCount);
 	}
 
-	float* Sprite::setVertices(unsigned int vertexComponents, float width, float height) const
+	float* Sprite::generateVertexBufferData() const
 	{
-		float valueX = width * 0.5f;
-		float valueY = height * 0.5f;
+		float valueX = _frameWidth * 0.5f;
+		float valueY = _frameHeight * 0.5f;
 
-		float* vertexBufferData = new float[_vertexCount * vertexComponents]
+		float* vertexBufferData = new float[RECTANGLE_VERTICES * VERTEX_COMPONENTS]
 		{
 			-valueX, valueY, 0.0f,
 			valueX, valueY, 0.0f,
@@ -44,14 +45,14 @@ namespace gn
 		return vertexBufferData;
 	}
 
-	float* Sprite::setVerticesUV(unsigned int x, unsigned int y) const
+	float* Sprite::generateUVBufferData(float x, float y) const
 	{
-		float minU = (float)x / (float)_material->getTextureWidth();
-		float maxU = (float)(x + _frameWidth) / (float)_material->getTextureWidth();
-		float minV = 1.0f - (float)(y + _frameHeight) / (float)_material->getTextureHeight();
-		float maxV = 1.0f - (float)y / (float)_material->getTextureHeight();
+		float minU = x / _material->getTextureWidth();
+		float maxU = (x + _frameWidth) / _material->getTextureWidth();
+		float minV = 1.0f - (y + _frameHeight) / _material->getTextureHeight();
+		float maxV = 1.0f - y / _material->getTextureHeight();
 
-		float* uvBufferData = new float[_vertexCount * 2]
+		float* uvBufferData = new float[RECTANGLE_VERTICES * UV_COMPONENTS]
 		{
 			minU, maxV,
 			maxU, maxV,
@@ -66,15 +67,15 @@ namespace gn
 	{
 		_frameID = frameID;
 	
-		int uvBufferSize = sizeof(float) * _vertexCount * 2;
+		int uvBufferSize = sizeof(float) * RECTANGLE_VERTICES * UV_COMPONENTS;
 		unsigned int x = (frameID % _columns) * _frameWidth;
 		unsigned int y = (frameID / _rows) * _frameHeight;
 	
-		_uvBufferData = setVerticesUV(x, y);
+		_uvBufferData = generateUVBufferData(x, y);
 		_uvBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
 	}
 
-	void Sprite::setFramesInfo(unsigned int rows, unsigned int columns, unsigned int frameWidth, unsigned int frameHeight)
+	void Sprite::setFramesInfo(unsigned int rows, unsigned int columns, float frameWidth, float frameHeight)
 	{
 		_rows = rows;
 		_columns = columns;
@@ -89,7 +90,7 @@ namespace gn
 		if (_uvBufferID != -1)
 		{
 			_renderer->destroyBuffer(_uvBufferID);
-			delete _uvBufferData;
+			delete[] _uvBufferData;
 			_uvBufferData = NULL;
 			_uvBufferID = -1;
 		}
@@ -103,9 +104,9 @@ namespace gn
 
 		_renderer->enableAttribute(0);
 		_renderer->enableAttribute(1);
-		_renderer->bindBuffer(0, 3, _vertexBufferID);
-		_renderer->bindBuffer(1, 2, _uvBufferID);
-		_renderer->drawBuffer(PrimitiveType::TRIANGLE_STRIP, _vertexCount);
+		_renderer->bindBuffer(0, VERTEX_COMPONENTS, _vertexBufferID);
+		_renderer->bindBuffer(1, UV_COMPONENTS, _uvBufferID);
+		_renderer->drawBuffer(PrimitiveType::TRIANGLE_STRIP, RECTANGLE_VERTICES);
 		_renderer->disableAttribute(0);
 		_renderer->disableAttribute(1);
 

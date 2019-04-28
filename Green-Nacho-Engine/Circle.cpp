@@ -4,14 +4,15 @@
 
 namespace gn
 {
-	Circle::Circle(Renderer* renderer, Material* material, unsigned int vertexCount) : Shape(renderer, material, vertexCount)
+	Circle::Circle(Renderer* renderer, Material* material, unsigned int vertexCount, float radius, float* colorBufferData) : 
+	Shape(renderer, material), _vertexCount(vertexCount), _radius(radius)
 	{
-		std::cout << "Circle::Circle()" << std::endl;
+		create(vertexCount, colorBufferData);
 	}
 
 	Circle::~Circle()
 	{
-		std::cout << "Circle::~Circle()" << std::endl;
+		dispose();
 	}
 
 	void Circle::draw() const
@@ -19,20 +20,24 @@ namespace gn
 		Shape::draw();
 
 		_renderer->enableAttribute(0);
-		_renderer->bindBuffer(0, 3, _vertexBufferID);
+		_renderer->enableAttribute(1);
+		_renderer->bindBuffer(0, VERTEX_COMPONENTS, _vertexBufferID);
+		_renderer->bindBuffer(1, VERTEX_COMPONENTS, _colorBufferID);
 		_renderer->drawBuffer(PrimitiveType::TRIANGLE_FAN, _vertexCount);
 		_renderer->disableAttribute(0);
+		_renderer->disableAttribute(1);
 	}
 
-	float* Circle::setVertices(unsigned int vertexComponents, float width, float height) const
+	float* Circle::generateVertexBufferData() const
 	{
 		float angle = 0;
-		float* vertexBufferData = new float[_vertexCount * vertexComponents];
+		float* vertexBufferData = new float[_vertexCount * VERTEX_COMPONENTS];
 
-		for (unsigned int i = 0; i < _vertexCount * vertexComponents; i += vertexComponents)
+		for (unsigned int i = 0; i < _vertexCount * VERTEX_COMPONENTS; i += VERTEX_COMPONENTS)
 		{
-			vertexBufferData[i] = (float)width * cos(angle);
-			vertexBufferData[i + 1] = (float)width * sin(angle);
+			vertexBufferData[i] = _radius * glm::cos(angle);
+			vertexBufferData[i + 1] = _radius * glm::sin(angle);
+			vertexBufferData[i + 2] = 0.0f;
 
 			angle += 2 * glm::pi<float>() / _vertexCount;
 		}

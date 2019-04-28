@@ -14,28 +14,32 @@ namespace gn
 		float* _uvBufferData;
 	
 		unsigned int _uvBufferID;
+		
 		unsigned int _frameID;
 		unsigned int _rows;
 		unsigned int _columns;
-		unsigned int _frameWidth;
-		unsigned int _frameHeight;
+		
+		float _frameWidth;
+		float _frameHeight;
+
+	protected:
+		bool create(unsigned int vertexCount, float* colorBufferData = NULL) override;
+		
+		float* generateVertexBufferData() const override;
+		float* generateUVBufferData(float x, float y) const;
 
 	public:
-		Sprite(Renderer* renderer, Material* material);
+		Sprite(Renderer* renderer, Material* material, float frameWidth, float frameHeight, unsigned int rows = 0, unsigned int columns = 0);
 		~Sprite();
 
-		bool create(unsigned int vertexComponents, float* colorBufferData = NULL, float width = 1.0f, float height = 1.0f) override;
-		float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f) const override;
-		float* setVerticesUV(unsigned int x, unsigned int y) const;
-	
 		void setAnimationFrame(unsigned int id);
-		void setFramesInfo(unsigned int rows, unsigned int columns, unsigned int frameWidth, unsigned int frameHeight);
+		void setFramesInfo(unsigned int rows, unsigned int columns, float frameWidth, float frameHeight);
 
 		virtual void dispose() override;
 	
 		void draw() const override;
 
-		inline unsigned int getFrameWidth() const { return _frameWidth; }
-		inline unsigned int getFrameHeight() const { return _frameHeight; }
+		inline float getFrameWidth() const { return _frameWidth; }
+		inline float getFrameHeight() const { return _frameHeight; }
 	};
 }

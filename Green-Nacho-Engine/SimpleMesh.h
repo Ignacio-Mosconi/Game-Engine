@@ -23,7 +23,7 @@ namespace gn
 		
 		unsigned int _vertexCount;
 
-		virtual bool create(float* colorBufferData = NULL);
+		bool create(float* colorBufferData = NULL);
 
 		virtual float* generateVertices() const = 0;
 		virtual std::vector<unsigned short> generateVerticesIndexes() const = 0;

@@ -61,13 +61,11 @@ namespace gn
 		_texture = Texture::generateTextureBMP(imagePath);
 		_material->setTexture(_texture, "textureSampler");
 	
-		_sprite = new Sprite(renderer, _material);
+		_sprite = new Sprite(renderer, _material, frameWidth, frameHeight, spriteRows, spriteColumns);
 		if (frameWidth == -1)
 			frameWidth = _texture->getWidth();
 		if (frameHeight == -1)
 			frameHeight = _texture->getHeight();
-		_sprite->create(3, NULL, frameWidth, frameHeight);
-		_sprite->setFramesInfo(spriteRows, spriteColumns, frameWidth, frameHeight);
 		_sprite->setAnimationFrame(0);
 
 		return _sprite;

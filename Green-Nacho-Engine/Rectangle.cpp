@@ -4,14 +4,15 @@
 
 namespace gn
 {
-	Rectangle::Rectangle(Renderer* renderer, Material* material) : Shape(renderer, material, 4)
+	Rectangle::Rectangle(Renderer* renderer, Material* material, float width, float height, float *colorBufferData) : 
+	Shape(renderer, material), _width(width), _height(height)
 	{
-		std::cout << "Rectangle::Rectangle()" << std::endl;
+		create(RECTANGLE_VERTICES, colorBufferData);
 	}
 
 	Rectangle::~Rectangle()
 	{
-		std::cout << "Rectangle::~Rectangle()" << std::endl;
+		dispose();
 	}
 
 	void Rectangle::draw() const
@@ -20,19 +21,19 @@ namespace gn
 
 		_renderer->enableAttribute(0);
 		_renderer->enableAttribute(1);
-		_renderer->bindBuffer(0, 3, _vertexBufferID);
-		_renderer->bindBuffer(1, 3, _colorBufferID);
-		_renderer->drawBuffer(PrimitiveType::TRIANGLE_STRIP, _vertexCount);
+		_renderer->bindBuffer(0, VERTEX_COMPONENTS, _vertexBufferID);
+		_renderer->bindBuffer(1, VERTEX_COMPONENTS, _colorBufferID);
+		_renderer->drawBuffer(PrimitiveType::TRIANGLE_STRIP, RECTANGLE_VERTICES);
 		_renderer->disableAttribute(0);
 		_renderer->disableAttribute(1);
 	}
 
-	float* Rectangle::setVertices(unsigned int vertexComponents, float width, float height) const
+	float* Rectangle::generateVertexBufferData() const
 	{
-		float valueX = width * 0.5f;
-		float valueY = height * 0.5f;
+		float valueX = _width * 0.5f;
+		float valueY = _height * 0.5f;
 
-		float* vertexBufferData = new float[_vertexCount * vertexComponents]
+		float* vertexBufferData = new float[RECTANGLE_VERTICES * VERTEX_COMPONENTS]
 		{
 			-valueX, -valueY, 0.0f,
 			-valueX, valueY, 0.0f,

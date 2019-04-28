@@ -4,40 +4,39 @@
 
 namespace gn
 {
-	Shape::Shape(Renderer* renderer, Material* material, unsigned int vertexCount) : Entity(renderer),
+	Shape::Shape(Renderer* renderer, Material* material) : Entity(renderer),
 	_material(material),
 	_vertexBufferData(NULL), _colorBufferData(NULL),
-	_vertexBufferID(-1), _colorBufferID(-1),
-	_vertexCount(vertexCount)
+	_vertexBufferID(-1), _colorBufferID(-1)
 	{
-		std::cout << "Shape::Shape()" << std::endl;
+
 	}
 
 	Shape::~Shape()
 	{
-		std::cout << "Shape::~Shape()" << std::endl;
+
 	}
 
-	bool Shape::create(unsigned int vertexComponents, float* colorBufferData, float width, float height)
+	bool Shape::create(unsigned int vertexCount, float* colorBufferData)
 	{
 		if (_vertexBufferID != -1)
 			dispose();
 
-		_vertexBufferData = setVertices(vertexComponents, width, height);
+		_vertexBufferData = generateVertexBufferData();
 		if (colorBufferData)
-			_colorBufferData = setVerticesColor(colorBufferData, vertexComponents);
+			_colorBufferData = generateColorBufferData(colorBufferData, vertexCount);
 
-		int vertexBufferSize = sizeof(float) * _vertexCount * vertexComponents;
+		int vertexBufferSize = sizeof(float) * vertexCount * VERTEX_COMPONENTS;
 
 		_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
 		_colorBufferID = (_colorBufferData) ? _renderer->generateVertexBuffer(_colorBufferData, vertexBufferSize) : -1;
 
-		return _vertexBufferID != -1;
+		return (_vertexBufferID != -1);
 	}
 
-	float* Shape::setVerticesColor(float* colorBufferData, unsigned int vertexComponents) const
+	float* Shape::generateColorBufferData(float* colorBufferData, unsigned int vertexCount) const
 	{
-		int arrayLength = _vertexCount * vertexComponents;
+		int arrayLength = vertexCount * VERTEX_COMPONENTS;
 		float* newColorBufferData = new float[arrayLength];
 
 		for (unsigned int i = 0; i < arrayLength; i++)

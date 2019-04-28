@@ -37,13 +37,13 @@ namespace gn
 		Entity(Renderer* renderer, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 		virtual ~Entity();
 
-		virtual void setPosition(float x, float y, float z);
-		virtual void setRotation(float x, float y, float z);
-		virtual void setScale(float x, float y, float z);
-
 		virtual void translate(float x, float y, float z);
 		virtual void rotate(float x, float y, float z);
 		virtual void scale(float x, float y, float z);
+
+		virtual void setPosition(float x, float y, float z);
+		virtual void setRotation(float x, float y, float z);
+		virtual void setScale(float x, float y, float z);
 
 		inline glm::vec3 getPosition() const { return _position; }
 		inline glm::vec3 getRotation() const { return _rotation; }

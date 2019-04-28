@@ -10,11 +10,16 @@ namespace gn
 */
 	class ENGINE_API Rectangle : public Shape
 	{
-	public:
-		Rectangle(Renderer* renderer, Material* material);
-		~Rectangle();
+	private:
+		float _width;
+		float _height;
 
-		float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f) const override;
+	protected:
+		float* generateVertexBufferData() const override;
+
+	public:
+		Rectangle(Renderer* renderer, Material* material, float width = 1.0f, float height = 1.0f, float *colorBufferData = NULL);
+		~Rectangle();
 
 		void draw() const override;
 	};

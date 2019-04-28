@@ -9,11 +9,16 @@ namespace gn
 */
 	class ENGINE_API Triangle : public Shape
 	{
-	public:
-		Triangle(Renderer* renderer, Material* material);
-		~Triangle();
+	private:
+		float _base;
+		float _height;
 
-		float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f) const override;
+	protected:
+		float* generateVertexBufferData() const override;
+
+	public:
+		Triangle(Renderer* renderer, Material* material, float base = 1.0f, float height = 1.0f, float* colorBufferData = NULL);
+		~Triangle();
 
 		void draw() const override;
 	};

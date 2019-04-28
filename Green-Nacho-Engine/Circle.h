@@ -11,11 +11,16 @@ namespace gn
 */
 	class ENGINE_API Circle : public Shape
 	{
-	public:
-		Circle(Renderer* renderer, Material* material, unsigned int vertexCount);
-		~Circle();
+	private:
+		float _vertexCount;
+		float _radius;
 
-		float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f) const override;
+	protected:
+		float* generateVertexBufferData() const override;
+
+	public:
+		Circle(Renderer* renderer, Material* material, unsigned int vertexCount = 20.0f, float radius = 1.0f, float* colorBufferData = NULL);
+		~Circle();
 
 		void draw() const override;
 	};

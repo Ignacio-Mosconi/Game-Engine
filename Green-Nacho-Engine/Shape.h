@@ -18,17 +18,16 @@ namespace gn
 	
 		unsigned int _vertexBufferID;
 		unsigned int _colorBufferID;
-		
-		unsigned int _vertexCount;
+
+		virtual bool create(unsigned int vertexCount, float* colorBufferData = NULL);
+
+		virtual float* generateVertexBufferData() const = 0;
+		virtual float* generateColorBufferData(float* colorBufferData, unsigned int vertexCount) const;
 
 	public:
-		Shape(Renderer* renderer, Material* material, unsigned int vertexCount);
+		Shape(Renderer* renderer, Material* material);
 		virtual ~Shape();
 
-		virtual bool create(unsigned int vertexComponents, float* colorBufferData = NULL, float width = 1.0f, float height = 1.0f);
-		virtual float* setVertices(unsigned int vertexComponents, float width = 1.0f, float height = 1.0f) const = 0;
-		virtual float* setVerticesColor(float* colorBufferData, unsigned int vertexComponents) const;
-	
 		virtual void dispose();
 
 		virtual void draw() const = 0;
