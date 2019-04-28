@@ -35,12 +35,12 @@ namespace gn
 		int uvBufferSize = sizeof(float) * _vertices.size() * UV_COMPONENTS;
 		int indexBufferSize = sizeof(unsigned short) * _indexes.size();
 
-		_renderer->generateVertexBuffer(vertexBufferData, vertexBufferSize);
-		_renderer->generateVertexBuffer(uvBufferData, uvBufferSize);
-		_renderer->generateIndexBuffer(_indexes, vertexBufferSize);
+		_vertexBufferID = _renderer->generateVertexBuffer(vertexBufferData, vertexBufferSize);
+		_uvBufferID = _renderer->generateVertexBuffer(uvBufferData, uvBufferSize);
+		_indexBufferID = _renderer->generateIndexBuffer(_indexes, indexBufferSize);
 
-		delete vertexBufferData;
-		delete uvBufferData;
+		delete[] vertexBufferData;
+		delete[] uvBufferData;
 	}
 
 	void ModelMesh::draw() const

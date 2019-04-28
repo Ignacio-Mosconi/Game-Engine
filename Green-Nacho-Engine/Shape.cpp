@@ -51,7 +51,7 @@ namespace gn
 		if (_vertexBufferID != -1)
 		{
 			_renderer->destroyBuffer(_vertexBufferID);
-			delete _vertexBufferData;
+			delete[] _vertexBufferData;
 			_vertexBufferData = NULL;
 			_vertexBufferID = -1;
 		}
@@ -59,7 +59,7 @@ namespace gn
 		if (_colorBufferID != -1)
 		{
 			_renderer->destroyBuffer(_colorBufferID);
-			delete _colorBufferData;
+			delete[] _colorBufferData;
 			_colorBufferData = NULL;
 			_colorBufferID = -1;
 		}
