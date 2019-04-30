@@ -27,7 +27,7 @@ bool Game::onStart()
 	_navCamera = new NavigationCamera(_renderer, 0.0f, 0.0f, 10.0f);
 	
 	_cube = new Cube(_renderer, _customColorMaterial, 2.0f, 2.0f, 2.0f);
-	_rifle = new Model(_renderer, ASSAULT_RIFLE_PATH);
+	_monkey = new Model(_renderer, SUZANNE_PATH);
 
 	float frontColor[3] = { 0.0f, 1.0f, 0.0f};
 	float backColor[3] = { 0.0f, 0.0f, 1.0f };
@@ -41,7 +41,7 @@ bool Game::onStop()
 {
 	delete _navCamera;
 	delete _cube;
-	delete _rifle;
+	delete _monkey;
 	
 	InputManager::deleteInstance();
 
@@ -65,7 +65,7 @@ bool Game::onUpdate(float deltaTime)
 bool Game::onDraw()
 {
 	//_cube->draw();
-	_rifle->draw();
+	_monkey->draw();
 
 	return true;
 }

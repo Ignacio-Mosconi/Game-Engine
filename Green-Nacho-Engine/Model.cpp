@@ -45,8 +45,10 @@ namespace gn
 	ModelMesh Model::generateMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		Material* testMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
-		std::vector<ModelMeshVertex> vertices;
+		std::vector<ModelMeshVertex> inputVertices;
+		std::vector<ModelMeshVertex> outputVertices;
 		std::vector<unsigned int> indexes;
+		std::map<ModelMeshVertex, unsigned int> vertexMap;
 
 		for (int i = 0; i < mesh->mNumVertices; i++)
 		{
@@ -60,18 +62,56 @@ namespace gn
 			vertex.position = glm::vec3(aiMeshVertex.x, aiMeshVertex.y, aiMeshVertex.z);
 			vertex.uvCoordinates = glm::vec2(aiTextCoord.x, aiTextCoord.y);
 
-			vertices.push_back(vertex);
+			inputVertices.push_back(vertex);
 		}
 
-		for (int i = 0; i < mesh->mNumFaces; i++)
+		for (int i = 0; i < inputVertices.size(); i++)
 		{
-			aiFace face = mesh->mFaces[i];
+			unsigned int index;
+			bool similarVertexFound = getSimilarVertex(inputVertices[i], vertexMap, index);
 
-			for (int j = 0; j < face.mNumIndices; j++)
-				indexes.push_back(face.mIndices[j]);
+			if (!similarVertexFound)
+			{
+				index = (unsigned int)outputVertices.size();			
+				outputVertices.push_back(inputVertices[i]);
+				vertexMap[inputVertices[i]] = index;
+			}
+			
+			indexes.push_back(index);
 		}
 
-		return ModelMesh(_renderer, testMaterial, vertices, indexes);
+		for (int i = 0; i < indexes.size(); i++)
+		{
+			for (int j = 0; j < 10; j++)
+				std::cout << indexes[i] << ", ";
+			std::cout << std::endl;
+		}
+
+		//for (int i = 0; i < mesh->mNumFaces; i++)
+		//{
+		//	aiFace face = mesh->mFaces[i];
+
+		//	for (int j = 0; j < face.mNumIndices; j++)
+		//		indexes.push_back(face.mIndices[j]);
+		//}
+
+		return ModelMesh(_renderer, testMaterial, inputVertices, indexes);
+	}
+
+	bool Model::getSimilarVertex(ModelMeshVertex& vertex, std::map<ModelMeshVertex, 
+								unsigned int>& vertexMap, unsigned int& resultingIndex) const
+	{
+		bool found = false;
+
+		std::map<ModelMeshVertex, unsigned int>::iterator it = vertexMap.find(vertex);
+
+		if (it != vertexMap.end())
+		{
+			resultingIndex = it->second;
+			found = true;
+		}
+
+		return found;
 	}
 
 	void Model::dispose()

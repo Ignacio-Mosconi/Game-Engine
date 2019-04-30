@@ -24,7 +24,7 @@ private:
 	
 	gn::NavigationCamera* _navCamera;
 	gn::Cube* _cube;
-	gn::Model* _rifle;
+	gn::Model* _monkey;
 
 protected:
 	bool onStart() override;

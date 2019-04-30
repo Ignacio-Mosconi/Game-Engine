@@ -36,6 +36,7 @@ namespace gn
 
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
+		//glDisable(GL_CULL_FACE);
 
 		glGenVertexArrays(1, &_vertexArrayID);
 		glBindVertexArray(_vertexArrayID);
@@ -144,7 +145,7 @@ namespace gn
 	
 	void Renderer::drawIndexedBuffer(PrimitiveType primitive, unsigned int indexesSize) const
 	{
-		glDrawElements((int)primitive, indexesSize, GL_UNSIGNED_SHORT, (void*)0);
+		glDrawElements((int)primitive, indexesSize, GL_UNSIGNED_INT, (void*)0);
 	}
 
 	void Renderer::loadIdentityMatrix()
