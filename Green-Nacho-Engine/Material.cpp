@@ -1,18 +1,15 @@
+#include <GL\glew.h>
 #include "Material.h"
 #include "Texture.h"
-#include <GL\glew.h>
 
 namespace gn
 {
 	Material::Material() : _texture(NULL), _programID(-1), _matrixID(-1), _textureID(-1)
 	{
-		std::cout << "Material::Material()" << std::endl;
 	}
 
 	Material::~Material()
 	{
-		std::cout << "Material::~Material()" << std::endl;
-
 		glDeleteProgram(_programID);
 	}
 

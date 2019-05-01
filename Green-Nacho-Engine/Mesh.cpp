@@ -6,12 +6,10 @@ namespace gn
 	Mesh::Mesh(Renderer* renderer, Material* material) : Shape(renderer, material),
 	_indexBufferID(-1)
 	{
-
 	}
 
 	Mesh::~Mesh()
 	{
-
 	}
 
 	bool Mesh::create(unsigned int vertexCount, float* colorBufferData)

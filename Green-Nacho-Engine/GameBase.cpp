@@ -7,18 +7,14 @@ namespace gn
 {
 	GameBase::GameBase()
 	{
-		std::cout << "GameBase::GameBase()" << std::endl;
 	}
 
 	GameBase::~GameBase()
 	{
-		std::cout << "GameBase::~GameBase()" << std::endl;
 	}
 
 	bool GameBase::start(const int& width, const int& height, const char* title, ProjectionType projectionType)
 	{
-		std::cout << "GameBase::start()" << std::endl;
-
 		_window = new Window;
 		if (!_window->start(width, height, title))
 			return false;
@@ -32,8 +28,6 @@ namespace gn
 
 	bool GameBase::stop()
 	{
-		std::cout << "GameBase::stop()" << std::endl;
-
 		bool result = onStop();
 	
 		_renderer->stop();
@@ -47,8 +41,6 @@ namespace gn
 
 	void GameBase::run()
 	{
-		std::cout << "GameBase::run()" << std::endl;
-
 		bool update = true;
 	
 		_lastTime = glfwGetTime();

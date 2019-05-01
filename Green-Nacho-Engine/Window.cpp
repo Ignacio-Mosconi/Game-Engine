@@ -1,22 +1,18 @@
-#include "Window.h"
 #include <GLFW\glfw3.h>
+#include "Window.h"
 
 namespace gn
 {
 	Window::Window()
 	{
-		std::cout << "Window::Window()" << std::endl;
 	}
 
 	Window::~Window()
 	{
-		std::cout << "Window::~Window()" << std::endl;
 	}
 
 	bool Window::start(const int& width, const int& height, const char* title)
 	{
-		std::cout << "Window::start(width, height, title)" << std::endl;
-
 		_width = width;
 		_height = height;
 		_title = title;
@@ -41,8 +37,6 @@ namespace gn
 
 	bool Window::stop()
 	{
-		std::cout << "Window::stop()" << std::endl;
-
 		if (_actualWindow)
 			glfwDestroyWindow((GLFWwindow*)_actualWindow);
 

@@ -22,12 +22,10 @@ namespace gn
 	InputManager::InputManager() : _firstMouseMovement(true), 
 	_currentMousePosition(glm::vec2(0.0f, 0.0f)), _lastMousePosition(glm::vec2(0.0f, 0.0f))
 	{
-		std::cout << "InputManager::InputManager()" << std::endl;
 	}
 
 	InputManager::~InputManager()
 	{
-		std::cout << "InputManager::InputManager()" << std::endl;
 	}
 
 	InputManager* InputManager::getInstance()

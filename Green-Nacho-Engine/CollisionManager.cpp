@@ -8,12 +8,10 @@ namespace gn
 
 	CollisionManager::CollisionManager()
 	{
-		std::cout << "CollisionManager::CollisionManager()" << std::endl;
 	}
 
 	CollisionManager::~CollisionManager()
 	{
-		std::cout << "CollisionManager::~CollisionManager()" << std::endl;
 	}
 
 	CollisionManager* CollisionManager::getInstance()

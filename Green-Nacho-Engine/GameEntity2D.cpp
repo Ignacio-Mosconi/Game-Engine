@@ -13,8 +13,6 @@ namespace gn
 	GameEntity2D::GameEntity2D(Renderer* renderer, const std::string& imagePath, const std::string& collisionLayer) :
 	_sprite(createSprite(renderer, imagePath)), _material(NULL), _texture(NULL), _tilemap(NULL)
 	{
-		std::cout << "GameEntity2D::GameEntity2D(renderer, imagePath, collisionLayer)" << std::endl;
-
 		if (_sprite)
 			_sprite->setPosition(0, 0, 0);
 	
@@ -30,8 +28,6 @@ namespace gn
 	_sprite(createSprite(renderer, imagePath, spriteRows, spriteColumns, frameWidth, frameHeight)),
 	_material(NULL), _texture(NULL), _tilemap(tilemap)
 	{
-		std::cout << "GameEntity2D::GameEntity2D(renderer, imagePath, collisionLayer, x, y)" << std::endl;
-
 		if (_sprite)
 			_sprite->setPosition(x, y, 0);
 
@@ -43,8 +39,6 @@ namespace gn
 
 	GameEntity2D::~GameEntity2D()
 	{
-		std::cout << "GameEntity2D::~GameEntity2D()" << std::endl;
-
 		_sprite->dispose();
 
 		delete _sprite;

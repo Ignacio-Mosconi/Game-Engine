@@ -147,14 +147,14 @@
     <ClInclude Include="NavigationCamera.h">
       <Filter>Header Files\Entities\Entities 3D</Filter>
     </ClInclude>
-    <ClInclude Include="ModelMesh.h">
+    <ClInclude Include="Mesh.h">
       <Filter>Header Files\Entities\Base Classes</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>Header Files\Entities\Base Classes</Filter>
+      <Filter>Header Files\Entities\Entities 3D</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header Files\Entities\Base Classes</Filter>
+    <ClInclude Include="ModelMesh.h">
+      <Filter>Header Files\Entities\Entities 3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -218,14 +218,14 @@
     <ClCompile Include="NavigationCamera.cpp">
       <Filter>Source Files\Entities\Entities 3D</Filter>
     </ClCompile>
-    <ClCompile Include="ModelMesh.cpp">
+    <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\Entities\Base Classes</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
-      <Filter>Source Files\Entities\Base Classes</Filter>
+      <Filter>Source Files\Entities\Entities 3D</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Source Files\Entities\Base Classes</Filter>
+    <ClCompile Include="ModelMesh.cpp">
+      <Filter>Source Files\Entities\Entities 3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

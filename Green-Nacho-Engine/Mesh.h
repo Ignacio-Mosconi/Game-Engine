@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-
 #include "Shape.h"
 #include "Exports.h"
 

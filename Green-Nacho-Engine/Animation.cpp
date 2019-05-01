@@ -8,8 +8,6 @@ namespace gn
 	_currentFrame(0), _lastFrame(0), _speed(speed), _frameTime(1.0f / speed),
 	_looped(looped), _stopped(true), _finished(false), _timer(0.0f)
 	{
-		std::cout << "Animation::Animation()" << std::endl;
-
 		unsigned int arraySize = sizeof(frames) / sizeof(unsigned int);
 
 		for (int i = 0; i < arraySize; i++)
@@ -20,8 +18,6 @@ namespace gn
 
 	Animation::~Animation()
 	{
-		std::cout << "Animation::~Animation()" << std::endl;
-
 		delete _frames;
 	}
 

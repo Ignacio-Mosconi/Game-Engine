@@ -18,8 +18,6 @@ namespace gn
 	_vertexBufferData(NULL), _uvBufferData(NULL),
 	_vertexBufferID(-1), _uvBufferID(-1)
 	{
-		std::cout << "Tilemap::Tilemap(tilesetPath, levelPath, levelWidth, levelHeight, tileWidth, tileHeight)" << std::endl;
-
 		_material = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
 		_material->setTexture(_texture, "textureSampler");
 
@@ -44,8 +42,6 @@ namespace gn
 
 	Tilemap::~Tilemap()
 	{
-		std::cout << "Tilemap::~Tilemap()" << std::endl;
-
 		Texture::destroyTexture(_texture);
 		Material::destroyMaterial(_material);
 	

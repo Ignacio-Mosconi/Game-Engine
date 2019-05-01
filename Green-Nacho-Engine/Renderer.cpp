@@ -1,18 +1,16 @@
-#include "Renderer.h"
-#include "Window.h"
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
+#include "Renderer.h"
+#include "Window.h"
 
 namespace gn
 {
 	Renderer::Renderer()
 	{
-		std::cout << "Renderer::Renderer()" << std::endl;
 	}
 
 	Renderer::~Renderer()
 	{
-		std::cout << "Renderer::~Renderer()" << std::endl;
 	}
 
 	void Renderer::updateMVP()
@@ -22,8 +20,6 @@ namespace gn
 
 	bool Renderer::start(Window* renderWindow, ProjectionType defaultProjection)
 	{
-		std::cout << "Renderer::start(renderWindow)" << std::endl;
-
 		_renderWindow = renderWindow;
 
 		glfwMakeContextCurrent((GLFWwindow*)_renderWindow->getWindowPtr());
@@ -36,7 +32,6 @@ namespace gn
 
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
-		//glDisable(GL_CULL_FACE);
 
 		glGenVertexArrays(1, &_vertexArrayID);
 		glBindVertexArray(_vertexArrayID);
@@ -57,8 +52,6 @@ namespace gn
 
 	bool Renderer::stop()
 	{
-		std::cout << "Renderer::stop()" << std::endl;
-
 		glDeleteVertexArrays(1, &_vertexArrayID);
 
 		return true;

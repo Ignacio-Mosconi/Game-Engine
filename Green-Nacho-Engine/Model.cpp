@@ -80,13 +80,6 @@ namespace gn
 			indexes.push_back(index);
 		}
 
-		for (int i = 0; i < indexes.size(); i++)
-		{
-			for (int j = 0; j < 10; j++)
-				std::cout << indexes[i] << ", ";
-			std::cout << std::endl;
-		}
-
 		//for (int i = 0; i < mesh->mNumFaces; i++)
 		//{
 		//	aiFace face = mesh->mFaces[i];

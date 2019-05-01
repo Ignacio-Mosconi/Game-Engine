@@ -8,12 +8,10 @@ namespace gn
 	_entityAttached(NULL), _gameEntityAttached(NULL),
 	_width(width), _height(height), _staticObject(staticObject), _mass(mass)
 	{
-		std::cout << "BoundingBox::BoundingBox()" << std::endl;
 	}
 
 	BoundingBox::~BoundingBox()
 	{
-		std::cout << "BoundingBox::~BoundingBox()" << std::endl;
 	}
 
 	void BoundingBox::attachToEntity(Entity* entity)

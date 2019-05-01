@@ -9,12 +9,10 @@ namespace gn
 	_vertexBufferData(NULL), _colorBufferData(NULL),
 	_vertexBufferID(-1), _colorBufferID(-1)
 	{
-
 	}
 
 	Shape::~Shape()
 	{
-
 	}
 
 	bool Shape::create(unsigned int vertexCount, float* colorBufferData)

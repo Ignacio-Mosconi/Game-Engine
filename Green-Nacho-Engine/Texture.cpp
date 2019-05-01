@@ -1,17 +1,14 @@
-#include "Texture.h"
 #include <GL\glew.h>
+#include "Texture.h"
 
 namespace gn
 {
 	Texture::Texture() : _textureID(-1)
 	{
-		std::cout << "Texture::Texture()" << std::endl;
 	}
 
 	Texture::~Texture()
 	{
-		std::cout << "Texture::~Texture()" << std::endl;
-	
 		glDeleteTextures(1, &_textureID);
 	}
 
