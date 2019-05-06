@@ -53,7 +53,6 @@ namespace gn
 		return uvBufferData;
 	}
 
-	// Enhance this nonsense.
 	std::vector<unsigned int> ModelMesh::generateIndexBufferData() const
 	{
 		std::vector<unsigned int> indexBufferData(_indexes);

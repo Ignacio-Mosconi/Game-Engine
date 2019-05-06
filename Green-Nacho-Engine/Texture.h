@@ -21,9 +21,11 @@ namespace gn
 		~Texture();
 
 		unsigned int loadBMP(const std::string& imagePath);
+		unsigned int load(const std::string& imagePath);
 
 	public:
 		static Texture* generateTextureBMP(const std::string& imagePath);
+		static Texture* generateTexture(const std::string& imagePath);
 		static void destroyTexture(Texture* texture);
 
 		inline unsigned int getTexureID() const { return _textureID; }
