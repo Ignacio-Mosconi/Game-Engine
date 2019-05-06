@@ -25,8 +25,8 @@ namespace gn
 		void processNode(aiNode* node, const aiScene* scene);
 		ModelMesh generateMesh(aiMesh* mesh, const aiScene* scene);
 
-		bool getSimilarVertex(ModelMeshVertex& vertex, std::map<ModelMeshVertex, unsigned int>& vertexMap, 
-							unsigned int& resultingIndex) const;
+		//bool getSimilarVertex(ModelMeshVertex& vertex, std::map<ModelMeshVertex, unsigned int>& vertexMap, 
+		//					unsigned int& resultingIndex) const;
 
 	public:
 		Model(Renderer* _renderer, const char* modelPath);

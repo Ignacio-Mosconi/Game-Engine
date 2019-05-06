@@ -11,11 +11,8 @@ namespace gn
 	struct ModelMeshVertex
 	{
 		glm::vec3 position;
+		glm::vec2 normal;
 		glm::vec2 uvCoordinates;
-		bool operator<(const ModelMeshVertex that) const 
-		{
-			return memcmp((void*)this, (void*)&that, sizeof(ModelMeshVertex)) > 0;
-		}
 	};
 
 	class ENGINE_API ModelMesh : public Mesh

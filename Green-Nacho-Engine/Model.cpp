@@ -44,68 +44,69 @@ namespace gn
 	
 	ModelMesh Model::generateMesh(aiMesh* mesh, const aiScene* scene)
 	{
-		Material* testMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
-		std::vector<ModelMeshVertex> inputVertices;
-		std::vector<ModelMeshVertex> outputVertices;
+		std::vector<ModelMeshVertex> vertices;
 		std::vector<unsigned int> indexes;
-		std::map<ModelMeshVertex, unsigned int> vertexMap;
 
 		for (int i = 0; i < mesh->mNumVertices; i++)
 		{
 			ModelMeshVertex vertex;
 			aiVector3D aiMeshVertex = mesh->mVertices[i];
+			aiVector3D aiMeshNormal = mesh->mNormals[i];
 			aiVector3D aiTextCoord(0.0f, 0.0f, 0.0f);
 
 			if (mesh->mTextureCoords[0])
 				aiTextCoord = mesh->mTextureCoords[0][i];
 
 			vertex.position = glm::vec3(aiMeshVertex.x, aiMeshVertex.y, aiMeshVertex.z);
+			vertex.normal = glm::vec3(aiMeshNormal.x, aiMeshNormal.y, aiMeshNormal.z);
 			vertex.uvCoordinates = glm::vec2(aiTextCoord.x, aiTextCoord.y);
 
-			inputVertices.push_back(vertex);
+			vertices.push_back(vertex);
 		}
 
-		for (int i = 0; i < inputVertices.size(); i++)
+		for (int i = 0; i < mesh->mNumFaces; i++)
 		{
-			unsigned int index;
-			bool similarVertexFound = getSimilarVertex(inputVertices[i], vertexMap, index);
+			aiFace face = mesh->mFaces[i];
 
-			if (!similarVertexFound)
-			{
-				index = (unsigned int)outputVertices.size();			
-				outputVertices.push_back(inputVertices[i]);
-				vertexMap[inputVertices[i]] = index;
-			}
-			
-			indexes.push_back(index);
+			for (int j = 0; j < face.mNumIndices; j++)
+				indexes.push_back(face.mIndices[j]);
 		}
 
-		//for (int i = 0; i < mesh->mNumFaces; i++)
-		//{
-		//	aiFace face = mesh->mFaces[i];
+		Material* testMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
 
-		//	for (int j = 0; j < face.mNumIndices; j++)
-		//		indexes.push_back(face.mIndices[j]);
+		//for (int i = 0; i < vertices.size(); i++)
+		//{
+		//	unsigned int index;
+		//	bool similarVertexFound = getSimilarVertex(vertices[i], vertexMap, index);
+
+		//	if (!similarVertexFound)
+		//	{
+		//		index = (unsigned int)outputVertices.size();			
+		//		outputVertices.push_back(vertices[i]);
+		//		vertexMap[vertices[i]] = index;
+		//	}
+		//	
+		//	indexes.push_back(index);
 		//}
 
-		return ModelMesh(_renderer, testMaterial, inputVertices, indexes);
+		return ModelMesh(_renderer, testMaterial, vertices, indexes);
 	}
 
-	bool Model::getSimilarVertex(ModelMeshVertex& vertex, std::map<ModelMeshVertex, 
-								unsigned int>& vertexMap, unsigned int& resultingIndex) const
-	{
-		bool found = false;
+	//bool Model::getSimilarVertex(ModelMeshVertex& vertex, std::map<ModelMeshVertex, 
+	//							unsigned int>& vertexMap, unsigned int& resultingIndex) const
+	//{
+	//	bool found = false;
 
-		std::map<ModelMeshVertex, unsigned int>::iterator it = vertexMap.find(vertex);
+	//	std::map<ModelMeshVertex, unsigned int>::iterator it = vertexMap.find(vertex);
 
-		if (it != vertexMap.end())
-		{
-			resultingIndex = it->second;
-			found = true;
-		}
+	//	if (it != vertexMap.end())
+	//	{
+	//		resultingIndex = it->second;
+	//		found = true;
+	//	}
 
-		return found;
-	}
+	//	return found;
+	//}
 
 	void Model::dispose()
 	{
