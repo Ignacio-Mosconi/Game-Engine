@@ -7,6 +7,8 @@ constexpr const char* CUSTOM_VERTEX_SHADER_PATH = "Assets/Shaders/CustomVertexSh
 constexpr const char* CUSTOM_PIXEL_SHADER_PATH = "Assets/Shaders/CustomPixelShader.pixelshader";
 constexpr const char* TEXTURE_VERTEX_SHADER_PATH = "Assets/Shaders/TextureVertexShader.vertexshader";
 constexpr const char* TEXTURE_PIXEL_SHADER_PATH = "Assets/Shaders/TexturePixelShader.pixelshader";
+constexpr const char* MODEL_TEX_VERTEX_SHADER_PATH = "Assets/Shaders/ModelTextureVertexShader.vertexshader";
+constexpr const char* MODEL_TEX_PIXEL_SHADER_PATH = "Assets/Shaders/ModelTexturePixelShader.pixelshader";
 // Vertex Buffer Properties
 constexpr int VERTEX_COMPONENTS = 3;
 constexpr int UV_COMPONENTS = 2;

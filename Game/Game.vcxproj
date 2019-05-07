@@ -176,6 +176,8 @@ xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s/y</Command>
   <ItemGroup>
     <None Include="Assets\Shaders\CustomPixelShader.pixelshader" />
     <None Include="Assets\Shaders\CustomVertexShader.vertexshader" />
+    <None Include="Assets\Shaders\ModelTexturePixelShader.pixelshader" />
+    <None Include="Assets\Shaders\ModelTextureVertexShader.vertexshader" />
     <None Include="Assets\Shaders\SimpleFragmentShader.fragmentshader" />
     <None Include="Assets\Shaders\SimpleVertexShader.vertexshader" />
     <None Include="Assets\Shaders\TexturePixelShader.pixelshader" />

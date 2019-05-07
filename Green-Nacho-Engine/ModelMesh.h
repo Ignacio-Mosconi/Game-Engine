@@ -33,7 +33,8 @@ namespace gn
 		std::vector<unsigned int> generateIndexBufferData() const override;
 
 	public:
-		ModelMesh(Renderer* renderer, Material* material, std::vector<ModelMeshVertex> vertices, std::vector<unsigned int> indexes);
+		ModelMesh(Renderer* renderer, Material* material, std::vector<ModelMeshVertex> vertices, 
+					std::vector<unsigned int> indexes);
 		~ModelMesh();
 
 		void dispose() override;

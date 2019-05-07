@@ -16,6 +16,9 @@ namespace gn
 
 	void Model::loadModel(const std::string& modelPath)
 	{
+		std::size_t found = modelPath.find_last_of('/');
+		_modelDirectory = modelPath.substr(0, found);
+
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(modelPath, aiProcess_Triangulate | aiProcess_FlipUVs);
 
@@ -72,41 +75,45 @@ namespace gn
 				indexes.push_back(face.mIndices[j]);
 		}
 
-		Material* testMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
+		Material* material = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
 
-		//for (int i = 0; i < vertices.size(); i++)
-		//{
-		//	unsigned int index;
-		//	bool similarVertexFound = getSimilarVertex(vertices[i], vertexMap, index);
+		if (mesh->mMaterialIndex >= 0)
+		{
+			material = Material::generateMaterial(MODEL_TEX_VERTEX_SHADER_PATH, MODEL_TEX_PIXEL_SHADER_PATH);
+			aiMaterial* aiMat = scene->mMaterials[mesh->mMaterialIndex];
 
-		//	if (!similarVertexFound)
-		//	{
-		//		index = (unsigned int)outputVertices.size();			
-		//		outputVertices.push_back(vertices[i]);
-		//		vertexMap[vertices[i]] = index;
-		//	}
-		//	
-		//	indexes.push_back(index);
-		//}
+			std::vector<Texture*> diffuseMaps = loadMaterialTextures(aiMat, aiTextureType_DIFFUSE, "texture_diffuse");
+			std::vector<Texture*> specularMaps = loadMaterialTextures(aiMat, aiTextureType_SPECULAR, "texture_specular");
 
-		return ModelMesh(_renderer, testMaterial, vertices, indexes);
+			_textures.insert(_textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+			_textures.insert(_textures.end(), specularMaps.begin(), specularMaps.end());
+
+			material->setTexture(diffuseMaps[0], "textureDiffuse");
+		}
+
+
+		return ModelMesh(_renderer, material, vertices, indexes);
 	}
 
-	//bool Model::getSimilarVertex(ModelMeshVertex& vertex, std::map<ModelMeshVertex, 
-	//							unsigned int>& vertexMap, unsigned int& resultingIndex) const
-	//{
-	//	bool found = false;
+	std::vector<Texture*> Model::loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName)
+	{
+		std::vector<Texture*> textures;
 
-	//	std::map<ModelMeshVertex, unsigned int>::iterator it = vertexMap.find(vertex);
+		for (int i = 0; i < material->GetTextureCount(type); i++)
+		{
+			Texture* texture;
+			aiString string;
+			std::string imagePath;
+			
+			material->GetTexture(type, i, &string);
+			imagePath = _modelDirectory +  + string.C_Str();
+			texture = Texture::generateTexture(imagePath);
 
-	//	if (it != vertexMap.end())
-	//	{
-	//		resultingIndex = it->second;
-	//		found = true;
-	//	}
+			textures.push_back(texture);
+		}
 
-	//	return found;
-	//}
+		return textures;
+	}
 
 	void Model::dispose()
 	{

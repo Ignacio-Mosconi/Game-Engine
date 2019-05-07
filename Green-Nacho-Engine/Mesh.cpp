@@ -23,7 +23,6 @@ namespace gn
 		return (Shape::create(vertexCount, colorBufferData));
 	}
 
-
 	void Mesh::dispose()
 	{
 		Shape::dispose();

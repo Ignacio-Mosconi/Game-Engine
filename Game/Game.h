@@ -17,14 +17,12 @@ class Game : public gn::GameBase
 private:
 	gn::InputManager* _inputManager;
 
-	gn::Texture* _spriteTexture;
 	gn::Material* _simpleColorMaterial;
 	gn::Material* _customColorMaterial;
-	gn::Material* _textureMaterial;
 	
 	gn::NavigationCamera* _navCamera;
 	gn::Cube* _cube;
-	gn::Model* _monkey;
+	gn::Model* _nanosuit;
 
 protected:
 	bool onStart() override;
