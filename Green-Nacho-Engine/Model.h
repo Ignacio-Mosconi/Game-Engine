@@ -2,13 +2,18 @@
 
 #include <string>
 #include <vector>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
 
 #include "Entity.h"
 
 #include "Exports.h"
+
+enum aiTextureType;
+
+struct aiNode;
+struct aiScene;
+struct aiMesh;
+struct aiScene;
+struct aiMaterial;
 
 namespace gn
 {

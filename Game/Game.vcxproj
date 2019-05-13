@@ -109,7 +109,7 @@ copy "$(SolutionDir)Dependencies\assimp-4.1.0\dlls\x86\assimp-vc140-mt.dll" "$(O
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Green-Nacho-Engine;$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\assimp-4.1.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Green-Nacho-Engine;$(SolutionDir)Dependencies\glm-0.9.9.0</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <PostBuildEvent>
