@@ -23,6 +23,8 @@ private:
 	gn::NavigationCamera* _navCamera;
 	gn::Cube* _cube;
 	gn::Model* _nanosuit;
+	gn::Model* _assaultRifle;
+	gn::Model* _suzanne;
 
 protected:
 	bool onStart() override;

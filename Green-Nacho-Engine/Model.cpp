@@ -4,9 +4,9 @@
 
 namespace gn
 {
-	Model::Model(Renderer* renderer, const char* modelPath) : Entity(renderer)
+	Model::Model(Renderer* renderer, const char* modelPath, bool hasTextures) : Entity(renderer)
 	{
-		loadModel(modelPath);
+		loadModel(modelPath, hasTextures);
 	}
 
 	Model::~Model()
@@ -14,7 +14,7 @@ namespace gn
 		dispose();
 	}
 
-	void Model::loadModel(const std::string& modelPath)
+	void Model::loadModel(const std::string& modelPath, bool hasTextures)
 	{
 		std::size_t found = modelPath.find_last_of('/');
 		_modelDirectory = modelPath.substr(0, found);
@@ -30,22 +30,22 @@ namespace gn
 			return;
 		}
 
-		processNode(scene->mRootNode, scene);
+		processNode(scene->mRootNode, scene, hasTextures);
 	}
 
-	void Model::processNode(aiNode* node, const aiScene* scene)
+	void Model::processNode(aiNode* node, const aiScene* scene, bool hasTextures)
 	{
 		for (int i = 0; i < node->mNumMeshes; i++)
 		{
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			_modelMeshes.push_back(generateMesh(mesh, scene));
+			_modelMeshes.push_back(generateMesh(mesh, scene, hasTextures));
 		}
 
 		for (int i = 0; i < node->mNumChildren; i++)
-			processNode(node->mChildren[i], scene);
+			processNode(node->mChildren[i], scene, hasTextures);
 	}	
 	
-	ModelMesh Model::generateMesh(aiMesh* mesh, const aiScene* scene)
+	ModelMesh* Model::generateMesh(aiMesh* mesh, const aiScene* scene, bool hasTextures)
 	{
 		std::vector<ModelMeshVertex> vertices;
 		std::vector<unsigned int> indexes;
@@ -77,7 +77,7 @@ namespace gn
 
 		Material* material = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
 
-		if (mesh->mMaterialIndex >= 0)
+		if (mesh->mMaterialIndex >= 0 && hasTextures)
 		{
 			material = Material::generateMaterial(MODEL_TEX_VERTEX_SHADER_PATH, MODEL_TEX_PIXEL_SHADER_PATH);
 			aiMaterial* aiMat = scene->mMaterials[mesh->mMaterialIndex];
@@ -91,8 +91,7 @@ namespace gn
 			material->setTexture(diffuseMaps[0], "textureDiffuse");
 		}
 
-
-		return ModelMesh(_renderer, material, vertices, indexes);
+		return new ModelMesh(_renderer, material, vertices, indexes);
 	}
 
 	std::vector<Texture*> Model::loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName)
@@ -106,7 +105,7 @@ namespace gn
 			std::string imagePath;
 			
 			material->GetTexture(type, i, &string);
-			imagePath = _modelDirectory +  + string.C_Str();
+			imagePath = _modelDirectory + "\\" + string.C_Str();
 			texture = Texture::generateTexture(imagePath);
 
 			textures.push_back(texture);
@@ -118,12 +117,12 @@ namespace gn
 	void Model::dispose()
 	{
 		for (int i = 0; i < _modelMeshes.size(); i++)
-			_modelMeshes[i].dispose();
+			delete _modelMeshes[i];
 	}
 
 	void Model::draw() const
 	{
 		for (int i = 0; i < _modelMeshes.size(); i++)
-			_modelMeshes[i].draw();
+			_modelMeshes[i]->draw();
 	}
 }

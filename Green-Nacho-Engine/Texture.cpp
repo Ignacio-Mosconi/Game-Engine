@@ -80,6 +80,8 @@ namespace gn
 				throw std::logic_error("The image file could not be loaded.");
 			}
 
+			std::cout << "Reading the image..." << std::endl;
+
 			switch (channels)
 			{
 				case 1:

@@ -23,7 +23,9 @@ bool Game::onStart()
 	_navCamera = new NavigationCamera(_renderer, 0.0f, 0.0f, 10.0f);
 	
 	_cube = new Cube(_renderer, _customColorMaterial, 2.0f, 2.0f, 2.0f);
-	_nanosuit = new Model(_renderer, NANOSUIT_PATH);
+	_nanosuit = new Model(_renderer, NANOSUIT_PATH, true);
+	_assaultRifle = new Model(_renderer, ASSAULT_RIFLE_PATH);
+	_suzanne = new Model(_renderer, SUZANNE_PATH);
 
 	float frontColor[3] = { 0.0f, 1.0f, 0.0f};
 	float backColor[3] = { 0.0f, 0.0f, 1.0f };
@@ -38,6 +40,8 @@ bool Game::onStop()
 	delete _navCamera;
 	delete _cube;
 	delete _nanosuit;
+	delete _assaultRifle;
+	delete _suzanne;
 	
 	InputManager::deleteInstance();
 
@@ -58,8 +62,10 @@ bool Game::onUpdate(float deltaTime)
 
 bool Game::onDraw()
 {
-	//_cube->draw();
+	_cube->draw();
 	_nanosuit->draw();
+	_assaultRifle->draw();
+	_suzanne->draw();
 
 	return true;
 }
