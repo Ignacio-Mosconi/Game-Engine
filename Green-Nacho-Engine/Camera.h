@@ -10,7 +10,7 @@ namespace gn
 
 	class ENGINE_API Camera : public Entity
 	{
-	private:
+	protected:
 		glm::vec3 _up;
 		glm::vec3 _forward;
 		glm::vec3 _right;
