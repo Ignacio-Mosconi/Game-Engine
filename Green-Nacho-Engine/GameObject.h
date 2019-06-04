@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Exports.h"
-
+#include <iostream>
 #include <algorithm>
 #include <list>
+#include <glm/mat4x4.hpp>
+#include "Exports.h"
 
 namespace gn
 {
@@ -18,14 +19,14 @@ namespace gn
 		std::list<GameObject*>* _children;
 
 	public:
-		GameObject();
+		GameObject(bool addTransform = true);
 		~GameObject();
 
 		void start();
 		void stop();
 
 		void update();
-		void draw();
+		void draw(glm::mat4 parentMatrix);
 
 		bool addChild(GameObject* gameObject);
 		bool removeChild(GameObject* gameObject);

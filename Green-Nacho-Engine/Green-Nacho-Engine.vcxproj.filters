@@ -82,6 +82,12 @@
     <Filter Include="Source Files\Scene Graph">
       <UniqueIdentifier>{e731cd93-b632-419b-9c3f-32a5fb72e9bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scene Graph\Components">
+      <UniqueIdentifier>{b76c9e6d-0f65-4278-a1f6-9ddb0d976729}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene Graph\Components">
+      <UniqueIdentifier>{b3c1d774-3094-4024-8920-5e5e55548ec7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exports.h">
@@ -169,7 +175,10 @@
       <Filter>Header Files\Scene Graph</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>Header Files\Scene Graph</Filter>
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -242,11 +251,17 @@
     <ClCompile Include="ModelMesh.cpp">
       <Filter>Source Files\Entities\Entities 3D</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Source Files\Scene Graph</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\Scene Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Scene Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

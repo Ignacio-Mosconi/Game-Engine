@@ -32,7 +32,9 @@ namespace gn
 		~Transform();
 
 		void start() override;
+		void stop() override;
 		void update() override;
+		void draw(glm::mat4 modelMatrix) const override;
 
 		void translate(float x, float y, float z);
 		void rotate(float x, float y, float z);
@@ -45,5 +47,7 @@ namespace gn
 		inline glm::vec3 getPosition() const { return _position; }
 		inline glm::vec3 getRotation() const { return _rotation; }
 		inline glm::vec3 getScale() const { return _scale; }
+
+		inline glm::mat4 getModelMatrix() const { return _modelMatrix; }
 	};
 }

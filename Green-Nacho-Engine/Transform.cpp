@@ -3,14 +3,14 @@
 
 namespace gn
 {
-	Transform::Transform() :
+	Transform::Transform() : Component("Transform"),
 		_position(glm::vec3(0.0f, 0.0f, 0.0f)), _rotation(glm::vec3(0.0f, 0.0f, 0.0f)), _scale(glm::vec3(1.0f, 1.0f, 1.0f)),
 		_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f))
 	{
 		updateModelMatrix();
 	}
 
-	Transform::Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) :
+	Transform::Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : Component("Transform"),
 		_position(position), _rotation(rotation), _scale(scale),
 		_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f))
 	{
@@ -25,9 +25,19 @@ namespace gn
 	void Transform::start()
 	{
 
+	}	
+	
+	void Transform::stop()
+	{
+
 	}
 	
 	void Transform::update()
+	{
+
+	}	
+	
+	void Transform::draw(glm::mat4 modelMatrix) const
 	{
 
 	}	

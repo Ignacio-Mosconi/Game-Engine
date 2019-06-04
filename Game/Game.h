@@ -4,27 +4,16 @@
 #include "GameBase.h"
 #include "Window.h"
 #include "Renderer.h"
-#include "Material.h"
-#include "NavigationCamera.h"
-#include "Cube.h"
-#include "Model.h"
-#include "InputManager.h"
+#include "GameObject.h"
+#include "SpriteRenderer.h"
 #include "EngineConstants.h"
 #include "GameConstants.h"
 
 class Game : public gn::GameBase
 {
 private:
-	gn::InputManager* _inputManager;
-
-	gn::Material* _simpleColorMaterial;
-	gn::Material* _customColorMaterial;
-	
-	gn::NavigationCamera* _navCamera;
-	gn::Cube* _cube;
-	gn::Model* _nanosuit;
-	gn::Model* _assaultRifle;
-	gn::Model* _suzanne;
+	gn::GameObject* _scene;
+	gn::GameObject* _testObject;
 
 protected:
 	bool onStart() override;
