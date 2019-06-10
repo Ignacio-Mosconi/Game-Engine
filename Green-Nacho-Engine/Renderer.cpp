@@ -42,7 +42,7 @@ namespace gn
 		float windowWidth = (float)_renderWindow->getWidth();
 		float windowHeight = (float)_renderWindow->getHeight();
 		
-		_orthoProjection = glm::ortho(0.0f, windowWidth, 0.0f, windowHeight, 0.0f, 1.0f);
+		_orthoProjection = glm::ortho(0.0f, windowWidth, 0.0f, windowHeight, 0.1f, 1000.0f);
 		_perspProjection = glm::perspective(glm::radians(45.0f), windowWidth / windowHeight, 0.1f, 1000.0f);
 
 		setProjection(defaultProjection);
@@ -150,6 +150,18 @@ namespace gn
 	void Renderer::setModelMatrix(glm::mat4 matrix)
 	{
 		_model = matrix;
+		updateMVP();
+	}	
+	
+	void Renderer::setViewMatrix(glm::mat4 matrix)
+	{
+		_view = matrix;
+		updateMVP();
+	}	
+	
+	void Renderer::setProjectionMatrix(glm::mat4 matrix)
+	{
+		_projection = matrix;
 		updateMVP();
 	}
 

@@ -37,7 +37,10 @@ namespace gn
 			removeComponent((*it)->getID());
 		}
 		for (std::list<GameObject*>::iterator it = _children->begin(); it != _children->end(); it++)
-			removeChild(*it);
+		{
+			(*it)->stop();
+			delete *it;
+		}
 	}
 
 	void GameObject::update()
@@ -50,7 +53,9 @@ namespace gn
 
 	void GameObject::draw()
 	{
-		glm::mat4 originalMVP = _renderer->getMVP();
+		glm::mat4 originalModelMatrix = _renderer->getModelMatrix();
+		glm::mat4 originalViewMatrix = _renderer->getViewMatrix();
+		glm::mat4 originalProjectionMatrix = _renderer->getProjectionMatrix();
 		
 		_renderer->multiplyModelMatrix(_transform->getModelMatrix());
 
@@ -59,7 +64,9 @@ namespace gn
 		for (std::list<GameObject*>::iterator it = _children->begin(); it != _children->end(); it++)
 			(*it)->draw();
 
-		_renderer->setModelMatrix(originalMVP);
+		_renderer->setModelMatrix(originalModelMatrix);
+		_renderer->setViewMatrix(originalViewMatrix);
+		_renderer->setProjectionMatrix(originalProjectionMatrix);
 	}
 
 	bool GameObject::addChild(GameObject* gameObject)

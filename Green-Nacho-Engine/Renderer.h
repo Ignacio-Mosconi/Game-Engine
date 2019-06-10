@@ -57,6 +57,9 @@ namespace gn
 
 		void loadIdentityMatrix();
 		void setModelMatrix(glm::mat4 matrix);
+		void setViewMatrix(glm::mat4 matrix);
+		void setProjectionMatrix(glm::mat4 matrix);
+		
 		void multiplyModelMatrix(glm::mat4 matrix);
 
 		void updateView(float x, float y);
@@ -68,6 +71,9 @@ namespace gn
 		void setProjection(Projection projectionType);
 
 		inline glm::mat4& getMVP() { return _mvp; }
+		inline glm::mat4& getModelMatrix() { return _model; }
+		inline glm::mat4& getViewMatrix() { return _view; }
+		inline glm::mat4& getProjectionMatrix() { return _projection; }
 		inline Window* getRenderWindow() const { return _renderWindow;  }
 	};
 }
