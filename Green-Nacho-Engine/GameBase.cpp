@@ -13,7 +13,7 @@ namespace gn
 	{
 	}
 
-	bool GameBase::start(const int& width, const int& height, const char* title, ProjectionType projectionType)
+	bool GameBase::start(const int& width, const int& height, const char* title, Projection projectionType)
 	{
 		_window = new Window;
 		if (!_window->start(width, height, title))
@@ -54,6 +54,7 @@ namespace gn
 			float deltaTime = currentTime - _lastTime;
 			_lastTime = currentTime;
 
+			_window->pollEvents();
 			update = onUpdate(deltaTime);
 
 			_drawTimer += deltaTime;
@@ -65,9 +66,7 @@ namespace gn
 				_renderer->clearScreen();
 				onDraw();
 				_renderer->swapBuffers();
-			}
-		
-			_window->pollEvents();
+			}	
 		}
 	}
 }

@@ -8,6 +8,7 @@ namespace gn
 		_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f))
 	{
 		updateModelMatrix();
+
 	}
 
 	Transform::Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : Component("Transform"),
@@ -21,26 +22,6 @@ namespace gn
 	{
 
 	}
-
-	void Transform::start()
-	{
-
-	}	
-	
-	void Transform::stop()
-	{
-
-	}
-	
-	void Transform::update()
-	{
-
-	}	
-	
-	void Transform::draw(glm::mat4 modelMatrix) const
-	{
-
-	}	
 	
 	void Transform::updateModelMatrix()
 	{

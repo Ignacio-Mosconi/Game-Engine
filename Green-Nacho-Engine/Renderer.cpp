@@ -18,7 +18,7 @@ namespace gn
 		_mvp = _projection * _view * _model;
 	}
 
-	bool Renderer::start(Window* renderWindow, ProjectionType defaultProjection)
+	bool Renderer::start(Window* renderWindow, Projection defaultProjection)
 	{
 		_renderWindow = renderWindow;
 
@@ -45,7 +45,7 @@ namespace gn
 		_orthoProjection = glm::ortho(0.0f, windowWidth, 0.0f, windowHeight, 0.0f, 1.0f);
 		_perspProjection = glm::perspective(glm::radians(45.0f), windowWidth / windowHeight, 0.1f, 1000.0f);
 
-		setProjectionType(defaultProjection);
+		setProjection(defaultProjection);
 
 		return true;
 	}
@@ -195,14 +195,14 @@ namespace gn
 			updateMVP();
 	}
 
-	void Renderer::setProjectionType(ProjectionType projectionType)
+	void Renderer::setProjection(Projection projection)
 	{
-		switch (projectionType)
+		switch (projection)
 		{
-			case ProjectionType::ORTHOGRAPHIC:
+			case Projection::ORTHOGRAPHIC:
 				_projection = _orthoProjection;
 				break;
-			case ProjectionType::PERSPECTIVE:
+			case Projection::PERSPECTIVE:
 				_projection = _perspProjection;
 				break;
 			default:

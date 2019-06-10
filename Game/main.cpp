@@ -8,7 +8,7 @@ int main()
 
 	std::cout << "Initializing the game engine demo..." << std::endl;
 
-	if (game->start(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE, ProjectionType::PERSPECTIVE))
+	if (game->start(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE, Projection::ORTHOGRAPHIC))
 		game->run();
 
 	game->stop();

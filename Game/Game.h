@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "Renderer.h"
 #include "GameObject.h"
+#include "Transform.h"
 #include "SpriteRenderer.h"
 #include "EngineConstants.h"
 #include "GameConstants.h"
@@ -12,8 +13,7 @@
 class Game : public gn::GameBase
 {
 private:
-	gn::GameObject* _scene;
-	gn::GameObject* _testObject;
+	gn::GameObject* _sprite;
 
 protected:
 	bool onStart() override;

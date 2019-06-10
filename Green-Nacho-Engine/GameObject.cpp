@@ -1,21 +1,22 @@
 #include "GameObject.h"
+#include "Renderer.h"
 #include "Component.h"
 #include "Transform.h"
 
 namespace gn
 {
-	GameObject::GameObject(bool addTransform) :
-		_transform(NULL),
+	GameObject::GameObject(Renderer* renderer, GameObject* parent):
+		_renderer(renderer), _transform(new Transform()),
 		_components(new std::list<Component*>()), _children(new std::list<GameObject*>())
 	{
-		if (addTransform)
-			_transform = new Transform();
+		_transform = new Transform();
+		if (parent)
+			parent->addChild(this);
 	}
 
 	GameObject::~GameObject()
 	{
-		if (_transform)
-			delete _transform;
+		delete _transform;
 		delete _components;
 		delete _children;
 	}
@@ -31,7 +32,10 @@ namespace gn
 	void GameObject::stop()
 	{
 		for (std::list<Component*>::iterator it = _components->begin(); it != _components->end(); it++)
+		{
 			(*it)->stop();
+			removeComponent((*it)->getID());
+		}
 		for (std::list<GameObject*>::iterator it = _children->begin(); it != _children->end(); it++)
 			removeChild(*it);
 	}
@@ -44,20 +48,18 @@ namespace gn
 			(*it)->update();
 	}
 
-	void GameObject::draw(glm::mat4 parentMatrix)
+	void GameObject::draw()
 	{
-		glm::mat4 modelMatrix = glm::mat4(1.0f);
-
-		if (_transform)
-		{
-			modelMatrix = _transform->getModelMatrix();
-			parentMatrix *= modelMatrix;
-		}
+		glm::mat4 originalMVP = _renderer->getMVP();
+		
+		_renderer->multiplyModelMatrix(_transform->getModelMatrix());
 
 		for (std::list<Component*>::iterator it = _components->begin(); it != _components->end(); it++)
-			(*it)->draw(modelMatrix);
+			(*it)->draw();
 		for (std::list<GameObject*>::iterator it = _children->begin(); it != _children->end(); it++)
-			(*it)->draw(parentMatrix);
+			(*it)->draw();
+
+		_renderer->setModelMatrix(originalMVP);
 	}
 
 	bool GameObject::addChild(GameObject* gameObject)
@@ -66,7 +68,7 @@ namespace gn
 
 		std::list<GameObject*>::iterator it = std::find(_children->begin(), _children->end(), gameObject);
 
-		if (it != _children->end())
+		if (it == _children->end())
 		{
 			_children->push_back(gameObject);
 			added = true;
@@ -98,7 +100,7 @@ namespace gn
 		std::list<Component*>::iterator it = std::find_if(_components->begin(), _components->end(),
 			[&componentID](const Component* comp) {return comp->getID() == componentID; });
 		
-		if (it != _components->end())
+		if (it == _components->end())
 		{
 			_components->push_back(component);
 			added = true;
@@ -116,6 +118,7 @@ namespace gn
 		if (it != _components->end())
 		{
 			_components->remove(*it);
+			delete *it;
 			removed = true;
 		}
 

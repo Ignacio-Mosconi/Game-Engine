@@ -9,6 +9,7 @@ namespace gn
 {
 	class Window;
 	class Renderer;
+	class GameObject;
 /*
 	The base class of the game; the "Game" class has to be a child of it.
 	It implements the basic functionality of the game.
@@ -22,6 +23,8 @@ namespace gn
 	protected:
 		Window* _window;
 		Renderer* _renderer;
+		
+		GameObject* _scene;
 	
 		virtual bool onStart() = 0;
 		virtual bool onStop() = 0;
@@ -32,8 +35,7 @@ namespace gn
 		GameBase();
 		~GameBase();
 
-		bool start(const int& width, const int& height, const char* title, 
-					ProjectionType projectionType = ProjectionType::ORTHOGRAPHIC);
+		bool start(const int& width, const int& height, const char* title, Projection projection);
 		bool stop();
 		void run();
 	};

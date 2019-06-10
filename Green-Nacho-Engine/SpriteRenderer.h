@@ -35,12 +35,11 @@ namespace gn
 
 	public:
 		SpriteRenderer(Renderer* renderer, const std::string& spritePath,
-			unsigned int rows = 0, unsigned int columns = 0);
+			unsigned int rows = 1, unsigned int columns = 1);
 		~SpriteRenderer();
 
 		void start() override;
 		void stop() override;
-		void update() override;
-		void draw(glm::mat4 modelMatrix) const override;
+		void draw() const override;
 	};
 }

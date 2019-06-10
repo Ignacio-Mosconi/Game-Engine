@@ -40,7 +40,7 @@ enum class TileType
 };
 
 // Renderer
-enum class ProjectionType
+enum class Projection
 {
 	ORTHOGRAPHIC,
 	PERSPECTIVE

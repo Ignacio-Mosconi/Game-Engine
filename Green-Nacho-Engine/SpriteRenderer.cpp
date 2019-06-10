@@ -7,7 +7,7 @@ namespace gn
 	SpriteRenderer::SpriteRenderer(Renderer* renderer, const std::string& spritePath, 
 		unsigned int rows, unsigned int columns) : Component("SpriteRenderer"),
 		_renderer(renderer),
-		_texture(Texture::generateTexture(spritePath)),
+		_texture(Texture::generateTextureBMP(spritePath)),
 		_material(Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH)),
 		_vertexBufferData(NULL), _uvBufferData(NULL),
 		_vertexBufferID(-1), _uvBufferID(-1),
@@ -72,20 +72,37 @@ namespace gn
 
 	void SpriteRenderer::stop()
 	{
-
+		if (_vertexBufferID != -1)
+		{
+			_renderer->destroyBuffer(_vertexBufferID);
+			delete[] _vertexBufferData;
+			_vertexBufferData = NULL;
+			_vertexBufferID = -1;
+		}		
+		
+		if (_uvBufferID != -1)
+		{
+			_renderer->destroyBuffer(_uvBufferID);
+			delete[] _uvBufferData;
+			_uvBufferData = NULL;
+			_uvBufferID = -1;
+		}
 	}
 
-	void SpriteRenderer::update()
+	void SpriteRenderer::draw() const
 	{
-
-	}
-
-	void SpriteRenderer::draw(glm::mat4 modelMatrix) const
-	{
-		_renderer->setModelMatrix(modelMatrix);
-
 		_material->bind();
 		_material->setMatrixProperty("MVP", _renderer->getMVP());
 		_material->bindTexture();
+
+		_renderer->enableBlend();
+		_renderer->enableAttribute(0);
+		_renderer->enableAttribute(1);
+		_renderer->bindBuffer(0, VERTEX_COMPONENTS, _vertexBufferID);
+		_renderer->bindBuffer(1, UV_COMPONENTS, _uvBufferID);
+		_renderer->drawBuffer(PrimitiveType::TRIANGLE_STRIP, RECTANGLE_VERTICES);
+		_renderer->disableAttribute(0);
+		_renderer->disableAttribute(1);
+		_renderer->disableBlend();
 	}
 }

@@ -35,7 +35,7 @@ namespace gn
 		Renderer();
 		~Renderer();
 
-		bool start(Window* renderWindow, ProjectionType defaultProjectionType);
+		bool start(Window* renderWindow, Projection defaultProjectionType);
 		bool stop();
 	
 		void setClearColor(float r, float g, float b, float a);
@@ -65,7 +65,7 @@ namespace gn
 		void changeOrthoProjection(float left, float right, float bottom, float top, float nearPlane, float farPlane);
 		void changePerspProjection(float fieldOfView, float right, float nearPlane, float farPlane);
 
-		void setProjectionType(ProjectionType projectionType);
+		void setProjection(Projection projectionType);
 
 		inline glm::mat4& getMVP() { return _mvp; }
 		inline Window* getRenderWindow() const { return _renderWindow;  }

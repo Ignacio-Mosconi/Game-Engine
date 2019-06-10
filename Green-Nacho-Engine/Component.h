@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <glm/mat4x4.hpp>
 #include "Exports.h"
 
 namespace gn
@@ -12,13 +11,13 @@ namespace gn
 		std::string _id;
 
 	public:
-		virtual void start() = 0;
-		virtual void stop() = 0;
-		virtual void update() = 0;
-		virtual void draw(glm::mat4 modelMatrix) const = 0;
+		virtual void start() {}
+		virtual void stop() {}
+		virtual void update() {}
+		virtual void draw() const {}
 
-		Component(const std::string& id);
-		~Component();
+		Component(const std::string& id) {}
+		~Component() {}
 
 		inline std::string getID() const { return _id; }
 	};

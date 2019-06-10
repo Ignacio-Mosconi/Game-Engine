@@ -88,6 +88,12 @@
     <Filter Include="Source Files\Scene Graph\Components">
       <UniqueIdentifier>{b3c1d774-3094-4024-8920-5e5e55548ec7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scene Graph\Base Classes">
+      <UniqueIdentifier>{769443b1-eb23-45fe-a274-b7f938c3e2b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene Graph\Base Classes">
+      <UniqueIdentifier>{45e7d8d0-db32-4c59-a4a7-fc1c65622efc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exports.h">
@@ -168,17 +174,17 @@
     <ClInclude Include="ModelMesh.h">
       <Filter>Header Files\Entities\Entities 3D</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files\Scene Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files\Scene Graph</Filter>
-    </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Header Files\Scene Graph\Components</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
       <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Scene Graph\Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\Scene Graph\Base Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -251,17 +257,14 @@
     <ClCompile Include="ModelMesh.cpp">
       <Filter>Source Files\Entities\Entities 3D</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\Scene Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Source Files\Scene Graph</Filter>
-    </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files\Scene Graph\Components</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\Scene Graph\Base Classes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
