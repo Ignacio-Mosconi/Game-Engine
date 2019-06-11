@@ -34,12 +34,16 @@ namespace gn
 		float* generateUVBufferData(float x, float y) const;
 
 	public:
-		SpriteRenderer(Renderer* renderer, const std::string& spritePath,
-			unsigned int rows = 1, unsigned int columns = 1);
+		SpriteRenderer();
 		~SpriteRenderer();
 
 		void start() override;
 		void stop() override;
 		void draw() const override;
+
+		void createSprite(Renderer* renderer, const std::string& spritePath, unsigned int rows = 1, unsigned int columns = 1);
+		void disposeSprite();
+
+		void setFramesInfo(unsigned int rows, unsigned int columns, float frameWidth, float frameHeight);
 	};
 }

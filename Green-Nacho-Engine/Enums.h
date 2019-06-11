@@ -64,3 +64,10 @@ enum class MoveDir
 	UP,
 	DOWN
 };
+
+// Components
+enum class ComponentID
+{
+	Transform,
+	SpriteRenderer
+};

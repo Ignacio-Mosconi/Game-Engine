@@ -4,24 +4,18 @@
 
 namespace gn
 {
-	SpriteRenderer::SpriteRenderer(Renderer* renderer, const std::string& spritePath, 
-		unsigned int rows, unsigned int columns) : Component("SpriteRenderer"),
-		_renderer(renderer),
-		_texture(Texture::generateTextureBMP(spritePath)),
-		_material(Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH)),
+	SpriteRenderer::SpriteRenderer(): Component(ComponentID::SpriteRenderer),
+		_renderer(NULL), _texture(NULL), _material(NULL),
 		_vertexBufferData(NULL), _uvBufferData(NULL),
 		_vertexBufferID(-1), _uvBufferID(-1),
-		_frameID(0), _rows(rows), _columns(columns), _frameWidth(0), _frameHeight(0)
+		_frameID(0), _rows(1), _columns(1), _frameWidth(0), _frameHeight(0)
 	{
-		_material->setTexture(_texture, "textureSampler");
-		_frameWidth = _texture->getWidth() / columns;
-		_frameHeight= _texture->getHeight() / rows;
+
 	}
 	
 	SpriteRenderer::~SpriteRenderer()
 	{
-		Texture::destroyTexture(_texture);
-		Material::destroyMaterial(_material);
+
 	}
 
 	float* SpriteRenderer::generateVertexBufferData() const
@@ -87,6 +81,9 @@ namespace gn
 			_uvBufferData = NULL;
 			_uvBufferID = -1;
 		}
+
+		if (_renderer)
+			disposeSprite();
 	}
 
 	void SpriteRenderer::draw() const
@@ -104,5 +101,35 @@ namespace gn
 		_renderer->disableAttribute(0);
 		_renderer->disableAttribute(1);
 		_renderer->disableBlend();
+	}
+
+	void SpriteRenderer::createSprite(Renderer* renderer, const std::string& spritePath, 
+										unsigned int rows, unsigned int columns)
+	{
+		_material = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
+		_texture = Texture::generateTextureBMP(spritePath);
+		_material->setTexture(_texture, "textureSampler");
+		
+		_renderer = renderer;
+		_rows = rows;
+		_columns = columns;
+		_frameWidth = _texture->getWidth() / _columns;
+		_frameHeight = _texture->getHeight() / _rows;
+	}	
+	
+	void SpriteRenderer::disposeSprite()
+	{
+		Material::destroyMaterial(_material);
+		Texture::destroyTexture(_texture);
+
+		_renderer = NULL;
+	}	
+	
+	void SpriteRenderer::setFramesInfo(unsigned int rows, unsigned int columns, float frameWidth, float frameHeight)
+	{
+		_rows = rows;
+		_columns = columns;
+		_frameWidth = frameWidth;
+		_frameHeight = frameHeight;
 	}
 }

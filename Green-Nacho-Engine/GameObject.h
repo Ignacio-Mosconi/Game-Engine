@@ -5,6 +5,7 @@
 #include <list>
 #include <glm/mat4x4.hpp>
 #include "Exports.h"
+#include "Enums.h"
 
 namespace gn
 {
@@ -33,10 +34,10 @@ namespace gn
 		bool addChild(GameObject* gameObject);
 		bool removeChild(GameObject* gameObject);
 
-		bool addComponent(Component* component);
-		bool removeComponent(const std::string& componentID);
+		Component* addComponent(ComponentID componentID);
+		bool removeComponent(ComponentID componentID);
 
-		Component* getComponent(const std::string& componentID);
+		Component* getComponent(ComponentID componentID);
 
 		inline Transform* getTransform() { return _transform; }
 	};

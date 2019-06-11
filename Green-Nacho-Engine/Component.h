@@ -2,23 +2,26 @@
 
 #include <string>
 #include "Exports.h"
+#include "Enums.h"
 
 namespace gn
 {
 	class ENGINE_API Component
 	{
 	private:
-		std::string _id;
+		ComponentID _id;
 
 	public:
-		virtual void start() {}
-		virtual void stop() {}
-		virtual void update() {}
-		virtual void draw() const {}
+		virtual void start();
+		virtual void stop();
+		virtual void update();
+		virtual void draw() const;
 
-		Component(const std::string& id) {}
-		~Component() {}
+		Component(ComponentID id);
+		~Component();
 
-		inline std::string getID() const { return _id; }
+		static Component* generateComponent(ComponentID componentID);
+
+		inline ComponentID getID() const { return _id; }
 	};
 }

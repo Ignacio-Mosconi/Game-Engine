@@ -13,7 +13,8 @@
 class Game : public gn::GameBase
 {
 private:
-	gn::GameObject* _sprite;
+	gn::GameObject* _sprite1;
+	gn::GameObject* _sprite2;
 
 protected:
 	bool onStart() override;

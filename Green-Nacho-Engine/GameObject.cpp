@@ -34,7 +34,7 @@ namespace gn
 		for (std::list<Component*>::iterator it = _components->begin(); it != _components->end(); it++)
 		{
 			(*it)->stop();
-			removeComponent((*it)->getID());
+			delete *it;
 		}
 		for (std::list<GameObject*>::iterator it = _children->begin(); it != _children->end(); it++)
 		{
@@ -99,24 +99,23 @@ namespace gn
 		return removed;
 	}
 
-	bool GameObject::addComponent(Component* component)
+	Component* GameObject::addComponent(ComponentID componentID)
 	{
-		bool added = false;
-		std::string componentID = component->getID();
+		Component* component = NULL;
 
 		std::list<Component*>::iterator it = std::find_if(_components->begin(), _components->end(),
 			[&componentID](const Component* comp) {return comp->getID() == componentID; });
 		
 		if (it == _components->end())
 		{
+			component = Component::generateComponent(componentID);
 			_components->push_back(component);
-			added = true;
 		}
 
-		return added;
+		return component;
 	}
 
-	bool GameObject::removeComponent(const std::string& componentID)
+	bool GameObject::removeComponent(ComponentID componentID)
 	{
 		bool removed = false;
 		std::list<Component*>::iterator it = std::find_if(_components->begin(), _components->end(),
@@ -132,7 +131,7 @@ namespace gn
 		return removed;
 	}
 
-	Component* GameObject::getComponent(const std::string& componentID)
+	Component* GameObject::getComponent(ComponentID componentID)
 	{
 		Component* component = NULL;
 		std::list<Component*>::iterator it = std::find_if(_components->begin(), _components->end(),

@@ -204,6 +204,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="GameEntity2D.cpp" />
     <ClCompile Include="BoundingBox.cpp" />
