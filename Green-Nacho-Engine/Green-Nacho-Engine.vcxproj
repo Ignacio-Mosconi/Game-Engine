@@ -186,8 +186,10 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="NavigationCamera.h" />
     <ClInclude Include="Rectangle.h" />
@@ -215,8 +217,10 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="ModelMesh.cpp" />
     <ClCompile Include="NavigationCamera.cpp" />
     <ClCompile Include="Rectangle.cpp" />

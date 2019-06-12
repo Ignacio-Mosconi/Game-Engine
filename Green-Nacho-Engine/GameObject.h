@@ -5,10 +5,10 @@
 #include <list>
 #include <glm/mat4x4.hpp>
 #include "Exports.h"
-#include "Enums.h"
 
 namespace gn
 {
+	enum class ComponentID;
 	class Renderer;
 	class Component;
 	class Transform;
@@ -33,12 +33,13 @@ namespace gn
 
 		bool addChild(GameObject* gameObject);
 		bool removeChild(GameObject* gameObject);
+		GameObject* getChild(unsigned int childIndex);
 
 		Component* addComponent(ComponentID componentID);
 		bool removeComponent(ComponentID componentID);
-
 		Component* getComponent(ComponentID componentID);
 
+		inline Renderer* getRenderer() { return _renderer; }
 		inline Transform* getTransform() { return _transform; }
 	};
 }

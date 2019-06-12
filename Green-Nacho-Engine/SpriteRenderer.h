@@ -35,7 +35,7 @@ namespace gn
 
 	public:
 		SpriteRenderer();
-		~SpriteRenderer();
+		virtual ~SpriteRenderer();
 
 		void start() override;
 		void stop() override;

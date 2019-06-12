@@ -37,12 +37,12 @@ namespace gn
 		glBindVertexArray(_vertexArrayID);
 
 		_model = glm::mat4(1.0f);
-		_view = glm::lookAt(glm::vec3(0.0f, 0.0f, 1000.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		_view = glm::lookAt(glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		float windowWidth = (float)_renderWindow->getWidth();
 		float windowHeight = (float)_renderWindow->getHeight();
 		
-		_orthoProjection = glm::ortho(0.0f, windowWidth, 0.0f, windowHeight, 0.1f, 1000.0f);
+		_orthoProjection = glm::ortho(0.0f, windowWidth, 0.0f, windowHeight, 0.1f, 10.0f);
 		_perspProjection = glm::perspective(glm::radians(45.0f), windowWidth / windowHeight, 0.1f, 1000.0f);
 
 		setProjection(defaultProjection);

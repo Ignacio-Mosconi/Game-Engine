@@ -1,6 +1,7 @@
 #include "Component.h"
 #include "Transform.h"
 #include "SpriteRenderer.h"
+#include "MeshRenderer.h"
 
 namespace gn
 {
@@ -39,6 +40,9 @@ namespace gn
 				break;			
 			case ComponentID::SpriteRenderer:
 				component = new SpriteRenderer();
+				break;			
+			case ComponentID::MeshRenderer:
+				component = new MeshRenderer();
 				break;
 		}
 

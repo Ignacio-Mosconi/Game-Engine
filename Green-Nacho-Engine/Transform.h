@@ -29,7 +29,7 @@ namespace gn
 	public:
 		Transform();
 		Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
-		~Transform();
+		virtual ~Transform();
 
 		void translate(float x, float y, float z);
 		void rotate(float x, float y, float z);

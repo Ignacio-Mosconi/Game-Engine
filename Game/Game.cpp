@@ -15,22 +15,14 @@ Game::~Game()
 bool Game::onStart()
 {
 	_scene = new GameObject(_renderer);
-	_sprite1 = new GameObject(_renderer, _scene);
-	_sprite2 = new GameObject(_renderer, _sprite1);
 
-	_sprite1->addComponent(ComponentID::SpriteRenderer);
-	_sprite2->addComponent(ComponentID::SpriteRenderer);
-
-	SpriteRenderer* sr1 = (SpriteRenderer*)(_sprite1->getComponent(ComponentID::SpriteRenderer));
-	SpriteRenderer* sr2 = (SpriteRenderer*)(_sprite2->getComponent(ComponentID::SpriteRenderer));
-
-	sr1->createSprite(_renderer, SPRITE_PATH, 2u, 2u);
-	sr2->createSprite(_renderer, NINJA_PATH, 6u, 6u);
+	_model1 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_PATH);
+	_model2 = ModelLoader::loadModel(_model1, ASSAULT_RIFLE_PATH , NANOSUIT_PATH);
 
 	_scene->start();
 
-	_sprite1->getTransform()->setPosition(300.0f, 300.0f, 0.0f);
-	_sprite2->getTransform()->setPosition(300.0f, 100.0f, 0.0f);
+	_model1->getTransform()->setPosition(-20.0f, -10.0f, -20.0f);
+	_model2->getTransform()->setPosition(10.0f, 10.0f, -5.0f);
 
 	return true;
 }
@@ -48,7 +40,7 @@ bool Game::onUpdate(float deltaTime)
 {	
 	_scene->update();
 
-	_sprite1->getTransform()->translate(10.0f * deltaTime, 0.0f, 0.0f);
+	_model1->getTransform()->translate(10.0f * deltaTime, 0.0f, 0.0f);
 
 	return true;
 }

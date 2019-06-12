@@ -9,7 +9,6 @@ namespace gn
 		_renderer(renderer), _transform(new Transform()),
 		_components(new std::list<Component*>()), _children(new std::list<GameObject*>())
 	{
-		_transform = new Transform();
 		if (parent)
 			parent->addChild(this);
 	}
@@ -97,6 +96,16 @@ namespace gn
 		}
 
 		return removed;
+	}
+
+	GameObject* GameObject::getChild(unsigned int childIndex)
+	{
+		GameObject* child = NULL;
+
+		if (childIndex < _children->size())
+			child = *(std::next(_children->begin(), childIndex));
+
+		return child;
 	}
 
 	Component* GameObject::addComponent(ComponentID componentID)

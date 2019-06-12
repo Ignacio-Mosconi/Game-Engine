@@ -94,6 +94,12 @@
     <Filter Include="Source Files\Scene Graph\Base Classes">
       <UniqueIdentifier>{45e7d8d0-db32-4c59-a4a7-fc1c65622efc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scene Graph\Utilities">
+      <UniqueIdentifier>{f1ad7396-2289-4225-ba88-f29c3e25ed24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene Graph\Utilities">
+      <UniqueIdentifier>{e27fea50-3e3c-4acb-8714-5a32be6f0a92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exports.h">
@@ -186,6 +192,12 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files\Scene Graph\Base Classes</Filter>
     </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>Header Files\Scene Graph\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -268,6 +280,12 @@
     </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Source Files\Scene Graph\Base Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>Source Files\Scene Graph\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

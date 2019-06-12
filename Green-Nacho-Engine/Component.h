@@ -2,10 +2,16 @@
 
 #include <string>
 #include "Exports.h"
-#include "Enums.h"
 
 namespace gn
 {
+	enum class ComponentID
+	{
+		Transform,
+		SpriteRenderer,
+		MeshRenderer
+	};
+
 	class ENGINE_API Component
 	{
 	private:

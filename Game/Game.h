@@ -7,14 +7,16 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "SpriteRenderer.h"
+#include "MeshRenderer.h"
+#include "ModelLoader.h"
 #include "EngineConstants.h"
 #include "GameConstants.h"
 
 class Game : public gn::GameBase
 {
 private:
-	gn::GameObject* _sprite1;
-	gn::GameObject* _sprite2;
+	gn::GameObject* _model1;
+	gn::GameObject* _model2;
 
 protected:
 	bool onStart() override;
