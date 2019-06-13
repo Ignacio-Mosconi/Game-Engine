@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include "Exports.h"
 
 enum aiTextureType;
@@ -21,10 +22,11 @@ namespace gn
 	static class ENGINE_API ModelLoader
 	{
 	private:
-		static void processNode(GameObject* parent, aiNode* node, const aiScene* scene, const std::string& texturesPath = NULL);
-		static GameObject* generateMesh(GameObject* parent, aiMesh* mesh, const aiScene* scene, const std::string& texturesPath = NULL);
+		static void processNode(GameObject* parent, aiNode* node, const aiScene* scene, const std::string& texturesPath = "");
+		static GameObject* generateMesh(GameObject* parent, aiMesh* mesh, const aiScene* scene, const std::string& texturesPath = "");
+		static std::vector<Texture*> loadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& texturesPath);
 
 	public:
-		static GameObject* loadModel(GameObject* parent, const std::string& modelPath, const std::string& texturesPath = NULL);
+		static GameObject* loadModel(GameObject* parent, const std::string& modelPath, const std::string& texturesPath = "");
 	};
 }

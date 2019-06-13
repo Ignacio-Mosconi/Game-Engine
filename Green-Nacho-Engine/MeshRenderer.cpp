@@ -5,7 +5,7 @@
 namespace gn
 {
 	MeshRenderer::MeshRenderer() : Component(ComponentID::MeshRenderer),
-		_renderer(NULL), _texture(NULL), _material(NULL),
+		_renderer(NULL), _diffuseTextures(NULL), _material(NULL),
 		_vertexBufferData(NULL), _uvBufferData(NULL), _indexBufferData(NULL),
 		_vertexBufferID(-1), _uvBufferID(-1), _indexBufferID(-1)
 	{
@@ -105,7 +105,8 @@ namespace gn
 		_renderer->disableAttribute(1);
 	}
 
-	void MeshRenderer::createMesh(Renderer* renderer, std::vector<MeshVertex> vertices, std::vector<unsigned int> indices)
+	void MeshRenderer::createMesh(Renderer* renderer, std::vector<MeshVertex> vertices, std::vector<unsigned int> indices,
+									std::vector<Texture*> diffuseTextures)
 	{
 		std::vector<glm::vec3> positions;
 		std::vector<glm::vec2> uvCoords;
@@ -124,7 +125,15 @@ namespace gn
 		setIndexBufferData(indices);
 
 		_renderer = renderer;
-		_material = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
+
+		if (diffuseTextures.size() > 0)
+		{
+			_material = Material::generateMaterial(MODEL_TEX_VERTEX_SHADER_PATH, MODEL_TEX_PIXEL_SHADER_PATH);
+			_diffuseTextures = diffuseTextures;
+			_material->setTexture(diffuseTextures[0], "textureDiffuse");
+		}
+		else
+			_material = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
 	}
 
 	void MeshRenderer::disposeMesh()

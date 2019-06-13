@@ -72,9 +72,37 @@ namespace gn
 				indices.push_back(face.mIndices[j]);
 		}
 
+		std::vector<Texture*> diffuseMaps;
+
+		if (mesh->mMaterialIndex >= 0 && texturesPath != "")
+		{
+			aiMaterial* aiMat = scene->mMaterials[mesh->mMaterialIndex];
+			diffuseMaps = loadMaterialTextures(aiMat, aiTextureType_DIFFUSE, texturesPath);
+		}
+
 		MeshRenderer* meshRenderer = (MeshRenderer*)gameObject->addComponent(ComponentID::MeshRenderer);
-		meshRenderer->createMesh(gameObject->getRenderer(), vertices, indices);
+		meshRenderer->createMesh(gameObject->getRenderer(), vertices, indices, diffuseMaps);
 
 		return gameObject;
+	}
+
+	std::vector<Texture*> ModelLoader::loadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& texturesPath)
+	{
+		std::vector<Texture*> textures;
+
+		for (int i = 0; i < material->GetTextureCount(type); i++)
+		{
+			Texture* texture;
+			aiString string;
+			std::string imagePath;
+
+			material->GetTexture(type, i, &string);
+			imagePath = texturesPath + "\\" + string.C_Str();
+			texture = Texture::generateTexture(imagePath);
+
+			textures.push_back(texture);
+		}
+
+		return textures;
 	}
 }

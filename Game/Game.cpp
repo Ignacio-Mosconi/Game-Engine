@@ -16,8 +16,8 @@ bool Game::onStart()
 {
 	_scene = new GameObject(_renderer);
 
-	_model1 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_PATH);
-	_model2 = ModelLoader::loadModel(_model1, ASSAULT_RIFLE_PATH , NANOSUIT_PATH);
+	_model1 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
+	_model2 = ModelLoader::loadModel(_model1, ASSAULT_RIFLE_PATH);
 
 	_scene->start();
 

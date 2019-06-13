@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
@@ -24,7 +25,7 @@ namespace gn
 	{
 	private:
 		Renderer* _renderer;
-		Texture* _texture;
+		std::vector<Texture*> _diffuseTextures;
 		Material* _material;
 
 		unsigned int _vertexCount;
@@ -50,7 +51,8 @@ namespace gn
 		void stop() override;
 		void draw() const override;
 
-		void createMesh(Renderer* renderer, std::vector<MeshVertex> vertices, std::vector<unsigned int> indices);
+		void createMesh(Renderer* renderer, std::vector<MeshVertex> vertices, std::vector<unsigned int> indices, 
+						std::vector<Texture*> diffuseTextures);
 		void disposeMesh();
 	};
 }
