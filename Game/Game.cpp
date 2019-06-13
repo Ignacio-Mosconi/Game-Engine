@@ -16,6 +16,8 @@ bool Game::onStart()
 {
 	_scene = new GameObject(_renderer);
 
+	_navCamera = new NavigationCamera(_renderer);
+
 	_model1 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
 	_model2 = ModelLoader::loadModel(_model1, ASSAULT_RIFLE_PATH);
 
@@ -31,6 +33,7 @@ bool Game::onStop()
 {
 	_scene->stop();
 
+	delete _navCamera;
 	delete _scene;
 	
 	return true;
@@ -40,7 +43,9 @@ bool Game::onUpdate(float deltaTime)
 {	
 	_scene->update();
 
-	_model1->getTransform()->translate(10.0f * deltaTime, 0.0f, 0.0f);
+	_navCamera->update(deltaTime);
+
+	_model1->getTransform()->translate(0.5f * deltaTime, 0.0f, 0.0f);
 
 	return true;
 }

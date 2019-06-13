@@ -4,6 +4,7 @@
 #include "GameBase.h"
 #include "Window.h"
 #include "Renderer.h"
+#include "NavigationCamera.h"
 #include "GameObject.h"
 #include "Transform.h"
 #include "SpriteRenderer.h"
@@ -15,6 +16,8 @@
 class Game : public gn::GameBase
 {
 private:
+	gn::NavigationCamera* _navCamera;
+
 	gn::GameObject* _model1;
 	gn::GameObject* _model2;
 

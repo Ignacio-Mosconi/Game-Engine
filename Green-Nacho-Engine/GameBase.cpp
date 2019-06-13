@@ -2,6 +2,7 @@
 #include "GameBase.h"
 #include "Renderer.h"
 #include "Window.h"
+#include "InputManager.h"
 
 namespace gn
 {
@@ -23,6 +24,9 @@ namespace gn
 		if (!_renderer->start(_window, projectionType))
 			return false;
 
+		_inputManager = InputManager::getInstance();
+		_inputManager->attachToWindow(_window);
+
 		return onStart();
 	}
 
@@ -32,6 +36,8 @@ namespace gn
 	
 		_renderer->stop();
 		_window->stop();
+
+		_inputManager->deleteInstance();
 
 		delete _renderer;
 		delete _window;

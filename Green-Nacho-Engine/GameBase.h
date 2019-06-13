@@ -9,6 +9,7 @@ namespace gn
 {
 	class Window;
 	class Renderer;
+	class InputManager;
 	class GameObject;
 /*
 	The base class of the game; the "Game" class has to be a child of it.
@@ -23,6 +24,8 @@ namespace gn
 	protected:
 		Window* _window;
 		Renderer* _renderer;
+
+		InputManager* _inputManager;
 		
 		GameObject* _scene;
 	
