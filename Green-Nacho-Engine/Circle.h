@@ -12,7 +12,7 @@ namespace gn
 	class ENGINE_API Circle : public Shape
 	{
 	private:
-		float _vertexCount;
+		unsigned int _vertexCount;
 		float _radius;
 
 	protected:

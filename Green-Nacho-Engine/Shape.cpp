@@ -37,7 +37,7 @@ namespace gn
 		int arrayLength = vertexCount * VERTEX_COMPONENTS;
 		float* newColorBufferData = new float[arrayLength];
 
-		for (unsigned int i = 0; i < arrayLength; i++)
+		for (int i = 0; i < arrayLength; i++)
 			newColorBufferData[i] = colorBufferData[i];
 
 		return newColorBufferData;

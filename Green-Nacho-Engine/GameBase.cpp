@@ -57,7 +57,7 @@ namespace gn
 		while (update && !_window->shouldClose())
 		{
 			double currentTime = glfwGetTime();
-			float deltaTime = currentTime - _lastTime;
+			float deltaTime = (float)(currentTime - _lastTime);
 			_lastTime = currentTime;
 
 			_window->pollEvents();

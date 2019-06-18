@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable: 4251)
 
 #include <map>
 #include <string>
@@ -34,13 +35,13 @@ namespace gn
 		Tilemap* _tilemap;
 
 		Sprite* createSprite(Renderer* renderer, const std::string& imagePath, int spriteRows = 1, int spriteColumns = 1, 
-			int frameWidth = -1, int frameHeight = -1);
+			float frameWidth = -1, float frameHeight = -1);
 		void createBoundingBox(float width, float height, bool isStatic, float mass, const std::string& collisionLayer);
 
 	public:
 		GameEntity2D(Renderer* renderer, const std::string& imagePath, const std::string& collisionLayer);
 		GameEntity2D(Renderer* renderer, Tilemap* tilemap, const std::string& imagePath, const std::string& collisionLayer,
-					float x, float y, int spriteRows, int spriteColumns, int frameWidth, int frameHeight, 
+					float x, float y, int spriteRows, int spriteColumns, float frameWidth, float frameHeight, 
 					bool isStatic = false, float mass = 1);
 		virtual ~GameEntity2D();
 

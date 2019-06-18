@@ -113,8 +113,8 @@ namespace gn
 		_renderer = renderer;
 		_rows = rows;
 		_columns = columns;
-		_frameWidth = _texture->getWidth() / _columns;
-		_frameHeight = _texture->getHeight() / _rows;
+		_frameWidth = (float)(_texture->getWidth() / _columns);
+		_frameHeight = (float)(_texture->getHeight() / _rows);
 	}	
 	
 	void SpriteRenderer::disposeSprite()

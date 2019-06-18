@@ -16,7 +16,7 @@ namespace gn
 	{
 		_indexBufferData = generateIndexBufferData();
 
-		int indexBufferSize = sizeof(unsigned int) * _indexBufferData.size();
+		int indexBufferSize = sizeof(unsigned int) * (int)_indexBufferData.size();
 
 		_indexBufferID = _renderer->generateIndexBuffer(_indexBufferData, indexBufferSize);
 

@@ -93,11 +93,13 @@
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>ENGINE_EXPORT;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\glfw-3.3\libs\x86;$(SolutionDir)Dependencies\glew-2.1.0\libs\x86;$(SolutionDir)Dependencies\assimp-4.1.0\libs\x86;$(SolutionDir)Dependencies\SOIL\libs\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32.lib;glfw3.lib;opengl32.lib;glu32.lib;assimp-vc140-mt.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;msvcrt.lib;libcmtd.lib</IgnoreSpecificDefaultLibraries>
+      <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -117,6 +119,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\glfw-3.3\libs\x64;$(SolutionDir)Dependencies\glew-2.1.0\libs\x64;$(SolutionDir)Dependencies\assimp-4.1.0\libs\x64;$(SolutionDir)Dependencies\SOIL\libs\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32.lib;glfw3.lib;opengl32.lib;glu32.lib;assimp-vc140-mt.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;msvcrt.lib;libcmtd.lib</IgnoreSpecificDefaultLibraries>
+      <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
       <Command>

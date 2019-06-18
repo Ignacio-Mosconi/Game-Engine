@@ -21,7 +21,7 @@ namespace gn
 	{
 		float* vertexBufferData = new float[positions.size() * VERTEX_COMPONENTS];
 
-		for (int i = 0, j = 0; i < positions.size(); i++, j += VERTEX_COMPONENTS)
+		for (int i = 0, j = 0; i < (int)positions.size(); i++, j += VERTEX_COMPONENTS)
 		{
 			vertexBufferData[j] = positions[i].x;
 			vertexBufferData[j + 1] = positions[i].y;
@@ -35,7 +35,7 @@ namespace gn
 	{
 		float* uvBufferData = new float[uvCoords.size() * UV_COMPONENTS];
 
-		for (int i = 0, j = 0; i < uvCoords.size(); i++, j += UV_COMPONENTS)
+		for (int i = 0, j = 0; i < (int)uvCoords.size(); i++, j += UV_COMPONENTS)
 		{
 			uvBufferData[j] = uvCoords[i].x;
 			uvBufferData[j + 1] = uvCoords[i].y;
@@ -53,7 +53,7 @@ namespace gn
 	{
 		int vertexBufferSize = sizeof(float) * _vertexCount * VERTEX_COMPONENTS;
 		int uvBufferSize = sizeof(float) * _vertexCount * UV_COMPONENTS;
-		int indexBufferSize = sizeof(unsigned int) * _indexBufferData.size();
+		int indexBufferSize = sizeof(unsigned int) * (int)_indexBufferData.size();
 
 		_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
 		_uvBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
@@ -100,7 +100,7 @@ namespace gn
 		_renderer->bindBuffer(0, VERTEX_COMPONENTS, _vertexBufferID);
 		_renderer->bindBuffer(1, UV_COMPONENTS, _uvBufferID);
 		_renderer->bindIndexBuffer(_indexBufferID);
-		_renderer->drawIndexedBuffer(PrimitiveType::TRIANGLE, _indexBufferData.size());
+		_renderer->drawIndexedBuffer(PrimitiveType::TRIANGLE, (unsigned int)_indexBufferData.size());
 		_renderer->disableAttribute(0);
 		_renderer->disableAttribute(1);
 	}
@@ -111,13 +111,13 @@ namespace gn
 		std::vector<glm::vec3> positions;
 		std::vector<glm::vec2> uvCoords;
 
-		for (int i = 0; i < vertices.size(); i++)
+		for (int i = 0; i < (int)vertices.size(); i++)
 		{
 			positions.push_back(vertices[i].position);
 			uvCoords.push_back(vertices[i].uvCoords);
 		}
 
-		_vertexCount = vertices.size();
+		_vertexCount = (unsigned int)vertices.size();
 		
 		_vertexBufferData = generateVertexBufferData(positions);
 		_uvBufferData = generateUVBufferData(uvCoords);

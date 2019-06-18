@@ -25,7 +25,7 @@ namespace gn
 		_renderer->bindBuffer(0, VERTEX_COMPONENTS, _vertexBufferID);
 		_renderer->bindBuffer(1, VERTEX_COMPONENTS, _colorBufferID);
 		_renderer->bindIndexBuffer(_indexBufferID);
-		_renderer->drawIndexedBuffer(PrimitiveType::TRIANGLE, _indexBufferData.size());
+		_renderer->drawIndexedBuffer(PrimitiveType::TRIANGLE, (unsigned int)_indexBufferData.size());
 		_renderer->disableAttribute(0);
 		_renderer->disableAttribute(1);
 	}

@@ -59,10 +59,12 @@ namespace gn
 		catch (std::iostream::failure& exception)
 		{
 			std::cerr << exception.what() << std::endl;
+			return 0;
 		}
 		catch (std::logic_error& exception)
 		{
 			std::cerr << exception.what() << std::endl;
+			return 0;
 		}
 	}
 
@@ -113,6 +115,7 @@ namespace gn
 		catch (std::logic_error& exception)
 		{
 			std::cerr << exception.what() << std::endl;
+			return 0;
 		}
 	}
 

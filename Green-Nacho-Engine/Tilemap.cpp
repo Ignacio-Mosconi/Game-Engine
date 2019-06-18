@@ -27,8 +27,8 @@ namespace gn
 		int windowWidth = _renderer->getRenderWindow()->getWidth();
 		int windowHeight = _renderer->getRenderWindow()->getHeight();
 
-		_lastRowOffset = windowHeight % tileHeight;
-		_lastColumnOffset = windowWidth % tileWidth;
+		_lastRowOffset = (float)(windowHeight % tileHeight);
+		_lastColumnOffset = (float)(windowWidth % tileWidth);
 	
 		_screenTilesRows = windowHeight / tileHeight + 1;
 		_screenTilesColumns = windowWidth / tileWidth + 1;
@@ -45,18 +45,18 @@ namespace gn
 		Texture::destroyTexture(_texture);
 		Material::destroyMaterial(_material);
 	
-		for (int i = 0; i < _tilesRows; i++)
+		for (int i = 0; i < (int)_tilesRows; i++)
 		{
 			delete[] _tiles[i]->uvVertices;
 			delete[] _tiles[i];
 		}
 		delete[] _tiles;
 	
-		for (int i = 0; i < _screenTilesRows; i++)
+		for (int i = 0; i < (int)_screenTilesRows; i++)
 			delete[] _onScreenTiles[i];
 		delete[] _onScreenTiles;
 
-		for (int i = 0; i < _levelRows; i++)
+		for (int i = 0; i < (int)_levelRows; i++)
 			delete[] _level[i];
 		delete[] _level;
 	}
@@ -69,14 +69,14 @@ namespace gn
 			int** level;
 			char buffer[LEVEL_LOAD_CHARS_BUFFER_SIZE];
 			
-			float rows = _levelHeight / Tile::height;
-			float columns = _levelWidth / Tile::width;
+			unsigned int rows = _levelHeight / Tile::height;
+			unsigned int columns = _levelWidth / Tile::width;
 			
 			_levelRows = (_levelHeight % Tile::height == 0) ? rows : rows + 1;
 			_levelColumns = (_levelWidth % Tile::width == 0) ? columns : columns + 1;
 		
 			level = new int*[_levelRows];
-			for (int i = 0; i < _levelRows; i++)
+			for (int i = 0; i < (int)_levelRows; i++)
 				level[i] = new int[_levelColumns];	
 
 			std::cout << "Opening the level file..." << std::endl;
@@ -95,11 +95,11 @@ namespace gn
 
 			while (isdigit(nextChar) && !levelFile.eof())
 			{
-				if (x < _levelColumns - 1)
+				if (x < (int)_levelColumns - 1)
 					levelFile.get(buffer, LEVEL_LOAD_CHARS_BUFFER_SIZE, ',');
 				else
 				{
-					if (y < _levelRows - 1)
+					if (y < (int)_levelRows - 1)
 						levelFile.get(buffer, LEVEL_LOAD_CHARS_BUFFER_SIZE, '\n');
 					else
 						levelFile.get(buffer, LEVEL_LOAD_CHARS_BUFFER_SIZE, '<');
@@ -111,11 +111,11 @@ namespace gn
 				for (int i = 0; buffer[i] != '\0'; i++)
 					digits++;
 				for (int i = 0; i < digits; i++)
-					value += ((int)buffer[i] - (int)'0') * pow(10, digits - 1 - i);
+					value += ((int)buffer[i] - (int)'0') * (int)pow(10, digits - 1 - i);
 
 				level[y][x] = value;
 			
-				if (x < _levelColumns - 1)
+				if (x < (int)_levelColumns - 1)
 					x++;
 				else
 				{
@@ -133,6 +133,7 @@ namespace gn
 		catch (std::iostream::failure& exception)
 		{
 			std::cerr << exception.what() << std::endl;
+			return 0;
 		}
 	}
 
@@ -143,11 +144,11 @@ namespace gn
 
 		Tile** tiles = new Tile*[_tilesRows];
 	
-		for (int i = 0; i < _tilesRows; i++)
+		for (int i = 0; i < (int)_tilesRows; i++)
 			tiles[i] = new Tile[_tilesColumns];
 	
-		for (int y = 0; y < _tilesRows; y++)
-			for (int x = 0; x < _tilesColumns; x++)
+		for (int y = 0; y < (int)_tilesRows; y++)
+			for (int x = 0; x < (int)_tilesColumns; x++)
 			{
 				float minU = (float)(x * tileWidth) / (float)_texture->getWidth();
 				float maxU = (float)(x * tileWidth + tileWidth) / (float)_texture->getWidth();
@@ -172,12 +173,12 @@ namespace gn
 	{
 		Tile** onScreenTiles = new Tile*[_screenTilesRows];
 
-		for (int i = 0; i < _screenTilesRows; i++)
+		for (int i = 0; i < (int)_screenTilesRows; i++)
 			onScreenTiles[i] = new Tile[_screenTilesColumns];
 
 		int totalTiles = _screenTilesRows * _screenTilesColumns;
 
-		float vertexBufferSize = sizeof(float) * Tile::VERTEX_AMOUNT * Tile::VERTEX_COMPONENTS * totalTiles;
+		int vertexBufferSize = sizeof(float) * Tile::VERTEX_AMOUNT * Tile::VERTEX_COMPONENTS * totalTiles;
 
 		_vertexBufferData = setScreenTilesVertices(totalTiles);
 		_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
@@ -191,11 +192,11 @@ namespace gn
 
 		int counter = 0;
 
-		for (int y = 0; y < _screenTilesRows; y++)
-			for (int x = 0; x < _screenTilesColumns; x++)
+		for (int y = 0; y < (int)_screenTilesRows; y++)
+			for (int x = 0; x < (int)_screenTilesColumns; x++)
 			{
-				float minX = x * Tile::width;
-				float maxX = x * Tile::width + Tile::width;
+				float minX = (float)(x * Tile::width);
+				float maxX = (float)(x * Tile::width + Tile::width);
 				float minY = (float)_renderer->getRenderWindow()->getHeight() - (float)(y * Tile::height + Tile::height);
 				float maxY = (float)_renderer->getRenderWindow()->getHeight() - (float)(y * Tile::height);
 
@@ -230,8 +231,8 @@ namespace gn
 			1.0f, 0.0f
 		};
 
-		for (int y = 0; y < _screenTilesRows; y++)
-			for (int x = 0; x < _screenTilesColumns; x++)
+		for (int y = 0; y < (int)_screenTilesRows; y++)
+			for (int x = 0; x < (int)_screenTilesColumns; x++)
 				for (int i = 0; i < Tile::VERTEX_AMOUNT * 2; i++, counter++)
 					uvBufferData[counter] = defaultUvVertices[i];
 
@@ -254,8 +255,8 @@ namespace gn
 			int lastRow = (int)_levelHeight / (int)Tile::height - 1;
 			int lastColumn = (int)_levelWidth / (int)Tile::width - 1;
 
-			for (int y = 0; y < _screenTilesRows; y++)
-				for (int x = 0; x < _screenTilesColumns; x++)
+			for (int y = 0; y < (int)_screenTilesRows; y++)
+				for (int x = 0; x < (int)_screenTilesColumns; x++)
 				{
 					int levelRow = glm::min(y + (int)tilingOffset.y, lastRow);
 					int levelColumn = glm::min(x + (int)tilingOffset.x, lastColumn);
@@ -281,8 +282,8 @@ namespace gn
 	
 		int counter = 0;
 	
-		for (int y = 0; y < _screenTilesRows; y++)
-			for (int x = 0; x < _screenTilesColumns; x++)
+		for (int y = 0; y < (int)_screenTilesRows; y++)
+			for (int x = 0; x < (int)_screenTilesColumns; x++)
 			{
 				int levelRow = glm::min(y + (int)tilingOffset.y, lastRow);
 				int levelColumn = glm::min(x + (int)tilingOffset.x, lastColumn);
@@ -299,8 +300,8 @@ namespace gn
 
 	void Tilemap::scrollView(float x, float y)
 	{
-		float screenOffsetX = _renderer->getRenderWindow()->getWidth();
-		float screenOffsetY = _renderer->getRenderWindow()->getHeight();
+		float screenOffsetX = (float)_renderer->getRenderWindow()->getWidth();
+		float screenOffsetY = (float)_renderer->getRenderWindow()->getHeight();
 		float translateX = 0.0f;
 		float translateY = 0.0f;
 
@@ -396,6 +397,11 @@ namespace gn
 		catch (std::logic_error& exc)
 		{
 			std::cerr << exc.what() << std::endl;
+			
+			Tile tile;
+			tile.tileType = TileType::BACKGROUND;
+			tile.uvVertices = NULL;
+			return tile;
 		}
 	}
 
@@ -411,20 +417,21 @@ namespace gn
 		catch (std::logic_error& exc)
 		{
 			std::cerr << exc.what() << std::endl;
+			return TileType::BACKGROUND;
 		}
 	}
 
 	glm::vec2 Tilemap::worldToGrid(float posX, float posY) const
 	{
 		unsigned int row = (_levelRows - 1) - (int)posY / Tile::height;
-		unsigned int col = posX / Tile::width;
+		unsigned int col = (unsigned int)(posX / Tile::width);
 
 		return glm::vec2(row, col);
 	}
 
 	glm::vec2 Tilemap::gridToWorld(unsigned int row, unsigned int col) const
 	{
-		float posX = col * Tile::width;
+		float posX = (float)(col * Tile::width);
 		float posY = -((int)(row - _levelRows + 1) * (int)Tile::height) + _lastRowOffset;
 
 		return glm::vec2(posX, posY);

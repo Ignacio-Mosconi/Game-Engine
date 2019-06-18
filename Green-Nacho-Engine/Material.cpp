@@ -95,6 +95,7 @@ namespace gn
 		catch (std::iostream::failure& exception)
 		{
 			std::cerr << exception.what() << std::endl;
+			return 0;
 		}
 	}
 

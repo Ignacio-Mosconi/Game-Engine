@@ -30,13 +30,13 @@ namespace gn
 
 	void ModelLoader::processNode(GameObject* parent, aiNode* node, const aiScene* scene, const std::string& texturesPath)
 	{
-		for (int i = 0; i < node->mNumMeshes; i++)
+		for (int i = 0; i < (int)node->mNumMeshes; i++)
 		{
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			GameObject* child = generateMesh(parent, mesh, scene, texturesPath);
 		}
 
-		for (int i = 0; i < node->mNumChildren; i++)
+		for (int i = 0; i < (int)node->mNumChildren; i++)
 			processNode(parent, node->mChildren[i], scene, texturesPath);
 	}
 
@@ -47,7 +47,7 @@ namespace gn
 		std::vector<MeshVertex> vertices;
 		std::vector<unsigned int> indices;
 
-		for (int i = 0; i < mesh->mNumVertices; i++)
+		for (int i = 0; i < (int)mesh->mNumVertices; i++)
 		{
 			MeshVertex vertex;
 			aiVector3D aiMeshVertex = mesh->mVertices[i];
@@ -64,11 +64,11 @@ namespace gn
 			vertices.push_back(vertex);
 		}
 
-		for (int i = 0; i < mesh->mNumFaces; i++)
+		for (int i = 0; i < (int)mesh->mNumFaces; i++)
 		{
 			aiFace face = mesh->mFaces[i];
 
-			for (int j = 0; j < face.mNumIndices; j++)
+			for (int j = 0; j < (int)face.mNumIndices; j++)
 				indices.push_back(face.mIndices[j]);
 		}
 
@@ -90,7 +90,7 @@ namespace gn
 	{
 		std::vector<Texture*> textures;
 
-		for (int i = 0; i < material->GetTextureCount(type); i++)
+		for (int i = 0; i < (int)material->GetTextureCount(type); i++)
 		{
 			Texture* texture;
 			aiString string;

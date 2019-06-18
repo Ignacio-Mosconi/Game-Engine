@@ -8,7 +8,7 @@ namespace gn
 	std::vector<ModelMeshVertex>& vertices, std::vector<unsigned int>& indexes) :
 	Mesh(renderer, material), _vertices(vertices), _indexes(indexes)
 	{
-		create(vertices.size());
+		create((unsigned int)vertices.size());
 	}
 
 	ModelMesh::~ModelMesh()
@@ -31,7 +31,7 @@ namespace gn
 	{
 		float* vertexBufferData = new float[_vertices.size() * VERTEX_COMPONENTS];
 
-		for (int i = 0, j = 0; i < _vertices.size(); i++, j += VERTEX_COMPONENTS)
+		for (int i = 0, j = 0; i < (int)_vertices.size(); i++, j += VERTEX_COMPONENTS)
 		{
 			vertexBufferData[j] = _vertices[i].position.x;
 			vertexBufferData[j + 1] = _vertices[i].position.y;
@@ -45,7 +45,7 @@ namespace gn
 	{
 		float* uvBufferData = new float[_vertices.size() * UV_COMPONENTS];
 
-		for (int i = 0, j = 0; i < _vertices.size(); i++, j += UV_COMPONENTS)
+		for (int i = 0, j = 0; i < (int)_vertices.size(); i++, j += UV_COMPONENTS)
 		{
 			uvBufferData[j] = _vertices[i].uvCoordinates.x;
 			uvBufferData[j + 1] = _vertices[i].uvCoordinates.y;
@@ -81,7 +81,7 @@ namespace gn
 		_renderer->bindBuffer(0, VERTEX_COMPONENTS, _vertexBufferID);
 		_renderer->bindBuffer(1, UV_COMPONENTS, _uvBufferID);
 		_renderer->bindIndexBuffer(_indexBufferID);
-		_renderer->drawIndexedBuffer(PrimitiveType::TRIANGLE, _indexBufferData.size());
+		_renderer->drawIndexedBuffer(PrimitiveType::TRIANGLE, (unsigned int)_indexBufferData.size());
 		_renderer->disableAttribute(0);
 		_renderer->disableAttribute(1);
 	}

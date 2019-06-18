@@ -67,8 +67,8 @@ namespace gn
 		_frameID = frameID;
 	
 		int uvBufferSize = sizeof(float) * RECTANGLE_VERTICES * UV_COMPONENTS;
-		unsigned int x = (frameID % _columns) * _frameWidth;
-		unsigned int y = (frameID / _rows) * _frameHeight;
+		float x = (frameID % _columns) * _frameWidth;
+		float y = (frameID / _rows) * _frameHeight;
 	
 		_uvBufferData = generateUVBufferData(x, y);
 		_uvBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);

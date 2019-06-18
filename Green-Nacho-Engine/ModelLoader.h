@@ -19,7 +19,7 @@ namespace gn
 	class Material;
 	class Texture;
 
-	static class ENGINE_API ModelLoader
+	class ENGINE_API ModelLoader
 	{
 	private:
 		static void processNode(GameObject* parent, aiNode* node, const aiScene* scene, const std::string& texturesPath = "");

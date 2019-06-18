@@ -23,7 +23,7 @@ namespace gn
 	}
 
 	GameEntity2D::GameEntity2D(Renderer* renderer, Tilemap* tilemap, const std::string& imagePath, const std::string& collisionLayer,
-							float x, float y, int spriteRows, int spriteColumns, int frameWidth, int frameHeight, 
+							float x, float y, int spriteRows, int spriteColumns, float frameWidth, float frameHeight, 
 							bool isStatic, float mass) :
 	_sprite(createSprite(renderer, imagePath, spriteRows, spriteColumns, frameWidth, frameHeight)),
 	_material(NULL), _texture(NULL), _tilemap(tilemap)
@@ -49,7 +49,7 @@ namespace gn
 	}
 
 	Sprite* GameEntity2D::createSprite(Renderer* renderer, const std::string& imagePath, int spriteRows, int spriteColumns, 
-									int frameWidth, int frameHeight)
+									float frameWidth, float frameHeight)
 	{
 		_material = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
 		_texture = Texture::generateTextureBMP(imagePath);
@@ -57,9 +57,9 @@ namespace gn
 	
 		_sprite = new Sprite(renderer, _material, frameWidth, frameHeight, spriteRows, spriteColumns);
 		if (frameWidth == -1)
-			frameWidth = _texture->getWidth();
+			frameWidth = (float)_texture->getWidth();
 		if (frameHeight == -1)
-			frameHeight = _texture->getHeight();
+			frameHeight = (float)_texture->getHeight();
 		_sprite->setAnimationFrame(0);
 
 		return _sprite;
@@ -108,8 +108,8 @@ namespace gn
 		float verOffset = _boundingBox->getHeight() / 2.0f;
 		float newPosX = _sprite->getPosition().x;
 		float newPosY = _sprite->getPosition().y;
-		int possibleHorCols = glm::max(_boundingBox->getHeight() / Tile::height + 1.0f, 2.0f);
-		int possibleVerCols = glm::max(_boundingBox->getWidth() / Tile::width + 1.0f, 2.0f);
+		int possibleHorCols = (int)glm::max(_boundingBox->getHeight() / Tile::height + 1.0f, 2.0f);
+		int possibleVerCols = (int)glm::max(_boundingBox->getWidth() / Tile::width + 1.0f, 2.0f);
 	
 		if (x != 0.0f)
 		{
@@ -120,11 +120,11 @@ namespace gn
 					glm::vec2 rightTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x + horOffset,
 						_sprite->getPosition().y + (verOffset / (possibleHorCols / 2)) * i + Tile::height);
 
-					TileType rightTileType = _tilemap->getTileType(rightTileCoord.x, rightTileCoord.y);
+					TileType rightTileType = _tilemap->getTileType((unsigned int)rightTileCoord.x, (unsigned int)rightTileCoord.y);
 
 					if (rightTileType == TileType::WALL)
 					{
-						newPosX = (_tilemap->gridToWorld(rightTileCoord.x, rightTileCoord.y)).x - horOffset;
+						newPosX = (_tilemap->gridToWorld((unsigned int)rightTileCoord.x, (unsigned int)rightTileCoord.y)).x - horOffset;
 						break;
 					}
 				}
@@ -133,11 +133,11 @@ namespace gn
 					glm::vec2 leftTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x - horOffset, 
 						_sprite->getPosition().y + (verOffset / (possibleHorCols / 2)) * i + Tile::height);
 				
-					TileType leftTileType = _tilemap->getTileType(leftTileCoord.x, leftTileCoord.y);
+					TileType leftTileType = _tilemap->getTileType((unsigned int)leftTileCoord.x, (unsigned int)leftTileCoord.y);
 
 					if (leftTileType == TileType::WALL)
 					{
-						newPosX = (_tilemap->gridToWorld(leftTileCoord.x, leftTileCoord.y)).x + horOffset + Tile::width;
+						newPosX = (_tilemap->gridToWorld((unsigned int)leftTileCoord.x, (unsigned int)leftTileCoord.y)).x + horOffset + Tile::width;
 						break;
 					}
 				}
@@ -153,11 +153,11 @@ namespace gn
 					glm::vec2 upperTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x + (horOffset / (possibleVerCols / 2)) * i,
 						_sprite->getPosition().y + verOffset);
 				
-					TileType upperTileType = _tilemap->getTileType(upperTileCoord.x, upperTileCoord.y);
+					TileType upperTileType = _tilemap->getTileType((unsigned int)upperTileCoord.x, (unsigned int)upperTileCoord.y);
 
 					if (upperTileType == TileType::WALL)
 					{
-						newPosY = (_tilemap->gridToWorld(upperTileCoord.x, upperTileCoord.y)).y - verOffset - _tilemap->getLastRowOffset();
+						newPosY = (_tilemap->gridToWorld((unsigned int)upperTileCoord.x, (unsigned int)upperTileCoord.y)).y - verOffset - _tilemap->getLastRowOffset();
 						break;
 					}
 				}
@@ -166,11 +166,11 @@ namespace gn
 					glm::vec2 lowerTileCoord = _tilemap->worldToGrid(_sprite->getPosition().x + (horOffset / (possibleVerCols / 2)) * i,
 						_sprite->getPosition().y - verOffset);
 				
-					TileType lowerTileType = _tilemap->getTileType(lowerTileCoord.x, lowerTileCoord.y);
+					TileType lowerTileType = _tilemap->getTileType((unsigned int)lowerTileCoord.x, (unsigned int)lowerTileCoord.y);
 
 					if (lowerTileType == TileType::WALL)
 					{
-						newPosY = (_tilemap->gridToWorld(lowerTileCoord.x, lowerTileCoord.y)).y + verOffset;
+						newPosY = (_tilemap->gridToWorld((unsigned int)lowerTileCoord.x, (unsigned int)lowerTileCoord.y)).y + verOffset;
 						break;
 					}
 				}
