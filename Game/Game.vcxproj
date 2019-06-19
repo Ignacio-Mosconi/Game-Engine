@@ -119,7 +119,11 @@ copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Gre
     </ClCompile>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)Dependencies\glew-2.1.0\dlls\x64\glew32.dll" "$(OutDir)"
-copy "$(SolutionDir)Dependencies\assimp-4.1.0\dlls\x64\assimp-vc140-mt.dll" "$(OutDir)"</Command>
+copy "$(SolutionDir)Dependencies\assimp-4.1.0\dlls\x64\assimp-vc140-mt.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\PhysX-4.1\dlls\x64\PhysX_64.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\PhysX-4.1\dlls\x64\PhysXCommon_64.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\PhysX-4.1\dlls\x64\PhysXFoundation_64.dll" "$(OutDir)"
+copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
@@ -179,6 +183,9 @@ copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Gre
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)Dependencies\glew-2.1.0\dlls\x64\glew32.dll" "$(OutDir)"
 copy "$(SolutionDir)Dependencies\assimp-4.1.0\dlls\x64\assimp-vc140-mt.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\PhysX-4.1\dlls\x64\PhysX_64.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\PhysX-4.1\dlls\x64\PhysXCommon_64.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\PhysX-4.1\dlls\x64\PhysXFoundation_64.dll" "$(OutDir)"
 copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"
 xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s/y</Command>
     </PostBuildEvent>
