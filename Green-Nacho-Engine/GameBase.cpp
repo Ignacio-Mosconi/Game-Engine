@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Window.h"
 #include "InputManager.h"
+#include "PhysicsManager.h"
 
 namespace gn
 {
@@ -27,6 +28,9 @@ namespace gn
 		_inputManager = InputManager::getInstance();
 		_inputManager->attachToWindow(_window);
 
+		_physicsManager = PhysicsManager::getInstance();
+		_physicsManager->start();
+
 		return onStart();
 	}
 
@@ -37,7 +41,10 @@ namespace gn
 		_renderer->stop();
 		_window->stop();
 
+		_physicsManager->stop();
+
 		_inputManager->deleteInstance();
+		_physicsManager->deleteInstance();
 
 		delete _renderer;
 		delete _window;
