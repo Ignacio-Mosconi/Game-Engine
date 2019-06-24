@@ -2,12 +2,16 @@
 #pragma warning(disable: 4251)
 
 #include <iostream>
+#include <glm/vec3.hpp>
 #include "Exports.h"
 
 namespace physx
 {
 	class PxFoundation;
 	class PxPhysics;
+	class PxScene;
+	class PxSceneDesc;
+	class PxActor;
 }
 
 namespace gn
@@ -19,6 +23,8 @@ namespace gn
 		
 		physx::PxFoundation* _foundation;
 		physx::PxPhysics* _physics;
+		physx::PxScene* _scene;	
+		physx::PxSceneDesc* _sceneDesc;
 
 		PhysicsManager();
 		~PhysicsManager();
@@ -27,7 +33,12 @@ namespace gn
 		static PhysicsManager* getInstance();
 		static void deleteInstance();
 
-		bool start();
+		bool start(glm::vec3 gravity);
 		void stop();
+
+		void simulate(float deltaTime);
+		void fetchSimulationResults();
+
+		void addActor(physx::PxActor* actor);
 	};
 }
