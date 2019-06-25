@@ -12,6 +12,7 @@ constexpr const char* CUBE_PATH = "Assets/Models/Cube.obj";
 constexpr const char* SUZANNE_PATH = "Assets/Models/Suzanne.obj";
 // Texture Paths
 constexpr const char* NANOSUIT_TEXTURES = "Assets/Textures/Nanosuit";
+constexpr const char* ASSAULT_RIFLE_TEXTURES = "Assets/Textures/AK-47 Assault Rifle";
 // Sprite Paths
 constexpr const char* SPRITE_PATH = "Assets/Sprites/Sprite Sheet Texture.bmp";
 constexpr const char* NINJA_PATH = "Assets/Sprites/Ninja.bmp";

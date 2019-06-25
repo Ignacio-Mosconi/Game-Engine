@@ -105,4 +105,16 @@ namespace gn
 
 		return textures;
 	}
+
+	std::vector<Texture*> ModelLoader::loadMaterialTextures(aiTexture** textures)
+	{
+		std::vector<Texture*> textures;
+		
+		Texture* texture;
+		const char* path = (const char*)textures[0]->pcData;
+		std::string imagePath(path);
+
+		textures[0]->
+
+	}
 }

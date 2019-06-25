@@ -119,6 +119,58 @@ namespace gn
 		}
 	}
 
+	unsigned int Texture::load(unsigned char* imageData)
+	{
+		try
+		{
+			GLenum imageFormat;
+			int channels;
+
+			SOIL_load_image_from_memory(imageData, )
+
+			if (!imageData)
+				throw std::logic_error("The image file could not be loaded.");
+
+			std::cout << "Reading the image..." << std::endl;
+
+			_width = width;
+			_height = height;
+
+			switch (channels)
+			{
+			case 1:
+				imageFormat = GL_RED;
+				break;
+			case 3:
+				imageFormat = GL_RGB;
+				break;
+			case 4:
+				imageFormat = GL_RGBA;
+				break;
+			}
+
+			GLuint textureID;
+
+			glGenTextures(1, &textureID);
+			glBindTexture(GL_TEXTURE_2D, textureID);
+			glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, _width, _height, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+			glGenerateMipmap(GL_TEXTURE_2D);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+			SOIL_free_image_data(data);
+
+			return textureID;
+		}
+		catch (std::logic_error& exception)
+		{
+			std::cerr << exception.what() << std::endl;
+			return 0;
+		}
+	}
+
 	Texture* Texture::generateTextureBMP(const std::string& imagePath)
 	{
 		Texture* texture = new Texture;
@@ -133,6 +185,15 @@ namespace gn
 		Texture* texture = new Texture;
 
 		texture->_textureID = texture->load(imagePath);
+
+		return texture;
+	}	
+	
+	Texture* Texture::generateTexture(unsigned char* imageData)
+	{
+		Texture* texture = new Texture;
+
+		texture->_textureID = texture->load(imageData);
 
 		return texture;
 	}

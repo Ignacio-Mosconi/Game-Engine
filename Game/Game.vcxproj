@@ -97,7 +97,8 @@
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)Dependencies\glew-2.1.0\dlls\x86\glew32.dll" "$(OutDir)"
 copy "$(SolutionDir)Dependencies\assimp-4.1.0\dlls\x86\assimp-vc140-mt.dll" "$(OutDir)"
-copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"</Command>
+copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"
+copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
@@ -116,7 +117,8 @@ copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Gre
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)Dependencies\glew-2.1.0\dlls\x64\glew32.dll" "$(OutDir)"
 copy "$(SolutionDir)Dependencies\assimp-4.1.0\dlls\x64\assimp-vc140-mt.dll" "$(OutDir)"
-copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"</Command>
+copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"
+copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>

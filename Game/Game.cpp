@@ -19,7 +19,7 @@ bool Game::onStart()
 	_navCamera = new NavigationCamera(_renderer);
 
 	_model1 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
-	_model2 = ModelLoader::loadModel(_model1, ASSAULT_RIFLE_PATH);
+	_model2 = ModelLoader::loadModel(_model1, ASSAULT_RIFLE_PATH, ASSAULT_RIFLE_TEXTURES);
 
 	_scene->start();
 
@@ -45,7 +45,7 @@ bool Game::onUpdate(float deltaTime)
 
 	_navCamera->update(deltaTime);
 
-	_model1->getTransform()->translate(0.5f * deltaTime, 0.0f, 0.0f);
+	_model1->getTransform()->rotate(0.0f, 0.5f * deltaTime, 0.0f);
 
 	return true;
 }
