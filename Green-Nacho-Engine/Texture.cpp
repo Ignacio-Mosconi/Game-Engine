@@ -101,7 +101,7 @@ namespace gn
 		
 			glGenTextures(1, &textureID);
 			glBindTexture(GL_TEXTURE_2D, textureID);
-			glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, _width, _height, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+			glTexImage2D(GL_TEXTURE_2D, 0, imageFormat, _width, _height, 0, imageFormat, GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -119,22 +119,23 @@ namespace gn
 		}
 	}
 
-	unsigned int Texture::load(unsigned char* imageData)
+	unsigned int Texture::load(unsigned char imageData[])
 	{
 		try
 		{
 			GLenum imageFormat;
 			int channels;
+			int bufferLength = sizeof(imageData) / sizeof(unsigned char);
 
-			SOIL_load_image_from_memory(imageData, )
+			unsigned char* data = SOIL_load_image_from_memory(imageData, bufferLength, (int*)&_width, (int*)&_height, &channels, SOIL_LOAD_AUTO);
 
 			if (!imageData)
+			{
+				SOIL_free_image_data(data);
 				throw std::logic_error("The image file could not be loaded.");
+			}
 
 			std::cout << "Reading the image..." << std::endl;
-
-			_width = width;
-			_height = height;
 
 			switch (channels)
 			{
@@ -189,7 +190,7 @@ namespace gn
 		return texture;
 	}	
 	
-	Texture* Texture::generateTexture(unsigned char* imageData)
+	Texture* Texture::generateTexture(unsigned char imageData[])
 	{
 		Texture* texture = new Texture;
 

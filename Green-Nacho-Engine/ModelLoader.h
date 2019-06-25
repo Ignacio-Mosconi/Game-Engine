@@ -11,6 +11,7 @@ struct aiScene;
 struct aiMesh;
 struct aiScene;
 struct aiMaterial;
+struct aiTexture;
 
 namespace gn
 {

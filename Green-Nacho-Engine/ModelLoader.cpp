@@ -77,7 +77,8 @@ namespace gn
 		if (mesh->mMaterialIndex >= 0 && texturesPath != "")
 		{
 			aiMaterial* aiMat = scene->mMaterials[mesh->mMaterialIndex];
-			diffuseMaps = loadMaterialTextures(aiMat, aiTextureType_DIFFUSE, texturesPath);
+			diffuseMaps = (scene->HasTextures()) ? loadMaterialTextures(scene->mTextures) :
+													loadMaterialTextures(aiMat, aiTextureType_DIFFUSE, texturesPath);
 		}
 
 		MeshRenderer* meshRenderer = (MeshRenderer*)gameObject->addComponent(ComponentID::MeshRenderer);
@@ -106,15 +107,16 @@ namespace gn
 		return textures;
 	}
 
-	std::vector<Texture*> ModelLoader::loadMaterialTextures(aiTexture** textures)
+	std::vector<Texture*> ModelLoader::loadMaterialTextures(aiTexture** aiTextures)
 	{
 		std::vector<Texture*> textures;
 		
 		Texture* texture;
-		const char* path = (const char*)textures[0]->pcData;
-		std::string imagePath(path);
+		unsigned char* imageData = (unsigned char*)aiTextures[0]->pcData;
 
-		textures[0]->
+		texture = Texture::generateTexture(imageData);
+		textures.push_back(texture);
 
+		return textures;
 	}
 }
