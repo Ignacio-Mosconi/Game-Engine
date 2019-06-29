@@ -198,6 +198,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteRenderer.h" />
@@ -230,6 +231,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />

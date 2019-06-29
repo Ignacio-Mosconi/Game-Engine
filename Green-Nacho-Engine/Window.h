@@ -9,7 +9,7 @@ namespace gn
 /*
 	Represents the context in which the application will actually run.
 */
-	class ENGINE_API Window
+	class ENGINE_DECL_SPEC Window
 	{
 	private:
 		void* _actualWindow;

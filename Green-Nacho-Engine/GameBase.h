@@ -16,7 +16,7 @@ namespace gn
 	The base class of the game; the "Game" class has to be a child of it.
 	It implements the basic functionality of the game.
 */
-	class ENGINE_API GameBase
+	class ENGINE_DECL_SPEC GameBase
 	{
 	private:
 		double _lastTime;

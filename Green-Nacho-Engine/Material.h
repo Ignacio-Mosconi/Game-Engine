@@ -16,7 +16,7 @@ namespace gn
 	A class that is used to generate vertex and pixel shaders that will ultimately define
 	the way the entities will look like in the game.
 */
-	class ENGINE_API Material
+	class ENGINE_DECL_SPEC Material
 	{
 	private:
 		Texture* _texture;

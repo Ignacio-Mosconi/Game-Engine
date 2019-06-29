@@ -10,7 +10,7 @@ namespace gn
 /*
 	A class used to store the information related to an image in the bitmap format.
 */
-	class ENGINE_API Texture
+	class ENGINE_DECL_SPEC Texture
 	{
 	private:
 		unsigned int _textureID;

@@ -21,7 +21,7 @@ namespace gn
 	they contain a "Sprite" (for rendering) and a "BoundingBox" (for collision detection), and they also have
 	the possibility to include animations.
 */
-	class ENGINE_API GameEntity2D
+	class ENGINE_DECL_SPEC GameEntity2D
 	{
 	private:
 		Sprite* _sprite;

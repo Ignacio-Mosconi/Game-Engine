@@ -9,10 +9,11 @@ namespace gn
 	{
 		Transform,
 		SpriteRenderer,
-		MeshRenderer
+		MeshRenderer,
+		RigidBody
 	};
 
-	class ENGINE_API Component
+	class ENGINE_DECL_SPEC Component
 	{
 	private:
 		ComponentID _id;

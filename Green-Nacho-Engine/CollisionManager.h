@@ -13,7 +13,7 @@ namespace gn
 	The "CollisionManager" is a singleton class that is used to detect collisons
 	between entities; their bounding boxes must first be registered inside this manager.
 */
-	class ENGINE_API CollisionManager
+	class ENGINE_DECL_SPEC CollisionManager
 	{
 	private:
 		static CollisionManager* _instance;

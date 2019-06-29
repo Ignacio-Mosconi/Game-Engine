@@ -15,7 +15,7 @@ namespace gn
 		glm::vec2 uvCoordinates;
 	};
 
-	class ENGINE_API ModelMesh : public Mesh
+	class ENGINE_DECL_SPEC ModelMesh : public Mesh
 	{
 	private:
 		std::vector<ModelMeshVertex> _vertices;

@@ -201,6 +201,9 @@
     <ClInclude Include="PhysicsManager.h">
       <Filter>Header Files\Engine Logic\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -292,6 +295,9 @@
     </ClCompile>
     <ClCompile Include="PhysicsManager.cpp">
       <Filter>Source Files\Engine Logic\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

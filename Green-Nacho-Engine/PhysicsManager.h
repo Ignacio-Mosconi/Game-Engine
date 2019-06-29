@@ -11,11 +11,15 @@ namespace physx
 	class PxPhysics;
 	class PxScene;
 	class PxActor;
+	class PxTransform;
+	class PxRigidActor;
+	class PxCapsuleGeometry;
+	class PxMaterial;
 }
 
 namespace gn
 {
-	class ENGINE_API PhysicsManager
+	class ENGINE_DECL_SPEC PhysicsManager
 	{
 	private:
 		static PhysicsManager* _instance;
@@ -38,5 +42,11 @@ namespace gn
 		void fetchSimulationResults();
 
 		void addActor(physx::PxActor* actor);
+		void removeActor(physx::PxActor* actor);
+		
+		physx::PxCapsuleGeometry createCapsuleGeometry(float radius, float halfHeight);
+		
+		physx::PxMaterial* createPhysicsMaterial(float staticFriction, float dynamicFriction, float restitution);
+		physx::PxRigidActor* createRigidActor(physx::PxTransform pxTransform, bool isStatic);
 	};
 }

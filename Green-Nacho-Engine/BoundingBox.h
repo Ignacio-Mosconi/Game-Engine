@@ -13,7 +13,7 @@ namespace gn
 	The "BoundingBox" is a box collider that is used as a way of detecting collisions between entities;
 	each of these must be attached to an "Entity", as well as be registered inside the "CollisionManager" class.
 */
-	class ENGINE_API BoundingBox
+	class ENGINE_DECL_SPEC BoundingBox
 	{
 	private:
 		Entity* _entityAttached;

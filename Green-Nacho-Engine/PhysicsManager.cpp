@@ -87,7 +87,32 @@ namespace gn
 	void PhysicsManager::addActor(physx::PxActor* actor)
 	{
 		_scene->addActor(*actor);
+	}	
+	
+	void PhysicsManager::removeActor(physx::PxActor* actor)
+	{
+		_scene->removeActor(*actor);
 	}
+
+	physx::PxCapsuleGeometry PhysicsManager::createCapsuleGeometry(float radius, float halfHeight)
+	{
+		return physx::PxCapsuleGeometry(radius, halfHeight);
+	}
+
+	physx::PxMaterial* PhysicsManager::createPhysicsMaterial(float staticFriction, float dynamicFriction, float restitution)
+	{
+		return _physics->createMaterial(staticFriction, dynamicFriction, restitution);
+	}
+	
+	physx::PxRigidActor* PhysicsManager::createRigidActor(physx::PxTransform pxTransform, bool isStatic)
+	{
+		physx::PxRigidActor* rigidActor = NULL;
+
+		rigidActor = (isStatic) ? (physx::PxRigidActor*)_physics->createRigidStatic(pxTransform) : 
+									(physx::PxRigidActor*)_physics->createRigidDynamic(pxTransform);
+
+		return rigidActor;
+	}	
 
 	PhysicsManager* PhysicsManager::getInstance()
 	{

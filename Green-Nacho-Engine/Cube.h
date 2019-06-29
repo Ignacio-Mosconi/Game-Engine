@@ -7,7 +7,7 @@ namespace gn
 	/*
 		A "Mesh" that represents a tridimensional figure; it is composed of 8 vertices, thanks to the use of an index buffer.
 	*/
-	class ENGINE_API Cube : public Mesh
+	class ENGINE_DECL_SPEC Cube : public Mesh
 	{
 	private:
 		float _width;

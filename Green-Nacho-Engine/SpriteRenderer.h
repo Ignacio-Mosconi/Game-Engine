@@ -10,7 +10,7 @@ namespace gn
 	class Material;
 	class Texture;
 
-	class ENGINE_API SpriteRenderer : public Component
+	class ENGINE_DECL_SPEC SpriteRenderer : public Component
 	{
 	private:
 		Renderer* _renderer;

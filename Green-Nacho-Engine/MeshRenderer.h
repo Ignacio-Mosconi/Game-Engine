@@ -22,7 +22,7 @@ namespace gn
 		glm::vec2 uvCoords;
 	};
 
-	class ENGINE_API MeshRenderer : public Component
+	class ENGINE_DECL_SPEC MeshRenderer : public Component
 	{
 	private:
 		Renderer* _renderer;

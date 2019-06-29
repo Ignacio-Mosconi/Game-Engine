@@ -2,6 +2,7 @@
 #include "Transform.h"
 #include "SpriteRenderer.h"
 #include "MeshRenderer.h"
+#include "RigidBody.h"
 
 namespace gn
 {
@@ -43,6 +44,9 @@ namespace gn
 				break;			
 			case ComponentID::MeshRenderer:
 				component = new MeshRenderer();
+				break;
+			case ComponentID::RigidBody:
+				component = new RigidBody();
 				break;
 		}
 

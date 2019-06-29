@@ -15,7 +15,7 @@ namespace gn
 	A "Renderer" will handle all of the rendering of the game, taking into considerations tasks such
 	as swapping between buffers and manipualating the model, view and projection matrices.
 */
-	class ENGINE_API Renderer
+	class ENGINE_DECL_SPEC Renderer
 	{
 	private:
 		Window* _renderWindow;

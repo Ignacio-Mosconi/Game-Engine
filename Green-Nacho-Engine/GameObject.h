@@ -13,7 +13,7 @@ namespace gn
 	class Component;
 	class Transform;
 
-	class ENGINE_API GameObject
+	class ENGINE_DECL_SPEC GameObject
 	{
 	private:
 		Renderer* _renderer;

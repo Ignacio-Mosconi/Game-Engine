@@ -25,7 +25,7 @@ namespace gn
 		float* uvVertices;
 	};
 
-	class ENGINE_API Tilemap : public Entity
+	class ENGINE_DECL_SPEC Tilemap : public Entity
 	{
 	private:
 		Texture* _texture;

@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include <PxPhysicsAPI.h>
+
 using namespace gn;
 
 Game::Game() : GameBase()
@@ -21,10 +23,13 @@ bool Game::onStart()
 	_model1 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
 	_model2 = ModelLoader::loadModel(_model1, AK_47_PATH, AK_47_TEXTURES);
 
-	_scene->start();
-
 	_model1->getTransform()->setPosition(-5.0f, -10.0f, -10.0f);
 	_model2->getTransform()->setPosition(5.0f, 10.0f, -5.0f);
+
+	RigidBody* rb = (RigidBody*)_model2->addComponent(ComponentID::RigidBody);
+	rb->createRigidBody(_model2->getTransform(), _physicsManager->createCapsuleGeometry(5.0f, 10.0f), false);
+
+	_scene->start();
 
 	return true;
 }

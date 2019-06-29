@@ -13,7 +13,7 @@ namespace gn
 /*
 	The "InputManager" handles all of the input detection for the application.
 */
-	class ENGINE_API InputManager
+	class ENGINE_DECL_SPEC InputManager
 	{
 	private: 
 		static InputManager* _instance;

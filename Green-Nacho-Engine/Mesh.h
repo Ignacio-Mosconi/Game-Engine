@@ -6,7 +6,7 @@
 
 namespace gn
 {
-	class ENGINE_API Mesh : public Shape
+	class ENGINE_DECL_SPEC Mesh : public Shape
 	{
 	protected:
 		std::vector<unsigned int> _indexBufferData;

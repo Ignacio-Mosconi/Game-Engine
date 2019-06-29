@@ -21,7 +21,7 @@ namespace gn
 	class ModelMesh;
 	class Texture;
 
-	class ENGINE_API Model : public Entity
+	class ENGINE_DECL_SPEC Model : public Entity
 	{
 	private:
 		std::vector<ModelMesh*> _modelMeshes;

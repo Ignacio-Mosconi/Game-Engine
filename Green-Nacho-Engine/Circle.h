@@ -9,7 +9,7 @@ namespace gn
 	A "Shape" that represents a circle; it may have multiple vertices to define its
 	circumference.
 */
-	class ENGINE_API Circle : public Shape
+	class ENGINE_DECL_SPEC Circle : public Shape
 	{
 	private:
 		unsigned int _vertexCount;

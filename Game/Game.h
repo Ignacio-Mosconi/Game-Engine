@@ -9,7 +9,9 @@
 #include "Transform.h"
 #include "SpriteRenderer.h"
 #include "MeshRenderer.h"
+#include "RigidBody.h"
 #include "ModelLoader.h"
+#include "PhysicsManager.h"
 #include "EngineConstants.h"
 #include "GameConstants.h"
 

@@ -11,7 +11,7 @@ namespace gn
 {
 	class Renderer;
 
-	class ENGINE_API Transform : public Component
+	class ENGINE_DECL_SPEC Transform : public Component
 	{
 	private:
 		glm::vec3 _position;

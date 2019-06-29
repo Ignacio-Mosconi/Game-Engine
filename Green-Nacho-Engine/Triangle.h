@@ -7,7 +7,7 @@ namespace gn
 /*
 	A "Shape" that represents a triangle; it is a really simple "Entity", with only three verices.
 */
-	class ENGINE_API Triangle : public Shape
+	class ENGINE_DECL_SPEC Triangle : public Shape
 	{
 	private:
 		float _base;

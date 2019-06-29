@@ -1,8 +1,8 @@
 #pragma once
 
 #if ENGINE_EXPORT
-#define ENGINE_API __declspec(dllexport)
+#define ENGINE_DECL_SPEC __declspec(dllexport)
 #else
-#define ENGINE_API __declspec(dllimport)
+#define ENGINE_DECL_SPEC __declspec(dllimport)
 #endif
 

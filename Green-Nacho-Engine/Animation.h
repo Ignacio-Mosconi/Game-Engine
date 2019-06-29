@@ -11,7 +11,7 @@ namespace gn
 	The "Animation" class represents an animation that can be a part of a "GameEntity2D".
 	It handles the logic behind the swapping of different frames from a spritesheet.
 */
-	class ENGINE_API Animation
+	class ENGINE_DECL_SPEC Animation
 	{
 	private:
 		std::queue<unsigned int>* _frames;

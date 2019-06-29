@@ -6,7 +6,7 @@
 
 namespace gn
 {
-	class ENGINE_API NavigationCamera : public Camera
+	class ENGINE_DECL_SPEC NavigationCamera : public Camera
 	{
 		float _movementSpeed;
 		float _rotationSpeed;

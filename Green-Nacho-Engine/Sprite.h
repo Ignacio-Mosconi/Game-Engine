@@ -8,7 +8,7 @@ namespace gn
 	A fairly complex class that displays a texture; it may have a spritesheet texture in order
 	to display different parts of an image - allowing the implementation of animations.
 */
-	class ENGINE_API Sprite : public Shape
+	class ENGINE_DECL_SPEC Sprite : public Shape
 	{
 	private:
 		float* _uvBufferData;

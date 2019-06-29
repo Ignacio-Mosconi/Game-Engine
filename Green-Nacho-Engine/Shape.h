@@ -8,7 +8,7 @@ namespace gn
 /*
 	It consists of the base class for many of the entities that will be actually drawn to the screen.
 */
-	class ENGINE_API Shape : public Entity
+	class ENGINE_DECL_SPEC Shape : public Entity
 	{
 	protected:
 		Material* _material;
