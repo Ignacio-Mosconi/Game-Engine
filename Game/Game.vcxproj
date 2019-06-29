@@ -101,12 +101,12 @@ copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Gre
 copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(OutDir)" /y
+xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(OutDir)" /y</Command>
     </PreBuildEvent>
     <PreLinkEvent>
-      <Command>copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(OutDir)"
-copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -128,12 +128,12 @@ copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Gre
 copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(OutDir)" /y
+xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(OutDir)" /y</Command>
     </PreBuildEvent>
     <PreLinkEvent>
-      <Command>copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(OutDir)"
-copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -159,12 +159,12 @@ xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s/y
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(OutDir)" /y
+xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(OutDir)" /y</Command>
     </PreBuildEvent>
     <PreLinkEvent>
-      <Command>copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(OutDir)"
-copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -192,12 +192,12 @@ copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Gre
 xcopy "$(SolutionDir)$(ProjectName)\Assets" "$(OutDir)Assets" /i/s/y</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(OutDir)" /y
+xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(OutDir)" /y</Command>
     </PreBuildEvent>
     <PreLinkEvent>
-      <Command>copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(OutDir)"
-copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

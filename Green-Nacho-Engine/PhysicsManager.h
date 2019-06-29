@@ -10,7 +10,6 @@ namespace physx
 	class PxFoundation;
 	class PxPhysics;
 	class PxScene;
-	class PxSceneDesc;
 	class PxActor;
 }
 
@@ -23,8 +22,7 @@ namespace gn
 		
 		physx::PxFoundation* _foundation;
 		physx::PxPhysics* _physics;
-		physx::PxScene* _scene;	
-		physx::PxSceneDesc* _sceneDesc;
+		physx::PxScene* _scene;
 
 		PhysicsManager();
 		~PhysicsManager();
@@ -33,7 +31,7 @@ namespace gn
 		static PhysicsManager* getInstance();
 		static void deleteInstance();
 
-		bool start(glm::vec3 gravity);
+		bool start(glm::vec3 gravity, unsigned int numThreads);
 		void stop();
 
 		void simulate(float deltaTime);
