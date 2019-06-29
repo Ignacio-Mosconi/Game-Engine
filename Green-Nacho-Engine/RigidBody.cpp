@@ -3,6 +3,7 @@
 #include <glm/mat4x4.hpp>
 #include "RigidBody.h"
 #include "Transform.h"
+#include "Collider.h"
 #include "PhysicsManager.h"
 
 namespace gn
@@ -36,7 +37,7 @@ namespace gn
 		_transform->setPosition(pxPosition.x, pxPosition.y, pxPosition.z);
 	}
 
-	void RigidBody::createRigidBody(Transform* transform, physx::PxGeometry geometry, bool isStatic)
+	void RigidBody::createRigidBody(Transform* transform, Collider* collider, bool isStatic)
 	{
 		_transform = transform;
 
@@ -58,10 +59,10 @@ namespace gn
 		physx::PxMaterial* pxMaterial = physicsManager->createPhysicsMaterial(0.5f, 0.5f, 1.0f);
 
 		_rigidActor = physicsManager->createRigidActor(pxTransform, isStatic);
-		_shape = physx::PxRigidActorExt::createExclusiveShape(*_rigidActor, geometry, *pxMaterial);
+
+		physx::PxGeometry* geometry = collider->getGeometry();
+		_shape = physx::PxRigidActorExt::createExclusiveShape(*_rigidActor, *geometry, *pxMaterial);
 		_shape->setLocalPose(relativePose);
-		if (!isStatic)
-			physx::PxRigidBodyExt::updateMassAndInertia(*(physx::PxRigidBody*)_rigidActor, 1.0f);
 
 		physicsManager->addActor(_rigidActor);
 	}

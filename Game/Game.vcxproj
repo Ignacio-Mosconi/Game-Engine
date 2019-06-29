@@ -115,7 +115,7 @@ xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Gr
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Green-Nacho-Engine;$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\PhysX-4.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Green-Nacho-Engine;$(SolutionDir)Dependencies\glm-0.9.9.0</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <PostBuildEvent>

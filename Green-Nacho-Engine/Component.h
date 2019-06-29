@@ -10,6 +10,7 @@ namespace gn
 		Transform,
 		SpriteRenderer,
 		MeshRenderer,
+		CapsuleCollider,
 		RigidBody
 	};
 

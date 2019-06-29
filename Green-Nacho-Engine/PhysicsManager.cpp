@@ -94,11 +94,6 @@ namespace gn
 		_scene->removeActor(*actor);
 	}
 
-	physx::PxCapsuleGeometry PhysicsManager::createCapsuleGeometry(float radius, float halfHeight)
-	{
-		return physx::PxCapsuleGeometry(radius, halfHeight);
-	}
-
 	physx::PxMaterial* PhysicsManager::createPhysicsMaterial(float staticFriction, float dynamicFriction, float restitution)
 	{
 		return _physics->createMaterial(staticFriction, dynamicFriction, restitution);

@@ -1,7 +1,5 @@
 #include "Game.h"
 
-#include <PxPhysicsAPI.h>
-
 using namespace gn;
 
 Game::Game() : GameBase()
@@ -26,8 +24,11 @@ bool Game::onStart()
 	_model1->getTransform()->setPosition(-5.0f, -10.0f, -10.0f);
 	_model2->getTransform()->setPosition(5.0f, 10.0f, -5.0f);
 
-	RigidBody* rb = (RigidBody*)_model2->addComponent(ComponentID::RigidBody);
-	rb->createRigidBody(_model2->getTransform(), _physicsManager->createCapsuleGeometry(5.0f, 10.0f), false);
+	CapsuleCollider* cc = (CapsuleCollider*)_model1->addComponent(ComponentID::CapsuleCollider);
+	cc->createCapsule(5.0f, 10.0f);
+
+	RigidBody* rb = (RigidBody*)_model1->addComponent(ComponentID::RigidBody);
+	rb->createRigidBody(_model1->getTransform(), cc, false);
 
 	_scene->start();
 
@@ -49,8 +50,6 @@ bool Game::onUpdate(float deltaTime)
 	_scene->update();
 
 	_navCamera->update(deltaTime);
-
-	//_model1->getTransform()->rotate(0.0f, 0.5f * deltaTime, 0.0f);
 
 	return true;
 }

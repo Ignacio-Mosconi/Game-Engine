@@ -44,8 +44,6 @@ namespace gn
 		void addActor(physx::PxActor* actor);
 		void removeActor(physx::PxActor* actor);
 		
-		physx::PxCapsuleGeometry createCapsuleGeometry(float radius, float halfHeight);
-		
 		physx::PxMaterial* createPhysicsMaterial(float staticFriction, float dynamicFriction, float restitution);
 		physx::PxRigidActor* createRigidActor(physx::PxTransform pxTransform, bool isStatic);
 	};

@@ -204,6 +204,12 @@
     <ClInclude Include="RigidBody.h">
       <Filter>Header Files\Scene Graph\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CapsuleCollider.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -297,6 +303,12 @@
       <Filter>Source Files\Engine Logic\Engine</Filter>
     </ClCompile>
     <ClCompile Include="RigidBody.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CapsuleCollider.cpp">
       <Filter>Source Files\Scene Graph\Components</Filter>
     </ClCompile>
   </ItemGroup>

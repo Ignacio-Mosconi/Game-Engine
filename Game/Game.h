@@ -11,7 +11,7 @@
 #include "MeshRenderer.h"
 #include "RigidBody.h"
 #include "ModelLoader.h"
-#include "PhysicsManager.h"
+#include "CapsuleCollider.h"
 #include "EngineConstants.h"
 #include "GameConstants.h"
 

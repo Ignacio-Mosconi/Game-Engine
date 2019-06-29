@@ -7,12 +7,12 @@ namespace physx
 {
 	class PxRigidActor;
 	class PxShape;
-	class PxGeometry;
 }
 
 namespace gn
 {
 	class Transform;
+	class Collider;
 
 	class ENGINE_DECL_SPEC RigidBody : public Component
 	{
@@ -30,6 +30,6 @@ namespace gn
 		void stop() override;
 		void update() override;
 
-		void createRigidBody(Transform* transform, physx::PxGeometry geometry, bool isStatic);
+		void createRigidBody(Transform* transform, Collider* collider, bool isStatic);
 	};
 }
