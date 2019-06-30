@@ -4,6 +4,8 @@
 #include <iostream>
 #include <glm/vec3.hpp>
 #include "Exports.h"
+#include "EngineConstants.h"
+#include "Enums.h"
 
 namespace physx
 {
@@ -19,6 +21,8 @@ namespace physx
 
 namespace gn
 {
+	class Renderer;
+
 	class ENGINE_DECL_SPEC PhysicsManager
 	{
 	private:
@@ -40,6 +44,8 @@ namespace gn
 
 		void simulate(float deltaTime);
 		void fetchSimulationResults();
+		
+		void drawDebugVisualization(Renderer* renderer) const;
 
 		void addActor(physx::PxActor* actor);
 		void removeActor(physx::PxActor* actor);

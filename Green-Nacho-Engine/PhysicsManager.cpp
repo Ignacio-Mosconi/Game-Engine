@@ -1,5 +1,7 @@
 #include <PxPhysicsAPI.h>
 #include "PhysicsManager.h"
+#include "Renderer.h"
+#include "Material.h"
 
 namespace gn
 {
@@ -61,6 +63,9 @@ namespace gn
 			return false;
 		}
 
+		_scene->setVisualizationParameter(physx::PxVisualizationParameter::eSCALE, 1.0f);
+		_scene->setVisualizationParameter(physx::PxVisualizationParameter::eWORLD_AXES, 200.0f);
+
 		return true;
 	}
 
@@ -82,6 +87,39 @@ namespace gn
 	void PhysicsManager::fetchSimulationResults()
 	{
 		_scene->fetchResults(true);
+	}
+
+	void PhysicsManager::drawDebugVisualization(Renderer* renderer) const
+	{
+		const physx::PxRenderBuffer& rb = _scene->getRenderBuffer();
+		
+		Material* material = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
+		
+		for (int i = 0; i < rb.getNbLines(); i++)
+		{
+			const physx::PxDebugLine& line = rb.getLines()[i];
+		
+			float* vertexBufferData = new float[VERTEX_COMPONENTS * LINE_VERTICES]
+			{
+				line.pos0.x, line.pos0.y, line.pos0.z,
+				line.pos1.x, line.pos1.y, line.pos1.z,
+			};			
+			int vertexBufferSize = sizeof(float) * VERTEX_COMPONENTS * LINE_VERTICES;
+			unsigned int vertexBufferID = renderer->generateVertexBuffer(vertexBufferData, vertexBufferSize);
+
+			renderer->loadIdentityMatrix();
+			material->bind();
+			material->setMatrixProperty("MVP", renderer->getMVP());
+
+			renderer->enableAttribute(0);
+			renderer->bindBuffer(0, VERTEX_COMPONENTS, vertexBufferID);
+			renderer->drawBuffer(PrimitiveType::LINES, LINE_VERTICES);
+			renderer->disableAttribute(0);
+
+			delete[] vertexBufferData;
+		}
+
+		Material::destroyMaterial(material);
 	}
 
 	void PhysicsManager::addActor(physx::PxActor* actor)

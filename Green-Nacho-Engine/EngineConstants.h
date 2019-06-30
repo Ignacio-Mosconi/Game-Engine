@@ -13,6 +13,7 @@ constexpr const char* MODEL_TEX_PIXEL_SHADER_PATH = "Assets/Shaders/ModelTexture
 constexpr int VERTEX_COMPONENTS = 3;
 constexpr int UV_COMPONENTS = 2;
 // Primitives Vertices
+constexpr int LINE_VERTICES = 2;
 constexpr int TRIANGLE_VERTICES = 3;
 constexpr int RECTANGLE_VERTICES = 4;
 constexpr int CUBE_VERTICES = 8;

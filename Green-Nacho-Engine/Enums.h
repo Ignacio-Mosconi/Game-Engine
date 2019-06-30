@@ -48,6 +48,7 @@ enum class Projection
 
 enum class PrimitiveType
 {
+	LINES = 1,
 	TRIANGLE = 4,
 	TRIANGLE_STRIP = 5,
 	TRIANGLE_FAN = 6,
