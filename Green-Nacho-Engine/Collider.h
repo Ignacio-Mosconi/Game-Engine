@@ -14,13 +14,14 @@ namespace gn
 	{
 	protected:
 		physx::PxGeometry* _geometry;
+	
 	public:
 		Collider(ComponentID colliderID);
 		virtual ~Collider();
 
 		virtual void stop() override;
 
-		void destroyGeometry();
+		void disposeGeometry();
 
 		inline physx::PxGeometry* getGeometry() { return _geometry;  }
 	};

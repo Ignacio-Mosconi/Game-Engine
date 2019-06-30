@@ -26,7 +26,7 @@ namespace gn
 
 	void RigidBody::stop()
 	{
-
+		disposeRigidBody();
 	}
 
 	void RigidBody::update()
@@ -40,11 +40,11 @@ namespace gn
 		
 		Transform::convertToEulerAngles(rotQuat, pitch, yaw, roll);
 
-		//_transform->setPosition(pxPosition.x, pxPosition.y, pxPosition.z);
+		_transform->setPosition(pxPosition.x, pxPosition.y, pxPosition.z);
 		_transform->setRotation(pitch, yaw, roll);
 	}
 
-	void RigidBody::createRigidBody(Transform* transform, Collider* collider, bool isStatic)
+	void RigidBody::createRigidBody(Transform* transform, Collider* collider, bool isStatic, float mass)
 	{
 		_transform = transform;
 
@@ -62,12 +62,33 @@ namespace gn
 		PhysicsManager* physicsManager = PhysicsManager::getInstance();
 		
 		physx::PxGeometry* geometry = collider->getGeometry();
-		physx::PxMaterial* pxMaterial = physicsManager->createPhysicsMaterial(0.5f, 0.5f, 1.0f);
 
 		_rigidActor = physicsManager->createRigidActor(pxTransform, isStatic);
-		_shape = physx::PxRigidActorExt::createExclusiveShape(*_rigidActor, *geometry, *pxMaterial);
+		_material = physicsManager->createPhysicsMaterial(0.5f, 0.5f, 1.0f);
+		_shape = physx::PxRigidActorExt::createExclusiveShape(*_rigidActor, *geometry, *_material);
+		
 		_shape->setLocalPose(relativePose);
 
+		if (!isStatic)
+		{
+			physx::PxRigidDynamic* rigidDynamic = (physx::PxRigidDynamic*)_rigidActor;
+			rigidDynamic->setMassSpaceInertiaTensor(physx::PxVec3(1.0f, 1.0f, 1.0f));
+			physx::PxRigidBodyExt::setMassAndUpdateInertia(*rigidDynamic, (physx::PxReal)mass);
+		}
+
 		physicsManager->addActor(_rigidActor);
+	}
+
+	void RigidBody::disposeRigidBody()
+	{
+		if (_rigidActor)
+		{
+			if (_material)
+				_material->release();
+			if (_shape)
+				_rigidActor->detachShape(*_shape);
+			PhysicsManager::getInstance()->removeActor(_rigidActor);
+			_rigidActor->release();
+		}
 	}
 }

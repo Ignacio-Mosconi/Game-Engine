@@ -15,10 +15,10 @@ namespace gn
 
 	void Collider::stop()
 	{
-		destroyGeometry();
+		disposeGeometry();
 	}
 	
-	void Collider::destroyGeometry()
+	void Collider::disposeGeometry()
 	{
 		if (_geometry)
 			delete _geometry;

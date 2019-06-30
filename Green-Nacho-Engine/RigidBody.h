@@ -7,6 +7,7 @@ namespace physx
 {
 	class PxRigidActor;
 	class PxShape;
+	class PxMaterial;
 }
 
 namespace gn
@@ -21,6 +22,7 @@ namespace gn
 
 		physx::PxRigidActor* _rigidActor;
 		physx::PxShape* _shape;
+		physx::PxMaterial* _material;
 
 	public:
 		RigidBody();
@@ -30,6 +32,7 @@ namespace gn
 		void stop() override;
 		void update() override;
 
-		void createRigidBody(Transform* transform, Collider* collider, bool isStatic);
+		void createRigidBody(Transform* transform, Collider* collider, bool isStatic, float mass);
+		void disposeRigidBody();
 	};
 }
