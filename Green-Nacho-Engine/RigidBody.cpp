@@ -1,6 +1,6 @@
 #include <PxPhysicsAPI.h>
-#include <glm/vec3.hpp>
-#include <glm/mat4x4.hpp>
+#include <glm\vec3.hpp>
+#include <glm\vec4.hpp>
 #include "RigidBody.h"
 #include "Transform.h"
 #include "Collider.h"
@@ -33,8 +33,15 @@ namespace gn
 	{
 		physx::PxTransform pxTransform = _rigidActor->getGlobalPose();
 		physx::PxVec3 pxPosition = pxTransform.p;
+		physx::PxQuat pxRotation = pxTransform.q;
 
-		_transform->setPosition(pxPosition.x, pxPosition.y, pxPosition.z);
+		float pitch, yaw, roll;
+		glm::vec4 rotQuat(pxRotation.x, pxRotation.y, pxRotation.z, pxRotation.w);
+		
+		Transform::convertToEulerAngles(rotQuat, pitch, yaw, roll);
+
+		//_transform->setPosition(pxPosition.x, pxPosition.y, pxPosition.z);
+		_transform->setRotation(pitch, yaw, roll);
 	}
 
 	void RigidBody::createRigidBody(Transform* transform, Collider* collider, bool isStatic)
@@ -44,23 +51,20 @@ namespace gn
 		glm::vec3 position = _transform->getPosition();
 		glm::vec3 rotation = _transform->getRotation();
 
-		physx::PxQuat pxRotX(rotation.x, physx::PxVec3(1.0f, 0.0f, 0.0f));
-		physx::PxQuat pxRotY(rotation.y, physx::PxVec3(0.0f, 1.0f, 0.0f));
-		physx::PxQuat pxRotZ(rotation.z, physx::PxVec3(0.0f, 0.0f, 1.0f));
-		
+		glm::vec4 rotQuat = Transform::convertToQuaternion(rotation.x, rotation.y, rotation.z);
+	
 		physx::PxVec3 pxPosition(position.x, position.y, position.z);
-		physx::PxQuat pxRotation(pxRotX * pxRotY * pxRotZ);
+		physx::PxQuat pxRotation(rotQuat.x, rotQuat.y, rotQuat.z, rotQuat.w);
 
 		physx::PxTransform pxTransform(pxPosition, pxRotation);
 		physx::PxTransform relativePose(physx::PxQuat(physx::PxHalfPi, physx::PxVec3(0.0f, 0.0f, 1.0f)));;
 		
 		PhysicsManager* physicsManager = PhysicsManager::getInstance();
 		
+		physx::PxGeometry* geometry = collider->getGeometry();
 		physx::PxMaterial* pxMaterial = physicsManager->createPhysicsMaterial(0.5f, 0.5f, 1.0f);
 
 		_rigidActor = physicsManager->createRigidActor(pxTransform, isStatic);
-
-		physx::PxGeometry* geometry = collider->getGeometry();
 		_shape = physx::PxRigidActorExt::createExclusiveShape(*_rigidActor, *geometry, *pxMaterial);
 		_shape->setLocalPose(relativePose);
 

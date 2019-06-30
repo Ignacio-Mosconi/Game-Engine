@@ -1,8 +1,7 @@
 #pragma once
 #pragma warning(disable: 4251)
 
-#include <glm/vec3.hpp>
-#include <glm/mat4x4.hpp>
+#include <glm\glm.hpp>
 #include "Exports.h"
 #include "EngineConstants.h"
 #include "Component.h"
@@ -39,6 +38,9 @@ namespace gn
 		void setPosition(float x, float y, float z);
 		void setRotation(float x, float y, float z);
 		void setScale(float x, float y, float z);
+
+		static void convertToEulerAngles(const glm::vec4& quaternion, float& pitch, float& yaw, float& roll);
+		static glm::vec4 convertToQuaternion(float pitch, float yaw, float roll);
 
 		inline glm::vec3 getPosition() const { return _position; }
 		inline glm::vec3 getRotation() const { return _rotation; }
