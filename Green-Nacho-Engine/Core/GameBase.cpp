@@ -73,18 +73,18 @@ namespace gn
 			_physicsManager->simulate(deltaTime);
 			
 			_drawTimer += deltaTime;
-		
+
 			if (_drawTimer >= DRAW_FRAME_TIME)
 			{
 				_drawTimer -= DRAW_FRAME_TIME;
 
 				_renderer->clearScreen();
 				onDraw();
+				_physicsManager->drawDebugVisualization(_renderer);
 				_renderer->swapBuffers();
 			}
 
 			_physicsManager->fetchSimulationResults();
-			//_physicsManager->drawDebugVisualization(_renderer);
 		}
 	}
 }

@@ -1,7 +1,6 @@
 #include <PxPhysicsAPI.h>
 #include "Core/PhysicsManager.h"
 #include "Core/Renderer.h"
-#include "Core/Material.h"
 
 namespace gn
 {
@@ -64,7 +63,7 @@ namespace gn
 		}
 
 		_scene->setVisualizationParameter(physx::PxVisualizationParameter::eSCALE, 1.0f);
-		_scene->setVisualizationParameter(physx::PxVisualizationParameter::eWORLD_AXES, 200.0f);
+		_scene->setVisualizationParameter(physx::PxVisualizationParameter::eCOLLISION_SHAPES, 1.0f);
 
 		return true;
 	}
@@ -93,8 +92,6 @@ namespace gn
 	{
 		const physx::PxRenderBuffer& rb = _scene->getRenderBuffer();
 		
-		Material* material = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
-		
 		for (unsigned int i = 0; i < rb.getNbLines(); i++)
 		{
 			const physx::PxDebugLine& line = rb.getLines()[i];
@@ -108,18 +105,15 @@ namespace gn
 			unsigned int vertexBufferID = renderer->generateVertexBuffer(vertexBufferData, vertexBufferSize);
 
 			renderer->loadIdentityMatrix();
-			material->bind();
-			material->setMatrixProperty("MVP", renderer->getMVP());
 
 			renderer->enableAttribute(0);
 			renderer->bindBuffer(0, VERTEX_COMPONENTS, vertexBufferID);
 			renderer->drawBuffer(PrimitiveType::LINES, LINE_VERTICES);
 			renderer->disableAttribute(0);
 
+			renderer->destroyBuffer(vertexBufferID);
 			delete[] vertexBufferData;
 		}
-
-		Material::destroyMaterial(material);
 	}
 
 	void PhysicsManager::addActor(physx::PxActor* actor)
