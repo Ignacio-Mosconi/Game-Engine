@@ -31,7 +31,7 @@ namespace gn
 			case MoveDir::FORWARD:
 				advance(distance);
 				break;
-			case MoveDir::BACKWARD:
+			case MoveDir::BACKWARDS:
 				advance(-distance);
 				break;
 			case MoveDir::LEFT:
@@ -60,7 +60,7 @@ namespace gn
 			if (inputManager->getKey(Key::A_KEY))
 				move(MoveDir::LEFT, _movementSpeed * deltaTime);
 			if (inputManager->getKey(Key::S_KEY))
-				move(MoveDir::BACKWARD, _movementSpeed * deltaTime);
+				move(MoveDir::BACKWARDS, _movementSpeed * deltaTime);
 			if (inputManager->getKey(Key::D_KEY))
 				move(MoveDir::RIGHT, _movementSpeed * deltaTime);
 			if (inputManager->getKey(Key::Q_KEY))

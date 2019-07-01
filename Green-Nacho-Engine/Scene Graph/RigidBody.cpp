@@ -29,7 +29,7 @@ namespace gn
 		disposeRigidBody();
 	}
 
-	void RigidBody::update()
+	void RigidBody::update(float deltaTime)
 	{
 		physx::PxTransform pxTransform = _rigidActor->getGlobalPose();
 		physx::PxVec3 pxPosition = pxTransform.p;

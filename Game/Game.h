@@ -9,6 +9,7 @@
 #include "Scene Graph/GameObject.h"
 #include "Scene Graph/Transform.h"
 #include "Scene Graph/Camera.h"
+#include "Scene Graph/NavigationController.h"
 #include "Scene Graph/SpriteRenderer.h"
 #include "Scene Graph/MeshRenderer.h"
 #include "Scene Graph/RigidBody.h"
@@ -19,9 +20,7 @@
 class Game : public gn::GameBase
 {
 private:
-	gn::legacy::NavigationCamera* _navCamera;
-
-	gn::GameObject* _camera;
+	gn::GameObject* _cameraController;
 
 	gn::GameObject* _model1;
 	gn::GameObject* _model2;

@@ -16,11 +16,11 @@ bool Game::onStart()
 {
 	_scene = new GameObject(_renderer);
 
-	//_navCamera = new legacy::NavigationCamera(_renderer);
-
-	_camera = new GameObject(_renderer, _scene);
-	Camera* cam = (Camera*)_camera->addComponent(ComponentID::Camera);
-	cam->activate(_renderer, _camera->getTransform());
+	_cameraController = new GameObject(_renderer, _scene);
+	Camera* cam = (Camera*)_cameraController->addComponent(ComponentID::Camera);
+	cam->activate(_renderer, _cameraController->getTransform());
+	NavigationController* navCont = (NavigationController*)_cameraController->addComponent(ComponentID::NavigationController);
+	navCont->activate(_cameraController->getTransform(), 10.0f, 7.0f);
 
 	_model1 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
 	_model2 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
@@ -47,7 +47,6 @@ bool Game::onStop()
 {
 	_scene->stop();
 
-	delete _navCamera;
 	delete _scene;
 	
 	return true;
@@ -55,9 +54,7 @@ bool Game::onStop()
 
 bool Game::onUpdate(float deltaTime)
 {	
-	_scene->update();
-
-	//_navCamera->update(deltaTime);
+	_scene->update(deltaTime);
 
 	return true;
 }

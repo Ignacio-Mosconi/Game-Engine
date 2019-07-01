@@ -15,7 +15,7 @@ namespace gn
 
 	}
 
-	void Camera::update()
+	void Camera::update(float deltaTime)
 	{
 		glm::vec3 position = _transform->getPosition();
 		glm::vec3 center = position - _transform->getForward();

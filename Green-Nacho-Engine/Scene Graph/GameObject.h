@@ -28,7 +28,7 @@ namespace gn
 		void start();
 		void stop();
 
-		void update();
+		void update(float deltaTime);
 		void draw();
 
 		bool addChild(GameObject* gameObject);

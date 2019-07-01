@@ -59,7 +59,7 @@ enum class PrimitiveType
 enum class MoveDir
 {
 	FORWARD,
-	BACKWARD,
+	BACKWARDS,
 	LEFT,
 	RIGHT,
 	UP,

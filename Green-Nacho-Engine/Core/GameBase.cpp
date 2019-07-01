@@ -84,7 +84,7 @@ namespace gn
 			}
 
 			_physicsManager->fetchSimulationResults();
-			_physicsManager->drawDebugVisualization(_renderer);
+			//_physicsManager->drawDebugVisualization(_renderer);
 		}
 	}
 }

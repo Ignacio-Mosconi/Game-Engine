@@ -18,7 +18,7 @@ namespace gn
 		Camera();
 		virtual ~Camera();
 
-		void update() override;
+		void update(float deltaTime) override;
 		void stop() override;
 
 		void activate(Renderer* renderer, Transform* transform);

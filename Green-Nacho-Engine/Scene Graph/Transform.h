@@ -28,6 +28,8 @@ namespace gn
 		glm::mat4 _modelMatrix;
 
 		void updateModelMatrix();
+		void updateRotationMatrix();
+		void updateDirectionVectors();
 		void clampEulerRotation();
 
 	public:

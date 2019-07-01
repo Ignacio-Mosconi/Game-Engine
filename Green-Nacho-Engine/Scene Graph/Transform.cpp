@@ -26,7 +26,27 @@ namespace gn
 	void Transform::updateModelMatrix()
 	{
 		_modelMatrix = _traMatrix * _rotMatrix * _scaMatrix;
-	}	
+	}
+
+	void Transform::updateRotationMatrix()
+	{
+		glm::mat4 rotationX = glm::rotate(glm::mat4(1.0f), glm::radians(_rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		glm::mat4 rotationY = glm::rotate(glm::mat4(1.0f), glm::radians(_rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		glm::mat4 rotationZ = glm::rotate(glm::mat4(1.0f), glm::radians(_rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+
+		_rotMatrix = rotationX * rotationY * rotationZ;
+	}
+
+	void Transform::updateDirectionVectors()
+	{
+		glm::vec4 forward(_forward.x, _forward.y, _forward.z, 0.0f);
+		glm::vec4 right(_right.x, _right.y, _right.z, 0.0f);
+		glm::vec4 up(_up.x, _up.y, _up.z, 0.0f);
+
+		_forward = glm::normalize((glm::vec3)(forward * _rotMatrix));
+		_right = glm::normalize((glm::vec3)(right * _rotMatrix));
+		_up = glm::normalize((glm::vec3)(up * _rotMatrix));
+	}
 	
 	void Transform::clampEulerRotation()
 	{
@@ -53,20 +73,8 @@ namespace gn
 		_rotation += glm::vec3(x, y, z);
 
 		clampEulerRotation();
-
-		glm::mat4 rotationX = glm::rotate(glm::mat4(1.0f), glm::radians(_rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		glm::mat4 rotationY = glm::rotate(glm::mat4(1.0f), glm::radians(_rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		glm::mat4 rotationZ = glm::rotate(glm::mat4(1.0f), glm::radians(_rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-
-		_rotMatrix = rotationX * rotationY * rotationZ;
-
-		glm::vec4 forward(_forward.x, _forward.y, _forward.z, 0.0f);
-		glm::vec4 right(_right.x, _right.y, _right.z, 0.0f);
-		glm::vec4 up(_up.x, _up.y, _up.z, 0.0f);
-
-		_forward = glm::normalize((glm::vec3)(forward * _rotMatrix));
-		_right = glm::normalize((glm::vec3)(right * _rotMatrix));
-		_up = glm::normalize((glm::vec3)(right * _rotMatrix));
+		updateRotationMatrix();
+		updateDirectionVectors();
 
 		updateModelMatrix();
 	}
@@ -92,19 +100,16 @@ namespace gn
 		_rotation = glm::vec3(x, y, z);
 
 		clampEulerRotation();
-
-		glm::mat4 rotationX = glm::rotate(glm::mat4(1.0f), glm::radians(x), glm::vec3(1.0f, 0.0f, 0.0f));
-		glm::mat4 rotationY = glm::rotate(glm::mat4(1.0f), glm::radians(y), glm::vec3(0.0f, 1.0f, 0.0f));
-		glm::mat4 rotationZ = glm::rotate(glm::mat4(1.0f), glm::radians(z), glm::vec3(0.0f, 0.0f, 1.0f));
-
-		_rotMatrix = rotationX * rotationY * rotationZ;
+		
+		updateRotationMatrix();
+		updateDirectionVectors();
 
 		updateModelMatrix();
 	}
 
 	void Transform::setScale(float x, float y, float z)
 	{
-		_scale= glm::vec3(x, y, z);
+		_scale = glm::vec3(x, y, z);
 		_scaMatrix = glm::scale(glm::mat4(1.0f), _scale);
 
 		updateModelMatrix();
@@ -132,12 +137,12 @@ namespace gn
 	{
 		glm::vec4 rotQuat;
 
-		float cosPitch = cos(glm::radians(pitch) * 0.5);
-		float sinPitch = sin(glm::radians(pitch) * 0.5);
-		float cosYaw = cos(glm::radians(yaw) * 0.5);
-		float sinYaw = sin(glm::radians(yaw) * 0.5);
-		float cosRoll = cos(glm::radians(roll) * 0.5);
-		float sinRoll = sin(glm::radians(roll) * 0.5);
+		double cosPitch = cos(glm::radians(pitch) * 0.5);
+		double sinPitch = sin(glm::radians(pitch) * 0.5);
+		double cosYaw = cos(glm::radians(yaw) * 0.5);
+		double sinYaw = sin(glm::radians(yaw) * 0.5);
+		double cosRoll = cos(glm::radians(roll) * 0.5);
+		double sinRoll = sin(glm::radians(roll) * 0.5);
 
 		rotQuat.w = cosRoll * cosYaw * cosPitch + sinRoll * sinYaw * sinPitch;
 		rotQuat.x = cosRoll * cosYaw * sinPitch - sinRoll * sinYaw * cosPitch;

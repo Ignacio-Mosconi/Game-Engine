@@ -42,12 +42,12 @@ namespace gn
 		}
 	}
 
-	void GameObject::update()
+	void GameObject::update(float deltaTime)
 	{
 		for (std::list<Component*>::iterator it = _components->begin(); it != _components->end(); it++)
-			(*it)->update();
+			(*it)->update(deltaTime);
 		for (std::list<GameObject*>::iterator it = _children->begin(); it != _children->end(); it++)
-			(*it)->update();
+			(*it)->update(deltaTime);
 	}
 
 	void GameObject::draw()

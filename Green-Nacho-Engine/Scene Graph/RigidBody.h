@@ -30,7 +30,7 @@ namespace gn
 
 		void start() override;
 		void stop() override;
-		void update() override;
+		void update(float deltaTime) override;
 
 		void createRigidBody(Transform* transform, Collider* collider, bool isStatic, float mass);
 		void disposeRigidBody();

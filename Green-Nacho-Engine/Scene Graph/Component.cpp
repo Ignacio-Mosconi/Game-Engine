@@ -5,6 +5,7 @@
 #include "Scene Graph/MeshRenderer.h"
 #include "Scene Graph/CapsuleCollider.h"
 #include "Scene Graph/RigidBody.h"
+#include "Scene Graph/NavigationController.h"
 
 namespace gn
 {
@@ -24,7 +25,7 @@ namespace gn
 	{
 	}
 
-	void Component::update()
+	void Component::update(float deltaTime)
 	{
 	}
 
@@ -55,6 +56,9 @@ namespace gn
 				break;
 			case ComponentID::RigidBody:
 				component = new RigidBody();
+				break;
+			case ComponentID::NavigationController:
+				component = new NavigationController();
 				break;
 		}
 

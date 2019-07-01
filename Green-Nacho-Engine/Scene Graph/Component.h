@@ -12,7 +12,8 @@ namespace gn
 		SpriteRenderer,
 		MeshRenderer,
 		CapsuleCollider,
-		RigidBody
+		RigidBody,
+		NavigationController
 	};
 
 	class ENGINE_DECL_SPEC Component
@@ -23,7 +24,7 @@ namespace gn
 	public:
 		virtual void start();
 		virtual void stop();
-		virtual void update();
+		virtual void update(float deltaTime);
 		virtual void draw() const;
 
 		Component(ComponentID id);
