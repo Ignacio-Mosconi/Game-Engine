@@ -12,50 +12,54 @@ namespace gn
 	class Renderer;
 	class Material;
 	class Texture;
-	class Sprite;
-	class BoundingBox;
-	class Animation;
-	class Tilemap;
-/*
-	A complex class that is meant to be used as a base for all the characters and/or interactables of a game;
-	they contain a "Sprite" (for rendering) and a "BoundingBox" (for collision detection), and they also have
-	the possibility to include animations.
-*/
-	class ENGINE_DECL_SPEC GameEntity2D
+
+	namespace legacy
 	{
-	private:
-		Sprite* _sprite;
-		BoundingBox* _boundingBox;
-	
-		mutable std::map<std::string, Animation*> _animations;
+		class Sprite;
+		class BoundingBox;
+		class Animation;
+		class Tilemap;
+/*
+		A complex class that is meant to be used as a base for all the characters and/or interactables of a game;
+		they contain a "Sprite" (for rendering) and a "BoundingBox" (for collision detection), and they also have
+		the possibility to include animations.
+*/
+		class ENGINE_DECL_SPEC GameEntity2D
+		{
+		private:
+			Sprite* _sprite;
+			BoundingBox* _boundingBox;
 
-		Material* _material;
-		Texture* _texture;
+			mutable std::map<std::string, Animation*> _animations;
 
-		Tilemap* _tilemap;
+			Material* _material;
+			Texture* _texture;
 
-		Sprite* createSprite(Renderer* renderer, const std::string& imagePath, int spriteRows = 1, int spriteColumns = 1, 
-			float frameWidth = -1, float frameHeight = -1);
-		void createBoundingBox(float width, float height, bool isStatic, float mass, const std::string& collisionLayer);
+			Tilemap* _tilemap;
 
-	public:
-		GameEntity2D(Renderer* renderer, const std::string& imagePath, const std::string& collisionLayer);
-		GameEntity2D(Renderer* renderer, Tilemap* tilemap, const std::string& imagePath, const std::string& collisionLayer,
-					float x, float y, int spriteRows, int spriteColumns, float frameWidth, float frameHeight, 
-					bool isStatic = false, float mass = 1);
-		virtual ~GameEntity2D();
+			Sprite* createSprite(Renderer* renderer, const std::string& imagePath, int spriteRows = 1, int spriteColumns = 1,
+				float frameWidth = -1, float frameHeight = -1);
+			void createBoundingBox(float width, float height, bool isStatic, float mass, const std::string& collisionLayer);
 
-		void setBoundingBoxDimensions(float width, float height);
+		public:
+			GameEntity2D(Renderer* renderer, const std::string& imagePath, const std::string& collisionLayer);
+			GameEntity2D(Renderer* renderer, Tilemap* tilemap, const std::string& imagePath, const std::string& collisionLayer,
+				float x, float y, int spriteRows, int spriteColumns, float frameWidth, float frameHeight,
+				bool isStatic = false, float mass = 1);
+			virtual ~GameEntity2D();
 
-		void addAnimation(Animation* animation, const std::string& animName);
+			void setBoundingBoxDimensions(float width, float height);
 
-		void move(float x, float y, float z = 0.0f);
+			void addAnimation(Animation* animation, const std::string& animName);
 
-		virtual void update(float deltaTime);
-		virtual void draw() const;
+			void move(float x, float y, float z = 0.0f);
 
-		inline Animation* getCurrentAnimation() const;
-		inline Sprite* getSprite() const { return _sprite; }
-		inline BoundingBox* getBoundingBox() const { return _boundingBox; }
-	};
+			virtual void update(float deltaTime);
+			virtual void draw() const;
+
+			inline Animation* getCurrentAnimation() const;
+			inline Sprite* getSprite() const { return _sprite; }
+			inline BoundingBox* getBoundingBox() const { return _boundingBox; }
+		};
+	}
 }

@@ -13,80 +13,83 @@ namespace gn
 	class Texture;
 	class Material;
 
-	struct Tile
+	namespace legacy
 	{
-		static const int VERTEX_AMOUNT = 4;
-		static const int VERTEX_COMPONENTS = 3;
-	
-		static unsigned int width;
-		static unsigned int height;
-	
-		TileType tileType;
-		float* uvVertices;
-	};
+		struct Tile
+		{
+			static const int VERTEX_AMOUNT = 4;
+			static const int VERTEX_COMPONENTS = 3;
 
-	class ENGINE_DECL_SPEC Tilemap : public Entity
-	{
-	private:
-		Texture* _texture;
-		Material* _material;
-	
-		Tile** _tiles;
-		Tile** _onScreenTiles;
-		int** _level;
+			static unsigned int width;
+			static unsigned int height;
 
-		float* _vertexBufferData;
-		float* _uvBufferData;
-		unsigned int _vertexBufferID;
-		unsigned int _uvBufferID;
+			TileType tileType;
+			float* uvVertices;
+		};
 
-		unsigned int _levelWidth;
-		unsigned int _levelHeight;
-	
-		unsigned int _tilesRows;
-		unsigned int _tilesColumns;
-	
-		unsigned int _screenTilesRows;
-		unsigned int _screenTilesColumns;
+		class ENGINE_DECL_SPEC Tilemap : public Entity
+		{
+		private:
+			Texture* _texture;
+			Material* _material;
 
-		unsigned int _levelRows;
-		unsigned int _levelColumns;
+			Tile** _tiles;
+			Tile** _onScreenTiles;
+			int** _level;
 
-		float _lastRowOffset;
-		float _lastColumnOffset;
+			float* _vertexBufferData;
+			float* _uvBufferData;
+			unsigned int _vertexBufferID;
+			unsigned int _uvBufferID;
 
-		glm::vec2 _accumTrans;
+			unsigned int _levelWidth;
+			unsigned int _levelHeight;
 
-		int** loadLevelCSV(const std::string& levelPath);
-		Tile** loadTiles(unsigned int rows, unsigned int columns, int tileWidth, int tileHeight);
-	
-		Tile** createOnScreenTiles();
+			unsigned int _tilesRows;
+			unsigned int _tilesColumns;
 
-		float* setScreenTilesVertices(int totalTiles) const;
-		float* createUvBuffer() const;
-	
-	public:
-		Tilemap(Renderer* renderer, const std::string& tilesetPath, const std::string& levelPath,
+			unsigned int _screenTilesRows;
+			unsigned int _screenTilesColumns;
+
+			unsigned int _levelRows;
+			unsigned int _levelColumns;
+
+			float _lastRowOffset;
+			float _lastColumnOffset;
+
+			glm::vec2 _accumTrans;
+
+			int** loadLevelCSV(const std::string& levelPath);
+			Tile** loadTiles(unsigned int rows, unsigned int columns, int tileWidth, int tileHeight);
+
+			Tile** createOnScreenTiles();
+
+			float* setScreenTilesVertices(int totalTiles) const;
+			float* createUvBuffer() const;
+
+		public:
+			Tilemap(Renderer* renderer, const std::string& tilesetPath, const std::string& levelPath,
 				int levelWidth, int levelHeight, int tileWidth, int tileHeight, unsigned int tilesetRows, unsigned int tilesetColumns);
-		~Tilemap();
+			~Tilemap();
 
-		void setTileProperty(unsigned int tyleIndex, TileType tileType);
+			void setTileProperty(unsigned int tyleIndex, TileType tileType);
 
-		void updateVerticesUV();
-	
-		void scrollView(float x, float y);
+			void updateVerticesUV();
 
-		void dispose();
-	
-		void draw() const;
+			void scrollView(float x, float y);
 
-		Tile getTile(unsigned int tileIndex) const;
-		TileType getTileType(unsigned int row, unsigned int column) const;
+			void dispose();
 
-		glm::vec2 worldToGrid(float posX, float posY) const;
-		glm::vec2 gridToWorld(unsigned int row, unsigned int col) const;
+			void draw() const;
 
-		float getLastRowOffset() const { return _lastRowOffset; }
-		float getLastColumnOffset() const { return _lastColumnOffset; }
-	};
+			Tile getTile(unsigned int tileIndex) const;
+			TileType getTileType(unsigned int row, unsigned int column) const;
+
+			glm::vec2 worldToGrid(float posX, float posY) const;
+			glm::vec2 gridToWorld(unsigned int row, unsigned int col) const;
+
+			float getLastRowOffset() const { return _lastRowOffset; }
+			float getLastColumnOffset() const { return _lastColumnOffset; }
+		};
+	}
 }

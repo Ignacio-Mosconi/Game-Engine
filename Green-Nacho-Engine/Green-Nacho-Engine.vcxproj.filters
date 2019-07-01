@@ -195,9 +195,6 @@
     <ClInclude Include="MeshRenderer.h">
       <Filter>Header Files\Scene Graph\Components</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>Header Files\Engine Logic\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicsManager.h">
       <Filter>Header Files\Engine Logic\Engine</Filter>
     </ClInclude>
@@ -209,6 +206,9 @@
     </ClInclude>
     <ClInclude Include="CapsuleCollider.h">
       <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Header Files\Engine Logic\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -296,9 +296,6 @@
     <ClCompile Include="MeshRenderer.cpp">
       <Filter>Source Files\Scene Graph\Components</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Source Files\Engine Logic\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicsManager.cpp">
       <Filter>Source Files\Engine Logic\Engine</Filter>
     </ClCompile>
@@ -310,6 +307,9 @@
     </ClCompile>
     <ClCompile Include="CapsuleCollider.cpp">
       <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files\Engine Logic\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

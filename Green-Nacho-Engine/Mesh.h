@@ -6,24 +6,27 @@
 
 namespace gn
 {
-	class ENGINE_DECL_SPEC Mesh : public Shape
+	namespace legacy
 	{
-	protected:
-		std::vector<unsigned int> _indexBufferData;
+		class ENGINE_DECL_SPEC Mesh : public Shape
+		{
+		protected:
+			std::vector<unsigned int> _indexBufferData;
 
-		unsigned int _indexBufferID;
+			unsigned int _indexBufferID;
 
-		virtual bool create(unsigned int vertexCount, float* colorBufferData = NULL) override;
-		
-		virtual float* generateVertexBufferData() const = 0;
-		virtual std::vector<unsigned int> generateIndexBufferData() const = 0;
+			virtual bool create(unsigned int vertexCount, float* colorBufferData = NULL) override;
 
-	public:
-		Mesh(Renderer* renderer, Material* material);
-		virtual ~Mesh();
+			virtual float* generateVertexBufferData() const = 0;
+			virtual std::vector<unsigned int> generateIndexBufferData() const = 0;
 
-		virtual void dispose() override;
+		public:
+			Mesh(Renderer* renderer, Material* material);
+			virtual ~Mesh();
 
-		virtual void draw() const = 0;
-	};
+			virtual void dispose() override;
+
+			virtual void draw() const = 0;
+		};
+	}
 }

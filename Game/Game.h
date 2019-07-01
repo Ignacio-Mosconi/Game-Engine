@@ -18,7 +18,7 @@
 class Game : public gn::GameBase
 {
 private:
-	gn::NavigationCamera* _navCamera;
+	gn::legacy::NavigationCamera* _navCamera;
 
 	gn::GameObject* _model1;
 	gn::GameObject* _model2;

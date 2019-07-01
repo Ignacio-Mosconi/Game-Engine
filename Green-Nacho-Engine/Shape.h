@@ -5,33 +5,37 @@
 namespace gn
 {
 	class Material;
-/*
-	It consists of the base class for many of the entities that will be actually drawn to the screen.
-*/
-	class ENGINE_DECL_SPEC Shape : public Entity
+
+	namespace legacy
 	{
-	protected:
-		Material* _material;
-	
-		float* _vertexBufferData;
-		float* _colorBufferData;
-	
-		unsigned int _vertexBufferID;
-		unsigned int _colorBufferID;
+/*
+		It consists of the base class for many of the entities that will be actually drawn to the screen.
+*/
+		class ENGINE_DECL_SPEC Shape : public Entity
+		{
+		protected:
+			Material* _material;
 
-		virtual bool create(unsigned int vertexCount, float* colorBufferData = NULL);
+			float* _vertexBufferData;
+			float* _colorBufferData;
 
-		virtual float* generateVertexBufferData() const = 0;
-		virtual float* generateColorBufferData(float* colorBufferData, unsigned int vertexCount) const;
+			unsigned int _vertexBufferID;
+			unsigned int _colorBufferID;
 
-	public:
-		Shape(Renderer* renderer, Material* material);
-		virtual ~Shape();
+			virtual bool create(unsigned int vertexCount, float* colorBufferData = NULL);
 
-		virtual void dispose();
+			virtual float* generateVertexBufferData() const = 0;
+			virtual float* generateColorBufferData(float* colorBufferData, unsigned int vertexCount) const;
 
-		virtual void draw() const = 0;
+		public:
+			Shape(Renderer* renderer, Material* material);
+			virtual ~Shape();
 
-		inline Material* getMaterial() const { return _material;  }
-	};
+			virtual void dispose();
+
+			virtual void draw() const = 0;
+
+			inline Material* getMaterial() const { return _material; }
+		};
+	}
 }

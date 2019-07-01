@@ -8,37 +8,40 @@
 
 namespace gn
 {
-	struct ModelMeshVertex
+	namespace legacy
 	{
-		glm::vec3 position;
-		glm::vec2 normal;
-		glm::vec2 uvCoordinates;
-	};
+		struct ModelMeshVertex
+		{
+			glm::vec3 position;
+			glm::vec2 normal;
+			glm::vec2 uvCoordinates;
+		};
 
-	class ENGINE_DECL_SPEC ModelMesh : public Mesh
-	{
-	private:
-		std::vector<ModelMeshVertex> _vertices;
-		std::vector<unsigned int> _indexes;
+		class ENGINE_DECL_SPEC ModelMesh : public Mesh
+		{
+		private:
+			std::vector<ModelMeshVertex> _vertices;
+			std::vector<unsigned int> _indexes;
 
-	protected:
-		float* _uvBufferData;
+		protected:
+			float* _uvBufferData;
 
-		unsigned int _uvBufferID;
+			unsigned int _uvBufferID;
 
-		bool create(unsigned int vertexCount, float* colorBufferData = NULL) override;
+			bool create(unsigned int vertexCount, float* colorBufferData = NULL) override;
 
-		float* generateVertexBufferData() const override;
-		float* generateUVBufferData() const;
-		std::vector<unsigned int> generateIndexBufferData() const override;
+			float* generateVertexBufferData() const override;
+			float* generateUVBufferData() const;
+			std::vector<unsigned int> generateIndexBufferData() const override;
 
-	public:
-		ModelMesh(Renderer* renderer, Material* material, std::vector<ModelMeshVertex>& vertices, 
-					std::vector<unsigned int>& indexes);
-		~ModelMesh();
+		public:
+			ModelMesh(Renderer* renderer, Material* material, std::vector<ModelMeshVertex>& vertices,
+				std::vector<unsigned int>& indexes);
+			~ModelMesh();
 
-		void dispose() override;
+			void dispose() override;
 
-		void draw() const override;
-	};
+			void draw() const override;
+		};
+	}
 }

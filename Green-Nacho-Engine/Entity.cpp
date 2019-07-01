@@ -3,98 +3,101 @@
 
 namespace gn
 {
-	Entity::Entity(Renderer* renderer) :
-	_renderer(renderer),
-	_position(glm::vec3(0, 0, 0)), _rotation(glm::vec3(0, 0, 0)), _scale(glm::vec3(1.0f, 1.0f, 1.0f)),
-	_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f)), _modelMatrix(glm::mat4(1.0f))
+	namespace legacy
 	{
-		updateModelMatrix();
-	}	
-	
-	Entity::Entity(Renderer* renderer, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) :
-	_renderer(renderer),
-	_position(position), _rotation(rotation), _scale(scale),
-	_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f)), _modelMatrix(glm::mat4(1.0f))
-	{
-		updateModelMatrix();
-	}
+		Entity::Entity(Renderer* renderer) :
+			_renderer(renderer),
+			_position(glm::vec3(0, 0, 0)), _rotation(glm::vec3(0, 0, 0)), _scale(glm::vec3(1.0f, 1.0f, 1.0f)),
+			_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f)), _modelMatrix(glm::mat4(1.0f))
+		{
+			updateModelMatrix();
+		}
 
-	Entity::~Entity()
-	{
+		Entity::Entity(Renderer* renderer, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) :
+			_renderer(renderer),
+			_position(position), _rotation(rotation), _scale(scale),
+			_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f)), _modelMatrix(glm::mat4(1.0f))
+		{
+			updateModelMatrix();
+		}
 
-	}
+		Entity::~Entity()
+		{
 
-	void Entity::updateModelMatrix()
-	{
-		_modelMatrix = _traMatrix * _rotMatrix * _scaMatrix;
-	}
+		}
 
-	void Entity::setPosition(float x, float y, float z)
-	{
-		_position = glm::vec3(x, y, z);
-	
-		_traMatrix = glm::translate(glm::mat4(1.0f), _position);
+		void Entity::updateModelMatrix()
+		{
+			_modelMatrix = _traMatrix * _rotMatrix * _scaMatrix;
+		}
 
-		updateModelMatrix();
-	}
+		void Entity::setPosition(float x, float y, float z)
+		{
+			_position = glm::vec3(x, y, z);
 
-	void Entity::setRotation(float x, float y, float z)
-	{
-		_rotation = glm::vec3(x, y, z);
+			_traMatrix = glm::translate(glm::mat4(1.0f), _position);
 
-		glm::mat4 rotationX = glm::rotate(glm::mat4(1.0f), x, glm::vec3(1, 0, 0));
-		glm::mat4 rotationY = glm::rotate(glm::mat4(1.0f), y, glm::vec3(0, 1, 0));
-		glm::mat4 rotationZ = glm::rotate(glm::mat4(1.0f), z, glm::vec3(0, 0, 1));
+			updateModelMatrix();
+		}
 
-		_rotMatrix = rotationX * rotationY * rotationZ;
+		void Entity::setRotation(float x, float y, float z)
+		{
+			_rotation = glm::vec3(x, y, z);
 
-		updateModelMatrix();
-	}
+			glm::mat4 rotationX = glm::rotate(glm::mat4(1.0f), x, glm::vec3(1, 0, 0));
+			glm::mat4 rotationY = glm::rotate(glm::mat4(1.0f), y, glm::vec3(0, 1, 0));
+			glm::mat4 rotationZ = glm::rotate(glm::mat4(1.0f), z, glm::vec3(0, 0, 1));
 
-	void Entity::setScale(float x, float y, float z)
-	{
-		_scale = glm::vec3(x, y, z);
+			_rotMatrix = rotationX * rotationY * rotationZ;
 
-		_scaMatrix = glm::scale(glm::mat4(1.0f), _scale);
+			updateModelMatrix();
+		}
 
-		updateModelMatrix();
-	}
+		void Entity::setScale(float x, float y, float z)
+		{
+			_scale = glm::vec3(x, y, z);
 
-	void Entity::translate(float x, float y, float z)
-	{
-		_position += glm::vec3(x, y, z);
+			_scaMatrix = glm::scale(glm::mat4(1.0f), _scale);
 
-		_traMatrix = glm::translate(glm::mat4(1.0f), _position);
+			updateModelMatrix();
+		}
 
-		updateModelMatrix();
-	}
+		void Entity::translate(float x, float y, float z)
+		{
+			_position += glm::vec3(x, y, z);
 
-	void Entity::rotate(float x, float y, float z)
-	{
-		_rotation += glm::vec3(x, y, z);
+			_traMatrix = glm::translate(glm::mat4(1.0f), _position);
 
-		if (_rotation.x < 0 || _rotation.x > FULL_ROTATION)
-			_rotation.x = glm::abs(FULL_ROTATION - glm::abs(_rotation.x));		
-		if (_rotation.y < 0 || _rotation.y > FULL_ROTATION)
-			_rotation.y = glm::abs(FULL_ROTATION - glm::abs(_rotation.y));		
-		if (_rotation.z < 0 || _rotation.z > FULL_ROTATION)
-			_rotation.z = glm::abs(FULL_ROTATION - glm::abs(_rotation.z));
+			updateModelMatrix();
+		}
 
-		glm::mat4 rotationX = glm::rotate(glm::mat4(1.0f), _rotation.x, glm::vec3(1, 0, 0));
-		glm::mat4 rotationY = glm::rotate(glm::mat4(1.0f), _rotation.y, glm::vec3(0, 1, 0));
-		glm::mat4 rotationZ = glm::rotate(glm::mat4(1.0f), _rotation.z, glm::vec3(0, 0, 1));
+		void Entity::rotate(float x, float y, float z)
+		{
+			_rotation += glm::vec3(x, y, z);
 
-		_rotMatrix = rotationX * rotationY * rotationZ;
+			if (_rotation.x < 0 || _rotation.x > FULL_ROTATION)
+				_rotation.x = glm::abs(FULL_ROTATION - glm::abs(_rotation.x));
+			if (_rotation.y < 0 || _rotation.y > FULL_ROTATION)
+				_rotation.y = glm::abs(FULL_ROTATION - glm::abs(_rotation.y));
+			if (_rotation.z < 0 || _rotation.z > FULL_ROTATION)
+				_rotation.z = glm::abs(FULL_ROTATION - glm::abs(_rotation.z));
 
-		updateModelMatrix();
-	}
+			glm::mat4 rotationX = glm::rotate(glm::mat4(1.0f), _rotation.x, glm::vec3(1, 0, 0));
+			glm::mat4 rotationY = glm::rotate(glm::mat4(1.0f), _rotation.y, glm::vec3(0, 1, 0));
+			glm::mat4 rotationZ = glm::rotate(glm::mat4(1.0f), _rotation.z, glm::vec3(0, 0, 1));
 
-	void Entity::scale(float x, float y, float z)
-	{
-		_scale += glm::vec3(x, y, z);
+			_rotMatrix = rotationX * rotationY * rotationZ;
 
-		_scaMatrix = glm::scale(glm::mat4(1.0f), _scale);
+			updateModelMatrix();
+		}
 
-		updateModelMatrix();
+		void Entity::scale(float x, float y, float z)
+		{
+			_scale += glm::vec3(x, y, z);
+
+			_scaMatrix = glm::scale(glm::mat4(1.0f), _scale);
+
+			updateModelMatrix();
+		}
 	}
 }

@@ -16,7 +16,7 @@ bool Game::onStart()
 {
 	_scene = new GameObject(_renderer);
 
-	_navCamera = new NavigationCamera(_renderer);
+	_navCamera = new legacy::NavigationCamera(_renderer);
 
 	_model1 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
 	_model2 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);

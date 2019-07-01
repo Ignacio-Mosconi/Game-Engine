@@ -4,22 +4,25 @@
 
 namespace gn
 {
-/*
-	A "Shape" that represents a triangle; it is a really simple "Entity", with only three verices.
-*/
-	class ENGINE_DECL_SPEC Triangle : public Shape
+	namespace legacy
 	{
-	private:
-		float _base;
-		float _height;
+/*
+		A "Shape" that represents a triangle; it is a really simple "Entity", with only three verices.
+*/
+		class ENGINE_DECL_SPEC Triangle : public Shape
+		{
+		private:
+			float _base;
+			float _height;
 
-	protected:
-		float* generateVertexBufferData() const override;
+		protected:
+			float* generateVertexBufferData() const override;
 
-	public:
-		Triangle(Renderer* renderer, Material* material, float base = 1.0f, float height = 1.0f, float* colorBufferData = NULL);
-		~Triangle();
+		public:
+			Triangle(Renderer* renderer, Material* material, float base = 1.0f, float height = 1.0f, float* colorBufferData = NULL);
+			~Triangle();
 
-		void draw() const override;
-	};
+			void draw() const override;
+		};
+	}
 }
