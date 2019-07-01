@@ -45,6 +45,8 @@ namespace gn
 		void setRotation(float x, float y, float z);
 		void setScale(float x, float y, float z);
 
+		void setUp(glm::vec3 up);
+
 		static void convertToEulerAngles(const glm::vec4& quaternion, float& pitch, float& yaw, float& roll);
 		static glm::vec4 convertToQuaternion(float pitch, float yaw, float roll);
 

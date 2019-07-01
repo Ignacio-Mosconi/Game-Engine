@@ -39,9 +39,9 @@ namespace gn
 
 	void Transform::updateDirectionVectors()
 	{
-		glm::vec4 forward(_forward.x, _forward.y, _forward.z, 0.0f);
-		glm::vec4 right(_right.x, _right.y, _right.z, 0.0f);
-		glm::vec4 up(_up.x, _up.y, _up.z, 0.0f);
+		glm::vec4 forward(0.0f, 0.0f, 1.0f, 0.0f);
+		glm::vec4 right(1.0f, 0.0f, 0.0f, 0.0f);
+		glm::vec4 up(0.0f, 1.0f, 0.0f, 0.0f);
 
 		_forward = glm::normalize((glm::vec3)(forward * _rotMatrix));
 		_right = glm::normalize((glm::vec3)(right * _rotMatrix));
@@ -99,8 +99,7 @@ namespace gn
 	{
 		_rotation = glm::vec3(x, y, z);
 
-		clampEulerRotation();
-		
+		clampEulerRotation();	
 		updateRotationMatrix();
 		updateDirectionVectors();
 
@@ -113,6 +112,11 @@ namespace gn
 		_scaMatrix = glm::scale(glm::mat4(1.0f), _scale);
 
 		updateModelMatrix();
+	}
+
+	void Transform::setUp(glm::vec3 up)
+	{
+		_up = up;
 	}
 
 	void Transform::convertToEulerAngles(const glm::vec4& quaternion, float& pitch, float& yaw, float& roll)

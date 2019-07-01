@@ -28,7 +28,7 @@ namespace gn
 
 		void update(float deltaTime) override;
 
-		void activate(Transform* transform, float movementSpeed = 10.0f, float rotationSpeed = 10.0f);
+		void activate(Transform* transform, float movementSpeed = 10.0f, float rotationSpeed = 100.0f);
 		void deactivate();
 	};
 }

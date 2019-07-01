@@ -70,7 +70,7 @@ namespace gn
 		}
 		else
 		{
-			delta = _lastMousePosition.y - _currentMousePosition.y;
+			delta = _currentMousePosition.y - _lastMousePosition.y;
 			if (delta != 0.0f)
 			{
 				value = glm::log2(1.0f + glm::abs(delta) / _window->getHeight());;

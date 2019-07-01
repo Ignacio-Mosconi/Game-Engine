@@ -20,7 +20,7 @@ bool Game::onStart()
 	Camera* cam = (Camera*)_cameraController->addComponent(ComponentID::Camera);
 	cam->activate(_renderer, _cameraController->getTransform());
 	NavigationController* navCont = (NavigationController*)_cameraController->addComponent(ComponentID::NavigationController);
-	navCont->activate(_cameraController->getTransform(), 10.0f, 7.0f);
+	navCont->activate(_cameraController->getTransform());
 
 	_model1 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
 	_model2 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);

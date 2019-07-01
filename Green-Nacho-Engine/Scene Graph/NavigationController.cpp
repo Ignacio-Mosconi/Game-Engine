@@ -76,12 +76,12 @@ namespace gn
 		if (inputManager->getKey(Key::E_KEY))
 			move(MoveDir::DOWN, _movementSpeed * deltaTime);
 
-		float horRotation = inputManager->getAxis(InputAxis::HORIZONTAL) * 0.1f * deltaTime;
-		float verRotation = inputManager->getAxis(InputAxis::VERTICAL) * 0.1f * deltaTime;
+		float horRotation = inputManager->getAxis(InputAxis::HORIZONTAL) * _rotationSpeed * deltaTime;
+		float verRotation = inputManager->getAxis(InputAxis::VERTICAL) * _rotationSpeed * deltaTime;
 
 		_transform->rotate(verRotation, horRotation, 0.0f);
 
-		//_up = glm::vec3(0.0f, 1.0f, 0.0f);
+		_transform->setUp(glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 
 	void NavigationController::activate(Transform* transform, float movementSpeed, float rotationSpeed)
