@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>ENGINE_EXPORT;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName);$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\PhysX-4.1\include</AdditionalIncludeDirectories>
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
@@ -113,7 +113,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>ENGINE_EXPORT;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\PhysX-4.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName);$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\PhysX-4.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\glfw-3.3\libs\x64;$(SolutionDir)Dependencies\glew-2.1.0\libs\x64;$(SolutionDir)Dependencies\assimp-4.1.0\libs\x64;$(SolutionDir)Dependencies\SOIL\libs\x64;$(SolutionDir)Dependencies\PhysX-4.1\libs\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -135,7 +135,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>ENGINE_EXPORT;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName);$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\PhysX-4.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -158,7 +158,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>ENGINE_EXPORT;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\PhysX-4.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName);$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\PhysX-4.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -173,77 +173,77 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="CapsuleCollider.h" />
-    <ClInclude Include="Collider.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="Cube.h" />
-    <ClInclude Include="EngineConstants.h" />
-    <ClInclude Include="Enums.h" />
-    <ClInclude Include="GameEntity2D.h" />
-    <ClInclude Include="BoundingBox.h" />
-    <ClInclude Include="Circle.h" />
-    <ClInclude Include="CollisionManager.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="Exports.h" />
-    <ClInclude Include="GameBase.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="InputManager.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="MeshRenderer.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="ModelLoader.h" />
-    <ClInclude Include="ModelMesh.h" />
-    <ClInclude Include="NavigationCamera.h" />
-    <ClInclude Include="PhysicsManager.h" />
-    <ClInclude Include="Rectangle.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="RigidBody.h" />
-    <ClInclude Include="Shape.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="SpriteRenderer.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Tilemap.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="Triangle.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Core\EngineConstants.h" />
+    <ClInclude Include="Core\Enums.h" />
+    <ClInclude Include="Core\Exports.h" />
+    <ClInclude Include="Core\GameBase.h" />
+    <ClInclude Include="Core\InputManager.h" />
+    <ClInclude Include="Core\Material.h" />
+    <ClInclude Include="Core\PhysicsManager.h" />
+    <ClInclude Include="Core\Renderer.h" />
+    <ClInclude Include="Core\Texture.h" />
+    <ClInclude Include="Core\Window.h" />
+    <ClInclude Include="Legacy\Animation.h" />
+    <ClInclude Include="Legacy\BoundingBox.h" />
+    <ClInclude Include="Legacy\Camera.h" />
+    <ClInclude Include="Legacy\Circle.h" />
+    <ClInclude Include="Legacy\CollisionManager.h" />
+    <ClInclude Include="Legacy\Cube.h" />
+    <ClInclude Include="Legacy\Entity.h" />
+    <ClInclude Include="Legacy\GameEntity2D.h" />
+    <ClInclude Include="Legacy\Mesh.h" />
+    <ClInclude Include="Legacy\Model.h" />
+    <ClInclude Include="Legacy\ModelMesh.h" />
+    <ClInclude Include="Legacy\NavigationCamera.h" />
+    <ClInclude Include="Legacy\Rectangle.h" />
+    <ClInclude Include="Legacy\Shape.h" />
+    <ClInclude Include="Legacy\Sprite.h" />
+    <ClInclude Include="Legacy\Tilemap.h" />
+    <ClInclude Include="Legacy\Triangle.h" />
+    <ClInclude Include="Scene Graph\CapsuleCollider.h" />
+    <ClInclude Include="Scene Graph\Collider.h" />
+    <ClInclude Include="Scene Graph\Component.h" />
+    <ClInclude Include="Scene Graph\GameObject.h" />
+    <ClInclude Include="Scene Graph\MeshRenderer.h" />
+    <ClInclude Include="Scene Graph\ModelLoader.h" />
+    <ClInclude Include="Scene Graph\RigidBody.h" />
+    <ClInclude Include="Scene Graph\SpriteRenderer.h" />
+    <ClInclude Include="Scene Graph\Transform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CapsuleCollider.cpp" />
-    <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Cube.cpp" />
-    <ClCompile Include="GameEntity2D.cpp" />
-    <ClCompile Include="BoundingBox.cpp" />
-    <ClCompile Include="Circle.cpp" />
-    <ClCompile Include="CollisionManager.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="GameBase.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="MeshRenderer.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="ModelLoader.cpp" />
-    <ClCompile Include="ModelMesh.cpp" />
-    <ClCompile Include="NavigationCamera.cpp" />
-    <ClCompile Include="PhysicsManager.cpp" />
-    <ClCompile Include="Rectangle.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="RigidBody.cpp" />
-    <ClCompile Include="Shape.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SpriteRenderer.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Tilemap.cpp" />
-    <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="Triangle.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Core\GameBase.cpp" />
+    <ClCompile Include="Core\InputManager.cpp" />
+    <ClCompile Include="Core\Material.cpp" />
+    <ClCompile Include="Core\PhysicsManager.cpp" />
+    <ClCompile Include="Core\Renderer.cpp" />
+    <ClCompile Include="Core\Texture.cpp" />
+    <ClCompile Include="Core\Window.cpp" />
+    <ClCompile Include="Legacy\Animation.cpp" />
+    <ClCompile Include="Legacy\BoundingBox.cpp" />
+    <ClCompile Include="Legacy\Camera.cpp" />
+    <ClCompile Include="Legacy\Circle.cpp" />
+    <ClCompile Include="Legacy\CollisionManager.cpp" />
+    <ClCompile Include="Legacy\Cube.cpp" />
+    <ClCompile Include="Legacy\Entity.cpp" />
+    <ClCompile Include="Legacy\GameEntity2D.cpp" />
+    <ClCompile Include="Legacy\Mesh.cpp" />
+    <ClCompile Include="Legacy\Model.cpp" />
+    <ClCompile Include="Legacy\ModelMesh.cpp" />
+    <ClCompile Include="Legacy\NavigationCamera.cpp" />
+    <ClCompile Include="Legacy\Rectangle.cpp" />
+    <ClCompile Include="Legacy\Shape.cpp" />
+    <ClCompile Include="Legacy\Sprite.cpp" />
+    <ClCompile Include="Legacy\Tilemap.cpp" />
+    <ClCompile Include="Legacy\Triangle.cpp" />
+    <ClCompile Include="Scene Graph\CapsuleCollider.cpp" />
+    <ClCompile Include="Scene Graph\Collider.cpp" />
+    <ClCompile Include="Scene Graph\Component.cpp" />
+    <ClCompile Include="Scene Graph\GameObject.cpp" />
+    <ClCompile Include="Scene Graph\MeshRenderer.cpp" />
+    <ClCompile Include="Scene Graph\ModelLoader.cpp" />
+    <ClCompile Include="Scene Graph\RigidBody.cpp" />
+    <ClCompile Include="Scene Graph\SpriteRenderer.cpp" />
+    <ClCompile Include="Scene Graph\Transform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

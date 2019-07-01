@@ -1,18 +1,18 @@
 #pragma once
 
 #include <iostream>
-#include "GameBase.h"
-#include "Window.h"
-#include "Renderer.h"
-#include "NavigationCamera.h"
-#include "GameObject.h"
-#include "Transform.h"
-#include "SpriteRenderer.h"
-#include "MeshRenderer.h"
-#include "RigidBody.h"
-#include "ModelLoader.h"
-#include "CapsuleCollider.h"
-#include "EngineConstants.h"
+#include "Core/EngineConstants.h"
+#include "Core/GameBase.h"
+#include "Core/Window.h"
+#include "Core/Renderer.h"
+#include "Legacy/NavigationCamera.h"
+#include "Scene Graph/GameObject.h"
+#include "Scene Graph/Transform.h"
+#include "Scene Graph/SpriteRenderer.h"
+#include "Scene Graph/MeshRenderer.h"
+#include "Scene Graph/RigidBody.h"
+#include "Scene Graph/ModelLoader.h"
+#include "Scene Graph/CapsuleCollider.h"
 #include "GameConstants.h"
 
 class Game : public gn::GameBase

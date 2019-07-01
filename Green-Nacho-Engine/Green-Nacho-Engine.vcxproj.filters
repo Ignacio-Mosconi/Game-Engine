@@ -102,214 +102,214 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Exports.h">
+    <ClInclude Include="Core\EngineConstants.h">
       <Filter>Header Files\Definitions</Filter>
     </ClInclude>
-    <ClInclude Include="EngineConstants.h">
+    <ClInclude Include="Core\Enums.h">
       <Filter>Header Files\Definitions</Filter>
     </ClInclude>
-    <ClInclude Include="Enums.h">
+    <ClInclude Include="Core\Exports.h">
       <Filter>Header Files\Definitions</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Header Files\Engine Logic\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="BoundingBox.h">
-      <Filter>Header Files\Engine Logic\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files\Entities\Base Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Shape.h">
-      <Filter>Header Files\Entities\Base Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="Circle.h">
-      <Filter>Header Files\Entities\Entities 2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>Header Files\Entities\Entities 2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Header Files\Entities\Entities 2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Tilemap.h">
-      <Filter>Header Files\Entities\Entities 2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Triangle.h">
-      <Filter>Header Files\Entities\Entities 2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\Entities\Entities 3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Header Files\Entities\Entities 3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameBase.h">
+    <ClInclude Include="Core\GameBase.h">
       <Filter>Header Files\Engine Logic\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h">
+    <ClInclude Include="Core\InputManager.h">
       <Filter>Header Files\Engine Logic\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Material.h">
+    <ClInclude Include="Core\PhysicsManager.h">
+      <Filter>Header Files\Engine Logic\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Material.h">
       <Filter>Header Files\Rendering\Shading</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
+    <ClInclude Include="Core\Renderer.h">
+      <Filter>Header Files\Rendering\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Texture.h">
       <Filter>Header Files\Rendering\Shading</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h">
+    <ClInclude Include="Core\Window.h">
       <Filter>Header Files\Rendering\Context</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files\Rendering\Context</Filter>
+    <ClInclude Include="Legacy\Animation.h">
+      <Filter>Header Files\Engine Logic\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="GameEntity2D.h">
+    <ClInclude Include="Legacy\BoundingBox.h">
+      <Filter>Header Files\Engine Logic\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Legacy\CollisionManager.h">
+      <Filter>Header Files\Engine Logic\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Legacy\Entity.h">
       <Filter>Header Files\Entities\Base Classes</Filter>
     </ClInclude>
-    <ClInclude Include="NavigationCamera.h">
-      <Filter>Header Files\Entities\Entities 3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
+    <ClInclude Include="Legacy\GameEntity2D.h">
       <Filter>Header Files\Entities\Base Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
+    <ClInclude Include="Legacy\Shape.h">
+      <Filter>Header Files\Entities\Base Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Legacy\Circle.h">
+      <Filter>Header Files\Entities\Entities 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Legacy\Rectangle.h">
+      <Filter>Header Files\Entities\Entities 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Legacy\Sprite.h">
+      <Filter>Header Files\Entities\Entities 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Legacy\Tilemap.h">
+      <Filter>Header Files\Entities\Entities 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Legacy\Triangle.h">
+      <Filter>Header Files\Entities\Entities 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Legacy\Cube.h">
       <Filter>Header Files\Entities\Entities 3D</Filter>
     </ClInclude>
-    <ClInclude Include="ModelMesh.h">
+    <ClInclude Include="Legacy\Camera.h">
       <Filter>Header Files\Entities\Entities 3D</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Header Files\Scene Graph\Components</Filter>
+    <ClInclude Include="Legacy\Model.h">
+      <Filter>Header Files\Entities\Entities 3D</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Header Files\Scene Graph\Components</Filter>
+    <ClInclude Include="Legacy\ModelMesh.h">
+      <Filter>Header Files\Entities\Entities 3D</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
+    <ClInclude Include="Legacy\NavigationCamera.h">
+      <Filter>Header Files\Entities\Entities 3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene Graph\GameObject.h">
       <Filter>Header Files\Scene Graph\Base Classes</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="Scene Graph\Component.h">
       <Filter>Header Files\Scene Graph\Base Classes</Filter>
     </ClInclude>
-    <ClInclude Include="ModelLoader.h">
+    <ClInclude Include="Scene Graph\CapsuleCollider.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene Graph\Collider.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene Graph\RigidBody.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene Graph\MeshRenderer.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene Graph\SpriteRenderer.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene Graph\Transform.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene Graph\ModelLoader.h">
       <Filter>Header Files\Scene Graph\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="MeshRenderer.h">
-      <Filter>Header Files\Scene Graph\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsManager.h">
-      <Filter>Header Files\Engine Logic\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBody.h">
-      <Filter>Header Files\Scene Graph\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>Header Files\Scene Graph\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CapsuleCollider.h">
-      <Filter>Header Files\Scene Graph\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>Header Files\Engine Logic\Entities</Filter>
+    <ClInclude Include="Legacy\Mesh.h">
+      <Filter>Header Files\Entities\Base Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Entities\Base Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files\Engine Logic\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="BoundingBox.cpp">
-      <Filter>Source Files\Engine Logic\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Circle.cpp">
-      <Filter>Source Files\Entities\Entities 2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Rectangle.cpp">
-      <Filter>Source Files\Entities\Entities 2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Shape.cpp">
-      <Filter>Source Files\Entities\Base Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files\Entities\Entities 2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Triangle.cpp">
-      <Filter>Source Files\Entities\Entities 2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Tilemap.cpp">
-      <Filter>Source Files\Entities\Entities 2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files\Entities\Entities 3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Source Files\Entities\Entities 3D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameBase.cpp">
+    <ClCompile Include="Core\GameBase.cpp">
       <Filter>Source Files\Engine Logic\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp">
+    <ClCompile Include="Core\InputManager.cpp">
       <Filter>Source Files\Engine Logic\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Material.cpp">
+    <ClCompile Include="Core\Material.cpp">
       <Filter>Source Files\Rendering\Shading</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
+    <ClCompile Include="Core\PhysicsManager.cpp">
+      <Filter>Source Files\Engine Logic\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Renderer.cpp">
+      <Filter>Source Files\Rendering\Context</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Texture.cpp">
       <Filter>Source Files\Rendering\Shading</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
+    <ClCompile Include="Core\Window.cpp">
       <Filter>Source Files\Rendering\Context</Filter>
     </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Source Files\Rendering\Context</Filter>
+    <ClCompile Include="Legacy\Animation.cpp">
+      <Filter>Source Files\Engine Logic\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="GameEntity2D.cpp">
+    <ClCompile Include="Legacy\BoundingBox.cpp">
+      <Filter>Source Files\Engine Logic\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Legacy\CollisionManager.cpp">
+      <Filter>Source Files\Engine Logic\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Legacy\Entity.cpp">
       <Filter>Source Files\Entities\Base Classes</Filter>
     </ClCompile>
-    <ClCompile Include="NavigationCamera.cpp">
-      <Filter>Source Files\Entities\Entities 3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
+    <ClCompile Include="Legacy\GameEntity2D.cpp">
       <Filter>Source Files\Entities\Base Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
+    <ClCompile Include="Legacy\Shape.cpp">
+      <Filter>Source Files\Entities\Base Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Legacy\Circle.cpp">
+      <Filter>Source Files\Entities\Entities 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Legacy\Rectangle.cpp">
+      <Filter>Source Files\Entities\Entities 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Legacy\Sprite.cpp">
+      <Filter>Source Files\Entities\Entities 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Legacy\Tilemap.cpp">
+      <Filter>Source Files\Entities\Entities 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Legacy\Triangle.cpp">
+      <Filter>Source Files\Entities\Entities 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Legacy\Camera.cpp">
       <Filter>Source Files\Entities\Entities 3D</Filter>
     </ClCompile>
-    <ClCompile Include="ModelMesh.cpp">
+    <ClCompile Include="Legacy\Cube.cpp">
       <Filter>Source Files\Entities\Entities 3D</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Source Files\Scene Graph\Components</Filter>
+    <ClCompile Include="Legacy\Model.cpp">
+      <Filter>Source Files\Entities\Entities 3D</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Source Files\Scene Graph\Components</Filter>
+    <ClCompile Include="Legacy\ModelMesh.cpp">
+      <Filter>Source Files\Entities\Entities 3D</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="Legacy\NavigationCamera.cpp">
+      <Filter>Source Files\Entities\Entities 3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Legacy\Mesh.cpp">
+      <Filter>Source Files\Entities\Base Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene Graph\GameObject.cpp">
       <Filter>Source Files\Scene Graph\Base Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
+    <ClCompile Include="Scene Graph\Component.cpp">
       <Filter>Source Files\Scene Graph\Base Classes</Filter>
     </ClCompile>
-    <ClCompile Include="ModelLoader.cpp">
+    <ClCompile Include="Scene Graph\Transform.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene Graph\CapsuleCollider.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene Graph\Collider.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene Graph\MeshRenderer.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene Graph\RigidBody.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene Graph\SpriteRenderer.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene Graph\ModelLoader.cpp">
       <Filter>Source Files\Scene Graph\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshRenderer.cpp">
-      <Filter>Source Files\Scene Graph\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsManager.cpp">
-      <Filter>Source Files\Engine Logic\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBody.cpp">
-      <Filter>Source Files\Scene Graph\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>Source Files\Scene Graph\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="CapsuleCollider.cpp">
-      <Filter>Source Files\Scene Graph\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>Source Files\Engine Logic\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
