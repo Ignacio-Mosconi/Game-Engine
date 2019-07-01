@@ -94,6 +94,7 @@
       <PreprocessorDefinitions>ENGINE_EXPORT;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName);$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\PhysX-4.1\include</AdditionalIncludeDirectories>
       <WholeProgramOptimization>false</WholeProgramOptimization>
+      <ObjectFileName>$(IntDir)\%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\glfw-3.3\libs\x86;$(SolutionDir)Dependencies\glew-2.1.0\libs\x86;$(SolutionDir)Dependencies\assimp-4.1.0\libs\x86;$(SolutionDir)Dependencies\SOIL\libs\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -114,6 +115,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>ENGINE_EXPORT;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName);$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\PhysX-4.1\include</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)\%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\glfw-3.3\libs\x64;$(SolutionDir)Dependencies\glew-2.1.0\libs\x64;$(SolutionDir)Dependencies\assimp-4.1.0\libs\x64;$(SolutionDir)Dependencies\SOIL\libs\x64;$(SolutionDir)Dependencies\PhysX-4.1\libs\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -136,6 +138,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>ENGINE_EXPORT;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName);$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\PhysX-4.1\include</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)\%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -159,6 +162,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>ENGINE_EXPORT;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName);$(SolutionDir)Dependencies\glm-0.9.9.0;$(SolutionDir)Dependencies\glfw-3.3\include;$(SolutionDir)Dependencies\glew-2.1.0\include;$(SolutionDir)Dependencies\assimp-4.1.0\include;$(SolutionDir)Dependencies\SOIL\include;$(SolutionDir)Dependencies\PhysX-4.1\include</AdditionalIncludeDirectories>
+      <ObjectFileName>$(IntDir)\%(RelativeDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -200,6 +204,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
     <ClInclude Include="Legacy\Sprite.h" />
     <ClInclude Include="Legacy\Tilemap.h" />
     <ClInclude Include="Legacy\Triangle.h" />
+    <ClInclude Include="Scene Graph\Camera.h" />
     <ClInclude Include="Scene Graph\CapsuleCollider.h" />
     <ClInclude Include="Scene Graph\Collider.h" />
     <ClInclude Include="Scene Graph\Component.h" />
@@ -235,6 +240,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
     <ClCompile Include="Legacy\Sprite.cpp" />
     <ClCompile Include="Legacy\Tilemap.cpp" />
     <ClCompile Include="Legacy\Triangle.cpp" />
+    <ClCompile Include="Scene Graph\Camera.cpp" />
     <ClCompile Include="Scene Graph\CapsuleCollider.cpp" />
     <ClCompile Include="Scene Graph\Collider.cpp" />
     <ClCompile Include="Scene Graph\Component.cpp" />

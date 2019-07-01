@@ -31,13 +31,13 @@ namespace gn
 			virtual void translate(float x, float y, float z) override;
 			virtual void rotate(float x, float y, float z) override;
 
-			void advance(const float distance);
-			void strafe(const float distance);
-			void ascend(const float distance);
+			void advance(float distance);
+			void strafe(float distance);
+			void ascend(float distance);
 
-			void pitch(const float angle);
-			void yaw(const float angle);
-			void roll(const float angle);
+			void pitch(float angle);
+			void yaw(float angle);
+			void roll(float angle);
 		};
 	}
 }

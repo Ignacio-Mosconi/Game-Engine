@@ -60,28 +60,28 @@ namespace gn
 			updateRenderer();
 		}
 
-		void Camera::advance(const float distance)
+		void Camera::advance(float distance)
 		{
 			_position -= _forward * distance;
 
 			updateRenderer();
 		}
 
-		void Camera::strafe(const float distance)
+		void Camera::strafe(float distance)
 		{
 			_position += _right * distance;
 
 			updateRenderer();
 		}
 
-		void Camera::ascend(const float distance)
+		void Camera::ascend(float distance)
 		{
 			_position += _up * distance;
 
 			updateRenderer();
 		}
 
-		void Camera::pitch(const float angle)
+		void Camera::pitch(float angle)
 		{
 			float pitch = -glm::radians(angle);
 
@@ -93,7 +93,7 @@ namespace gn
 			updateRenderer();
 		}
 
-		void Camera::yaw(const float angle)
+		void Camera::yaw(float angle)
 		{
 			float yaw = -glm::radians(angle);
 
@@ -105,7 +105,7 @@ namespace gn
 			updateRenderer();
 		}
 
-		void Camera::roll(const float angle)
+		void Camera::roll(float angle)
 		{
 			float roll = -glm::radians(angle);
 

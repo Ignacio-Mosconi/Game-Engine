@@ -5,6 +5,7 @@ namespace gn
 {
 	Transform::Transform() : Component(ComponentID::Transform),
 		_position(glm::vec3(0.0f, 0.0f, 0.0f)), _rotation(glm::vec3(0.0f, 0.0f, 0.0f)), _scale(glm::vec3(1.0f, 1.0f, 1.0f)),
+		_forward(glm::vec3(0.0f, 0.0f, 1.0f)), _right(glm::vec3(1.0f, 0.0f, 0.0f)), _up(glm::vec3(0.0f, 1.0f, 0.0f)),
 		_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f))
 	{
 		updateModelMatrix();
@@ -58,6 +59,14 @@ namespace gn
 		glm::mat4 rotationZ = glm::rotate(glm::mat4(1.0f), glm::radians(_rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		_rotMatrix = rotationX * rotationY * rotationZ;
+
+		glm::vec4 forward(_forward.x, _forward.y, _forward.z, 0.0f);
+		glm::vec4 right(_right.x, _right.y, _right.z, 0.0f);
+		glm::vec4 up(_up.x, _up.y, _up.z, 0.0f);
+
+		_forward = glm::normalize((glm::vec3)(forward * _rotMatrix));
+		_right = glm::normalize((glm::vec3)(right * _rotMatrix));
+		_up = glm::normalize((glm::vec3)(right * _rotMatrix));
 
 		updateModelMatrix();
 	}

@@ -1,5 +1,6 @@
 #include "Scene Graph/Component.h"
 #include "Scene Graph/Transform.h"
+#include "Scene Graph/Camera.h"
 #include "Scene Graph/SpriteRenderer.h"
 #include "Scene Graph/MeshRenderer.h"
 #include "Scene Graph/CapsuleCollider.h"
@@ -39,7 +40,10 @@ namespace gn
 		{
 			case ComponentID::Transform:
 				component = new Transform();
-				break;			
+				break;
+			case ComponentID::Camera:
+				component = new Camera();
+				break;
 			case ComponentID::SpriteRenderer:
 				component = new SpriteRenderer();
 				break;			

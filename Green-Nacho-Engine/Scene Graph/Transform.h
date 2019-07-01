@@ -15,7 +15,11 @@ namespace gn
 	private:
 		glm::vec3 _position;
 		glm::vec3 _rotation;
-		glm::vec3 _scale;
+		glm::vec3 _scale;		
+		
+		glm::vec3 _forward;
+		glm::vec3 _right;
+		glm::vec3 _up;
 
 		glm::mat4 _traMatrix;
 		glm::mat4 _rotMatrix;
@@ -45,6 +49,10 @@ namespace gn
 		inline glm::vec3 getPosition() const { return _position; }
 		inline glm::vec3 getRotation() const { return _rotation; }
 		inline glm::vec3 getScale() const { return _scale; }
+		
+		inline glm::vec3 getForward() const { return _forward; }
+		inline glm::vec3 getRight() const { return _right; }
+		inline glm::vec3 getUp() const { return _up; }
 
 		inline glm::mat4 getModelMatrix() const { return _modelMatrix; }
 	};

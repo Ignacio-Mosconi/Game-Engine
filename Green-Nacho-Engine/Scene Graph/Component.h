@@ -8,6 +8,7 @@ namespace gn
 	enum class ComponentID
 	{
 		Transform,
+		Camera,
 		SpriteRenderer,
 		MeshRenderer,
 		CapsuleCollider,

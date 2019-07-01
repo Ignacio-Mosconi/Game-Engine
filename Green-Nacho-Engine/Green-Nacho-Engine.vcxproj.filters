@@ -210,6 +210,9 @@
     <ClInclude Include="Legacy\Mesh.h">
       <Filter>Header Files\Entities\Base Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Scene Graph\Camera.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\GameBase.cpp">
@@ -310,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="Scene Graph\ModelLoader.cpp">
       <Filter>Source Files\Scene Graph\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene Graph\Camera.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
