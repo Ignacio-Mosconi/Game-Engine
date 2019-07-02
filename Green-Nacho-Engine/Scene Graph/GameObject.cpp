@@ -6,11 +6,14 @@
 namespace gn
 {
 	GameObject::GameObject(Renderer* renderer, GameObject* parent):
-		_renderer(renderer), _transform(new Transform()),
+		_renderer(renderer), _transform(new Transform(this)), _parentTransform(NULL),
 		_components(new std::list<Component*>()), _children(new std::list<GameObject*>())
 	{
 		if (parent)
+		{
+			_parentTransform = parent->getTransform();
 			parent->addChild(this);
+		}
 	}
 
 	GameObject::~GameObject()
@@ -30,6 +33,9 @@ namespace gn
 
 	void GameObject::stop()
 	{
+		_renderer = NULL;
+		_parentTransform = NULL;
+
 		for (std::list<Component*>::iterator it = _components->begin(); it != _components->end(); it++)
 		{
 			(*it)->stop();
@@ -117,7 +123,7 @@ namespace gn
 		
 		if (it == _components->end())
 		{
-			component = Component::generateComponent(componentID);
+			component = Component::generateComponent(componentID, this);
 			_components->push_back(component);
 		}
 

@@ -1,10 +1,11 @@
 #include "Scene Graph/MeshRenderer.h"
 #include "Core/Renderer.h"
 #include "Core/Material.h"
+#include "Scene Graph/GameObject.h"
 
 namespace gn
 {
-	MeshRenderer::MeshRenderer() : Component(ComponentID::MeshRenderer),
+	MeshRenderer::MeshRenderer(GameObject* gameObject) : Component(ComponentID::MeshRenderer, gameObject),
 		_renderer(NULL), _diffuseTextures(NULL), _material(NULL),
 		_vertexBufferData(NULL), _uvBufferData(NULL), _indexBufferData(NULL),
 		_vertexBufferID(-1), _uvBufferID(-1), _indexBufferID(-1)
@@ -54,6 +55,8 @@ namespace gn
 		int vertexBufferSize = sizeof(float) * _vertexCount * VERTEX_COMPONENTS;
 		int uvBufferSize = sizeof(float) * _vertexCount * UV_COMPONENTS;
 		int indexBufferSize = sizeof(unsigned int) * (int)_indexBufferData.size();
+
+		_renderer = _gameObject->getRenderer();
 
 		_vertexBufferID = _renderer->generateVertexBuffer(_vertexBufferData, vertexBufferSize);
 		_uvBufferID = _renderer->generateVertexBuffer(_uvBufferData, uvBufferSize);
@@ -105,7 +108,7 @@ namespace gn
 		_renderer->disableAttribute(1);
 	}
 
-	void MeshRenderer::createMesh(Renderer* renderer, std::vector<MeshVertex> vertices, std::vector<unsigned int> indices,
+	void MeshRenderer::createMesh(std::vector<MeshVertex> vertices, std::vector<unsigned int> indices,
 									std::vector<Texture*> diffuseTextures)
 	{
 		std::vector<glm::vec3> positions;
@@ -123,8 +126,6 @@ namespace gn
 		_uvBufferData = generateUVBufferData(uvCoords);
 		
 		setIndexBufferData(indices);
-
-		_renderer = renderer;
 
 		if (diffuseTextures.size() > 0)
 		{

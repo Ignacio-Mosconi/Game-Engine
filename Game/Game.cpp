@@ -20,13 +20,11 @@ bool Game::onStart()
 	_model2 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
 	_model3 = ModelLoader::loadModel(_scene, AK_47_PATH, AK_47_TEXTURES);
 	
-	_cameraController = new GameObject(_renderer, _model1);
+	_cameraController = new GameObject(_renderer, _scene);
 	Camera* cam = (Camera*)_cameraController->addComponent(ComponentID::Camera);
-	cam->activate(_renderer, _cameraController->getTransform());
-	//NavigationController* navCont = (NavigationController*)_cameraController->addComponent(ComponentID::NavigationController);
-	//navCont->activate(_cameraController->getTransform());
+	NavigationController* navCont = (NavigationController*)_cameraController->addComponent(ComponentID::NavigationController);
+	navCont->setSpeeds(12.0f, 120.0f);
 
-	_cameraController->getTransform()->setPosition(0.0f, 0.0f, 30.0f);
 	_model1->getTransform()->setPosition(-10.0f, -10.0f, -10.0f);
 	_model2->getTransform()->setPosition(10.0f, -10.0f, -10.0f);
 	_model3->getTransform()->setPosition(0.0f, 0.0f, 0.0f);
@@ -37,11 +35,13 @@ bool Game::onStart()
 	cc2->createCapsule(2.5f, 6.0f);
 
 	RigidBody* rb1 = (RigidBody*)_model1->addComponent(ComponentID::RigidBody);
-	rb1->createRigidBody(_model1->getTransform(), cc1, true, 1.0f, glm::vec3(0.0f, 6.0f, 0.0f));	
+	rb1->createRigidBody(cc1, false, 1.0f, glm::vec3(0.0f, 6.0f, 0.0f));	
 	RigidBody* rb2 = (RigidBody*)_model2->addComponent(ComponentID::RigidBody);
-	rb2->createRigidBody(_model2->getTransform(), cc2, true, 1.0f, glm::vec3(0.0f, 6.0f, 0.0f));
+	rb2->createRigidBody(cc2, true, 1.0f, glm::vec3(0.0f, 6.0f, 0.0f));
 
 	_scene->start();
+
+	_cameraController->getTransform()->setPosition(0.0f, 10.0f, 30.0f);
 
 	return true;
 }
@@ -58,8 +58,6 @@ bool Game::onStop()
 bool Game::onUpdate(float deltaTime)
 {	
 	_scene->update(deltaTime);
-
-	std::cout << _cameraController->getTransform()->getPosition().y << std::endl;
 
 	return true;
 }

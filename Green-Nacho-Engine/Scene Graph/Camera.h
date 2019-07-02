@@ -1,11 +1,13 @@
 #pragma once
 
+#include <stack>
 #include "Core/Exports.h"
 #include "Scene Graph/Component.h"
 
 namespace gn
 {
 	class Renderer;
+	class GameObject;
 	class Transform;
 
 	class ENGINE_DECL_SPEC Camera : public Component
@@ -15,13 +17,11 @@ namespace gn
 		Transform* _transform;
 
 	public:
-		Camera();
+		Camera(GameObject* gameObject);
 		virtual ~Camera();
 
-		void update(float deltaTime) override;
+		void start() override;
 		void stop() override;
-
-		void activate(Renderer* renderer, Transform* transform);
-		void deactivate();
+		void update(float deltaTime) override;
 	};
 }

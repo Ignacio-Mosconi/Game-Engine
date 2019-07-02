@@ -45,14 +45,14 @@ namespace gn
 		void setIndexBufferData(std::vector<unsigned int> indices);
 	
 	public:
-		MeshRenderer();
+		MeshRenderer(GameObject* gameObject);
 		virtual ~MeshRenderer();
 
 		void start() override;
 		void stop() override;
 		void draw() const override;
 
-		void createMesh(Renderer* renderer, std::vector<MeshVertex> vertices, std::vector<unsigned int> indices, 
+		void createMesh(std::vector<MeshVertex> vertices, std::vector<unsigned int> indices, 
 						std::vector<Texture*> diffuseTextures);
 		void disposeMesh();
 	};

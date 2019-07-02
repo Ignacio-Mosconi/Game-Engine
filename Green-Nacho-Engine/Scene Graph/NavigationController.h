@@ -23,12 +23,13 @@ namespace gn
 		void move(MoveDir moveDir, float distance);
 
 	public:
-		NavigationController();
+		NavigationController(GameObject* gameObject);
 		virtual ~NavigationController();
 
+		void start() override;
+		void stop() override;
 		void update(float deltaTime) override;
 
-		void activate(Transform* transform, float movementSpeed = 10.0f, float rotationSpeed = 100.0f);
-		void deactivate();
+		void setSpeeds(float movementSpeed = 10.0f, float rotationSpeed = 100.0f);
 	};
 }

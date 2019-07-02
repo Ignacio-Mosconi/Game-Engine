@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable: 4251)
 
 #include "Core/Exports.h"
 #include "Scene Graph/Component.h"
@@ -27,15 +28,15 @@ namespace gn
 		glm::vec3 _colliderOffset;
 
 	public:
-		RigidBody();
+		RigidBody(GameObject* gameObject);
 		virtual ~RigidBody();
 
 		void start() override;
 		void stop() override;
 		void update(float deltaTime) override;
 
-		void createRigidBody(Transform* transform, Collider* collider, bool isStatic = false, float mass = 1.0f, 
-								glm::vec3 colliderOffset = glm::vec3(0.0f, 0.0f, 0.0f));
+		void createRigidBody(Collider* collider, bool isStatic = false, float mass = 1.0f, 
+							glm::vec3 colliderOffset = glm::vec3(0.0f, 0.0f, 0.0f));
 		void disposeRigidBody();
 	};
 }

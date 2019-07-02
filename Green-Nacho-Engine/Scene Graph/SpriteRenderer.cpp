@@ -1,10 +1,11 @@
 #include "Scene Graph/SpriteRenderer.h"
 #include "Core/Renderer.h"
 #include "Core/Material.h"
+#include "Scene Graph/GameObject.h"
 
 namespace gn
 {
-	SpriteRenderer::SpriteRenderer(): Component(ComponentID::SpriteRenderer),
+	SpriteRenderer::SpriteRenderer(GameObject* gameObject): Component(ComponentID::SpriteRenderer, gameObject),
 		_renderer(NULL), _texture(NULL), _material(NULL),
 		_vertexBufferData(NULL), _uvBufferData(NULL),
 		_vertexBufferID(-1), _uvBufferID(-1),
@@ -57,6 +58,8 @@ namespace gn
 		int vertexBufferSize = sizeof(float) * RECTANGLE_VERTICES * VERTEX_COMPONENTS;
 		int uvBufferSize = sizeof(float) * RECTANGLE_VERTICES * UV_COMPONENTS;
 
+		_renderer = _gameObject->getRenderer();
+
 		_vertexBufferData = generateVertexBufferData();
 		_uvBufferData = generateUVBufferData(0.0f, 0.0f);
 
@@ -103,14 +106,12 @@ namespace gn
 		_renderer->disableBlend();
 	}
 
-	void SpriteRenderer::createSprite(Renderer* renderer, const std::string& spritePath, 
-										unsigned int rows, unsigned int columns)
+	void SpriteRenderer::createSprite(const std::string& spritePath, unsigned int rows, unsigned int columns)
 	{
 		_material = Material::generateMaterial(TEXTURE_VERTEX_SHADER_PATH, TEXTURE_PIXEL_SHADER_PATH);
 		_texture = Texture::generateTextureBMP(spritePath);
 		_material->setTexture(_texture, "textureSampler");
 		
-		_renderer = renderer;
 		_rows = rows;
 		_columns = columns;
 		_frameWidth = (float)(_texture->getWidth() / _columns);

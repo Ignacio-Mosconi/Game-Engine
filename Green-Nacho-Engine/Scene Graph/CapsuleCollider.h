@@ -8,7 +8,7 @@ namespace gn
 	class ENGINE_DECL_SPEC CapsuleCollider : public Collider
 	{
 	public:
-		CapsuleCollider();
+		CapsuleCollider(GameObject* gameObject);
 		~CapsuleCollider();
 		
 		void createCapsule(float radius, float halfHeight);

@@ -16,7 +16,7 @@ namespace gn
 		physx::PxGeometry* _geometry;
 	
 	public:
-		Collider(ComponentID colliderID);
+		Collider(ComponentID colliderID, GameObject* gameObject);
 		virtual ~Collider();
 
 		virtual void stop() override;

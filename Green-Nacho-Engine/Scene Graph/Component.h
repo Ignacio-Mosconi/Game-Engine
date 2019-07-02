@@ -5,6 +5,8 @@
 
 namespace gn
 {
+	class GameObject;
+
 	enum class ComponentID
 	{
 		Transform,
@@ -18,8 +20,9 @@ namespace gn
 
 	class ENGINE_DECL_SPEC Component
 	{
-	private:
+	protected:
 		ComponentID _id;
+		GameObject* _gameObject;
 
 	public:
 		virtual void start();
@@ -27,11 +30,12 @@ namespace gn
 		virtual void update(float deltaTime);
 		virtual void draw() const;
 
-		Component(ComponentID id);
+		Component(ComponentID id, GameObject* gameObject);
 		~Component();
 
-		static Component* generateComponent(ComponentID componentID);
+		static Component* generateComponent(ComponentID componentID, GameObject* gameObject);
 
 		inline ComponentID getID() const { return _id; }
+		inline GameObject* getGameObject() const { return _gameObject; }
 	};
 }

@@ -1,8 +1,9 @@
+#include <PxPhysicsAPI.h>
 #include "Scene Graph/Collider.h"
 
 namespace gn
 {
-	Collider::Collider(ComponentID colliderID) : Component(colliderID),
+	Collider::Collider(ComponentID colliderID, GameObject* gameObject) : Component(colliderID, gameObject),
 		_geometry(NULL)
 	{
 

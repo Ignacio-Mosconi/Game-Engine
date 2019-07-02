@@ -82,7 +82,7 @@ namespace gn
 		}
 
 		MeshRenderer* meshRenderer = (MeshRenderer*)gameObject->addComponent(ComponentID::MeshRenderer);
-		meshRenderer->createMesh(gameObject->getRenderer(), vertices, indices, diffuseMaps);
+		meshRenderer->createMesh(vertices, indices, diffuseMaps);
 
 		return gameObject;
 	}

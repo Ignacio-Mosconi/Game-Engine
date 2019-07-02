@@ -1,15 +1,14 @@
 #pragma once
 #pragma warning(disable: 4251)
 
-#include <glm\glm.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "Core/Exports.h"
 #include "Core/EngineConstants.h"
 #include "Scene Graph/Component.h"
 
 namespace gn
 {
-	class Renderer;
-
 	class ENGINE_DECL_SPEC Transform : public Component
 	{
 	private:
@@ -33,8 +32,8 @@ namespace gn
 		void clampEulerRotation();
 
 	public:
-		Transform();
-		Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
+		Transform(GameObject* gameObject);
+		Transform(GameObject* gameObject, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 		virtual ~Transform();
 
 		void translate(float x, float y, float z);

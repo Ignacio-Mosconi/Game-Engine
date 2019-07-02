@@ -1,4 +1,5 @@
 #include "Scene Graph/Component.h"
+#include "Scene Graph/GameObject.h"
 #include "Scene Graph/Transform.h"
 #include "Scene Graph/Camera.h"
 #include "Scene Graph/SpriteRenderer.h"
@@ -9,7 +10,7 @@
 
 namespace gn
 {
-	Component::Component(const ComponentID id) : _id(id)
+	Component::Component(const ComponentID id, GameObject* gameObject) : _id(id), _gameObject(gameObject)
 	{
 	}
 
@@ -33,32 +34,32 @@ namespace gn
 	{
 	}
 
-	Component* Component::generateComponent(ComponentID componentID)
+	Component* Component::generateComponent(ComponentID componentID, GameObject* gameObject)
 	{
 		Component* component = NULL;
 
 		switch (componentID)
 		{
 			case ComponentID::Transform:
-				component = new Transform();
+				component = new Transform(gameObject);
 				break;
 			case ComponentID::Camera:
-				component = new Camera();
+				component = new Camera(gameObject);
 				break;
 			case ComponentID::SpriteRenderer:
-				component = new SpriteRenderer();
+				component = new SpriteRenderer(gameObject);
 				break;			
 			case ComponentID::MeshRenderer:
-				component = new MeshRenderer();
+				component = new MeshRenderer(gameObject);
 				break;
 			case ComponentID::CapsuleCollider:
-				component = new CapsuleCollider();
+				component = new CapsuleCollider(gameObject);
 				break;
 			case ComponentID::RigidBody:
-				component = new RigidBody();
+				component = new RigidBody(gameObject);
 				break;
 			case ComponentID::NavigationController:
-				component = new NavigationController();
+				component = new NavigationController(gameObject);
 				break;
 		}
 

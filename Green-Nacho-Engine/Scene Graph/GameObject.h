@@ -18,6 +18,8 @@ namespace gn
 	private:
 		Renderer* _renderer;
 		Transform* _transform;
+		Transform* _parentTransform;
+
 		std::list<Component*>* _components;
 		std::list<GameObject*>* _children;
 
@@ -41,5 +43,6 @@ namespace gn
 
 		inline Renderer* getRenderer() { return _renderer; }
 		inline Transform* getTransform() { return _transform; }
+		inline Transform* getParentTransform() { return _parentTransform; }
 	};
 }

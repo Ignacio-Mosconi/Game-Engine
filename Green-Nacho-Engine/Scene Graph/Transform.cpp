@@ -1,9 +1,9 @@
 #include "Scene Graph/Transform.h"
-#include "Core/Renderer.h"
+#include "Scene Graph/GameObject.h"
 
 namespace gn
 {
-	Transform::Transform() : Component(ComponentID::Transform),
+	Transform::Transform(GameObject* gameObject) : Component(ComponentID::Transform, gameObject),
 		_position(glm::vec3(0.0f, 0.0f, 0.0f)), _rotation(glm::vec3(0.0f, 0.0f, 0.0f)), _scale(glm::vec3(1.0f, 1.0f, 1.0f)),
 		_forward(glm::vec3(0.0f, 0.0f, 1.0f)), _right(glm::vec3(1.0f, 0.0f, 0.0f)), _up(glm::vec3(0.0f, 1.0f, 0.0f)),
 		_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f))
@@ -11,7 +11,8 @@ namespace gn
 		updateModelMatrix();
 	}
 
-	Transform::Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : Component(ComponentID::Transform),
+	Transform::Transform(GameObject* gameObject, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : 
+		Component(ComponentID::Transform, gameObject),
 		_position(position), _rotation(rotation), _scale(scale),
 		_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f))
 	{
@@ -141,12 +142,12 @@ namespace gn
 	{
 		glm::vec4 rotQuat;
 
-		double cosPitch = cos(glm::radians(pitch) * 0.5);
-		double sinPitch = sin(glm::radians(pitch) * 0.5);
-		double cosYaw = cos(glm::radians(yaw) * 0.5);
-		double sinYaw = sin(glm::radians(yaw) * 0.5);
-		double cosRoll = cos(glm::radians(roll) * 0.5);
-		double sinRoll = sin(glm::radians(roll) * 0.5);
+		float cosPitch = (float)cos(glm::radians(pitch) * 0.5);
+		float sinPitch = (float)sin(glm::radians(pitch) * 0.5);
+		float cosYaw = (float)cos(glm::radians(yaw) * 0.5);
+		float sinYaw = (float)sin(glm::radians(yaw) * 0.5);
+		float cosRoll = (float)cos(glm::radians(roll) * 0.5);
+		float sinRoll = (float)sin(glm::radians(roll) * 0.5);
 
 		rotQuat.w = cosRoll * cosYaw * cosPitch + sinRoll * sinYaw * sinPitch;
 		rotQuat.x = cosRoll * cosYaw * sinPitch - sinRoll * sinYaw * cosPitch;

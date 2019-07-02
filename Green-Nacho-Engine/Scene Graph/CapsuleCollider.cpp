@@ -3,7 +3,7 @@
 
 namespace gn
 {
-	CapsuleCollider::CapsuleCollider() : Collider(ComponentID::CapsuleCollider)
+	CapsuleCollider::CapsuleCollider(GameObject* gameObject) : Collider(ComponentID::CapsuleCollider, gameObject)
 	{
 
 	}

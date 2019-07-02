@@ -1,10 +1,11 @@
 #include "Scene Graph/NavigationController.h"
+#include "Scene Graph/GameObject.h"
 #include "Scene Graph/Transform.h"
 #include "Core/InputManager.h"
 
 namespace gn
 {
-	NavigationController::NavigationController() : Component(ComponentID::NavigationController)
+	NavigationController::NavigationController(GameObject* gameObject) : Component(ComponentID::NavigationController, gameObject)
 	{
 		InputManager::getInstance()->hideCursor();
 	}
@@ -59,6 +60,16 @@ namespace gn
 		}
 	}
 
+	void NavigationController::start()
+	{
+		_transform = _gameObject->getTransform();
+	}	
+	
+	void NavigationController::stop()
+	{
+		_transform = NULL;
+	}
+
 	void NavigationController::update(float deltaTime)
 	{
 		InputManager* inputManager = InputManager::getInstance();
@@ -86,16 +97,9 @@ namespace gn
 		_transform->setUp(newUp);
 	}
 
-	void NavigationController::activate(Transform* transform, float movementSpeed, float rotationSpeed)
+	void NavigationController::setSpeeds(float movementSpeed, float rotationSpeed)
 	{
-		_transform = transform;
 		_movementSpeed = movementSpeed;
 		_rotationSpeed = rotationSpeed;
-	}
-
-	void NavigationController::deactivate()
-	{
-		if (_transform)
-			_transform = NULL;
 	}
 }

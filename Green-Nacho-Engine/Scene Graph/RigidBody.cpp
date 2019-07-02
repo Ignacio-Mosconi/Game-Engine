@@ -2,13 +2,14 @@
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include "Scene Graph/RigidBody.h"
+#include "Scene Graph/GameObject.h"
 #include "Scene Graph/Transform.h"
 #include "Scene Graph/Collider.h"
 #include "Core/PhysicsManager.h"
 
 namespace gn
 {
-	RigidBody::RigidBody() : Component(ComponentID::RigidBody),
+	RigidBody::RigidBody(GameObject* gameObject) : Component(ComponentID::RigidBody, gameObject),
 		_rigidActor(NULL), _shape(NULL), _material(NULL), _colliderOffset(glm::vec3(0.0f, 0.0f, 0.0f))
 	{
 
@@ -21,7 +22,6 @@ namespace gn
 
 	void RigidBody::start()
 	{
-
 	}
 
 	void RigidBody::stop()
@@ -46,9 +46,9 @@ namespace gn
 		_transform->setRotation(pitch, yaw, roll);
 	}
 
-	void RigidBody::createRigidBody(Transform* transform, Collider* collider, bool isStatic, float mass, glm::vec3 colliderOffset)
+	void RigidBody::createRigidBody(Collider* collider, bool isStatic, float mass, glm::vec3 colliderOffset)
 	{
-		_transform = transform;
+		_transform = _gameObject->getTransform();
 		_colliderOffset = colliderOffset;
 
 		glm::vec3 position = _transform->getPosition();
