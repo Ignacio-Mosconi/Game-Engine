@@ -1,12 +1,13 @@
 #include <PxPhysicsAPI.h>
 #include "Core/PhysicsManager.h"
 #include "Core/Renderer.h"
+#include "Core/Material.h"
 
 namespace gn
 {
 	PhysicsManager* PhysicsManager::_instance = NULL;
 
-	PhysicsManager::PhysicsManager() : _foundation(NULL), _physics(NULL), _scene(NULL)
+	PhysicsManager::PhysicsManager() : _foundation(NULL), _physics(NULL), _scene(NULL), _debugRenderMaterial(NULL)
 	{
 
 	}
@@ -62,6 +63,8 @@ namespace gn
 			return false;
 		}
 
+		_debugRenderMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
+
 		_scene->setVisualizationParameter(physx::PxVisualizationParameter::eSCALE, 1.0f);
 		_scene->setVisualizationParameter(physx::PxVisualizationParameter::eWORLD_AXES, 10.0f);
 		_scene->setVisualizationParameter(physx::PxVisualizationParameter::eACTOR_AXES, 5.0f);
@@ -72,6 +75,9 @@ namespace gn
 
 	void PhysicsManager::stop()
 	{
+		if (_debugRenderMaterial)
+			Material::destroyMaterial(_debugRenderMaterial);
+
 		if (_scene)
 			_scene->release();
 		if (_physics)
@@ -93,6 +99,11 @@ namespace gn
 	void PhysicsManager::drawDebugVisualization(Renderer* renderer) const
 	{
 		const physx::PxRenderBuffer& rb = _scene->getRenderBuffer();
+
+		renderer->loadIdentityMatrix();
+		
+		_debugRenderMaterial->bind();
+		_debugRenderMaterial->setMatrixProperty("MVP", renderer->getMVP());
 		
 		for (unsigned int i = 0; i < rb.getNbLines(); i++)
 		{
@@ -105,8 +116,6 @@ namespace gn
 			};			
 			int vertexBufferSize = sizeof(float) * VERTEX_COMPONENTS * LINE_VERTICES;
 			unsigned int vertexBufferID = renderer->generateVertexBuffer(vertexBufferData, vertexBufferSize);
-
-			renderer->loadIdentityMatrix();
 
 			renderer->enableAttribute(0);
 			renderer->bindBuffer(0, VERTEX_COMPONENTS, vertexBufferID);

@@ -69,7 +69,7 @@ namespace gn
 
 			_window->pollEvents();
 			update = onUpdate(deltaTime);
-			
+
 			_physicsManager->simulate(deltaTime);
 			_physicsManager->fetchSimulationResults();
 			
@@ -80,8 +80,8 @@ namespace gn
 				_drawTimer -= DRAW_FRAME_TIME;
 
 				_renderer->clearScreen();
-				onDraw();
 				_physicsManager->drawDebugVisualization(_renderer);
+				onDraw();
 				_renderer->swapBuffers();
 			}
 		}

@@ -22,6 +22,7 @@ namespace physx
 namespace gn
 {
 	class Renderer;
+	class Material;
 
 	class ENGINE_DECL_SPEC PhysicsManager
 	{
@@ -31,6 +32,8 @@ namespace gn
 		physx::PxFoundation* _foundation;
 		physx::PxPhysics* _physics;
 		physx::PxScene* _scene;
+
+		Material* _debugRenderMaterial;
 
 		PhysicsManager();
 		~PhysicsManager();
