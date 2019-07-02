@@ -63,6 +63,7 @@ namespace gn
 		}
 
 		_scene->setVisualizationParameter(physx::PxVisualizationParameter::eSCALE, 1.0f);
+		_scene->setVisualizationParameter(physx::PxVisualizationParameter::eWORLD_AXES, 10.0f);
 		_scene->setVisualizationParameter(physx::PxVisualizationParameter::eACTOR_AXES, 5.0f);
 		_scene->setVisualizationParameter(physx::PxVisualizationParameter::eCOLLISION_SHAPES, 1.0f);
 

@@ -9,7 +9,7 @@
 namespace gn
 {
 	RigidBody::RigidBody() : Component(ComponentID::RigidBody),
-		_rigidActor(NULL), _shape(NULL)
+		_rigidActor(NULL), _shape(NULL), _material(NULL), _colliderOffset(glm::vec3(0.0f, 0.0f, 0.0f))
 	{
 
 	}
@@ -35,20 +35,23 @@ namespace gn
 		physx::PxVec3 pxPosition = pxTransform.p;
 		physx::PxQuat pxRotation = pxTransform.q;
 
+		glm::vec3 transformPosition = glm::vec3(pxPosition.x, pxPosition.y, pxPosition.z) - _colliderOffset;
+
 		float pitch, yaw, roll;
 		glm::vec4 rotQuat(pxRotation.x, pxRotation.y, pxRotation.z, pxRotation.w);
 		
 		Transform::convertToEulerAngles(rotQuat, pitch, yaw, roll);
 
-		_transform->setPosition(pxPosition.x, pxPosition.y, pxPosition.z);
+		_transform->setPosition(transformPosition.x, transformPosition.y, transformPosition.z);
 		_transform->setRotation(pitch, yaw, roll);
 	}
 
-	void RigidBody::createRigidBody(Transform* transform, Collider* collider, bool isStatic, float mass, glm::vec3 centerOffset)
+	void RigidBody::createRigidBody(Transform* transform, Collider* collider, bool isStatic, float mass, glm::vec3 colliderOffset)
 	{
 		_transform = transform;
+		_colliderOffset = colliderOffset;
 
-		glm::vec3 position = _transform->getPosition() + centerOffset;
+		glm::vec3 position = _transform->getPosition();
 		glm::vec3 rotation = _transform->getRotation();
 
 		glm::vec4 rotQuat = Transform::convertToQuaternion(rotation.x, rotation.y, rotation.z);

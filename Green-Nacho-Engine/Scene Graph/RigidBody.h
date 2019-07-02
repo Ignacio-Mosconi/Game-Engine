@@ -24,6 +24,8 @@ namespace gn
 		physx::PxShape* _shape;
 		physx::PxMaterial* _material;
 
+		glm::vec3 _colliderOffset;
+
 	public:
 		RigidBody();
 		virtual ~RigidBody();
@@ -33,7 +35,7 @@ namespace gn
 		void update(float deltaTime) override;
 
 		void createRigidBody(Transform* transform, Collider* collider, bool isStatic = false, float mass = 1.0f, 
-								glm::vec3 centerOffset = glm::vec3(0.0f, 0.0f, 0.0f));
+								glm::vec3 colliderOffset = glm::vec3(0.0f, 0.0f, 0.0f));
 		void disposeRigidBody();
 	};
 }
