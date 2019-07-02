@@ -23,20 +23,15 @@ bool Game::onStart()
 	navCont->activate(_cameraController->getTransform());
 
 	_model1 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
-	_model2 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
 
-	_model1->getTransform()->setPosition(0.0f, -10.0f, -30.0f);
-	_model2->getTransform()->setPosition(0.0f, 10.0f, -30.0f);
+	_cameraController->getTransform()->setPosition(0.0f, 0.0f, 30.0f);
+	//_model1->getTransform()->setPosition(10.0f, 0.0f, 0.0f);
 
 	CapsuleCollider* cc1 = (CapsuleCollider*)_model1->addComponent(ComponentID::CapsuleCollider);
-	cc1->createCapsule(2.0f, 5.5f);
-	CapsuleCollider* cc2 = (CapsuleCollider*)_model2->addComponent(ComponentID::CapsuleCollider);
-	cc2->createCapsule(2.0f, 5.5f);
+	cc1->createCapsule(2.5f, 6.0f);
 
 	RigidBody* rb1 = (RigidBody*)_model1->addComponent(ComponentID::RigidBody);
-	rb1->createRigidBody(_model1->getTransform(), cc1, true, 1.0f);	
-	RigidBody* rb2 = (RigidBody*)_model2->addComponent(ComponentID::RigidBody);
-	rb2->createRigidBody(_model2->getTransform(), cc2, false, 1.0f);
+	rb1->createRigidBody(_model1->getTransform(), cc1, false, 1.0f, glm::vec3(0.0f, 7.0f, 0.0f));
 
 	_scene->start();
 

@@ -81,7 +81,9 @@ namespace gn
 
 		_transform->rotate(verRotation, horRotation, 0.0f);
 
-		_transform->setUp(glm::vec3(0.0f, 1.0f, 0.0f));
+		float pitch = _transform->getRotation().x;
+		glm::vec3 newUp = (pitch <= 90.0f || pitch > 180.0f) ? glm::vec3(0.0f, 1.0f, 0.0f) : glm::vec3(0.0f, -1.0f, 0.0f);
+		_transform->setUp(newUp);
 	}
 
 	void NavigationController::activate(Transform* transform, float movementSpeed, float rotationSpeed)

@@ -44,11 +44,11 @@ namespace gn
 		_transform->setRotation(pitch, yaw, roll);
 	}
 
-	void RigidBody::createRigidBody(Transform* transform, Collider* collider, bool isStatic, float mass)
+	void RigidBody::createRigidBody(Transform* transform, Collider* collider, bool isStatic, float mass, glm::vec3 centerOffset)
 	{
 		_transform = transform;
 
-		glm::vec3 position = _transform->getPosition();
+		glm::vec3 position = _transform->getPosition() + centerOffset;
 		glm::vec3 rotation = _transform->getRotation();
 
 		glm::vec4 rotQuat = Transform::convertToQuaternion(rotation.x, rotation.y, rotation.z);

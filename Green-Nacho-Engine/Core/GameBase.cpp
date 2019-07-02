@@ -29,7 +29,7 @@ namespace gn
 		_inputManager->attachToWindow(_window);
 
 		_physicsManager = PhysicsManager::getInstance();
-		_physicsManager->start(glm::vec3(0.0f, -9.81f, 0.0f), 8u);
+		_physicsManager->start(glm::vec3(0.0f, -0.3f, 0.0f), 8u);
 
 		return onStart();
 	}
@@ -71,6 +71,7 @@ namespace gn
 			update = onUpdate(deltaTime);
 			
 			_physicsManager->simulate(deltaTime);
+			_physicsManager->fetchSimulationResults();
 			
 			_drawTimer += deltaTime;
 
@@ -83,8 +84,6 @@ namespace gn
 				_physicsManager->drawDebugVisualization(_renderer);
 				_renderer->swapBuffers();
 			}
-
-			_physicsManager->fetchSimulationResults();
 		}
 	}
 }

@@ -32,7 +32,8 @@ namespace gn
 		void stop() override;
 		void update(float deltaTime) override;
 
-		void createRigidBody(Transform* transform, Collider* collider, bool isStatic, float mass);
+		void createRigidBody(Transform* transform, Collider* collider, bool isStatic = false, float mass = 1.0f, 
+								glm::vec3 centerOffset = glm::vec3(0.0f, 0.0f, 0.0f));
 		void disposeRigidBody();
 	};
 }
