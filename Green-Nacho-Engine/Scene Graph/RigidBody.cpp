@@ -49,6 +49,7 @@ namespace gn
 	void RigidBody::createRigidBody(Collider* collider, bool isStatic, float mass, glm::vec3 colliderOffset)
 	{
 		_transform = _gameObject->getTransform();
+		_isStatic = isStatic;
 
 		glm::vec3 position = _transform->getPosition();
 		glm::vec3 rotation = _transform->getRotation();
@@ -67,13 +68,13 @@ namespace gn
 		
 		physx::PxGeometry* geometry = collider->getGeometry();
 
-		_rigidActor = physicsManager->createRigidActor(pxTransform, isStatic);
+		_rigidActor = physicsManager->createRigidActor(pxTransform, _isStatic);
 		_material = physicsManager->createPhysicsMaterial(0.5f, 0.5f, 1.0f);
 		_shape = physx::PxRigidActorExt::createExclusiveShape(*_rigidActor, *geometry, *_material);
 		
 		_shape->setLocalPose(relativePose);
 
-		if (!isStatic)
+		if (!_isStatic)
 		{
 			physx::PxRigidDynamic* rigidDynamic = (physx::PxRigidDynamic*)_rigidActor;
 			rigidDynamic->setMassSpaceInertiaTensor(physx::PxVec3(1.0f, 1.0f, 1.0f));
@@ -98,16 +99,14 @@ namespace gn
 
 	void RigidBody::addForce(glm::vec3 force, ForceMode forceMode)
 	{
-		physx::PxRigidBody* rigidBody = dynamic_cast<physx::PxRigidBody*>(_rigidActor);
-		
-		if (!rigidBody)
+		if (_isStatic)
 		{
 			std::cout << "WARNING: Attempting to add force to a rigid static body." << std::endl;
 			return;
 		}
-
+		physx::PxRigidDynamic* rigidDynamic = (physx::PxRigidDynamic*)_rigidActor;
 		physx::PxVec3 pxForce(force.x, force.y, force.z);
 
-		rigidBody->addForce(pxForce, (physx::PxForceMode::Enum)forceMode);
+		rigidDynamic->addForce(pxForce, (physx::PxForceMode::Enum)forceMode);
 	}
 }

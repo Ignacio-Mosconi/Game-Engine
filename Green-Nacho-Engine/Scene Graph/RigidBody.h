@@ -27,6 +27,8 @@ namespace gn
 		physx::PxShape* _shape;
 		physx::PxMaterial* _material;
 
+		bool _isStatic;
+
 	public:
 		RigidBody(GameObject* gameObject);
 		virtual ~RigidBody();
