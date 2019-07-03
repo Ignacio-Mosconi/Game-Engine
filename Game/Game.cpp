@@ -32,12 +32,12 @@ bool Game::onStart()
 	CapsuleCollider* cc1 = (CapsuleCollider*)_model1->addComponent(ComponentID::CapsuleCollider);
 	cc1->createCapsule(2.5f, 6.5f);	
 	CapsuleCollider* cc2 = (CapsuleCollider*)_model2->addComponent(ComponentID::CapsuleCollider);
-	cc2->createCapsule(2.5f, 6.6f);
+	cc2->createCapsule(2.5f, 6.5f);
 
 	RigidBody* rb1 = (RigidBody*)_model1->addComponent(ComponentID::RigidBody);
-	rb1->createRigidBody(cc1, true, 1.0f, glm::vec3(0.0f, 6.5f, 0.0f));	
+	rb1->createRigidBody(cc1, true, 1.0f, glm::vec3(0.0f, 7.0f, 0.0f));	
 	RigidBody* rb2 = (RigidBody*)_model2->addComponent(ComponentID::RigidBody);
-	rb2->createRigidBody(cc2, false, 1.0f, glm::vec3(0.0f, 6.5f, 0.0f));
+	rb2->createRigidBody(cc2, false, 1.0f, glm::vec3(0.0f, 7.0f, 0.0f));
 
 	_scene->start();
 

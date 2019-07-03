@@ -10,7 +10,7 @@
 namespace gn
 {
 	RigidBody::RigidBody(GameObject* gameObject) : Component(ComponentID::RigidBody, gameObject),
-		_rigidActor(NULL), _shape(NULL), _material(NULL), _colliderOffset(glm::vec3(0.0f, 0.0f, 0.0f))
+		_rigidActor(NULL), _shape(NULL), _material(NULL)
 	{
 
 	}
@@ -35,7 +35,7 @@ namespace gn
 		physx::PxVec3 pxPosition = pxTransform.p;
 		physx::PxQuat pxRotation = pxTransform.q;
 
-		glm::vec3 transformPosition = glm::vec3(pxPosition.x, pxPosition.y, pxPosition.z) - _colliderOffset;
+		glm::vec3 transformPosition = glm::vec3(pxPosition.x, pxPosition.y, pxPosition.z);
 
 		float pitch, yaw, roll;
 		glm::vec4 rotQuat(pxRotation.x, pxRotation.y, pxRotation.z, pxRotation.w);
@@ -49,7 +49,6 @@ namespace gn
 	void RigidBody::createRigidBody(Collider* collider, bool isStatic, float mass, glm::vec3 colliderOffset)
 	{
 		_transform = _gameObject->getTransform();
-		_colliderOffset = colliderOffset;
 
 		glm::vec3 position = _transform->getPosition();
 		glm::vec3 rotation = _transform->getRotation();
@@ -59,8 +58,10 @@ namespace gn
 		physx::PxVec3 pxPosition(position.x, position.y, position.z);
 		physx::PxQuat pxRotation(rotQuat.x, rotQuat.y, rotQuat.z, rotQuat.w);
 
+		physx::PxVec3 localOffset(colliderOffset.x, colliderOffset.y, colliderOffset.z);
+		physx::PxQuat localRot(physx::PxHalfPi, physx::PxVec3(0.0f, 0.0f, 1.0f));
 		physx::PxTransform pxTransform(pxPosition, pxRotation);
-		physx::PxTransform relativePose(physx::PxQuat(physx::PxHalfPi, physx::PxVec3(0.0f, 0.0f, 1.0f)));;
+		physx::PxTransform relativePose(localOffset, localRot);
 		
 		PhysicsManager* physicsManager = PhysicsManager::getInstance();
 		

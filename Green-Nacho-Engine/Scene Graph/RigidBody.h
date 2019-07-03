@@ -25,8 +25,6 @@ namespace gn
 		physx::PxShape* _shape;
 		physx::PxMaterial* _material;
 
-		glm::vec3 _colliderOffset;
-
 	public:
 		RigidBody(GameObject* gameObject);
 		virtual ~RigidBody();
