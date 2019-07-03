@@ -24,7 +24,6 @@ private:
 
 	gn::GameObject* _model1;
 	gn::GameObject* _model2;
-	gn::GameObject* _model3;
 
 protected:
 	bool onStart() override;

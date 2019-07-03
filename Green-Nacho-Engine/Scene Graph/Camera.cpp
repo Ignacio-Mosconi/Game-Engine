@@ -32,28 +32,20 @@ namespace gn
 
 	void Camera::update(float deltaTime)
 	{
-		std::stack<glm::vec3> stackedPositions;
-		Transform* transform = _transform;
+		Transform* parentTransform = _transform->getGameObject()->getParentTransform();
 		
-		glm::vec3 position(0.0f, 0.0f, 0.0f);	
-		stackedPositions.push(_transform->getPosition());
+		glm::vec3 globalPos = _transform->getPosition();
+		glm::vec3 localPos = _transform->getPosition();
 
-		do
+		while (parentTransform)
 		{
-			transform = transform->getGameObject()->getParentTransform();
-			if (transform)
-				stackedPositions.push(transform->getPosition());
-		} while (transform);
-
-		while (!stackedPositions.empty())
-		{
-			position += stackedPositions.top();
-			stackedPositions.pop();
+			globalPos += parentTransform->getPosition();
+			parentTransform = parentTransform->getGameObject()->getParentTransform();
 		}
 
-		glm::vec3 center = position - _transform->getForward();
-		glm::vec3 up = _transform->getUp();
+		glm::vec3 center = globalPos - _transform->getForward();
+		glm::vec3 upVector = _transform->getUp();		
 
-		_renderer->updateView(position, center, up);
+		_renderer->updateView(globalPos, center, upVector);
 	}
 }

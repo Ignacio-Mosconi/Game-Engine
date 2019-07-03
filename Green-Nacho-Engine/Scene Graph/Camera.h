@@ -1,6 +1,5 @@
 #pragma once
 
-#include <stack>
 #include "Core/Exports.h"
 #include "Scene Graph/Component.h"
 

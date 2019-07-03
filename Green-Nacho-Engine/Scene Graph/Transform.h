@@ -57,6 +57,8 @@ namespace gn
 		inline glm::vec3 getRight() const { return _right; }
 		inline glm::vec3 getUp() const { return _up; }
 
+		inline glm::mat4 getRotMatrix() const { return _rotMatrix; }
+
 		inline glm::mat4 getModelMatrix() const { return _modelMatrix; }
 	};
 }
