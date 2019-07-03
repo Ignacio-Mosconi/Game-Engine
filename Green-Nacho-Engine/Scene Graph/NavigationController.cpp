@@ -5,7 +5,8 @@
 
 namespace gn
 {
-	NavigationController::NavigationController(GameObject* gameObject) : Component(ComponentID::NavigationController, gameObject)
+	NavigationController::NavigationController(GameObject* gameObject) : Component(ComponentID::NavigationController, gameObject),
+		_movementSpeed(10.0f), _rotationSpeed(90.0f), _horAngle(0.0f), _verAngle(0.0f)
 	{
 		InputManager::getInstance()->hideCursor();
 	}
@@ -60,6 +61,17 @@ namespace gn
 		}
 	}
 
+	void NavigationController::rotate(float horRotation, float verRotation)
+	{
+		_horAngle += horRotation;
+		_verAngle += verRotation;
+
+		_verAngle = glm::clamp(_verAngle, -90.0f, 90.0f);
+
+		_transform->setRotation(_verAngle, _horAngle, 0.0f);
+		_transform->setUp(glm::vec3(0.0f, 1.0f, 0.0f));
+	}
+
 	void NavigationController::start()
 	{
 		_transform = _gameObject->getTransform();
@@ -90,11 +102,7 @@ namespace gn
 		float horRotation = inputManager->getAxis(InputAxis::HORIZONTAL) * _rotationSpeed * deltaTime;
 		float verRotation = inputManager->getAxis(InputAxis::VERTICAL) * _rotationSpeed * deltaTime;
 
-		_transform->rotate(verRotation, horRotation, 0.0f);
-
-		float pitch = _transform->getRotation().x;
-		glm::vec3 newUp = (pitch <= 90.0f || pitch > 180.0f) ? glm::vec3(0.0f, 1.0f, 0.0f) : glm::vec3(0.0f, -1.0f, 0.0f);
-		_transform->setUp(newUp);
+		rotate(horRotation, verRotation);
 	}
 
 	void NavigationController::setSpeeds(float movementSpeed, float rotationSpeed)

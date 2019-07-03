@@ -22,7 +22,7 @@ bool Game::onStart()
 	_cameraController = new GameObject(_renderer, _scene);
 	Camera* cam = (Camera*)_cameraController->addComponent(ComponentID::Camera);
 	NavigationController* navCont = (NavigationController*)_cameraController->addComponent(ComponentID::NavigationController);
-	navCont->setSpeeds(12.0f, 120.0f);
+	navCont->setSpeeds(12.0f, 90.0f);
 
 	_model1->getTransform()->setPosition(0.0f, -10.0f, -10.0f);
 	_model2->getTransform()->setPosition(0.0f, 20.0f, -10.0f);

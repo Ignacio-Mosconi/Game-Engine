@@ -16,11 +16,15 @@ namespace gn
 		float _movementSpeed;
 		float _rotationSpeed;
 
+		float _horAngle;
+		float _verAngle;
+
 		void advance(float distance);
 		void strafe(float distance);
 		void ascend(float distance);
 		
 		void move(MoveDir moveDir, float distance);
+		void rotate(float horRotation, float verRotation);
 
 	public:
 		NavigationController(GameObject* gameObject);
