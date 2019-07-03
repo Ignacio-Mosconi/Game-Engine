@@ -5,7 +5,7 @@
 #include "Core/GameBase.h"
 #include "Core/Window.h"
 #include "Core/Renderer.h"
-#include "Legacy/NavigationCamera.h"
+#include "Core/InputManager.h"
 #include "Scene Graph/GameObject.h"
 #include "Scene Graph/Transform.h"
 #include "Scene Graph/Camera.h"

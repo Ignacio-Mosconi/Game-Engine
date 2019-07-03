@@ -14,7 +14,9 @@ enum class Key
 	D_KEY = 68,
 
 	E_KEY = 69,
-	Q_KEY = 81
+	Q_KEY = 81,
+
+	SPACE_KEY = 32
 };
 
 enum class InputAxis
@@ -64,4 +66,13 @@ enum class MoveDir
 	RIGHT,
 	UP,
 	DOWN
+};
+
+// Physics
+enum class ForceMode
+{
+	FORCE,
+	IMPULSE,
+	VELOCITY_CHANGE,
+	ACCELERATION
 };

@@ -19,10 +19,10 @@ bool Game::onStart()
 	_model1 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
 	_model2 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
 	
-	_cameraController = new GameObject(_renderer, _model2);
+	_cameraController = new GameObject(_renderer, _scene);
 	Camera* cam = (Camera*)_cameraController->addComponent(ComponentID::Camera);
-	//NavigationController* navCont = (NavigationController*)_cameraController->addComponent(ComponentID::NavigationController);
-	//navCont->setSpeeds(12.0f, 120.0f);
+	NavigationController* navCont = (NavigationController*)_cameraController->addComponent(ComponentID::NavigationController);
+	navCont->setSpeeds(12.0f, 120.0f);
 
 	_model1->getTransform()->setPosition(0.0f, -10.0f, -10.0f);
 	_model2->getTransform()->setPosition(0.0f, 20.0f, -10.0f);
@@ -55,6 +55,12 @@ bool Game::onStop()
 
 bool Game::onUpdate(float deltaTime)
 {	
+	if (_inputManager->getKey(Key::SPACE_KEY))
+	{
+		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RigidBody));
+		rb->addForce(glm::vec3(0.0f, 100.0f, 0.0f), ForceMode::FORCE);
+	}
+
 	_scene->update(deltaTime);
 
 	return true;

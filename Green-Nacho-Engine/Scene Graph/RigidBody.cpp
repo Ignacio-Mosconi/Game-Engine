@@ -95,4 +95,19 @@ namespace gn
 			_rigidActor->release();
 		}
 	}
+
+	void RigidBody::addForce(glm::vec3 force, ForceMode forceMode)
+	{
+		physx::PxRigidBody* rigidBody = dynamic_cast<physx::PxRigidBody*>(_rigidActor);
+		
+		if (!rigidBody)
+		{
+			std::cout << "WARNING: Attempting to add force to a rigid static body." << std::endl;
+			return;
+		}
+
+		physx::PxVec3 pxForce(force.x, force.y, force.z);
+
+		rigidBody->addForce(pxForce, (physx::PxForceMode::Enum)forceMode);
+	}
 }

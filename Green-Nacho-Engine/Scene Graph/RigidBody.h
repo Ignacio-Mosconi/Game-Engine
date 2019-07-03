@@ -3,12 +3,14 @@
 
 #include "Core/Exports.h"
 #include "Scene Graph/Component.h"
+#include "Core/Enums.h"
 
 namespace physx
 {
+	struct PxForceMode;
 	class PxRigidActor;
 	class PxShape;
-	class PxMaterial;
+	class PxMaterial; 
 }
 
 namespace gn
@@ -36,5 +38,7 @@ namespace gn
 		void createRigidBody(Collider* collider, bool isStatic = false, float mass = 1.0f, 
 							glm::vec3 colliderOffset = glm::vec3(0.0f, 0.0f, 0.0f));
 		void disposeRigidBody();
+
+		void addForce(glm::vec3 force, ForceMode forceMode);
 	};
 }
