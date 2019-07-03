@@ -35,7 +35,7 @@ bool Game::onStart()
 	RigidBody* rb1 = (RigidBody*)_model1->addComponent(ComponentID::RigidBody);
 	rb1->createRigidBody(cc1, true, 1.0f, glm::vec3(0.0f, 7.0f, 0.0f));	
 	RigidBody* rb2 = (RigidBody*)_model2->addComponent(ComponentID::RigidBody);
-	rb2->createRigidBody(cc2, false, 1.0f, glm::vec3(0.0f, 7.0f, 0.0f));
+	rb2->createRigidBody(cc2, false, 100.0f, glm::vec3(0.0f, 7.0f, 0.0f));
 
 	_scene->start();
 
@@ -58,7 +58,28 @@ bool Game::onUpdate(float deltaTime)
 	if (_inputManager->getKey(Key::SPACE_KEY))
 	{
 		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RigidBody));
-		rb->addForce(glm::vec3(0.0f, 100.0f, 0.0f), ForceMode::FORCE);
+		rb->addForce(glm::vec3(0.0f, 2000.0f, 0.0f), ForceMode::FORCE);
+	}
+
+	if (_inputManager->getKey(Key::LEFT_KEY))
+	{
+		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RigidBody));
+		rb->addTorque(glm::vec3(0.0f, 0.0f, 200.0f), ForceMode::FORCE);
+	}
+	if (_inputManager->getKey(Key::RIGHT_KEY))
+	{
+		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RigidBody));
+		rb->addTorque(glm::vec3(0.0f, 0.0f, -200.0f), ForceMode::FORCE);
+	}
+	if (_inputManager->getKey(Key::UP_KEY))
+	{
+		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RigidBody));
+		rb->addTorque(glm::vec3(200.0f, 0.0f, 0.0f), ForceMode::FORCE);
+	}
+	if (_inputManager->getKey(Key::DOWN_KEY))
+	{
+		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RigidBody));
+		rb->addTorque(glm::vec3(-200.0f, 0.0f, 0.0f), ForceMode::FORCE);
 	}
 
 	_scene->update(deltaTime);

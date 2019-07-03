@@ -42,5 +42,6 @@ namespace gn
 		void disposeRigidBody();
 
 		void addForce(glm::vec3 force, ForceMode forceMode);
+		void addTorque(glm::vec3 torque, ForceMode forceMode);
 	};
 }

@@ -109,4 +109,17 @@ namespace gn
 
 		rigidDynamic->addForce(pxForce, (physx::PxForceMode::Enum)forceMode);
 	}
+
+	void RigidBody::addTorque(glm::vec3 torque, ForceMode forceMode)
+	{
+		if (_isStatic)
+		{
+			std::cout << "WARNING: Attempting to add force to a rigid static body." << std::endl;
+			return;
+		}
+		physx::PxRigidDynamic* rigidDynamic = (physx::PxRigidDynamic*)_rigidActor;
+		physx::PxVec3 pxTorque(torque.x, torque.y, torque.z);
+
+		rigidDynamic->addTorque(pxTorque, (physx::PxForceMode::Enum)forceMode);
+	}
 }
