@@ -58,28 +58,33 @@ bool Game::onUpdate(float deltaTime)
 	if (_inputManager->getKey(Key::SPACE_KEY))
 	{
 		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RigidBody));
-		rb->addForce(glm::vec3(0.0f, 2000.0f, 0.0f), ForceMode::FORCE);
+		glm::vec3 force = _model2->getTransform()->getGlobalUp() * 2000.0f;
+		rb->addForce(force, ForceMode::FORCE);
 	}
 
 	if (_inputManager->getKey(Key::LEFT_KEY))
 	{
 		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RigidBody));
-		rb->addTorque(glm::vec3(0.0f, 0.0f, 200.0f), ForceMode::FORCE);
+		glm::vec3 torque = _model2->getTransform()->getForward() * 200.0f;
+		rb->addTorque(torque, ForceMode::FORCE);
 	}
 	if (_inputManager->getKey(Key::RIGHT_KEY))
 	{
 		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RigidBody));
-		rb->addTorque(glm::vec3(0.0f, 0.0f, -200.0f), ForceMode::FORCE);
+		glm::vec3 torque = _model2->getTransform()->getForward() * -200.0f;
+		rb->addTorque(torque, ForceMode::FORCE);
 	}
 	if (_inputManager->getKey(Key::UP_KEY))
 	{
 		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RigidBody));
-		rb->addTorque(glm::vec3(200.0f, 0.0f, 0.0f), ForceMode::FORCE);
+		glm::vec3 torque = _model2->getTransform()->getRight() * 200.0f;
+		rb->addTorque(torque, ForceMode::FORCE);
 	}
 	if (_inputManager->getKey(Key::DOWN_KEY))
 	{
 		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RigidBody));
-		rb->addTorque(glm::vec3(-200.0f, 0.0f, 0.0f), ForceMode::FORCE);
+		glm::vec3 torque = _model2->getTransform()->getRight() * -200.0f;
+		rb->addTorque(torque, ForceMode::FORCE);
 	}
 
 	_scene->update(deltaTime);
