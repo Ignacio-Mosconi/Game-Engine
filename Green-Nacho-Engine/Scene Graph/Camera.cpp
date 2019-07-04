@@ -43,7 +43,7 @@ namespace gn
 			parentTransform = parentTransform->getGameObject()->getParentTransform();
 		}
 
-		glm::vec3 center = globalPos - _transform->getForward();
+		glm::vec3 center = globalPos + _transform->getForward();
 		glm::vec3 upVector = _transform->getUp();		
 
 		_renderer->updateView(globalPos, center, upVector);

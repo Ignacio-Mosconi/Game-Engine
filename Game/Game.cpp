@@ -19,13 +19,15 @@ bool Game::onStart()
 	_model1 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
 	_model2 = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
 	
-	_cameraController = new GameObject(_renderer, _scene);
-	Camera* cam = (Camera*)_cameraController->addComponent(ComponentID::Camera);
-	NavigationController* navCont = (NavigationController*)_cameraController->addComponent(ComponentID::NavigationController);
+	_camera = new GameObject(_renderer, _scene);
+	Camera* cam = (Camera*)_camera->addComponent(ComponentID::Camera);
+	NavigationController* navCont = (NavigationController*)_camera->addComponent(ComponentID::NavigationController);
 	navCont->setSpeeds(12.0f, 90.0f);
 
 	_model1->getTransform()->setPosition(0.0f, -10.0f, -10.0f);
 	_model2->getTransform()->setPosition(0.0f, 20.0f, -10.0f);
+
+	_camera->getTransform()->setPosition(0.0f, 7.0f, 30.0f);
 
 	CapsuleCollider* cc1 = (CapsuleCollider*)_model1->addComponent(ComponentID::CapsuleCollider);
 	cc1->createCapsule(2.5f, 6.5f);	
@@ -38,8 +40,6 @@ bool Game::onStart()
 	rb2->createRigidBody(cc2, false, 100.0f, glm::vec3(0.0f, 7.0f, 0.0f));
 
 	_scene->start();
-
-	_cameraController->getTransform()->setPosition(0.0f, 7.0f, 30.0f);
 
 	return true;
 }
@@ -58,7 +58,7 @@ bool Game::onUpdate(float deltaTime)
 	if (_inputManager->getKey(Key::SPACE_KEY))
 	{
 		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RigidBody));
-		glm::vec3 force = _model2->getTransform()->getGlobalUp() * 2000.0f;
+		glm::vec3 force = _model2->getTransform()->getUp() * 2000.0f;
 		rb->addForce(force, ForceMode::FORCE);
 	}
 

@@ -83,10 +83,15 @@ namespace gn
 		return value;
 	}
 
+	void InputManager::showCursor()
+	{
+		glfwSetInputMode((GLFWwindow*)_window->getWindowPtr(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+
 	void InputManager::hideCursor()
 	{
 		glfwSetInputMode((GLFWwindow*)_window->getWindowPtr(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		if (glfwRawMouseMotionSupported())
 			glfwSetInputMode((GLFWwindow*)_window->getWindowPtr(), GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
-	}	
+	}
 }

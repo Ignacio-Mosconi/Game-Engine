@@ -8,7 +8,7 @@ namespace gn
 	NavigationController::NavigationController(GameObject* gameObject) : Component(ComponentID::NavigationController, gameObject),
 		_movementSpeed(10.0f), _rotationSpeed(90.0f), _horAngle(0.0f), _verAngle(0.0f)
 	{
-		InputManager::getInstance()->hideCursor();
+
 	}
 
 	NavigationController::~NavigationController()
@@ -18,7 +18,7 @@ namespace gn
 
 	void NavigationController::advance(float distance)
 	{
-		glm::vec3 newPos = _transform->getPosition() - _transform->getForward() * distance;		
+		glm::vec3 newPos = _transform->getPosition() + _transform->getForward() * distance;		
 		_transform->setPosition(newPos.x, newPos.y, newPos.z);
 	}
 
@@ -63,10 +63,10 @@ namespace gn
 
 	void NavigationController::rotate(float horRotation, float verRotation)
 	{
-		_horAngle += horRotation;
-		_verAngle += verRotation;
+		_horAngle -= horRotation;
+		_verAngle -= verRotation;
 
-		_verAngle = glm::clamp(_verAngle, -90.0f, 90.0f);
+		_verAngle = glm::clamp(_verAngle, -VERTICAL_RANGE, VERTICAL_RANGE);
 
 		_transform->setRotation(_verAngle, _horAngle, 0.0f);
 		_transform->setUp(glm::vec3(0.0f, 1.0f, 0.0f));
@@ -75,11 +75,16 @@ namespace gn
 	void NavigationController::start()
 	{
 		_transform = _gameObject->getTransform();
+		_transform->setRotation(0.0f, 180.0f, 0.0f);
+		_horAngle = _transform->getRotation().y;
+		_verAngle = _transform->getRotation().x;
+		InputManager::getInstance()->hideCursor();
 	}	
 	
 	void NavigationController::stop()
 	{
 		_transform = NULL;
+		InputManager::getInstance()->showCursor();
 	}
 
 	void NavigationController::update(float deltaTime)

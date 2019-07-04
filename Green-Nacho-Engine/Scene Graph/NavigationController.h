@@ -19,6 +19,8 @@ namespace gn
 		float _horAngle;
 		float _verAngle;
 
+		const float VERTICAL_RANGE = 90.0f;
+
 		void advance(float distance);
 		void strafe(float distance);
 		void ascend(float distance);

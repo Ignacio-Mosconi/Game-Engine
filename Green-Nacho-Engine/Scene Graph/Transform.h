@@ -36,6 +36,8 @@ namespace gn
 		Transform(GameObject* gameObject, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
 		virtual ~Transform();
 
+		void start() override;
+
 		void translate(float x, float y, float z);
 		void rotate(float x, float y, float z);
 		void scale(float x, float y, float z);

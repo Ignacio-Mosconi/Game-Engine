@@ -20,7 +20,7 @@
 class Game : public gn::GameBase
 {
 private:
-	gn::GameObject* _cameraController;
+	gn::GameObject* _camera;
 
 	gn::GameObject* _model1;
 	gn::GameObject* _model2;

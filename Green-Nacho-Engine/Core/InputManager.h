@@ -37,6 +37,7 @@ namespace gn
 
 		bool getKey(Key key);
 		float getAxis(InputAxis inputAxis);
+		void showCursor();
 		void hideCursor();
 
 		inline bool firstMouseMovement() { return _firstMouseMovement; }
