@@ -9,13 +9,14 @@ namespace gn
 
 	enum class ComponentID
 	{
-		Transform,
-		Camera,
-		SpriteRenderer,
-		MeshRenderer,
-		CapsuleCollider,
-		RigidBody,
-		NavigationController
+		TRANSFORM,
+		CAMERA,
+		BOUNDING_BOX,
+		SPRITE_RENDERER,
+		MESH_RENDERER,
+		CAPSULE_COLLIDER,
+		RIGID_BODY,
+		NAVIGATION_CONTROLLER
 	};
 
 	class ENGINE_DECL_SPEC Component

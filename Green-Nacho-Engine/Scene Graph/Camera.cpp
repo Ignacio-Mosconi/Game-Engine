@@ -1,11 +1,13 @@
 #include "Scene Graph/Camera.h"
 #include "Core/Renderer.h"
+#include "Core/Window.h"
 #include "Scene Graph/GameObject.h"
 #include "Scene Graph/Transform.h"
+#include "Scene Graph/BoundingBox.h"
 
 namespace gn
 {
-	Camera::Camera(GameObject* gameObject) : Component(ComponentID::Camera, gameObject),
+	Camera::Camera(GameObject* gameObject) : Component(ComponentID::CAMERA, gameObject),
 		_renderer(NULL), _transform(NULL)
 	{
 
@@ -16,11 +18,30 @@ namespace gn
 
 	}
 
+	glm::vec4 Camera::generatePlane(glm::vec3& normal, glm::vec3& point)
+	{
+		glm::vec4 plane;
+
+		normal = glm::normalize(normal);
+
+		plane.x = normal.x;
+		plane.y = normal.y;
+		plane.z = normal.z;
+		plane.w = -glm::dot(normal, point);
+
+		return plane;
+	}
+
 	void Camera::start()
 	{
 		_renderer = _gameObject->getRenderer();
 		_transform = _gameObject->getTransform();
-	}	
+
+		int windowWidth = _renderer->getRenderWindow()->getWidth();
+		int windowHeight= _renderer->getRenderWindow()->getHeight();
+		
+		updateFrustum(45.0f, windowWidth / windowHeight, 0.1f, 1000.0f);
+	}
 	
 	void Camera::stop()
 	{
@@ -32,10 +53,9 @@ namespace gn
 
 	void Camera::update(float deltaTime)
 	{
-		Transform* parentTransform = _transform->getGameObject()->getParentTransform();
-		
 		glm::vec3 globalPos = _transform->getPosition();
-		glm::vec3 localPos = _transform->getPosition();
+		
+		Transform* parentTransform = _transform->getGameObject()->getParentTransform();
 
 		while (parentTransform)
 		{
@@ -43,9 +63,100 @@ namespace gn
 			parentTransform = parentTransform->getGameObject()->getParentTransform();
 		}
 
-		glm::vec3 center = globalPos + _transform->getForward();
-		glm::vec3 upVector = _transform->getUp();		
+		if (_globalPosition != globalPos || _viewDirection != _transform->getForward())
+		{
+			_globalPosition = globalPos;
+			_viewDirection = _transform->getForward();
 
-		_renderer->updateView(globalPos, center, upVector);
+			glm::vec3 center = _globalPosition + _viewDirection;
+			glm::vec3 upVector = _transform->getUp();		
+
+			updateFrustum();
+			_renderer->updateView(_globalPosition, center, upVector);
+		}
+	}
+
+	void Camera::updateFrustum()
+	{
+		glm::vec3 right = _transform->getRight();
+		glm::vec3 up = glm::normalize(glm::cross(_viewDirection, right));
+
+		glm::vec3 nearCenter = _globalPosition + _viewDirection * _nearDistance;
+		glm::vec3 farCenter = _globalPosition + _viewDirection * _farDistance;
+
+		glm::vec3 rightPlaneVec = (nearCenter + right * _nearWidth * 0.5f) - _globalPosition;
+		glm::vec3 leftPlaneVec = (nearCenter - right * _nearWidth * 0.5f) - _globalPosition;
+		glm::vec3 topPlaneVec = (nearCenter + up * _nearHeight * 0.5f) - _globalPosition;
+		glm::vec3 bottomPlaneVec = (nearCenter - up * _nearHeight * 0.5f) - _globalPosition;
+
+		_frustumPlanes[(int)FrustumPlane::NEAR] = generatePlane(_viewDirection, nearCenter);
+		_frustumPlanes[(int)FrustumPlane::FAR] = generatePlane(_viewDirection, farCenter);
+		_frustumPlanes[(int)FrustumPlane::LEFT] = generatePlane(leftPlaneVec, _globalPosition);
+		_frustumPlanes[(int)FrustumPlane::RIGHT] = generatePlane(rightPlaneVec, _globalPosition);
+		_frustumPlanes[(int)FrustumPlane::TOP] = generatePlane(topPlaneVec, _globalPosition);
+		_frustumPlanes[(int)FrustumPlane::BOTTOM] = generatePlane(bottomPlaneVec, _globalPosition);
+	}
+
+	void Camera::updateFrustum(float fieldOfView, float aspectRatio, float nearDistance, float farDistance)
+	{
+		_nearDistance = nearDistance;
+		_farDistance = farDistance;
+		_fovTangent = glm::tan(glm::radians(fieldOfView));
+		_nearHeight = nearDistance * _fovTangent;
+		_nearWidth = _nearHeight * aspectRatio;		
+		_farHeight = farDistance * _fovTangent;
+		_farWidth = _farHeight * aspectRatio;
+
+		glm::vec3 right = _transform->getRight();
+		glm::vec3 up = glm::normalize(glm::cross(_viewDirection, right));
+
+		glm::vec3 nearCenter = _globalPosition + _viewDirection * _nearDistance;
+		glm::vec3 farCenter = _globalPosition + _viewDirection * _farDistance;
+		
+		glm::vec3 rightPlaneVec = (nearCenter + right * _nearWidth * 0.5f) - _globalPosition;
+		glm::vec3 leftPlaneVec = (nearCenter - right * _nearWidth * 0.5f) - _globalPosition;
+		glm::vec3 topPlaneVec = (nearCenter + up * _nearHeight * 0.5f) - _globalPosition;
+		glm::vec3 bottomPlaneVec = (nearCenter - up * _nearHeight * 0.5f) - _globalPosition;
+
+		_frustumPlanes[(int)FrustumPlane::NEAR] = generatePlane(_viewDirection, nearCenter);
+		_frustumPlanes[(int)FrustumPlane::FAR] = generatePlane(_viewDirection, farCenter);
+		_frustumPlanes[(int)FrustumPlane::LEFT] = generatePlane(leftPlaneVec, _globalPosition);
+		_frustumPlanes[(int)FrustumPlane::RIGHT] = generatePlane(rightPlaneVec, _globalPosition);
+		_frustumPlanes[(int)FrustumPlane::TOP] = generatePlane(topPlaneVec, _globalPosition);
+		_frustumPlanes[(int)FrustumPlane::BOTTOM] = generatePlane(bottomPlaneVec, _globalPosition);
+
+		_renderer->changePerspProjection(fieldOfView, aspectRatio, nearDistance, farDistance);
+	}
+
+	bool Camera::isInsideFrustum(BoundingBox* boundingBox)
+	{
+		bool isInsideFrustum = true;
+		bool allOutsideCurrentPlane = false;
+
+		for (int i = 0; i < (int)FrustumPlane::COUNT; i++)
+		{
+			allOutsideCurrentPlane = false;
+
+			for (int j = 0; j < CUBE_VERTICES; j++)
+			{
+				glm::vec3 vertexPosition = boundingBox->getVertexPosition(j);
+				glm::vec3 planeNormal = glm::vec3(_frustumPlanes[i]);
+
+				float dist = glm::dot(planeNormal, vertexPosition) + _frustumPlanes[i].w;
+
+				if (dist > 0.0f)
+					break;
+				if (j == CUBE_VERTICES - 1)
+					allOutsideCurrentPlane = true;
+			}
+
+			if (allOutsideCurrentPlane)
+			{
+				isInsideFrustum = false;
+				break;
+			}
+		}
+
+		return isInsideFrustum;
 	}
 }

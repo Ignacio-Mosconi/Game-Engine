@@ -5,7 +5,7 @@
 
 namespace gn
 {
-	NavigationController::NavigationController(GameObject* gameObject) : Component(ComponentID::NavigationController, gameObject),
+	NavigationController::NavigationController(GameObject* gameObject) : Component(ComponentID::NAVIGATION_CONTROLLER, gameObject),
 		_movementSpeed(10.0f), _rotationSpeed(90.0f), _horAngle(0.0f), _verAngle(0.0f)
 	{
 
@@ -91,17 +91,17 @@ namespace gn
 	{
 		InputManager* inputManager = InputManager::getInstance();
 
-		if (inputManager->getKey(Key::W_KEY))
+		if (inputManager->getKey(Key::W))
 			move(MoveDir::FORWARD, _movementSpeed * deltaTime);
-		if (inputManager->getKey(Key::A_KEY))
+		if (inputManager->getKey(Key::A))
 			move(MoveDir::LEFT, _movementSpeed * deltaTime);
-		if (inputManager->getKey(Key::S_KEY))
+		if (inputManager->getKey(Key::S))
 			move(MoveDir::BACKWARDS, _movementSpeed * deltaTime);
-		if (inputManager->getKey(Key::D_KEY))
+		if (inputManager->getKey(Key::D))
 			move(MoveDir::RIGHT, _movementSpeed * deltaTime);
-		if (inputManager->getKey(Key::Q_KEY))
+		if (inputManager->getKey(Key::Q))
 			move(MoveDir::UP, _movementSpeed * deltaTime);
-		if (inputManager->getKey(Key::E_KEY))
+		if (inputManager->getKey(Key::E))
 			move(MoveDir::DOWN, _movementSpeed * deltaTime);
 
 		float horRotation = inputManager->getAxis(InputAxis::HORIZONTAL) * _rotationSpeed * deltaTime;

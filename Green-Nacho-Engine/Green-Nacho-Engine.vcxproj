@@ -204,6 +204,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
     <ClInclude Include="Legacy\Sprite.h" />
     <ClInclude Include="Legacy\Tilemap.h" />
     <ClInclude Include="Legacy\Triangle.h" />
+    <ClInclude Include="Scene Graph\BoundingBox.h" />
     <ClInclude Include="Scene Graph\Camera.h" />
     <ClInclude Include="Scene Graph\CapsuleCollider.h" />
     <ClInclude Include="Scene Graph\Collider.h" />
@@ -241,6 +242,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
     <ClCompile Include="Legacy\Sprite.cpp" />
     <ClCompile Include="Legacy\Tilemap.cpp" />
     <ClCompile Include="Legacy\Triangle.cpp" />
+    <ClCompile Include="Scene Graph\BoundingBox.cpp" />
     <ClCompile Include="Scene Graph\Camera.cpp" />
     <ClCompile Include="Scene Graph\CapsuleCollider.cpp" />
     <ClCompile Include="Scene Graph\Collider.cpp" />

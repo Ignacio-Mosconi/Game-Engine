@@ -3,20 +3,21 @@
 // Input Manager
 enum class Key
 {
-	UP_KEY = 265,
-	DOWN_KEY = 264,
-	LEFT_KEY = 263,
-	RIGHT_KEY = 262,
+	UP = 265,
+	DOWN = 264,
+	LEFT = 263,
+	RIGHT = 262,
 
-	W_KEY = 87,
-	A_KEY = 65,
-	S_KEY = 83,
-	D_KEY = 68,
+	W = 87,
+	A = 65,
+	S = 83,
+	D = 68,
 
-	E_KEY = 69,
-	Q_KEY = 81,
+	E = 69,
+	Q = 81,
 
-	SPACE_KEY = 32
+	SPACE = 32,
+	LEFT_SHIFT = 340
 };
 
 enum class InputAxis

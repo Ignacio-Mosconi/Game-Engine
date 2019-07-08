@@ -3,7 +3,7 @@
 
 namespace gn
 {
-	Transform::Transform(GameObject* gameObject) : Component(ComponentID::Transform, gameObject),
+	Transform::Transform(GameObject* gameObject) : Component(ComponentID::TRANSFORM, gameObject),
 		_position(glm::vec3(0.0f, 0.0f, 0.0f)), _rotation(glm::vec3(0.0f, 0.0f, 0.0f)), _scale(glm::vec3(1.0f, 1.0f, 1.0f)),
 		_forward(glm::vec3(0.0f, 0.0f, 1.0f)), _right(glm::vec3(1.0f, 0.0f, 0.0f)), _up(glm::vec3(0.0f, 1.0f, 0.0f)),
 		_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f))
@@ -12,7 +12,7 @@ namespace gn
 	}
 
 	Transform::Transform(GameObject* gameObject, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : 
-		Component(ComponentID::Transform, gameObject),
+		Component(ComponentID::TRANSFORM, gameObject),
 		_position(position), _rotation(rotation), _scale(scale),
 		_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f))
 	{

@@ -5,7 +5,7 @@
 
 namespace gn
 {
-	MeshRenderer::MeshRenderer(GameObject* gameObject) : Component(ComponentID::MeshRenderer, gameObject),
+	MeshRenderer::MeshRenderer(GameObject* gameObject) : Component(ComponentID::MESH_RENDERER, gameObject),
 		_renderer(NULL), _diffuseTextures(NULL), _material(NULL),
 		_vertexBufferData(NULL), _uvBufferData(NULL), _indexBufferData(NULL),
 		_vertexBufferID(-1), _uvBufferID(-1), _indexBufferID(-1)

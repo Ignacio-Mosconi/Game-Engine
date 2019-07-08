@@ -19,6 +19,7 @@ namespace gn
 	{
 	private:
 		Window* _renderWindow;
+		
 		unsigned int _vertexArrayID;
 
 		glm::mat4 _model;
@@ -67,7 +68,7 @@ namespace gn
 		void updateView(glm::vec3 cameraPos, glm::vec3 center, glm::vec3 upVector);
 
 		void changeOrthoProjection(float left, float right, float bottom, float top, float nearPlane, float farPlane);
-		void changePerspProjection(float fieldOfView, float right, float nearPlane, float farPlane);
+		void changePerspProjection(float fieldOfView, float right, float nearDistance, float farDistance);
 
 		void setProjection(Projection projectionType);
 

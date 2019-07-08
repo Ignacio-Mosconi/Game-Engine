@@ -5,7 +5,7 @@
 
 namespace gn
 {
-	SpriteRenderer::SpriteRenderer(GameObject* gameObject): Component(ComponentID::SpriteRenderer, gameObject),
+	SpriteRenderer::SpriteRenderer(GameObject* gameObject): Component(ComponentID::SPRITE_RENDERER, gameObject),
 		_renderer(NULL), _texture(NULL), _material(NULL),
 		_vertexBufferData(NULL), _uvBufferData(NULL),
 		_vertexBufferID(-1), _uvBufferID(-1),

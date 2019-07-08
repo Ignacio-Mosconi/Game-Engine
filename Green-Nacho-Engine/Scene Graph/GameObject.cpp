@@ -2,6 +2,8 @@
 #include "Core/Renderer.h"
 #include "Scene Graph/Component.h"
 #include "Scene Graph/Transform.h"
+#include "Scene Graph/Camera.h"
+#include "Scene Graph/BoundingBox.h"
 
 namespace gn
 {
@@ -56,7 +58,7 @@ namespace gn
 			(*it)->update(deltaTime);
 	}
 
-	void GameObject::draw()
+	void GameObject::draw(Camera* activeCamera)
 	{
 		glm::mat4 originalModelMatrix = _renderer->getModelMatrix();
 		glm::mat4 originalViewMatrix = _renderer->getViewMatrix();
@@ -64,10 +66,20 @@ namespace gn
 		
 		_renderer->multiplyModelMatrix(_transform->getModelMatrix());
 
-		for (std::list<Component*>::iterator it = _components->begin(); it != _components->end(); it++)
-			(*it)->draw();
-		for (std::list<GameObject*>::iterator it = _children->begin(); it != _children->end(); it++)
-			(*it)->draw();
+		bool shouldBeDrawn = true;
+
+		BoundingBox* bb = (BoundingBox*)getComponent(ComponentID::BOUNDING_BOX);
+
+		if (activeCamera && bb)
+			shouldBeDrawn = activeCamera->isInsideFrustum(bb);
+
+		if (shouldBeDrawn)
+		{
+			for (std::list<Component*>::iterator it = _components->begin(); it != _components->end(); it++)
+				(*it)->draw();
+			for (std::list<GameObject*>::iterator it = _children->begin(); it != _children->end(); it++)
+				(*it)->draw();
+		}
 
 		_renderer->setModelMatrix(originalModelMatrix);
 		_renderer->setViewMatrix(originalViewMatrix);

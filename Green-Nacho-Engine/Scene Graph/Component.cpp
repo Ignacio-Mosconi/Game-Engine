@@ -2,6 +2,7 @@
 #include "Scene Graph/GameObject.h"
 #include "Scene Graph/Transform.h"
 #include "Scene Graph/Camera.h"
+#include "Scene Graph/BoundingBox.h"
 #include "Scene Graph/SpriteRenderer.h"
 #include "Scene Graph/MeshRenderer.h"
 #include "Scene Graph/CapsuleCollider.h"
@@ -40,25 +41,28 @@ namespace gn
 
 		switch (componentID)
 		{
-			case ComponentID::Transform:
+			case ComponentID::TRANSFORM:
 				component = new Transform(gameObject);
 				break;
-			case ComponentID::Camera:
+			case ComponentID::CAMERA:
 				component = new Camera(gameObject);
+				break;			
+			case ComponentID::BOUNDING_BOX:
+				component = new BoundingBox(gameObject);
 				break;
-			case ComponentID::SpriteRenderer:
+			case ComponentID::SPRITE_RENDERER:
 				component = new SpriteRenderer(gameObject);
 				break;			
-			case ComponentID::MeshRenderer:
+			case ComponentID::MESH_RENDERER:
 				component = new MeshRenderer(gameObject);
 				break;
-			case ComponentID::CapsuleCollider:
+			case ComponentID::CAPSULE_COLLIDER:
 				component = new CapsuleCollider(gameObject);
 				break;
-			case ComponentID::RigidBody:
+			case ComponentID::RIGID_BODY:
 				component = new RigidBody(gameObject);
 				break;
-			case ComponentID::NavigationController:
+			case ComponentID::NAVIGATION_CONTROLLER:
 				component = new NavigationController(gameObject);
 				break;
 		}

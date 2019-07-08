@@ -12,6 +12,7 @@ namespace gn
 	class Renderer;
 	class Component;
 	class Transform;
+	class Camera;
 
 	class ENGINE_DECL_SPEC GameObject
 	{
@@ -31,7 +32,7 @@ namespace gn
 		void stop();
 
 		void update(float deltaTime);
-		void draw();
+		void draw(Camera* activeCamera = NULL);
 
 		bool addChild(GameObject* gameObject);
 		bool removeChild(GameObject* gameObject);

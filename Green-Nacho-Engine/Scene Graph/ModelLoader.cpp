@@ -81,7 +81,7 @@ namespace gn
 													loadMaterialTextures(aiMat, aiTextureType_DIFFUSE, texturesPath);
 		}
 
-		MeshRenderer* meshRenderer = (MeshRenderer*)gameObject->addComponent(ComponentID::MeshRenderer);
+		MeshRenderer* meshRenderer = (MeshRenderer*)gameObject->addComponent(ComponentID::MESH_RENDERER);
 		meshRenderer->createMesh(vertices, indices, diffuseMaps);
 
 		return gameObject;

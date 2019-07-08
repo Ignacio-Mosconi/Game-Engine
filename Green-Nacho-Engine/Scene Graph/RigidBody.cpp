@@ -9,7 +9,7 @@
 
 namespace gn
 {
-	RigidBody::RigidBody(GameObject* gameObject) : Component(ComponentID::RigidBody, gameObject),
+	RigidBody::RigidBody(GameObject* gameObject) : Component(ComponentID::RIGID_BODY, gameObject),
 		_rigidActor(NULL), _shape(NULL), _material(NULL)
 	{
 
