@@ -63,8 +63,8 @@ namespace gn
 
 	void NavigationController::rotate(float horRotation, float verRotation)
 	{
-		_horAngle -= horRotation;
-		_verAngle -= verRotation;
+		_horAngle += horRotation;
+		_verAngle += verRotation;
 
 		_verAngle = glm::clamp(_verAngle, -VERTICAL_RANGE, VERTICAL_RANGE);
 

@@ -100,7 +100,6 @@ bool Game::onUpdate(float deltaTime)
 
 bool Game::onDraw()
 {
-	std::cout << "\n";
 	_scene->draw(_mainCamera);
 
 	return true;

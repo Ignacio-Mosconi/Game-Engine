@@ -31,7 +31,7 @@ namespace gn
 			_vertices[i] = vertices[i];
 	}
 
-	glm::vec3 BoundingBox::getVertexPosition(unsigned int index) const
+	glm::vec3 BoundingBox::getVertexGlobalPosition(unsigned int index) const
 	{
 		if (index > CUBE_VERTICES)
 		{

@@ -25,6 +25,6 @@ namespace gn
 
 		void setVertices(glm::vec3 vertices[CUBE_VERTICES]);
 
-		glm::vec3 getVertexPosition(unsigned int index) const;
+		glm::vec3 getVertexGlobalPosition(unsigned int index) const;
 	};
 }

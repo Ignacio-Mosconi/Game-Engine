@@ -44,11 +44,9 @@ namespace gn
 		glm::vec4 right(-1.0f, 0.0f, 0.0f, 0.0f);
 		glm::vec4 up(0.0f, 1.0f, 0.0f, 0.0f);
 
-		glm::mat4 inverseRot = glm::mat4(1.0f) / _rotMatrix;
-
-		_forward = glm::normalize((glm::vec3)(forward * inverseRot));
-		_right = glm::normalize((glm::vec3)(right * inverseRot));
-		_up = glm::normalize((glm::vec3)(up * inverseRot));
+		_forward = glm::normalize((glm::vec3)(forward * _rotMatrix));
+		_right = glm::normalize((glm::vec3)(right * _rotMatrix));
+		_up = glm::normalize((glm::vec3)(up * _rotMatrix));
 	}
 	
 	void Transform::clampEulerRotation()
@@ -61,14 +59,6 @@ namespace gn
 		
 		if (_rotation.z < 0.0f || _rotation.z >= FULL_ROTATION)
 			_rotation.z = _rotation.z - (glm::floor(_rotation.z / FULL_ROTATION) * FULL_ROTATION);
-	}
-
-	void Transform::start()
-	{
-		//clampEulerRotation();
-		//updateRotationMatrix();
-		//updateDirectionVectors();
-		//updateModelMatrix();
 	}
 
 	void Transform::translate(float x, float y, float z)

@@ -125,7 +125,7 @@ namespace gn
 
 			for (int j = 0; j < CUBE_VERTICES; j++)
 			{
-				glm::vec3 vertexPosition = boundingBox->getVertexPosition(j);
+				glm::vec3 vertexPosition = boundingBox->getVertexGlobalPosition(j);
 				glm::vec3 planeNormal = glm::vec3(_frustumPlanes[i]);
 
 				float dist = glm::dot(planeNormal, vertexPosition) + _frustumPlanes[i].w;
