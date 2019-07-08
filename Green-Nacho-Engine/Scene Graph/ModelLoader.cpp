@@ -2,8 +2,9 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "ModelLoader.h"
-#include "Scene Graph/GameObject.h"
 #include "Core/Material.h"
+#include "Scene Graph/GameObject.h"
+#include "Scene Graph/BoundingBox.h"
 #include "Scene Graph/MeshRenderer.h"
 
 namespace gn
@@ -23,24 +24,44 @@ namespace gn
 
 		GameObject* modelRoot = new GameObject(parent->getRenderer(), parent);
 
-		processNode(modelRoot, scene->mRootNode, scene, texturesPath);
+		glm::vec3 mins = glm::vec3(0.0f);
+		glm::vec3 maxs = glm::vec3(0.0f);
+
+		processNode(modelRoot, scene->mRootNode, scene, mins, maxs, texturesPath);
+
+		glm::vec3 bbVertices[CUBE_VERTICES] =
+		{
+			glm::vec3(mins.x, mins.y, mins.z),
+			glm::vec3(mins.x, maxs.y, mins.z),
+			glm::vec3(mins.x, mins.y, maxs.z),
+			glm::vec3(mins.x, maxs.y, maxs.z),
+			glm::vec3(maxs.x, mins.y, mins.z),
+			glm::vec3(maxs.x, maxs.y, mins.z),
+			glm::vec3(maxs.x, mins.y, maxs.z),
+			glm::vec3(maxs.x, maxs.y, maxs.z)
+		};
+		
+		BoundingBox* bb = (BoundingBox*)modelRoot->addComponent(ComponentID::BOUNDING_BOX);
+		bb->setVertices(bbVertices);
 
 		return modelRoot;
 	}
 
-	void ModelLoader::processNode(GameObject* parent, aiNode* node, const aiScene* scene, const std::string& texturesPath)
+	void ModelLoader::processNode(GameObject* parent, aiNode* node, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs, 
+								const std::string& texturesPath)
 	{
 		for (int i = 0; i < (int)node->mNumMeshes; i++)
 		{
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			GameObject* child = generateMesh(parent, mesh, scene, texturesPath);
+			GameObject* child = generateMesh(parent, mesh, scene, mins, maxs, texturesPath);
 		}
 
 		for (int i = 0; i < (int)node->mNumChildren; i++)
-			processNode(parent, node->mChildren[i], scene, texturesPath);
+			processNode(parent, node->mChildren[i], scene, mins, maxs, texturesPath);
 	}
 
-	GameObject* ModelLoader::generateMesh(GameObject* parent, aiMesh* mesh, const aiScene* scene, const std::string& texturesPath)
+	GameObject* ModelLoader::generateMesh(GameObject* parent, aiMesh* mesh, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs,
+											const std::string& texturesPath)
 	{
 		GameObject* gameObject = new GameObject(parent->getRenderer(), parent);
 
@@ -60,6 +81,19 @@ namespace gn
 			vertex.position = glm::vec3(aiMeshVertex.x, aiMeshVertex.y, aiMeshVertex.z);
 			vertex.normal = glm::vec3(aiMeshNormal.x, aiMeshNormal.y, aiMeshNormal.z);
 			vertex.uvCoords = glm::vec2(aiTextCoord.x, aiTextCoord.y);
+
+			if (vertex.position.x < mins.x)
+				mins.x = vertex.position.x;
+			if (vertex.position.x > maxs.x)
+				maxs.x = vertex.position.x;			
+			if (vertex.position.y < mins.y)
+				mins.y = vertex.position.y;
+			if (vertex.position.y > maxs.y)
+				maxs.y = vertex.position.y;
+			if (vertex.position.z < mins.z)
+				mins.z = vertex.position.z;
+			if (vertex.position.z > maxs.z)
+				maxs.z = vertex.position.z;
 
 			vertices.push_back(vertex);
 		}

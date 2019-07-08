@@ -71,14 +71,17 @@ namespace gn
 		BoundingBox* bb = (BoundingBox*)getComponent(ComponentID::BOUNDING_BOX);
 
 		if (activeCamera && bb)
+		{
 			shouldBeDrawn = activeCamera->isInsideFrustum(bb);
+			std::cout << shouldBeDrawn << std::endl;
+		}
 
 		if (shouldBeDrawn)
 		{
 			for (std::list<Component*>::iterator it = _components->begin(); it != _components->end(); it++)
 				(*it)->draw();
 			for (std::list<GameObject*>::iterator it = _children->begin(); it != _children->end(); it++)
-				(*it)->draw();
+				(*it)->draw(activeCamera);
 		}
 
 		_renderer->setModelMatrix(originalModelMatrix);

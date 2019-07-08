@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <glm/vec3.hpp>
 #include "Core/Exports.h"
 
 enum aiTextureType;
@@ -23,8 +24,10 @@ namespace gn
 	class ENGINE_DECL_SPEC ModelLoader
 	{
 	private:
-		static void processNode(GameObject* parent, aiNode* node, const aiScene* scene, const std::string& texturesPath = "");
-		static GameObject* generateMesh(GameObject* parent, aiMesh* mesh, const aiScene* scene, const std::string& texturesPath = "");
+		static void processNode(GameObject* parent, aiNode* node, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs,
+								const std::string& texturesPath = "");
+		static GameObject* generateMesh(GameObject* parent, aiMesh* mesh, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs,
+										const std::string& texturesPath = "");
 		static std::vector<Texture*> loadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& texturesPath);
 		static std::vector<Texture*> loadMaterialTextures(aiTexture** textures);
 

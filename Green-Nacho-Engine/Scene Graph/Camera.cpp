@@ -18,11 +18,9 @@ namespace gn
 
 	}
 
-	glm::vec4 Camera::generatePlane(glm::vec3& normal, glm::vec3& point)
+	glm::vec4 Camera::generatePlane(glm::vec3 normal, glm::vec3 point)
 	{
 		glm::vec4 plane;
-
-		normal = glm::normalize(normal);
 
 		plane.x = normal.x;
 		plane.y = normal.y;
@@ -37,10 +35,10 @@ namespace gn
 		_renderer = _gameObject->getRenderer();
 		_transform = _gameObject->getTransform();
 
-		int windowWidth = _renderer->getRenderWindow()->getWidth();
-		int windowHeight= _renderer->getRenderWindow()->getHeight();
+		float windowWidth = (float)_renderer->getRenderWindow()->getWidth();
+		float windowHeight = (float)_renderer->getRenderWindow()->getHeight();
 		
-		updateFrustum(45.0f, windowWidth / windowHeight, 0.1f, 1000.0f);
+		updateFrustumProperties(45.0f, windowWidth / windowHeight, 0.1f, 1000.0f);
 	}
 	
 	void Camera::stop()
@@ -84,47 +82,35 @@ namespace gn
 		glm::vec3 nearCenter = _globalPosition + _viewDirection * _nearDistance;
 		glm::vec3 farCenter = _globalPosition + _viewDirection * _farDistance;
 
-		glm::vec3 rightPlaneVec = (nearCenter + right * _nearWidth * 0.5f) - _globalPosition;
 		glm::vec3 leftPlaneVec = (nearCenter - right * _nearWidth * 0.5f) - _globalPosition;
+		glm::vec3 rightPlaneVec = (nearCenter + right * _nearWidth * 0.5f) - _globalPosition;
 		glm::vec3 topPlaneVec = (nearCenter + up * _nearHeight * 0.5f) - _globalPosition;
 		glm::vec3 bottomPlaneVec = (nearCenter - up * _nearHeight * 0.5f) - _globalPosition;
 
+		glm::vec3 normalLeft = -glm::normalize(glm::cross(leftPlaneVec, up));
+		glm::vec3 normalRight = glm::normalize(glm::cross(rightPlaneVec, up));
+		glm::vec3 normalTop = -glm::normalize(glm::cross(topPlaneVec, right));
+		glm::vec3 normalBottom = glm::normalize(glm::cross(bottomPlaneVec, right));
+
 		_frustumPlanes[(int)FrustumPlane::NEAR] = generatePlane(_viewDirection, nearCenter);
-		_frustumPlanes[(int)FrustumPlane::FAR] = generatePlane(_viewDirection, farCenter);
-		_frustumPlanes[(int)FrustumPlane::LEFT] = generatePlane(leftPlaneVec, _globalPosition);
-		_frustumPlanes[(int)FrustumPlane::RIGHT] = generatePlane(rightPlaneVec, _globalPosition);
-		_frustumPlanes[(int)FrustumPlane::TOP] = generatePlane(topPlaneVec, _globalPosition);
-		_frustumPlanes[(int)FrustumPlane::BOTTOM] = generatePlane(bottomPlaneVec, _globalPosition);
+		_frustumPlanes[(int)FrustumPlane::FAR] = generatePlane(-_viewDirection, farCenter);
+		_frustumPlanes[(int)FrustumPlane::LEFT] = generatePlane(normalLeft, _globalPosition);
+		_frustumPlanes[(int)FrustumPlane::RIGHT] = generatePlane(normalRight, _globalPosition);
+		_frustumPlanes[(int)FrustumPlane::TOP] = generatePlane(normalTop, _globalPosition);
+		_frustumPlanes[(int)FrustumPlane::BOTTOM] = generatePlane(normalBottom, _globalPosition);
 	}
 
-	void Camera::updateFrustum(float fieldOfView, float aspectRatio, float nearDistance, float farDistance)
+	void Camera::updateFrustumProperties(float fieldOfView, float aspectRatio, float nearDistance, float farDistance)
 	{
 		_nearDistance = nearDistance;
 		_farDistance = farDistance;
 		_fovTangent = glm::tan(glm::radians(fieldOfView));
 		_nearHeight = nearDistance * _fovTangent;
-		_nearWidth = _nearHeight * aspectRatio;		
+		_nearWidth = _nearHeight * aspectRatio;
 		_farHeight = farDistance * _fovTangent;
 		_farWidth = _farHeight * aspectRatio;
 
-		glm::vec3 right = _transform->getRight();
-		glm::vec3 up = glm::normalize(glm::cross(_viewDirection, right));
-
-		glm::vec3 nearCenter = _globalPosition + _viewDirection * _nearDistance;
-		glm::vec3 farCenter = _globalPosition + _viewDirection * _farDistance;
-		
-		glm::vec3 rightPlaneVec = (nearCenter + right * _nearWidth * 0.5f) - _globalPosition;
-		glm::vec3 leftPlaneVec = (nearCenter - right * _nearWidth * 0.5f) - _globalPosition;
-		glm::vec3 topPlaneVec = (nearCenter + up * _nearHeight * 0.5f) - _globalPosition;
-		glm::vec3 bottomPlaneVec = (nearCenter - up * _nearHeight * 0.5f) - _globalPosition;
-
-		_frustumPlanes[(int)FrustumPlane::NEAR] = generatePlane(_viewDirection, nearCenter);
-		_frustumPlanes[(int)FrustumPlane::FAR] = generatePlane(_viewDirection, farCenter);
-		_frustumPlanes[(int)FrustumPlane::LEFT] = generatePlane(leftPlaneVec, _globalPosition);
-		_frustumPlanes[(int)FrustumPlane::RIGHT] = generatePlane(rightPlaneVec, _globalPosition);
-		_frustumPlanes[(int)FrustumPlane::TOP] = generatePlane(topPlaneVec, _globalPosition);
-		_frustumPlanes[(int)FrustumPlane::BOTTOM] = generatePlane(bottomPlaneVec, _globalPosition);
-
+		updateFrustum();
 		_renderer->changePerspProjection(fieldOfView, aspectRatio, nearDistance, farDistance);
 	}
 

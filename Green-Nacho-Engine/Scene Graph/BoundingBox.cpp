@@ -39,6 +39,16 @@ namespace gn
 			return glm::vec3(0.0f);
 		}
 
-		return _vertices[index] + _transform->getPosition();
+		glm::vec3 globalPos = _transform->getPosition();
+
+		Transform* parentTransform = _transform->getGameObject()->getParentTransform();
+
+		while (parentTransform)
+		{
+			globalPos += parentTransform->getPosition();
+			parentTransform = parentTransform->getGameObject()->getParentTransform();
+		}
+
+		return _vertices[index] + globalPos;
 	}
 }

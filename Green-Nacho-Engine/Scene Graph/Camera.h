@@ -35,7 +35,7 @@ namespace gn
 		float _farHeight;
 		float _farWidth;
 
-		glm::vec4 generatePlane(glm::vec3& normal, glm::vec3& point);
+		glm::vec4 generatePlane(glm::vec3 normal, glm::vec3 point);
 
 	public:
 		Camera(GameObject* gameObject);
@@ -46,7 +46,7 @@ namespace gn
 		void update(float deltaTime) override;
 
 		void updateFrustum();
-		void updateFrustum(float fieldOfView, float aspectRatio, float nearDistance, float farDistance);
+		void updateFrustumProperties(float fieldOfView, float aspectRatio, float nearDistance, float farDistance);
 
 		bool isInsideFrustum(BoundingBox* boundingBox);
 	};
