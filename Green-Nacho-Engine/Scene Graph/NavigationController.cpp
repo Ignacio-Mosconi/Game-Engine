@@ -18,19 +18,19 @@ namespace gn
 
 	void NavigationController::advance(float distance)
 	{
-		glm::vec3 newPos = _transform->getPosition() + _transform->getForward() * distance;		
+		glm::vec3 newPos = _transform->getPosition() + _transform->getLocalForward() * distance;		
 		_transform->setPosition(newPos.x, newPos.y, newPos.z);
 	}
 
 	void NavigationController::strafe(float distance)
 	{
-		glm::vec3 newPos = _transform->getPosition() + _transform->getRight() * distance;
+		glm::vec3 newPos = _transform->getPosition() + _transform->getLocalRight() * distance;
 		_transform->setPosition(newPos.x, newPos.y, newPos.z);
 	}
 
 	void NavigationController::ascend(float distance)
 	{
-		glm::vec3 newPos = _transform->getPosition() + _transform->getUp() * distance;
+		glm::vec3 newPos = _transform->getPosition() + _transform->getLocalUp() * distance;
 		_transform->setPosition(newPos.x, newPos.y, newPos.z);
 	}
 
@@ -69,7 +69,7 @@ namespace gn
 		_verAngle = glm::clamp(_verAngle, -VERTICAL_RANGE, VERTICAL_RANGE);
 
 		_transform->setRotation(_verAngle, _horAngle, 0.0f);
-		_transform->setUp(glm::vec3(0.0f, 1.0f, 0.0f));
+		_transform->forceLocalUp();
 	}
 
 	void NavigationController::start()

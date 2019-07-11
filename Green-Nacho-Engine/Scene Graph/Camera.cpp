@@ -52,6 +52,7 @@ namespace gn
 	void Camera::update(float deltaTime)
 	{
 		glm::vec3 globalPos = _transform->getPosition();
+		glm::vec3 viewDir= _transform->getLocalForward();
 		
 		Transform* parentTransform = _transform->getGameObject()->getParentTransform();
 
@@ -61,13 +62,13 @@ namespace gn
 			parentTransform = parentTransform->getGameObject()->getParentTransform();
 		}
 
-		if (_globalPosition != globalPos || _viewDirection != _transform->getForward())
+		if (_globalPosition != globalPos || _viewDirection != viewDir)
 		{
 			_globalPosition = globalPos;
-			_viewDirection = _transform->getForward();
+			_viewDirection = viewDir;
 
 			glm::vec3 center = _globalPosition + _viewDirection;
-			glm::vec3 upVector = _transform->getUp();		
+			glm::vec3 upVector = _transform->getLocalUp();		
 
 			updateFrustum();
 			_renderer->updateView(_globalPosition, center, upVector);
@@ -76,7 +77,7 @@ namespace gn
 
 	void Camera::updateFrustum()
 	{
-		glm::vec3 right = _transform->getRight();
+		glm::vec3 right = _transform->getLocalRight();
 		glm::vec3 up = glm::normalize(glm::cross(_viewDirection, right));
 
 		glm::vec3 nearCenter = _globalPosition + _viewDirection * _nearDistance;

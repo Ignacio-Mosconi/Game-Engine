@@ -85,12 +85,6 @@ bool Game::onUpdate(float deltaTime)
 		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RIGID_BODY));
 		glm::vec3 torque = _model2->getTransform()->getRight() * -200.0f;
 		rb->addTorque(torque, ForceMode::FORCE);
-	}	
-	
-	if (_inputManager->getKey(Key::LEFT_SHIFT))
-	{
-		RigidBody* rb = (RigidBody*)(_model2->getComponent(ComponentID::RIGID_BODY));
-		rb->clearTorque(ForceMode::FORCE);
 	}
 
 	_scene->update(deltaTime);
@@ -100,6 +94,8 @@ bool Game::onUpdate(float deltaTime)
 
 bool Game::onDraw()
 {
+	std::cout << "\n";
+
 	_scene->draw(_mainCamera);
 
 	return true;

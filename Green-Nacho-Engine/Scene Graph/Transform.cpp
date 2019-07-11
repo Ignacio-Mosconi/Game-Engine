@@ -5,7 +5,8 @@ namespace gn
 {
 	Transform::Transform(GameObject* gameObject) : Component(ComponentID::TRANSFORM, gameObject),
 		_position(glm::vec3(0.0f, 0.0f, 0.0f)), _rotation(glm::vec3(0.0f, 0.0f, 0.0f)), _scale(glm::vec3(1.0f, 1.0f, 1.0f)),
-		_forward(glm::vec3(0.0f, 0.0f, 1.0f)), _right(glm::vec3(1.0f, 0.0f, 0.0f)), _up(glm::vec3(0.0f, 1.0f, 0.0f)),
+		_forward(glm::vec3(0.0f, 0.0f, 1.0f)), _right(glm::vec3(-1.0f, 0.0f, 0.0f)), _up(glm::vec3(0.0f, 1.0f, 0.0f)),
+		_localForward(glm::vec3(0.0f, 0.0f, 1.0f)), _localRight(glm::vec3(-1.0f, 0.0f, 0.0f)), _localUp(glm::vec3(0.0f, 1.0f, 0.0f)),
 		_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f))
 	{
 		updateModelMatrix();
@@ -14,6 +15,8 @@ namespace gn
 	Transform::Transform(GameObject* gameObject, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) : 
 		Component(ComponentID::TRANSFORM, gameObject),
 		_position(position), _rotation(rotation), _scale(scale),
+		_forward(glm::vec3(0.0f, 0.0f, 1.0f)), _right(glm::vec3(-1.0f, 0.0f, 0.0f)), _up(glm::vec3(0.0f, 1.0f, 0.0f)),
+		_localForward(glm::vec3(0.0f, 0.0f, 1.0f)), _localRight(glm::vec3(-1.0f, 0.0f, 0.0f)), _localUp(glm::vec3(0.0f, 1.0f, 0.0f)),
 		_traMatrix(glm::mat4(1.0f)), _rotMatrix(glm::mat4(1.0f)), _scaMatrix(glm::mat4(1.0f))
 	{
 		updateModelMatrix();
@@ -44,9 +47,13 @@ namespace gn
 		glm::vec4 right(-1.0f, 0.0f, 0.0f, 0.0f);
 		glm::vec4 up(0.0f, 1.0f, 0.0f, 0.0f);
 
-		_forward = glm::normalize((glm::vec3)(forward * _rotMatrix));
-		_right = glm::normalize((glm::vec3)(right * _rotMatrix));
-		_up = glm::normalize((glm::vec3)(up * _rotMatrix));
+		_forward = glm::normalize((glm::vec3)(_rotMatrix * forward));
+		_right = glm::normalize((glm::vec3)(_rotMatrix * right));
+		_up = glm::normalize((glm::vec3)(_rotMatrix * up));		
+		
+		_localForward = glm::normalize((glm::vec3)(forward * _rotMatrix));
+		_localRight = glm::normalize((glm::vec3)(right * _rotMatrix));
+		_localUp = glm::normalize((glm::vec3)(up * _rotMatrix));
 	}
 	
 	void Transform::clampEulerRotation()
@@ -115,9 +122,10 @@ namespace gn
 		updateModelMatrix();
 	}
 
-	void Transform::setUp(glm::vec3 up)
+	void Transform::forceLocalUp()
 	{
-		_up = up;
+		_localUp = glm::vec3(0.0f, 1.0f, 0.0f);
+		_localRight = glm::normalize(glm::cross(_localForward, _localUp));
 	}
 
 	void Transform::convertToEulerAngles(const glm::vec4& quaternion, float& pitch, float& yaw, float& roll)

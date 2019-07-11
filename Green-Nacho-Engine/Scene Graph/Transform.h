@@ -18,7 +18,11 @@ namespace gn
 		
 		glm::vec3 _forward;
 		glm::vec3 _right;
-		glm::vec3 _up;
+		glm::vec3 _up;		
+		
+		glm::vec3 _localForward;
+		glm::vec3 _localRight;
+		glm::vec3 _localUp;
 
 		glm::mat4 _traMatrix;
 		glm::mat4 _rotMatrix;
@@ -44,7 +48,7 @@ namespace gn
 		void setRotation(float x, float y, float z);
 		void setScale(float x, float y, float z);
 
-		void setUp(glm::vec3 up);
+		void forceLocalUp();
 
 		static void convertToEulerAngles(const glm::vec4& quaternion, float& pitch, float& yaw, float& roll);
 		static glm::vec4 convertToQuaternion(float pitch, float yaw, float roll);
@@ -55,7 +59,11 @@ namespace gn
 		
 		inline glm::vec3 getForward() const { return _forward; }
 		inline glm::vec3 getRight() const { return _right; }
-		inline glm::vec3 getUp() const { return _up; }
+		inline glm::vec3 getUp() const { return _up; }		
+		
+		inline glm::vec3 getLocalForward() const { return _localForward; }
+		inline glm::vec3 getLocalRight() const { return _localRight; }
+		inline glm::vec3 getLocalUp() const { return _localUp; }
 
 		inline glm::mat4 getRotMatrix() const { return _rotMatrix; }
 
