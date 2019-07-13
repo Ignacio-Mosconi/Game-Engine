@@ -11,6 +11,6 @@ namespace gn
 		CapsuleCollider(GameObject* gameObject);
 		~CapsuleCollider();
 		
-		void createCapsule(float radius, float halfHeight);
+		void createCapsule(float radius, float height);
 	};
 }

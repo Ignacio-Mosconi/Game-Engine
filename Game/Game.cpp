@@ -27,11 +27,12 @@ bool Game::onStart()
 
 	_cameraObject->getTransform()->setPosition(0.0f, 7.0f, 30.0f);
 
-	CapsuleCollider* cc1 = (CapsuleCollider*)_spaceship->addComponent(ComponentID::CAPSULE_COLLIDER);
-	cc1->createCapsule(9.0f, 0.25f);
+	BoundingBox* bb = (BoundingBox*)_spaceship->getComponent(ComponentID::BOUNDING_BOX);
+	BoxCollider* bc = (BoxCollider*)_spaceship->addComponent(ComponentID::BOX_COLLIDER);
+	bc->createBox(bb);
 
-	RigidBody* rb1 = (RigidBody*)_spaceship->addComponent(ComponentID::RIGID_BODY);
-	rb1->createRigidBody(cc1, false, 1000.0f, glm::vec3(0.0f, 0.0f, 0.0f));
+	RigidBody* rb = (RigidBody*)_spaceship->addComponent(ComponentID::RIGID_BODY);
+	rb->createRigidBody(bc, false, 1000.0f, glm::vec3(0.0f, 0.0f, 0.0f));
 
 	_physicsManager->setCurrentSceneGravity(glm::vec3(0.0f, 0.0f, 0.0f));
 
@@ -54,7 +55,7 @@ bool Game::onUpdate(float deltaTime)
 	if (_inputManager->getKey(Key::SPACE))
 	{
 		RigidBody* rb = (RigidBody*)(_spaceship->getComponent(ComponentID::RIGID_BODY));
-		glm::vec3 force = _spaceship->getTransform()->getUp() * 20000.0f;
+		glm::vec3 force = _spaceship->getTransform()->getRight() * 20000.0f;
 		rb->addForce(force, ForceMode::FORCE);
 	}
 
@@ -90,8 +91,6 @@ bool Game::onUpdate(float deltaTime)
 
 bool Game::onDraw()
 {
-	std::cout << "\n";
-
 	_scene->draw(_mainCamera);
 
 	return true;

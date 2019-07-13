@@ -11,11 +11,12 @@
 #include "Scene Graph/Transform.h"
 #include "Scene Graph/Camera.h"
 #include "Scene Graph/NavigationController.h"
+#include "Scene Graph/ModelLoader.h"
 #include "Scene Graph/SpriteRenderer.h"
 #include "Scene Graph/MeshRenderer.h"
-#include "Scene Graph/RigidBody.h"
-#include "Scene Graph/ModelLoader.h"
+#include "Scene Graph/BoxCollider.h"
 #include "Scene Graph/CapsuleCollider.h"
+#include "Scene Graph/RigidBody.h"
 #include "GameConstants.h"
 
 class Game : public gn::GameBase

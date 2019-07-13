@@ -15,6 +15,9 @@ namespace gn
 	private:
 		Transform* _transform;
 		glm::vec3 _vertices[CUBE_VERTICES];
+		
+		glm::vec3 _maxs;
+		glm::vec3 _mins;
 
 	public:
 		BoundingBox(GameObject* gameObject);
@@ -26,5 +29,8 @@ namespace gn
 		void setVertices(glm::vec3 vertices[CUBE_VERTICES]);
 
 		glm::vec3 getVertexGlobalPosition(unsigned int index) const;
+
+		inline glm::vec3 getMaxs() const { return _maxs; }
+		inline glm::vec3 getMins() const { return _mins; }
 	};
 }

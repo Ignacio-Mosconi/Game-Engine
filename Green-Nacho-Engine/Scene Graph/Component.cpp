@@ -5,6 +5,7 @@
 #include "Scene Graph/BoundingBox.h"
 #include "Scene Graph/SpriteRenderer.h"
 #include "Scene Graph/MeshRenderer.h"
+#include "Scene Graph/BoxCollider.h"
 #include "Scene Graph/CapsuleCollider.h"
 #include "Scene Graph/RigidBody.h"
 #include "Scene Graph/NavigationController.h"
@@ -56,6 +57,9 @@ namespace gn
 			case ComponentID::MESH_RENDERER:
 				component = new MeshRenderer(gameObject);
 				break;
+			case ComponentID::BOX_COLLIDER:
+				component = new BoxCollider(gameObject);
+				break;			
 			case ComponentID::CAPSULE_COLLIDER:
 				component = new CapsuleCollider(gameObject);
 				break;

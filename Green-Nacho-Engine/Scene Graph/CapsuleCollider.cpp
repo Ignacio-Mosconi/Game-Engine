@@ -13,8 +13,8 @@ namespace gn
 
 	}	
 	
-	void CapsuleCollider::createCapsule(float radius, float halfHeight)
+	void CapsuleCollider::createCapsule(float radius, float height)
 	{
-		_geometry = new physx::PxCapsuleGeometry(radius, halfHeight);
+		_geometry = new physx::PxCapsuleGeometry(radius, height * 0.5f);
 	}
 }
