@@ -130,7 +130,13 @@ namespace gn
 
 	void Transform::changeRotationMatrix(glm::vec4 quaternion)
 	{
+		float pitch, yaw, roll;
+		
 		quaternion = glm::normalize(quaternion);
+		
+		convertToEulerAngles(quaternion, pitch, yaw, roll);
+		
+		_rotation = glm::vec3(pitch, yaw, roll);
 
 		glm::mat4 mat1 = glm::mat4
 		{
@@ -150,6 +156,8 @@ namespace gn
 
 		_rotMatrix = mat1 * mat2;
 
+		clampEulerRotation();
+		updateDirectionVectors();
 		updateModelMatrix();
 	}
 

@@ -55,7 +55,7 @@ bool Game::onUpdate(float deltaTime)
 	if (_inputManager->getKey(Key::SPACE))
 	{
 		RigidBody* rb = (RigidBody*)(_spaceship->getComponent(ComponentID::RIGID_BODY));
-		glm::vec3 force = _spaceship->getTransform()->getRight() * 20000.0f;
+		glm::vec3 force = _spaceship->getTransform()->getUp() * 20000.0f;
 		rb->addForce(force, ForceMode::FORCE);
 	}
 
