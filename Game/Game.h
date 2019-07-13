@@ -6,6 +6,7 @@
 #include "Core/Window.h"
 #include "Core/Renderer.h"
 #include "Core/InputManager.h"
+#include "Core/PhysicsManager.h"
 #include "Scene Graph/GameObject.h"
 #include "Scene Graph/Transform.h"
 #include "Scene Graph/Camera.h"
@@ -23,8 +24,7 @@ private:
 	gn::GameObject* _cameraObject;
 	gn::Camera* _mainCamera;
 
-	gn::GameObject* _model1;
-	gn::GameObject* _model2;
+	gn::GameObject* _spaceship;
 
 protected:
 	bool onStart() override;

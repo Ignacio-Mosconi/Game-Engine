@@ -71,10 +71,7 @@ namespace gn
 		BoundingBox* bb = (BoundingBox*)getComponent(ComponentID::BOUNDING_BOX);
 
 		if (activeCamera && bb)
-		{
 			shouldBeDrawn = activeCamera->isInsideFrustum(bb);
-			std::cout << shouldBeDrawn << std::endl;
-		}
 
 		if (shouldBeDrawn)
 		{

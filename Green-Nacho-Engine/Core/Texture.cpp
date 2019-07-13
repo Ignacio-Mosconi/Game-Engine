@@ -129,7 +129,7 @@ namespace gn
 
 			unsigned char* data = SOIL_load_image_from_memory(imageData, bufferLength, (int*)&_width, (int*)&_height, &channels, SOIL_LOAD_AUTO);
 
-			if (!imageData)
+			if (!data)
 			{
 				SOIL_free_image_data(data);
 				throw std::logic_error("The image file could not be loaded.");

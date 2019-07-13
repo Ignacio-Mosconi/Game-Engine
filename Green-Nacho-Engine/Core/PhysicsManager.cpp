@@ -137,6 +137,13 @@ namespace gn
 		_scene->removeActor(*actor);
 	}
 
+	void PhysicsManager::setCurrentSceneGravity(glm::vec3 gravity)
+	{
+		physx::PxVec3 pxGravity(gravity.x, gravity.y, gravity.z);
+
+		_scene->setGravity(pxGravity);
+	}
+
 	physx::PxMaterial* PhysicsManager::createPhysicsMaterial(float staticFriction, float dynamicFriction, float restitution)
 	{
 		return _physics->createMaterial(staticFriction, dynamicFriction, restitution);

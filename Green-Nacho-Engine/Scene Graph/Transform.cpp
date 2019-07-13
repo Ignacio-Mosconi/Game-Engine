@@ -128,6 +128,31 @@ namespace gn
 		_localRight = glm::normalize(glm::cross(_localForward, _localUp));
 	}
 
+	void Transform::changeRotationMatrix(glm::vec4 quaternion)
+	{
+		quaternion = glm::normalize(quaternion);
+
+		glm::mat4 mat1 = glm::mat4
+		{
+			quaternion.w, quaternion.z, -quaternion.y, quaternion.x,
+			-quaternion.z, quaternion.w, quaternion.x, quaternion.y,
+			quaternion.y, -quaternion.x, quaternion.w, quaternion.z,
+			-quaternion.x, -quaternion.y, -quaternion.z, quaternion.w
+		};		
+		
+		glm::mat4 mat2 = glm::mat4
+		{
+			quaternion.w, quaternion.z, -quaternion.y, -quaternion.x,
+			-quaternion.z, quaternion.w, quaternion.x, -quaternion.y,
+			quaternion.y, -quaternion.x, quaternion.w, -quaternion.z,
+			quaternion.x, quaternion.y, quaternion.z, quaternion.w
+		};
+
+		_rotMatrix = mat1 * mat2;
+
+		updateModelMatrix();
+	}
+
 	glm::vec3 Transform::getGlobalPosition() const
 	{
 		glm::vec3 globalPosition = _position;

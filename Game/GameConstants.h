@@ -10,9 +10,11 @@ constexpr const char* PISTOL_PATH = "Assets/Models/Glock 3d.fbx";
 constexpr const char* NANOSUIT_PATH = "Assets/Models/nanosuit.obj";
 constexpr const char* CUBE_PATH = "Assets/Models/Cube.obj";
 constexpr const char* SUZANNE_PATH = "Assets/Models/Suzanne.obj";
+constexpr const char* SPACESHIP_PATH = "Assets/Models/SciFi_Fighter.obj";
 // Texture Paths
 constexpr const char* NANOSUIT_TEXTURES = "Assets/Textures/Nanosuit";
 constexpr const char* AK_47_TEXTURES = "Assets/Textures/AK-47";
+constexpr const char* SPACESHIP_TEXTURES = "Assets/Textures/Spaceship";
 // Sprite Paths
 constexpr const char* SPRITE_PATH = "Assets/Sprites/Sprite Sheet Texture.bmp";
 constexpr const char* NINJA_PATH = "Assets/Sprites/Ninja.bmp";

@@ -35,15 +35,11 @@ namespace gn
 		physx::PxVec3 pxPosition = pxTransform.p;
 		physx::PxQuat pxRotation = pxTransform.q;
 
-		glm::vec3 transformPosition = glm::vec3(pxPosition.x, pxPosition.y, pxPosition.z);
-
-		float pitch, yaw, roll;
+		glm::vec3 pos = glm::vec3(pxPosition.x, pxPosition.y, pxPosition.z);
 		glm::vec4 rotQuat(pxRotation.x, pxRotation.y, pxRotation.z, pxRotation.w);
-		
-		Transform::convertToEulerAngles(rotQuat, pitch, yaw, roll);
 
-		_transform->setPosition(transformPosition.x, transformPosition.y, transformPosition.z);
-		_transform->setRotation(pitch, yaw, roll);
+		_transform->setPosition(pos.x, pos.y, pos.z);
+		_transform->changeRotationMatrix(rotQuat);
 	}
 
 	void RigidBody::createRigidBody(Collider* collider, bool isStatic, float mass, glm::vec3 colliderOffset)
