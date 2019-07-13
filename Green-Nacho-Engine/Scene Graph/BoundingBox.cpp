@@ -1,4 +1,5 @@
 #include "Scene Graph/BoundingBox.h"
+#include "Core/Renderer.h"
 #include "Scene Graph/GameObject.h"
 #include "Scene Graph/Transform.h"
 
@@ -23,8 +24,8 @@ namespace gn
 	void BoundingBox::stop()
 	{
 		_transform = NULL;
-	}
-
+	}	
+	
 	void BoundingBox::setVertices(glm::vec3 vertices[CUBE_VERTICES])
 	{
 		for (int i = 0; i < CUBE_VERTICES; i++)
@@ -38,17 +39,11 @@ namespace gn
 			std::cerr << "WARNING: attempting to access an inexistent vertex." << std::endl;
 			return glm::vec3(0.0f);
 		}
+	
+		glm::vec4 globalRotatedPos(_vertices[index].x, _vertices[index].y, _vertices[index].z, 1.0f);
 
-		glm::vec3 globalPos = _transform->getPosition();
+		globalRotatedPos = _gameObject->getRenderer()->getModelMatrix() * globalRotatedPos;
 
-		Transform* parentTransform = _transform->getGameObject()->getParentTransform();
-
-		while (parentTransform)
-		{
-			globalPos += parentTransform->getPosition();
-			parentTransform = parentTransform->getGameObject()->getParentTransform();
-		}
-
-		return _vertices[index] + globalPos;
+		return (glm::vec3)globalRotatedPos;
 	}
 }

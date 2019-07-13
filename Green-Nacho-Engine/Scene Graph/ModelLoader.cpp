@@ -71,15 +71,18 @@ namespace gn
 		for (int i = 0; i < (int)mesh->mNumVertices; i++)
 		{
 			MeshVertex vertex;
-			aiVector3D aiMeshVertex = mesh->mVertices[i];
-			aiVector3D aiMeshNormal = mesh->mNormals[i];
+			aiVector3D aiVertex = mesh->mVertices[i];
+			aiVector3D aiNormal(0.0f, 0.0f, 0.0f);
 			aiVector3D aiTextCoord(0.0f, 0.0f, 0.0f);
+
+			if (mesh->mNormals)
+				aiNormal = mesh->mNormals[i];
 
 			if (mesh->mTextureCoords[0])
 				aiTextCoord = mesh->mTextureCoords[0][i];
 
-			vertex.position = glm::vec3(aiMeshVertex.x, aiMeshVertex.y, aiMeshVertex.z);
-			vertex.normal = glm::vec3(aiMeshNormal.x, aiMeshNormal.y, aiMeshNormal.z);
+			vertex.position = glm::vec3(aiVertex.x, aiVertex.y, aiVertex.z);
+			vertex.normal = glm::vec3(aiNormal.x, aiNormal.y, aiNormal.z);
 			vertex.uvCoords = glm::vec2(aiTextCoord.x, aiTextCoord.y);
 
 			if (vertex.position.x < mins.x)

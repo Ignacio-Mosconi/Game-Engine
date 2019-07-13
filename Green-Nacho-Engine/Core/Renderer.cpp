@@ -191,16 +191,22 @@ namespace gn
 	{
 		_orthoProjection = glm::ortho(left, right, bottom, top, nearPlane, farPlane);
 
-		if (_projection == _orthoProjection)
+		if (_projection != _perspProjection)
+		{
+			_projection = _orthoProjection;
 			updateMVP();
+		}
 	}
 
 	void Renderer::changePerspProjection(float fieldOfView, float aspectRatio, float nearDistance, float farDistance)
 	{
 		_perspProjection = glm::perspective(glm::radians(fieldOfView), aspectRatio, nearDistance, farDistance);
 
-		if (_projection == _perspProjection)
+		if (_projection != _orthoProjection)
+		{
+			_projection = _perspProjection;
 			updateMVP();
+		}
 	}
 
 	void Renderer::setProjection(Projection projection)

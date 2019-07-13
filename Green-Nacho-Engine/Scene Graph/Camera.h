@@ -30,10 +30,10 @@ namespace gn
 		float _nearDistance;
 		float _farDistance;
 		float _fovTangent;
-		float _nearHeight;
-		float _nearWidth;
-		float _farHeight;
-		float _farWidth;
+		float _halfNearHeight;
+		float _halfNearWidth;
+		float _halfFarHeight;
+		float _halfFarWidth;
 
 		glm::vec4 generatePlane(glm::vec3 normal, glm::vec3 point);
 

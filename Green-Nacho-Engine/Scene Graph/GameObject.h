@@ -42,6 +42,8 @@ namespace gn
 		bool removeComponent(ComponentID componentID);
 		Component* getComponent(ComponentID componentID);
 
+		inline int getChildCount() { return _children->size(); }
+
 		inline Renderer* getRenderer() { return _renderer; }
 		inline Transform* getTransform() { return _transform; }
 		inline Transform* getParentTransform() { return _parentTransform; }

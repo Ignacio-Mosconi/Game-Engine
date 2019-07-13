@@ -69,7 +69,6 @@ namespace gn
 		_verAngle = glm::clamp(_verAngle, -VERTICAL_RANGE, VERTICAL_RANGE);
 
 		_transform->setRotation(_verAngle, _horAngle, 0.0f);
-		_transform->forceLocalUp();
 	}
 
 	void NavigationController::start()

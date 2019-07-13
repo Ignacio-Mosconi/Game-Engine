@@ -50,6 +50,8 @@ namespace gn
 
 		void forceLocalUp();
 
+		glm::vec3 getGlobalPosition() const;
+
 		static void convertToEulerAngles(const glm::vec4& quaternion, float& pitch, float& yaw, float& roll);
 		static glm::vec4 convertToQuaternion(float pitch, float yaw, float roll);
 

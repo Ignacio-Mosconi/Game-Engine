@@ -128,6 +128,21 @@ namespace gn
 		_localRight = glm::normalize(glm::cross(_localForward, _localUp));
 	}
 
+	glm::vec3 Transform::getGlobalPosition() const
+	{
+		glm::vec3 globalPosition = _position;
+
+		Transform* parentTransform = _gameObject->getParentTransform();
+
+		while (parentTransform)
+		{
+			globalPosition += parentTransform->getPosition();
+			parentTransform = parentTransform->getGameObject()->getParentTransform();
+		}
+
+		return globalPosition;
+	}
+
 	void Transform::convertToEulerAngles(const glm::vec4& quaternion, float& pitch, float& yaw, float& roll)
 	{
 		float sinPitchCosYaw = 2.0f * (quaternion.w * quaternion.x + quaternion.y * quaternion.z);
