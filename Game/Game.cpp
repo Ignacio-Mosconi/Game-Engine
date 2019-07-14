@@ -16,7 +16,7 @@ bool Game::onStart()
 {
 	_scene = new GameObject(_renderer);
 
-	_terrain = ModelLoader::loadTerrain(_scene, HEIGHTMAP_PATH, glm::vec3(3.0f, 20.0f, 3.0f));
+	_terrain = ModelLoader::loadTerrain(_scene, HEIGHTMAP_PATH, glm::vec3(1.0f, 20.0f, 1.0f));
 
 	_terrain->getTransform()->setPosition(0.0f, -10.0f, 0.0f);
 

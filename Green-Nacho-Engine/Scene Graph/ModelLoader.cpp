@@ -67,10 +67,13 @@ namespace gn
 				float posX = col * scale.x;
 				float posY = (float)*pixel / MAX_BYTE_VALUE * scale.y;
 				float posZ = row * scale.z;
+
+				float u = (float)col / (float)hmColumns;
+				float v = 1.0f - (float)row / (float)hmRows;
 				
 				vertex.position = glm::vec3(posX, posY, posZ);
 				vertex.normal = glm::vec3 (0.0f);
-				vertex.uvCoord = glm::vec3 (0.0f);
+				vertex.uvCoord = glm::vec2 (u, v);
 
 				vertices.push_back(vertex);
 				pixel++;
@@ -87,20 +90,25 @@ namespace gn
 		{
 			for (unsigned int col = 0; col < gridColumns; col++)
 			{
-				start = row * gridColumns + col;
+				start = row * hmColumns + col;
 
 				indices.push_back(start);
 				indices.push_back(start + 1);
-				indices.push_back(start + gridColumns);
+				indices.push_back(start + hmColumns);
 
-				indices.push_back(start + gridColumns);
-				indices.push_back(start + gridColumns + 1);
+				indices.push_back(start + hmColumns);
+				indices.push_back(start + hmColumns + 1);
 				indices.push_back(start + 1);
 			}
 		}
 
+		std::vector<Texture*> diffuseMaps;
+
+		Texture* diffuseMap = Texture::generateTexture(heightmapPath);
+		diffuseMaps.push_back(diffuseMap);
+
 		MeshRenderer* meshRenderer = (MeshRenderer*)terrain->addComponent(ComponentID::MESH_RENDERER);
-		meshRenderer->createMesh(vertices, indices);
+		meshRenderer->createMesh(vertices, indices, diffuseMaps);
 
 		return terrain;
 	}
