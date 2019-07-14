@@ -28,6 +28,9 @@ namespace gn
 		static Texture* generateTextureBMP(const std::string& imagePath);
 		static Texture* generateTexture(const std::string& imagePath);
 		static Texture* generateTexture(unsigned char imageData[]);
+
+		static unsigned char* loadHeightmap(const std::string& imagePath, int& width, int& height);
+		
 		static void destroyTexture(Texture* texture);
 
 		inline unsigned int getTexureID() const { return _textureID; }

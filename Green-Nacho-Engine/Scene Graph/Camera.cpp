@@ -73,7 +73,7 @@ namespace gn
 	void Camera::updateFrustum()
 	{
 		glm::vec3 right = _transform->getLocalRight();
-		glm::vec3 up = _transform->getLocalUp();
+		glm::vec3 up = -glm::normalize(glm::cross(_viewDirection, right));
 
 		glm::vec3 nearCenter = _globalPosition + _viewDirection * _nearDistance;
 		glm::vec3 farCenter = _globalPosition + _viewDirection * _farDistance;

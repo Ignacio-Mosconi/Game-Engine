@@ -19,7 +19,7 @@ namespace gn
 	{
 		glm::vec3 position;
 		glm::vec3 normal;
-		glm::vec2 uvCoords;
+		glm::vec2 uvCoord;
 	};
 
 	class ENGINE_DECL_SPEC MeshRenderer : public Component
@@ -53,7 +53,7 @@ namespace gn
 		void draw() const override;
 
 		void createMesh(std::vector<MeshVertex> vertices, std::vector<unsigned int> indices, 
-						std::vector<Texture*> diffuseTextures);
+						std::vector<Texture*> diffuseTextures = std::vector<Texture*>());
 		void disposeMesh();
 	};
 }

@@ -47,6 +47,64 @@ namespace gn
 		return modelRoot;
 	}
 
+	GameObject* ModelLoader::loadTerrain(GameObject* parent, const std::string& heightmapPath, glm::vec3 scale)
+	{
+		GameObject* terrain = new GameObject(parent->getRenderer(), parent);
+
+		int hmColumns, hmRows;
+		unsigned char* heightmap = Texture::loadHeightmap(heightmapPath, hmColumns, hmRows);
+
+		unsigned char* pixel = heightmap;
+		
+		std::vector<MeshVertex> vertices;
+
+		for (unsigned int row = 0; row < hmRows; row++)
+		{
+			for (unsigned int col = 0; col < hmColumns; col++)
+			{
+				MeshVertex vertex;
+				
+				float posX = col * scale.x;
+				float posY = (float)*pixel / MAX_BYTE_VALUE * scale.y;
+				float posZ = row * scale.z;
+				
+				vertex.position = glm::vec3(posX, posY, posZ);
+				vertex.normal = glm::vec3 (0.0f);
+				vertex.uvCoord = glm::vec3 (0.0f);
+
+				vertices.push_back(vertex);
+				pixel++;
+			}
+		}
+
+		std::vector<unsigned int> indices;
+
+		unsigned int start = 0;
+		unsigned int gridRows = hmRows - 1;
+		unsigned int gridColumns = hmColumns - 1;
+
+		for (unsigned int row = 0; row < gridRows; row++)
+		{
+			for (unsigned int col = 0; col < gridColumns; col++)
+			{
+				start = row * gridColumns + col;
+
+				indices.push_back(start);
+				indices.push_back(start + 1);
+				indices.push_back(start + gridColumns);
+
+				indices.push_back(start + gridColumns);
+				indices.push_back(start + gridColumns + 1);
+				indices.push_back(start + 1);
+			}
+		}
+
+		MeshRenderer* meshRenderer = (MeshRenderer*)terrain->addComponent(ComponentID::MESH_RENDERER);
+		meshRenderer->createMesh(vertices, indices);
+
+		return terrain;
+	}
+
 	void ModelLoader::processNode(GameObject* parent, aiNode* node, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs, 
 								const std::string& texturesPath)
 	{
@@ -83,7 +141,7 @@ namespace gn
 
 			vertex.position = glm::vec3(aiVertex.x, aiVertex.y, aiVertex.z);
 			vertex.normal = glm::vec3(aiNormal.x, aiNormal.y, aiNormal.z);
-			vertex.uvCoords = glm::vec2(aiTextCoord.x, aiTextCoord.y);
+			vertex.uvCoord = glm::vec2(aiTextCoord.x, aiTextCoord.y);
 
 			if (vertex.position.x < mins.x)
 				mins.x = vertex.position.x;

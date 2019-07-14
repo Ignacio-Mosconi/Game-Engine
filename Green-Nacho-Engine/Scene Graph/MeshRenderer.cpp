@@ -117,7 +117,7 @@ namespace gn
 		for (int i = 0; i < (int)vertices.size(); i++)
 		{
 			positions.push_back(vertices[i].position);
-			uvCoords.push_back(vertices[i].uvCoords);
+			uvCoords.push_back(vertices[i].uvCoord);
 		}
 
 		_vertexCount = (unsigned int)vertices.size();

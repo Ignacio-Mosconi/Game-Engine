@@ -16,6 +16,10 @@ bool Game::onStart()
 {
 	_scene = new GameObject(_renderer);
 
+	_terrain = ModelLoader::loadTerrain(_scene, HEIGHTMAP_PATH, glm::vec3(3.0f, 20.0f, 3.0f));
+
+	_terrain->getTransform()->setPosition(0.0f, -10.0f, 0.0f);
+
 	_spaceship = ModelLoader::loadModel(_scene, SPACESHIP_PATH, SPACESHIP_TEXTURES);
 	
 	_cameraObject = new GameObject(_renderer, _scene);

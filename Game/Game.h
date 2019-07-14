@@ -26,6 +26,7 @@ private:
 	gn::Camera* _mainCamera;
 
 	gn::GameObject* _spaceship;
+	gn::GameObject* _terrain;
 
 protected:
 	bool onStart() override;

@@ -199,6 +199,28 @@ namespace gn
 		return texture;
 	}
 
+	unsigned char* Texture::loadHeightmap(const std::string& heightmapPath, int& width, int& height)
+	{
+		try
+		{
+			int channels;
+			unsigned char* heightmapData = SOIL_load_image(heightmapPath.c_str(), &width, &height, &channels, SOIL_LOAD_L);
+
+			if (!heightmapData)
+			{
+				SOIL_free_image_data(heightmapData);
+				throw std::logic_error("The image file could not be loaded.");
+			}
+
+			return heightmapData;
+		}
+		catch (std::logic_error& exception)
+		{
+			std::cerr << exception.what() << std::endl;
+			return NULL;
+		}
+	}
+
 	void Texture::destroyTexture(Texture* texture)
 	{
 		if (texture)
