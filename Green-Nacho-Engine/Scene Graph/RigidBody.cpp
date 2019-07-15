@@ -22,6 +22,7 @@ namespace gn
 
 	void RigidBody::start()
 	{
+
 	}
 
 	void RigidBody::stop()
@@ -100,6 +101,7 @@ namespace gn
 			std::cout << "WARNING: Attempting to add force to a rigid static body." << std::endl;
 			return;
 		}
+
 		physx::PxRigidDynamic* rigidDynamic = (physx::PxRigidDynamic*)_rigidActor;
 		physx::PxVec3 pxForce(force.x, force.y, force.z);
 
@@ -113,6 +115,7 @@ namespace gn
 			std::cout << "WARNING: Attempting to add torque to a rigid static body." << std::endl;
 			return;
 		}
+
 		physx::PxRigidDynamic* rigidDynamic = (physx::PxRigidDynamic*)_rigidActor;
 		physx::PxVec3 pxTorque(torque.x, torque.y, torque.z);
 
@@ -126,6 +129,7 @@ namespace gn
 			std::cout << "WARNING: Attempting to clear force from a rigid static body." << std::endl;
 			return;
 		}
+
 		physx::PxRigidDynamic* rigidDynamic = (physx::PxRigidDynamic*)_rigidActor;
 
 		rigidDynamic->clearTorque((physx::PxForceMode::Enum)forceMode);

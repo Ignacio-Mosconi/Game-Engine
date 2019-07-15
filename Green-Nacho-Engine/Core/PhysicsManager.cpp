@@ -35,7 +35,14 @@ namespace gn
 			std::cerr << "Failed to initilaize the PxPhysics object." << std::endl;
 			return false;
 		}
-		
+
+		_cooking = PxCreateCooking(PX_PHYSICS_VERSION, *_foundation, physx::PxCookingParams(_physics->getTolerancesScale()));
+		if (!_cooking)
+		{
+			std::cerr << "Failed to initilaize the PxCooking object." << std::endl;
+			return false;
+		}
+
 		physx::PxSceneDesc sceneDesc(_physics->getTolerancesScale());
 		
 		physx::PxVec3 physxGravity(gravity.x, gravity.y, gravity.z);
@@ -157,7 +164,16 @@ namespace gn
 									(physx::PxRigidActor*)_physics->createRigidDynamic(pxTransform);
 
 		return rigidActor;
-	}	
+	}
+
+	physx::PxHeightField* PhysicsManager::createHeighField(physx::PxHeightFieldDesc hfDesc)
+	{
+		physx::PxHeightField* heightField = NULL;
+
+		heightField = _cooking->createHeightField(hfDesc, _physics->getPhysicsInsertionCallback());
+
+		return heightField;
+	}
 
 	PhysicsManager* PhysicsManager::getInstance()
 	{

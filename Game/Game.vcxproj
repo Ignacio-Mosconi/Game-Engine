@@ -124,6 +124,7 @@ copy "$(SolutionDir)Dependencies\assimp-4.1.0\dlls\x64\assimp-vc140-mt.dll" "$(O
 copy "$(SolutionDir)Dependencies\PhysX-4.1\dlls\x64\PhysX_64.dll" "$(OutDir)"
 copy "$(SolutionDir)Dependencies\PhysX-4.1\dlls\x64\PhysXCommon_64.dll" "$(OutDir)"
 copy "$(SolutionDir)Dependencies\PhysX-4.1\dlls\x64\PhysXFoundation_64.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\PhysX-4.1\dlls\x64\PhysXCooking_64.dll" "$(OutDir)"
 copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"
 copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"</Command>
     </PostBuildEvent>

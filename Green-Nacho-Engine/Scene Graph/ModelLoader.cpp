@@ -6,6 +6,7 @@
 #include "Scene Graph/GameObject.h"
 #include "Scene Graph/BoundingBox.h"
 #include "Scene Graph/MeshRenderer.h"
+#include "Scene Graph/Terrain.h"
 
 namespace gn
 {
@@ -49,7 +50,7 @@ namespace gn
 
 	GameObject* ModelLoader::loadTerrain(GameObject* parent, const std::string& heightmapPath, glm::vec3 scale)
 	{
-		GameObject* terrain = new GameObject(parent->getRenderer(), parent);
+		GameObject* terrainObject = new GameObject(parent->getRenderer(), parent);
 
 		int hmColumns, hmRows;
 		unsigned char* heightmap = Texture::loadHeightmap(heightmapPath, hmColumns, hmRows);
@@ -57,10 +58,15 @@ namespace gn
 		unsigned char* pixel = heightmap;
 		
 		std::vector<MeshVertex> vertices;
+		std::vector<std::vector<float>> heights;
 
-		for (unsigned int row = 0; row < hmRows; row++)
+		std::vector<float> currentRowHeights;
+
+		for (unsigned int row = 0; row < (unsigned int)hmRows; row++)
 		{
-			for (unsigned int col = 0; col < hmColumns; col++)
+			currentRowHeights.clear();
+
+			for (unsigned int col = 0; col < (unsigned int)hmColumns; col++)
 			{
 				MeshVertex vertex;
 				
@@ -75,9 +81,12 @@ namespace gn
 				vertex.normal = glm::vec3 (0.0f);
 				vertex.uvCoord = glm::vec2 (u, v);
 
+				currentRowHeights.push_back((float)*pixel);
 				vertices.push_back(vertex);
 				pixel++;
 			}
+			
+			heights.push_back(currentRowHeights);
 		}
 
 		std::vector<unsigned int> indices;
@@ -107,10 +116,13 @@ namespace gn
 		Texture* diffuseMap = Texture::generateTexture(heightmapPath);
 		diffuseMaps.push_back(diffuseMap);
 
-		MeshRenderer* meshRenderer = (MeshRenderer*)terrain->addComponent(ComponentID::MESH_RENDERER);
+		Terrain* terrain = (Terrain*)terrainObject->addComponent(ComponentID::TERRAIN);
+		terrain->createHeightField(heights, hmRows, hmColumns, scale);
+
+		MeshRenderer* meshRenderer = (MeshRenderer*)terrainObject->addComponent(ComponentID::MESH_RENDERER);
 		meshRenderer->createMesh(vertices, indices, diffuseMaps);
 
-		return terrain;
+		return terrainObject;
 	}
 
 	void ModelLoader::processNode(GameObject* parent, aiNode* node, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs, 

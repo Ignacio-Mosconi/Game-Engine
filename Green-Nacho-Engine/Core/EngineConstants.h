@@ -19,7 +19,7 @@ constexpr int RECTANGLE_VERTICES = 4;
 constexpr int CUBE_VERTICES = 8;
 // Texture Loading
 constexpr int BMP_HEADER_SIZE = 54;
-constexpr int MAX_BYTE_VALUE = 255.0f;
+constexpr float MAX_BYTE_VALUE = 255.0f;
 // Level Loading
 constexpr int LEVEL_LOAD_CHARS_BUFFER_SIZE = 64;
 // Performance Properties

@@ -11,12 +11,15 @@ namespace physx
 {
 	class PxFoundation;
 	class PxPhysics;
+	class PxCooking;
 	class PxScene;
 	class PxActor;
 	class PxTransform;
 	class PxRigidActor;
 	class PxCapsuleGeometry;
 	class PxMaterial;
+	class PxHeightField;
+	class PxHeightFieldDesc;
 }
 
 namespace gn
@@ -31,6 +34,7 @@ namespace gn
 		
 		physx::PxFoundation* _foundation;
 		physx::PxPhysics* _physics;
+		physx::PxCooking* _cooking;
 		physx::PxScene* _scene;
 
 		Material* _debugRenderMaterial;
@@ -57,5 +61,6 @@ namespace gn
 		
 		physx::PxMaterial* createPhysicsMaterial(float staticFriction, float dynamicFriction, float restitution);
 		physx::PxRigidActor* createRigidActor(physx::PxTransform pxTransform, bool isStatic);
+		physx::PxHeightField* createHeighField(physx::PxHeightFieldDesc hfDesc);
 	};
 }

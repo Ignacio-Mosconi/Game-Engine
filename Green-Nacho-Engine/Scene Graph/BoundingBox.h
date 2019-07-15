@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable: 4251)
 
 #include <glm/vec3.hpp>
 #include "Core/Exports.h"

@@ -222,6 +222,9 @@
     <ClInclude Include="Scene Graph\BoxCollider.h">
       <Filter>Header Files\Scene Graph\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Scene Graph\Terrain.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\GameBase.cpp">
@@ -333,6 +336,9 @@
       <Filter>Source Files\Scene Graph\Components</Filter>
     </ClCompile>
     <ClCompile Include="Scene Graph\BoxCollider.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene Graph\Terrain.cpp">
       <Filter>Source Files\Scene Graph\Components</Filter>
     </ClCompile>
   </ItemGroup>
