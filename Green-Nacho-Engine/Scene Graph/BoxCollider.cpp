@@ -14,12 +14,7 @@ namespace gn
 
 	}
 
-	void BoxCollider::createBox(float width, float height, float depth)
-	{
-		_geometry = new physx::PxBoxGeometry(height * 0.5f, width * 0.5f, depth * 0.5f);
-	}	
-	
-	void BoxCollider::createBox(BoundingBox* boundingBox)
+	void BoxCollider::createGeometry(BoundingBox* boundingBox)
 	{
 		float halfWidth, halfHeight, halfDepth;
 
@@ -32,4 +27,9 @@ namespace gn
 
 		_geometry = new physx::PxBoxGeometry(halfHeight, halfWidth, halfDepth);
 	}
+
+	void BoxCollider::createGeometry(float width, float height, float depth)
+	{
+		_geometry = new physx::PxBoxGeometry(height * 0.5f, width * 0.5f, depth * 0.5f);
+	}	
 }

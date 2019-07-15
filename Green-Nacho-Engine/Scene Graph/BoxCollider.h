@@ -14,7 +14,7 @@ namespace gn
 		BoxCollider(GameObject* gameObject);
 		~BoxCollider();
 
-		void createBox(float width, float height, float depth);
-		void createBox(BoundingBox* boundingBox);
+		void createGeometry(BoundingBox* boundingBox) override;
+		void createGeometry(float width, float height, float depth);
 	};
 }

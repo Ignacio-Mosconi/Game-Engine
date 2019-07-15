@@ -5,12 +5,15 @@
 
 namespace gn
 {
+	class BoundingBox;
+
 	class ENGINE_DECL_SPEC CapsuleCollider : public Collider
 	{
 	public:
 		CapsuleCollider(GameObject* gameObject);
 		~CapsuleCollider();
 		
-		void createCapsule(float radius, float height);
+		void createGeometry(BoundingBox* boundingBox) override;
+		void createGeometry(float radius, float height);
 	};
 }

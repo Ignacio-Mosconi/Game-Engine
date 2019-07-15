@@ -10,6 +10,8 @@ namespace physx
 
 namespace gn
 {
+	class BoundingBox;
+
 	class ENGINE_DECL_SPEC Collider : public Component
 	{
 	protected:
@@ -21,6 +23,7 @@ namespace gn
 
 		virtual void stop() override;
 
+		virtual void createGeometry(BoundingBox* boundingBox) = 0;
 		void disposeGeometry();
 
 		inline physx::PxGeometry* getGeometry() { return _geometry;  }
