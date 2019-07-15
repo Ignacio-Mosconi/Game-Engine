@@ -87,6 +87,8 @@ namespace gn
 
 		if (_scene)
 			_scene->release();
+		if (_cooking)
+			_cooking->release();
 		if (_physics)
 			_physics->release();
 		if (_foundation)

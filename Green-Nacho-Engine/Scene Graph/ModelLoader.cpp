@@ -58,9 +58,9 @@ namespace gn
 		unsigned char* pixel = heightmap;
 		
 		std::vector<MeshVertex> vertices;
-		std::vector<std::vector<float>> heights;
+		std::vector<std::vector<int>> heights;
 
-		std::vector<float> currentRowHeights;
+		std::vector<int> currentRowHeights;
 
 		for (unsigned int row = 0; row < (unsigned int)hmRows; row++)
 		{
@@ -81,7 +81,7 @@ namespace gn
 				vertex.normal = glm::vec3 (0.0f);
 				vertex.uvCoord = glm::vec2 (u, v);
 
-				currentRowHeights.push_back((float)*pixel);
+				currentRowHeights.push_back((int)*pixel);
 				vertices.push_back(vertex);
 				pixel++;
 			}

@@ -10,6 +10,7 @@ namespace physx
 {
 	class PxHeightField;
 	class PxRigidActor;
+	class PxHeightFieldGeometry;
 	class PxMaterial;
 	class PxShape;
 }
@@ -21,12 +22,13 @@ namespace gn
 	private:
 		physx::PxHeightField* _heightField;
 		physx::PxRigidActor* _rigidActor;
+		physx::PxHeightFieldGeometry* _geometry;
 		physx::PxMaterial* _material;
 		physx::PxShape* _shape;
 
 		int _heightmapRows;
 		int _heightmapColumns;
-		std::vector<std::vector<float>> _heights;
+		std::vector<std::vector<int>> _heights;
 
 	public:
 		Terrain(GameObject* gameObject);
@@ -34,7 +36,7 @@ namespace gn
 
 		void stop() override;
 
-		void createHeightField(std::vector<std::vector<float>> heights, int rows, int columns, glm::vec3 scale);
+		void createHeightField(std::vector<std::vector<int>> heights, int rows, int columns, glm::vec3 scale);
 		void disposeHeightField();
 	};
 }

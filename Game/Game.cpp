@@ -16,9 +16,7 @@ bool Game::onStart()
 {
 	_scene = new GameObject(_renderer);
 
-	_terrain = ModelLoader::loadTerrain(_scene, HEIGHTMAP_PATH, glm::vec3(1.0f, 20.0f, 1.0f));
-
-	_terrain->getTransform()->setPosition(0.0f, -10.0f, 0.0f);
+	_terrain = ModelLoader::loadTerrain(_scene, HEIGHTMAP_PATH, glm::vec3(10.0f, 30.0f, 10.0f));
 
 	_spaceship = ModelLoader::loadModel(_scene, SPACESHIP_PATH, SPACESHIP_TEXTURES);
 	
@@ -27,9 +25,9 @@ bool Game::onStart()
 	NavigationController* navCont = (NavigationController*)_cameraObject->addComponent(ComponentID::NAVIGATION_CONTROLLER);
 	navCont->setSpeeds(12.0f, 90.0f);
 
-	_spaceship->getTransform()->setPosition(0.0f, -10.0f, -10.0f);
+	_spaceship->getTransform()->setPosition(160.0f, 100.0f, 160.0f);
 
-	_cameraObject->getTransform()->setPosition(0.0f, 7.0f, 30.0f);
+	_cameraObject->getTransform()->setPosition(160.0f, 100.0f, 300.0f);
 
 	BoundingBox* bb = (BoundingBox*)_spaceship->getComponent(ComponentID::BOUNDING_BOX);
 	BoxCollider* bc = (BoxCollider*)_spaceship->addComponent(ComponentID::BOX_COLLIDER);
@@ -38,7 +36,7 @@ bool Game::onStart()
 	RigidBody* rb = (RigidBody*)_spaceship->addComponent(ComponentID::RIGID_BODY);
 	rb->createRigidBody(bc, false, 1000.0f, glm::vec3(0.0f, 0.0f, 0.0f));
 
-	_physicsManager->setCurrentSceneGravity(glm::vec3(0.0f, 0.0f, 0.0f));
+	_physicsManager->setCurrentSceneGravity(glm::vec3(0.0f, -9.81f, 0.0f));
 
 	_scene->start();
 
