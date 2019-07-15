@@ -124,8 +124,8 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
       <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(SolutionDir)Binaries\Game\$(Platform)\$(Configuration)" /y
-xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(SolutionDir)Binaries\Game\$(Platform)\$(Configuration)" /y</Command>
+      <Command>xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(SolutionDir)Binaries\Game\$(Platform)\$(Configuration)\" /y /i
+xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(SolutionDir)Binaries\Game\$(Platform)\$(Configuration)\" /y /i</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

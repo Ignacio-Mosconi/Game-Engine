@@ -129,8 +129,8 @@ copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Gre
 copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(OutDir)" /y
-xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(OutDir)" /y</Command>
+      <Command>xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.dll" "$(OutDir)" /y /i
+xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Green-Nacho-Engine.pdb" "$(OutDir)" /y /i</Command>
     </PreBuildEvent>
     <PreLinkEvent>
       <Command>
