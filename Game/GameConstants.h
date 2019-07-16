@@ -20,3 +20,8 @@ constexpr const char* HEIGHTMAP_PATH = "Assets/Textures/Heightmaps/Heightmap.bmp
 // Sprite Paths
 constexpr const char* SPRITE_PATH = "Assets/Sprites/Sprite Sheet Texture.bmp";
 constexpr const char* NINJA_PATH = "Assets/Sprites/Ninja.bmp";
+// Spaceship
+constexpr float SHIP_ASCENSION_FORCE = 20000.0f;
+constexpr float SHIP_TORQUE_FORCE = 200.0f;
+constexpr float SHIP_MASS = 1000.0f;
+constexpr float SHIP_INITIAL_FUEL = 10000.0f;

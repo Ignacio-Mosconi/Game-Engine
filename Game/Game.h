@@ -19,13 +19,15 @@
 #include "Scene Graph/RigidBody.h"
 #include "GameConstants.h"
 
+class Spaceship;
+
 class Game : public gn::GameBase
 {
 private:
-	gn::Camera* _mainCamera;
-
-	gn::GameObject* _spaceship;
+	gn::Camera* _camera;
 	gn::GameObject* _terrain;
+
+	Spaceship* _spaceship;
 
 protected:
 	bool onStart() override;
