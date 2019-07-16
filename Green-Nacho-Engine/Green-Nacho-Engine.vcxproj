@@ -214,6 +214,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
     <ClInclude Include="Scene Graph\MeshRenderer.h" />
     <ClInclude Include="Scene Graph\ModelLoader.h" />
     <ClInclude Include="Scene Graph\NavigationController.h" />
+    <ClInclude Include="Scene Graph\RandomHeightGenerator.h" />
     <ClInclude Include="Scene Graph\RigidBody.h" />
     <ClInclude Include="Scene Graph\SpriteRenderer.h" />
     <ClInclude Include="Scene Graph\Terrain.h" />
@@ -254,6 +255,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
     <ClCompile Include="Scene Graph\MeshRenderer.cpp" />
     <ClCompile Include="Scene Graph\ModelLoader.cpp" />
     <ClCompile Include="Scene Graph\NavigationController.cpp" />
+    <ClCompile Include="Scene Graph\RandomHeightGenerator.cpp" />
     <ClCompile Include="Scene Graph\RigidBody.cpp" />
     <ClCompile Include="Scene Graph\SpriteRenderer.cpp" />
     <ClCompile Include="Scene Graph\Terrain.cpp" />

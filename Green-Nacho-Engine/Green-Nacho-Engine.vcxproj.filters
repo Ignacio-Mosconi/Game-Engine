@@ -225,6 +225,9 @@
     <ClInclude Include="Scene Graph\Terrain.h">
       <Filter>Header Files\Scene Graph\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Scene Graph\RandomHeightGenerator.h">
+      <Filter>Header Files\Scene Graph\Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\GameBase.cpp">
@@ -340,6 +343,9 @@
     </ClCompile>
     <ClCompile Include="Scene Graph\Terrain.cpp">
       <Filter>Source Files\Scene Graph\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene Graph\RandomHeightGenerator.cpp">
+      <Filter>Source Files\Scene Graph\Utilities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

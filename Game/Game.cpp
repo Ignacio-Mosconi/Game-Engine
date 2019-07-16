@@ -16,13 +16,13 @@ Game::~Game()
 bool Game::onStart()
 {
 	_scene = new GameObject(_renderer);
-	_terrain = ModelLoader::loadTerrain(_scene, HEIGHTMAP_PATH, glm::vec3(10.0f, 30.0f, 10.0f));
+	_terrain = ModelLoader::loadRandomTerrain(_scene, 32, 32, glm::vec3(10.0f, 30.0f, 10.0f), HEIGHTMAP_PATH);
 
 	_spaceship = new Spaceship();
-	_spaceship->start(_scene, glm::vec3(640.0f, 200.0f, 640.0f), 20000.0f, 5000.0f, 1000.0f, 1000.0f);
+	_spaceship->start(_scene, glm::vec3(160.0f, 200.0f, 160.0f), 20000.0f, 5000.0f, 1000.0f, 1000.0f);
 
 	_helipad = ModelLoader::loadModel(_scene, HELIPAD_PATH, HELIPAD_TEXTURES);
-	_helipad->getTransform()->setPosition(640.0f, 50.0f, 640.0f);
+	_helipad->getTransform()->setPosition(160.0, 50.0f, 160.0f);
 	_helipad->getTransform()->setScale(5.0f, 5.0f, 5.0f);
 
 	BoundingBox* bb = (BoundingBox*)_helipad->getComponent(ComponentID::BOUNDING_BOX);

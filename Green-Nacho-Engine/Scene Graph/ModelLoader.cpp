@@ -7,6 +7,7 @@
 #include "Scene Graph/BoundingBox.h"
 #include "Scene Graph/MeshRenderer.h"
 #include "Scene Graph/Terrain.h"
+#include "Scene Graph/RandomHeightGenerator.h"
 
 namespace gn
 {
@@ -89,27 +90,7 @@ namespace gn
 			heights.push_back(currentRowHeights);
 		}
 
-		std::vector<unsigned int> indices;
-
-		unsigned int start = 0;
-		unsigned int gridRows = hmRows - 1;
-		unsigned int gridColumns = hmColumns - 1;
-
-		for (unsigned int row = 0; row < gridRows; row++)
-		{
-			for (unsigned int col = 0; col < gridColumns; col++)
-			{
-				start = row * hmColumns + col;
-
-				indices.push_back(start);
-				indices.push_back(start + 1);
-				indices.push_back(start + hmColumns);
-
-				indices.push_back(start + hmColumns);
-				indices.push_back(start + hmColumns + 1);
-				indices.push_back(start + 1);
-			}
-		}
+		std::vector<unsigned int> indices = generateTerrainIndices(hmRows, hmColumns);
 
 		std::vector<Texture*> diffuseMaps;
 
@@ -118,6 +99,64 @@ namespace gn
 
 		Terrain* terrain = (Terrain*)terrainObject->addComponent(ComponentID::TERRAIN);
 		terrain->createHeightField(heights, hmRows, hmColumns, scale);
+
+		MeshRenderer* meshRenderer = (MeshRenderer*)terrainObject->addComponent(ComponentID::MESH_RENDERER);
+		meshRenderer->createMesh(vertices, indices, diffuseMaps);
+
+		return terrainObject;
+	}
+
+	GameObject* ModelLoader::loadRandomTerrain(GameObject* parent, int rows, int columns, glm::vec3 scale, const std::string& texturesPath)
+	{
+		RandomHeightGenerator::generateSeed();
+
+		GameObject* terrainObject = new GameObject(parent->getRenderer(), parent);
+
+		std::vector<MeshVertex> vertices;
+		std::vector<std::vector<int>> heights;
+
+		std::vector<int> currentRowHeights;
+
+		for (unsigned int row = 0; row < (unsigned int)rows; row++)
+		{
+			currentRowHeights.clear();
+
+			for (unsigned int col = 0; col < (unsigned int)columns; col++)
+			{
+				MeshVertex vertex;
+
+				int randomHeight = RandomHeightGenerator::generateHeight(row, col);
+
+				float posX = col * scale.x;
+				float posY = (float)randomHeight / MAX_BYTE_VALUE * scale.y;
+				float posZ = row * scale.z;
+
+				float u = (float)col / (float)columns;
+				float v = 1.0f - (float)row / (float)rows;
+
+				vertex.position = glm::vec3(posX, posY, posZ);
+				vertex.normal = glm::vec3(0.0f);
+				vertex.uvCoord = glm::vec2(u, v);
+
+				currentRowHeights.push_back(randomHeight);
+				vertices.push_back(vertex);
+			}
+
+			heights.push_back(currentRowHeights);
+		}
+
+		std::vector<unsigned int> indices = generateTerrainIndices(rows, columns);
+
+		std::vector<Texture*> diffuseMaps;
+
+		if (texturesPath != "")
+		{
+			Texture* diffuseMap = Texture::generateTexture(texturesPath);
+			diffuseMaps.push_back(diffuseMap);
+		}
+
+		Terrain* terrain = (Terrain*)terrainObject->addComponent(ComponentID::TERRAIN);
+		terrain->createHeightField(heights, rows, columns, scale);
 
 		MeshRenderer* meshRenderer = (MeshRenderer*)terrainObject->addComponent(ComponentID::MESH_RENDERER);
 		meshRenderer->createMesh(vertices, indices, diffuseMaps);
@@ -233,5 +272,32 @@ namespace gn
 		textures.push_back(texture);
 
 		return textures;
+	}
+
+	std::vector<unsigned int> ModelLoader::generateTerrainIndices(int rows, int columns)
+	{
+		std::vector<unsigned int> indices;
+
+		unsigned int start = 0;
+		unsigned int gridRows = rows - 1;
+		unsigned int gridColumns = columns - 1;
+
+		for (unsigned int row = 0; row < gridRows; row++)
+		{
+			for (unsigned int col = 0; col < gridColumns; col++)
+			{
+				start = row * columns + col;
+
+				indices.push_back(start);
+				indices.push_back(start + 1);
+				indices.push_back(start + columns);
+
+				indices.push_back(start + columns);
+				indices.push_back(start + columns + 1);
+				indices.push_back(start + 1);
+			}
+		}
+
+		return indices;
 	}
 }
