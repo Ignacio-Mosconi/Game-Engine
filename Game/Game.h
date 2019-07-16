@@ -26,8 +26,9 @@ class Game : public gn::GameBase
 private:
 	gn::Camera* _camera;
 	gn::GameObject* _terrain;
-
+	
 	Spaceship* _spaceship;
+	gn::GameObject* _helipad;
 
 protected:
 	bool onStart() override;

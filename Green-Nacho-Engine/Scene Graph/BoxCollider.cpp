@@ -1,6 +1,8 @@
 #include <PxPhysicsAPI.h>
 #include "Scene Graph/BoxCollider.h"
 #include "Scene Graph/BoundingBox.h"
+#include "Scene Graph/GameObject.h"
+#include "Scene Graph/Transform.h"
 
 namespace gn
 {
@@ -25,7 +27,11 @@ namespace gn
 		halfHeight = (maxs.y - mins.y) * 0.5f;
 		halfDepth = (maxs.z - mins.z) * 0.5f;
 
-		_geometry = new physx::PxBoxGeometry(halfHeight, halfWidth, halfDepth);
+		float scaleX = _gameObject->getTransform()->getScale().x;
+		float scaleY = _gameObject->getTransform()->getScale().y;
+		float scaleZ = _gameObject->getTransform()->getScale().z;
+
+		_geometry = new physx::PxBoxGeometry(halfHeight * scaleY, halfWidth * scaleX, halfDepth * scaleZ);
 	}
 
 	void BoxCollider::createGeometry(float width, float height, float depth)

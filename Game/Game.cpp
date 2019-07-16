@@ -21,6 +21,18 @@ bool Game::onStart()
 	_spaceship = new Spaceship();
 	_spaceship->start(_scene, glm::vec3(640.0f, 200.0f, 640.0f), 20000.0f, 5000.0f, 1000.0f, 1000.0f);
 
+	_helipad = ModelLoader::loadModel(_scene, HELIPAD_PATH, HELIPAD_TEXTURES);
+	_helipad->getTransform()->setPosition(640.0f, 50.0f, 640.0f);
+	_helipad->getTransform()->setScale(5.0f, 5.0f, 5.0f);
+
+	BoundingBox* bb = (BoundingBox*)_helipad->getComponent(ComponentID::BOUNDING_BOX);
+
+	BoxCollider* bc = (BoxCollider*)_helipad->addComponent(ComponentID::BOX_COLLIDER);
+	RigidBody* rb = (RigidBody*)_helipad->addComponent(ComponentID::RIGID_BODY);
+
+	bc->createGeometry(bb);
+	rb->createRigidBody(bc, true, 10000.0f, 0.0f, 0.0f, 0.0f, glm::vec3(0.0f, 18.0f, 0.0f));
+
 	GameObject* spaceshipRoot = _spaceship->getRootObject();
 	_camera = (Camera*)spaceshipRoot->getComponentInChildren(ComponentID::CAMERA);
 

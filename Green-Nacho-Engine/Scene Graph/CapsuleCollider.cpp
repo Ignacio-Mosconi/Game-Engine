@@ -1,6 +1,8 @@
 #include <PxPhysicsAPI.h>
 #include "Scene Graph/CapsuleCollider.h"
 #include "Scene Graph/BoundingBox.h"
+#include "Scene Graph/GameObject.h"
+#include "Scene Graph/Transform.h"
 
 namespace gn
 {
@@ -24,7 +26,10 @@ namespace gn
 		radius = (maxs.x - mins.x) * 0.5f;
 		halfHeight = (maxs.y - mins.y) * 0.5f;
 
-		_geometry = new physx::PxCapsuleGeometry(radius, halfHeight);
+		float scaleX = _gameObject->getTransform()->getScale().x;
+		float scaleY = _gameObject->getTransform()->getScale().y;
+
+		_geometry = new physx::PxCapsuleGeometry(radius * scaleX, halfHeight * scaleY);
 	}
 	
 	void CapsuleCollider::createGeometry(float radius, float height)
