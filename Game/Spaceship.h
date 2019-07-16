@@ -14,7 +14,9 @@
 
 enum class RotationDir
 {
-	LEFT, RIGHT, UPWARDS, DOWNWARDS
+	PITCH_UPWARDS, PITCH_DOWNWARDS,
+	YAW_LEFT, YAW_RIGHT,
+	ROLL_LEFT, ROLL_RIGHT 
 };
 
 class Spaceship

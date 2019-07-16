@@ -31,20 +31,28 @@ void Spaceship::rotate(RotationDir rotationDir)
 
 	switch (rotationDir)
 	{
-		case RotationDir::LEFT:
-			torque = _root->getTransform()->getForward() * -_torqueForce;
+		case RotationDir::PITCH_UPWARDS:
+			torque = _root->getTransform()->getRight() * -_torqueForce;
 			break;
 
-		case RotationDir::RIGHT:
-			torque = _root->getTransform()->getForward() * _torqueForce;
-			break;
-
-		case RotationDir::UPWARDS:
+		case RotationDir::PITCH_DOWNWARDS:
 			torque = _root->getTransform()->getRight() * _torqueForce;
 			break;
 
-		case RotationDir::DOWNWARDS:
-			torque = _root->getTransform()->getRight() * -_torqueForce;
+		case RotationDir::YAW_LEFT:
+			torque = _root->getTransform()->getUp() * _torqueForce;
+			break;
+
+		case RotationDir::YAW_RIGHT:
+			torque = _root->getTransform()->getUp() * -_torqueForce;
+			break;
+
+		case RotationDir::ROLL_LEFT:
+			torque = _root->getTransform()->getForward() * -_torqueForce;
+			break;
+
+		case RotationDir::ROLL_RIGHT:
+			torque = _root->getTransform()->getForward() * _torqueForce;
 			break;
 	}
 
@@ -84,15 +92,21 @@ void Spaceship::update(float deltaTime)
 	if (inputManager->getKey(Key::SPACE))
 		ascend(deltaTime);
 
-	if (inputManager->getKey(Key::LEFT))
-		rotate(RotationDir::LEFT);
+	if (inputManager->getKey(Key::W))
+		rotate(RotationDir::PITCH_UPWARDS);
+
+	if (inputManager->getKey(Key::S))
+		rotate(RotationDir::PITCH_DOWNWARDS);
+
+	if (inputManager->getKey(Key::Q))
+		rotate(RotationDir::YAW_LEFT);
 		
-	if (inputManager->getKey(Key::RIGHT))
-		rotate(RotationDir::RIGHT);
+	if (inputManager->getKey(Key::E))
+		rotate(RotationDir::YAW_RIGHT);
 
-	if (inputManager->getKey(Key::UP))
-		rotate(RotationDir::UPWARDS);
+	if (inputManager->getKey(Key::A))
+		rotate(RotationDir::ROLL_LEFT);
 
-	if (inputManager->getKey(Key::DOWN))
-		rotate(RotationDir::DOWNWARDS);
+	if (inputManager->getKey(Key::D))
+		rotate(RotationDir::ROLL_RIGHT);
 }
