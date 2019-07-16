@@ -58,7 +58,7 @@ namespace gn
 		_heightField = physicsManager->createHeighField(hfDesc);
 		_geometry = new physx::PxHeightFieldGeometry(_heightField, physx::PxMeshGeometryFlags(), heightScale, rowScale, columnScale);
 		_rigidActor = physicsManager->createRigidActor(relativePose, true);
-		_material = physicsManager->createPhysicsMaterial(0.5f, 0.5f, 1.0f);
+		_material = physicsManager->createPhysicsMaterial(0.1f, 0.1f, 0.1f);
 		_shape = physx::PxRigidActorExt::createExclusiveShape(*_rigidActor, *_geometry, *_material);
 
 		physicsManager->addActor(_rigidActor);

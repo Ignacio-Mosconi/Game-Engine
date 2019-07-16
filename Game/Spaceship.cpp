@@ -73,7 +73,7 @@ void Spaceship::start(GameObject* scene, glm::vec3 position, float ascensionForc
 	_rigidBody = (RigidBody*)_root->addComponent(ComponentID::RIGID_BODY);
 
 	bc->createGeometry(bb);
-	_rigidBody->createRigidBody(bc, false, _mass);
+	_rigidBody->createRigidBody(bc, false, _mass, 0.25f, 0.25f, 0.25f);
 }
 
 void Spaceship::update(float deltaTime)

@@ -38,7 +38,8 @@ namespace gn
 		void update(float deltaTime) override;
 
 		void createRigidBody(Collider* collider, bool isStatic = false, float mass = 1.0f, 
-							glm::vec3 colliderOffset = glm::vec3(0.0f, 0.0f, 0.0f));
+								float staticFriction = 0.1f, float dynamicFriction = 0.1f, float restitution = 0.1f,
+								glm::vec3 colliderOffset = glm::vec3(0.0f, 0.0f, 0.0f));
 		void disposeRigidBody();
 
 		void addForce(glm::vec3 force, ForceMode forceMode);

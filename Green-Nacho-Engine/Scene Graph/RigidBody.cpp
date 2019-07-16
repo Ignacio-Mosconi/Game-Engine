@@ -43,7 +43,9 @@ namespace gn
 		_transform->changeRotationMatrix(rotQuat);
 	}
 
-	void RigidBody::createRigidBody(Collider* collider, bool isStatic, float mass, glm::vec3 colliderOffset)
+	void RigidBody::createRigidBody(Collider* collider, bool isStatic, float mass, 
+									float staticFriction, float dynamicFriction, float restitution,
+									glm::vec3 colliderOffset)
 	{
 		_transform = _gameObject->getTransform();
 		_isStatic = isStatic;
@@ -66,7 +68,7 @@ namespace gn
 		physx::PxGeometry* geometry = collider->getGeometry();
 
 		_rigidActor = physicsManager->createRigidActor(pxTransform, _isStatic);
-		_material = physicsManager->createPhysicsMaterial(0.5f, 0.5f, 1.0f);
+		_material = physicsManager->createPhysicsMaterial(staticFriction, dynamicFriction, restitution);
 		_shape = physx::PxRigidActorExt::createExclusiveShape(*_rigidActor, *geometry, *_material);
 		
 		_shape->setLocalPose(relativePose);
