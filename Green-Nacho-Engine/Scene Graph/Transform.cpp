@@ -122,6 +122,54 @@ namespace gn
 		updateModelMatrix();
 	}
 
+	glm::vec3 Transform::getGlobalPosition() const
+	{
+		glm::vec3 globalPosition = _position;
+
+		Transform* parentTransform = _gameObject->getParentTransform();
+
+		while (parentTransform)
+		{
+			globalPosition += parentTransform->getPosition();
+			parentTransform = parentTransform->getGameObject()->getParentTransform();
+		}
+
+		return globalPosition;
+	}	
+	
+	glm::vec3 Transform::getGlobalRotation() const
+	{
+		glm::vec3 globalRotation = _rotation;
+
+		Transform* parentTransform = _gameObject->getParentTransform();
+
+		while (parentTransform)
+		{
+			globalRotation += parentTransform->getRotation();
+			parentTransform = parentTransform->getGameObject()->getParentTransform();
+		}
+
+		return globalRotation;
+	}
+
+	void Transform::setGlobalPosition(float x, float y, float z)
+	{
+		glm::vec3 globalPosition = getGlobalPosition();
+		glm::vec3 targetGloabalPosition = glm::vec3(x, y, z);
+		glm::vec3 globalDiff = targetGloabalPosition - globalPosition;
+
+		setPosition(_position.x + globalDiff.x, _position.y + globalDiff.y, _position.z + globalDiff.z);
+	}
+
+	void Transform::setGlobalRotation(float x, float y, float z)
+	{
+		glm::vec3 globalRotation = getGlobalRotation();
+		glm::vec3 targetGloabalRotation = glm::vec3(x, y, z);
+		glm::vec3 globalDiff = targetGloabalRotation - globalRotation;
+
+		setRotation(_rotation.x + globalDiff.x, _rotation.y + globalDiff.y, _rotation.z + globalDiff.z);
+	}
+
 	void Transform::forceLocalUp()
 	{
 		_localUp = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -159,21 +207,6 @@ namespace gn
 		clampEulerRotation();
 		updateDirectionVectors();
 		updateModelMatrix();
-	}
-
-	glm::vec3 Transform::getGlobalPosition() const
-	{
-		glm::vec3 globalPosition = _position;
-
-		Transform* parentTransform = _gameObject->getParentTransform();
-
-		while (parentTransform)
-		{
-			globalPosition += parentTransform->getPosition();
-			parentTransform = parentTransform->getGameObject()->getParentTransform();
-		}
-
-		return globalPosition;
 	}
 
 	void Transform::convertToEulerAngles(const glm::vec4& quaternion, float& pitch, float& yaw, float& roll)

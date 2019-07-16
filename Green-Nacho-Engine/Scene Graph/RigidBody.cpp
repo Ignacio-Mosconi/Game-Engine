@@ -39,7 +39,7 @@ namespace gn
 		glm::vec3 pos = glm::vec3(pxPosition.x, pxPosition.y, pxPosition.z);
 		glm::vec4 rotQuat(pxRotation.x, pxRotation.y, pxRotation.z, pxRotation.w);
 
-		_transform->setPosition(pos.x, pos.y, pos.z);
+		_transform->setGlobalPosition(pos.x, pos.y, pos.z);
 		_transform->changeRotationMatrix(rotQuat);
 	}
 
@@ -48,8 +48,8 @@ namespace gn
 		_transform = _gameObject->getTransform();
 		_isStatic = isStatic;
 
-		glm::vec3 position = _transform->getPosition();
-		glm::vec3 rotation = _transform->getRotation();
+		glm::vec3 position = _transform->getGlobalPosition();
+		glm::vec3 rotation = _transform->getGlobalRotation();
 
 		glm::vec4 rotQuat = Transform::convertToQuaternion(rotation.x, rotation.y, rotation.z);
 	

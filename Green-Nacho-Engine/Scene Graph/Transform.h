@@ -48,10 +48,14 @@ namespace gn
 		void setRotation(float x, float y, float z);
 		void setScale(float x, float y, float z);
 
+		glm::vec3 getGlobalPosition() const;
+		glm::vec3 getGlobalRotation() const;
+
+		void setGlobalPosition(float x, float y, float z);
+		void setGlobalRotation(float x, float y, float z);
+
 		void forceLocalUp();
 		void changeRotationMatrix(glm::vec4 quaternion);
-		
-		glm::vec3 getGlobalPosition() const;
 
 		static void convertToEulerAngles(const glm::vec4& quaternion, float& pitch, float& yaw, float& roll);
 		static glm::vec4 convertToQuaternion(float pitch, float yaw, float roll);

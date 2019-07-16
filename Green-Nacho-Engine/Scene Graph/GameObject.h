@@ -41,6 +41,7 @@ namespace gn
 		Component* addComponent(ComponentID componentID);
 		bool removeComponent(ComponentID componentID);
 		Component* getComponent(ComponentID componentID);
+		Component* getComponentInChildren(ComponentID componentID);
 
 		inline unsigned int getChildCount() { return (unsigned int)_children->size(); }
 

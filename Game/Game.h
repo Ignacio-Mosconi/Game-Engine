@@ -22,12 +22,9 @@
 class Game : public gn::GameBase
 {
 private:
-	gn::GameObject* _cameraObject;
 	gn::Camera* _mainCamera;
 
 	gn::GameObject* _spaceship;
-	gn::GameObject* _nanosuit;
-	gn::GameObject* _assaultRifle;
 	gn::GameObject* _terrain;
 
 protected:

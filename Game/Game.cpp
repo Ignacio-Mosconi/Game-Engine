@@ -16,40 +16,25 @@ bool Game::onStart()
 {
 	_scene = new GameObject(_renderer);
 
+	_spaceship = new GameObject(_renderer, _scene);
 	_terrain = ModelLoader::loadTerrain(_scene, HEIGHTMAP_PATH, glm::vec3(10.0f, 30.0f, 10.0f));
-
-	_spaceship = ModelLoader::loadModel(_scene, SPACESHIP_PATH, SPACESHIP_TEXTURES);
-	_nanosuit = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
-	_assaultRifle = ModelLoader::loadModel(_scene, AK_47_PATH, AK_47_TEXTURES);
 	
-	_cameraObject = new GameObject(_renderer, _scene);
-	_mainCamera = (Camera*)_cameraObject->addComponent(ComponentID::CAMERA);
-	NavigationController* navCont = (NavigationController*)_cameraObject->addComponent(ComponentID::NAVIGATION_CONTROLLER);
-	navCont->setSpeeds(12.0f, 90.0f);
-
+	GameObject* spaceshipGraphics = ModelLoader::loadModel(_spaceship, SPACESHIP_PATH, SPACESHIP_TEXTURES);
+	GameObject* cameraObject = new GameObject(_renderer, _spaceship);
+	_mainCamera = (Camera*)cameraObject->addComponent(ComponentID::CAMERA);
+	NavigationController* navController = (NavigationController*)cameraObject->addComponent(ComponentID::NAVIGATION_CONTROLLER);
+	navController->setSpeeds(12.0f, 90.0f);
+	
+	cameraObject->getTransform()->setPosition(0.0f, 0.0f, 40.0f);
 	_spaceship->getTransform()->setPosition(160.0f, 100.0f, 160.0f);
-	_nanosuit->getTransform()->setPosition(200.0f, 100.0f, 160.0f);
-	_assaultRifle->getTransform()->setPosition(120.0f, 100.0f, 160.0f);
 
-	_cameraObject->getTransform()->setPosition(160.0f, 100.0f, 300.0f);
-
-	BoundingBox* bb1 = (BoundingBox*)_spaceship->getComponent(ComponentID::BOUNDING_BOX);
-	BoundingBox* bb2 = (BoundingBox*)_nanosuit->getComponent(ComponentID::BOUNDING_BOX);
-	BoundingBox* bb3 = (BoundingBox*)_assaultRifle->getComponent(ComponentID::BOUNDING_BOX);
+	BoundingBox* bb1 = (BoundingBox*)spaceshipGraphics->getComponent(ComponentID::BOUNDING_BOX);
 	
 	BoxCollider* c1 = (BoxCollider*)_spaceship->addComponent(ComponentID::BOX_COLLIDER);
 	c1->createGeometry(bb1);
-	CapsuleCollider* c2 = (CapsuleCollider*)_nanosuit->addComponent(ComponentID::CAPSULE_COLLIDER);
-	c2->createGeometry(bb2);
-	BoxCollider* c3 = (BoxCollider*)_assaultRifle->addComponent(ComponentID::BOX_COLLIDER);
-	c3->createGeometry(bb3);
 
 	RigidBody* rb1 = (RigidBody*)_spaceship->addComponent(ComponentID::RIGID_BODY);
-	rb1->createRigidBody(c1, false, 1000.0f, glm::vec3(0.0f, 0.0f, 0.0f));	
-	RigidBody* rb2 = (RigidBody*)_nanosuit->addComponent(ComponentID::RIGID_BODY);
-	rb2->createRigidBody(c2, false, 100.0f, glm::vec3(0.0f, 7.0f, 0.0f));
-	RigidBody* rb3 = (RigidBody*)_assaultRifle->addComponent(ComponentID::RIGID_BODY);
-	rb3->createRigidBody(c3, false, 20.0f, glm::vec3(1.2f, 0.0f, 0.0f));
+	rb1->createRigidBody(c1, false, 1000.0f, glm::vec3(0.0f, 0.0f, 0.0f));
 
 	_physicsManager->setCurrentSceneGravity(glm::vec3(0.0f, -9.81f, 0.0f));
 
@@ -108,8 +93,6 @@ bool Game::onUpdate(float deltaTime)
 
 bool Game::onDraw()
 {
-	std::cout << "Frustum Culling Test:" << std::endl;
-
 	_scene->draw(_mainCamera);
 
 	return true;

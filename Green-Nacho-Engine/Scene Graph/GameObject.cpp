@@ -71,10 +71,7 @@ namespace gn
 		BoundingBox* bb = (BoundingBox*)getComponent(ComponentID::BOUNDING_BOX);
 
 		if (activeCamera && bb)
-		{
 			shouldBeDrawn = activeCamera->isInsideFrustum(bb);
-			std::cout << shouldBeDrawn << std::endl;
-		}
 
 		if (shouldBeDrawn)
 		{
@@ -169,6 +166,27 @@ namespace gn
 
 		if (it != _components->end())
 			component = *it;
+
+		return component;
+	}	
+	
+	Component* GameObject::getComponentInChildren(ComponentID componentID)
+	{
+		Component* component = NULL;
+
+		for (std::list<GameObject*>::iterator goIt = _children->begin(); goIt != _children->end(); goIt++)
+		{
+			std::list<Component*>* components = (*goIt)->_components;
+
+			std::list<Component*>::iterator it = std::find_if(components->begin(), components->end(),
+				[&componentID](const Component* comp) {return comp->getID() == componentID; });
+
+			if (it != components->end())
+			{
+				component = *it;
+				break;
+			}
+		}
 
 		return component;
 	}
