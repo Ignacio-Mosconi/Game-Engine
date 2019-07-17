@@ -49,7 +49,8 @@ namespace gn
 		return modelRoot;
 	}
 
-	GameObject* ModelLoader::loadTerrain(GameObject* parent, const std::string& heightmapPath, glm::vec3 scale)
+	GameObject* ModelLoader::loadTerrain(GameObject* parent, const std::string& heightmapPath, glm::vec3 scale, 
+										const std::string& texturesPath)
 	{
 		GameObject* terrainObject = new GameObject(parent->getRenderer(), parent);
 
@@ -92,21 +93,11 @@ namespace gn
 
 		std::vector<unsigned int> indices = generateTerrainIndices(hmRows, hmColumns);
 
-		std::vector<Texture*> diffuseMaps;
-
-		Texture* diffuseMap = Texture::generateTexture(heightmapPath);
-		diffuseMaps.push_back(diffuseMap);
-
-		Terrain* terrain = (Terrain*)terrainObject->addComponent(ComponentID::TERRAIN);
-		terrain->createHeightField(heights, hmRows, hmColumns, scale);
-
-		MeshRenderer* meshRenderer = (MeshRenderer*)terrainObject->addComponent(ComponentID::MESH_RENDERER);
-		meshRenderer->createMesh(vertices, indices, diffuseMaps);
-
 		return terrainObject;
 	}
 
-	GameObject* ModelLoader::loadRandomTerrain(GameObject* parent, int rows, int columns, glm::vec3 scale, const std::string& texturesPath)
+	GameObject* ModelLoader::loadRandomTerrain(GameObject* parent, int rows, int columns, glm::vec3 scale, 
+												const std::string& texturesPath)
 	{
 		RandomHeightGenerator::generateSeed();
 

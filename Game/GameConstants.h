@@ -17,6 +17,7 @@ constexpr const char* NANOSUIT_TEXTURES = "Assets/Textures/Nanosuit";
 constexpr const char* AK_47_TEXTURES = "Assets/Textures/AK-47";
 constexpr const char* SPACESHIP_TEXTURES = "Assets/Textures/Spaceship";
 constexpr const char* HELIPAD_TEXTURES = "Assets/Textures/Helipad";
+constexpr const char* TERRAIN_TEXTURE = "Assets/Textures/Terrains/Moon Surface.png";
 // Heightmap Paths
 constexpr const char* HEIGHTMAP_PATH = "Assets/Textures/Heightmaps/Heightmap.bmp";
 // Sprite Paths

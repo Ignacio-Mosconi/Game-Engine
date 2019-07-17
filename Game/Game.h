@@ -17,6 +17,7 @@
 #include "Scene Graph/BoxCollider.h"
 #include "Scene Graph/CapsuleCollider.h"
 #include "Scene Graph/RigidBody.h"
+#include "Scene Graph/Terrain.h"
 #include "GameConstants.h"
 
 class Spaceship;

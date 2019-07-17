@@ -55,5 +55,8 @@ namespace gn
 		void createMesh(std::vector<MeshVertex> vertices, std::vector<unsigned int> indices, 
 						std::vector<Texture*> diffuseTextures = std::vector<Texture*>());
 		void disposeMesh();
+
+		inline std::vector<unsigned int> getIndexBufferData() const { return _indexBufferData; }
+		inline std::vector<Texture*> getDiffuseTextures() const { return _diffuseTextures; }
 	};
 }

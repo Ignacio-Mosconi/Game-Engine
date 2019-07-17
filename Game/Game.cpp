@@ -16,7 +16,10 @@ Game::~Game()
 bool Game::onStart()
 {
 	_scene = new GameObject(_renderer);
-	_terrain = ModelLoader::loadRandomTerrain(_scene, 32, 32, glm::vec3(10.0f, 30.0f, 10.0f), HEIGHTMAP_PATH);
+	_terrain = ModelLoader::loadRandomTerrain(_scene, 32, 32, glm::vec3(10.0f, 30.0f, 10.0f), TERRAIN_TEXTURE);
+
+	Terrain* terrain = (Terrain*)_terrain->getComponent(ComponentID::TERRAIN);
+	terrain->flattenArea(8, 24, 12, 18, 256);
 
 	_spaceship = new Spaceship();
 	_spaceship->start(_scene, glm::vec3(160.0f, 200.0f, 160.0f), 20000.0f, 5000.0f, 1000.0f, 1000.0f);
@@ -28,10 +31,10 @@ bool Game::onStart()
 	BoundingBox* bb = (BoundingBox*)_helipad->getComponent(ComponentID::BOUNDING_BOX);
 
 	BoxCollider* bc = (BoxCollider*)_helipad->addComponent(ComponentID::BOX_COLLIDER);
-	RigidBody* rb = (RigidBody*)_helipad->addComponent(ComponentID::RIGID_BODY);
+	//RigidBody* rb = (RigidBody*)_helipad->addComponent(ComponentID::RIGID_BODY);
 
 	bc->createGeometry(bb);
-	rb->createRigidBody(bc, true, 10000.0f, 0.0f, 0.0f, 0.0f, glm::vec3(0.0f, 18.0f, 0.0f));
+	//rb->createRigidBody(bc, true, 10000.0f, 0.0f, 0.0f, 0.0f, glm::vec3(0.0f, 18.0f, 0.0f));
 
 	GameObject* spaceshipRoot = _spaceship->getRootObject();
 	_camera = (Camera*)spaceshipRoot->getComponentInChildren(ComponentID::CAMERA);

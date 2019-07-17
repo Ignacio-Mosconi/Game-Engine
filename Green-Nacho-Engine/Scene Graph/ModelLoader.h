@@ -35,7 +35,9 @@ namespace gn
 
 	public:
 		static GameObject* loadModel(GameObject* parent, const std::string& modelPath, const std::string& texturesPath = "");
-		static GameObject* loadTerrain(GameObject* parent, const std::string& heightmapPath, glm::vec3 scale);
-		static GameObject* loadRandomTerrain(GameObject* parent, int rows, int columns, glm::vec3 scale, const std::string& texturesPath = "");
+		static GameObject* loadTerrain(GameObject* parent, const std::string& heightmapPath, glm::vec3 scale, 
+										const std::string& texturesPath = "");
+		static GameObject* loadRandomTerrain(GameObject* parent, int rows, int columns, glm::vec3 scale, 
+										const std::string& texturesPath = "");
 	};
 }

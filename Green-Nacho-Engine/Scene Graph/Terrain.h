@@ -29,6 +29,7 @@ namespace gn
 		int _heightmapRows;
 		int _heightmapColumns;
 		std::vector<std::vector<int>> _heights;
+		glm::vec3 _scale;
 
 	public:
 		Terrain(GameObject* gameObject);
@@ -38,5 +39,7 @@ namespace gn
 
 		void createHeightField(std::vector<std::vector<int>> heights, int rows, int columns, glm::vec3 scale);
 		void disposeHeightField();
+
+		void flattenArea(int startRow, int endRow, int startColumn, int endColumn, int height);
 	};
 }
