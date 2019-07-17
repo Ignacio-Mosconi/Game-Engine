@@ -21,6 +21,7 @@
 #include "GameConstants.h"
 
 class Spaceship;
+class Helipad;
 
 class Game : public gn::GameBase
 {
@@ -29,7 +30,7 @@ private:
 	gn::GameObject* _terrain;
 	
 	Spaceship* _spaceship;
-	gn::GameObject* _helipad;
+	Helipad* _helipad;
 
 protected:
 	bool onStart() override;

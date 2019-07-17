@@ -41,5 +41,9 @@ namespace gn
 		void disposeHeightField();
 
 		void flattenArea(int startRow, int endRow, int startColumn, int endColumn, int height);
+
+		inline float getHeightmapRows() const { return _heightmapRows; }
+		inline float getHeightmapColumns() const { return _heightmapColumns; }
+		inline glm::vec3 getScale() const { return _scale; }
 	};
 }

@@ -28,3 +28,5 @@ constexpr float SHIP_ASCENSION_FORCE = 20000.0f;
 constexpr float SHIP_TORQUE_FORCE = 200.0f;
 constexpr float SHIP_MASS = 1000.0f;
 constexpr float SHIP_INITIAL_FUEL = 10000.0f;
+// Helipad
+constexpr float HELIPAD_DEFAULT_Y_POS = 100.0f;

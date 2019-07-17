@@ -72,7 +72,7 @@ void Spaceship::start(GameObject* scene, glm::vec3 position, float ascensionForc
 
 	_root->getTransform()->setPosition(position.x, position.y, position.z);
 	_camera->getTransform()->setRotation(0.0f, 0.0f, 0.0f);
-	_camera->getTransform()->setPosition(0.0f, 0.0f, -75.0f);
+	_camera->getTransform()->setPosition(0.0f, 0.0f, -200.0f);
 
 	BoundingBox* bb = (BoundingBox*)_graphics->getComponent(ComponentID::BOUNDING_BOX);
 	

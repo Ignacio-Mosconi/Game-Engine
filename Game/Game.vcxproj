@@ -203,12 +203,14 @@ xcopy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Gr
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Helipad.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Spaceship.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConstants.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Helipad.h" />
     <ClInclude Include="Spaceship.h" />
   </ItemGroup>
   <ItemGroup>

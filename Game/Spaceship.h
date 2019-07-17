@@ -22,7 +22,6 @@ enum class RotationDir
 class Spaceship
 {
 private:
-
 	gn::GameObject* _root;
 	gn::GameObject* _graphics;
 	gn::GameObject* _camera;
