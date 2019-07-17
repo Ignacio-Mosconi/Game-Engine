@@ -49,6 +49,8 @@ namespace gn
 		void updateFrustum();
 		void updateFrustumProperties(float fieldOfView, float aspectRatio, float nearDistance, float farDistance);
 
+		void setViewDirection(glm::vec3 viewDirection);
+
 		bool isInsideFrustum(BoundingBox* boundingBox);
 	};
 }

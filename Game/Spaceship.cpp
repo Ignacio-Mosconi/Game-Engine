@@ -71,8 +71,6 @@ void Spaceship::start(GameObject* scene, glm::vec3 position, float ascensionForc
 	_fuel = fuel;
 
 	_root->getTransform()->setPosition(position.x, position.y, position.z);
-	_camera->getTransform()->setRotation(0.0f, 0.0f, 0.0f);
-	_camera->getTransform()->setPosition(0.0f, 0.0f, -200.0f);
 
 	BoundingBox* bb = (BoundingBox*)_graphics->getComponent(ComponentID::BOUNDING_BOX);
 	
@@ -85,9 +83,7 @@ void Spaceship::start(GameObject* scene, glm::vec3 position, float ascensionForc
 	bc->createGeometry(bb);
 	_rigidBody->createRigidBody(bc, false, _mass, 0.25f, 0.25f, 0.25f);
 
-	tpcc->setRotationSpeed(90.0f);
-	tpcc->setRadius(200.0f);
-	tpcc->setTransforms(_camera->getTransform(), _root->getTransform());
+	tpcc->setUpController(_camera->getTransform(), _root->getTransform(), 70.0f, 120.0f);
 }
 
 void Spaceship::update(float deltaTime)

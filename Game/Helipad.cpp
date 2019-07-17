@@ -27,7 +27,7 @@ void Helipad::start(gn::GameObject* scene, float heightPosition, glm::vec2 minHo
 	RigidBody* rb = (RigidBody*)_platform->addComponent(ComponentID::RIGID_BODY);
 
 	bc->createGeometry(bb);
-	rb->createRigidBody(bc, true, 500.0f, 0.0f, 0.0f, 0.0f, glm::vec3(0.0f, 18.0f, 0.0f));
+	rb->createRigidBody(bc, true, 500.0f, 0.5f, 0.5f, 0.0f, glm::vec3(0.0f, 18.0f, 0.0f));
 }
 
 void Helipad::setRandomPosition(glm::vec2 min, glm::vec2 max)

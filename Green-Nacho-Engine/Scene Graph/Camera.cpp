@@ -141,4 +141,17 @@ namespace gn
 
 		return isInsideFrustum;
 	}
+
+	void Camera::setViewDirection(glm::vec3 viewDirection)
+	{
+		_viewDirection = glm::normalize(viewDirection);
+		_transform->forceLocalForward(viewDirection);
+		updateFrustum();
+		
+		glm::vec3 center = _globalPosition + _viewDirection;
+		glm::vec3 upVector = _transform->getLocalUp();
+
+		updateFrustum();
+		_renderer->updateView(_globalPosition, center, upVector);
+	}
 }

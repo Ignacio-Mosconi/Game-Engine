@@ -8,12 +8,15 @@ namespace gn
 {
 	class GameObject;
 	class Transform;
+	class Camera;
 
 	class ENGINE_DECL_SPEC ThirdPersonCameraController : public Component
 	{
 	private:
 		Transform* _cameraTransform;
 		Transform* _followTargetTransform;
+
+		Camera* _camera;
 		
 		glm::vec3 _initialPivotForward;
 		glm::vec3 _initialPivotUp;
@@ -36,9 +39,6 @@ namespace gn
 		void stop() override;
 		void update(float deltaTime) override;
 
-		void setTransforms(Transform* cameraTransform, Transform* followTargetTransform);
-		
-		void setRotationSpeed(float rotationSpeed) { _rotationSpeed = rotationSpeed; }
-		void setRadius(float radius) { _radius = radius; }
+		void setUpController(Transform* cameraTransform, Transform* followTargetTransform, float rotationSpeed, float radius);
 	};
 }

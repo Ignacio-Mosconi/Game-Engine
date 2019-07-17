@@ -182,7 +182,6 @@ namespace gn
 		_localForward = newForward;
 	}
 
-
 	void Transform::changeRotationMatrix(glm::vec4 quaternion)
 	{
 		float pitch, yaw, roll;
