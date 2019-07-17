@@ -41,7 +41,7 @@ namespace gn
 		float windowWidth = (float)_renderer->getRenderWindow()->getWidth();
 		float windowHeight = (float)_renderer->getRenderWindow()->getHeight();
 		
-		updateFrustumProperties(45.0f, windowWidth / windowHeight, 0.1f, 1000.0f);
+		updateFrustumProperties(45.0f, windowWidth / windowHeight, 0.1f, 10000.0f);
 	}
 	
 	void Camera::stop()

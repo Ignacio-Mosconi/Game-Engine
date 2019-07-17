@@ -6,6 +6,7 @@
 #include "Scene Graph/GameObject.h"
 #include "Scene Graph/Transform.h"
 #include "Scene Graph/Camera.h"
+#include "Scene Graph/ThirdPersonCameraController.h"
 #include "Scene Graph/BoundingBox.h"
 #include "Scene Graph/BoxCollider.h"
 #include "Scene Graph/RigidBody.h"

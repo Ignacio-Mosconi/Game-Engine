@@ -218,6 +218,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
     <ClInclude Include="Scene Graph\RigidBody.h" />
     <ClInclude Include="Scene Graph\SpriteRenderer.h" />
     <ClInclude Include="Scene Graph\Terrain.h" />
+    <ClInclude Include="Scene Graph\ThirdPersonCameraController.h" />
     <ClInclude Include="Scene Graph\Transform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +260,7 @@ xcopy "$(SolutionDir)Binaries\$(TargetName)\$(Platform)\$(Configuration)\Green-N
     <ClCompile Include="Scene Graph\RigidBody.cpp" />
     <ClCompile Include="Scene Graph\SpriteRenderer.cpp" />
     <ClCompile Include="Scene Graph\Terrain.cpp" />
+    <ClCompile Include="Scene Graph\ThirdPersonCameraController.cpp" />
     <ClCompile Include="Scene Graph\Transform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -228,6 +228,9 @@
     <ClInclude Include="Scene Graph\RandomHeightGenerator.h">
       <Filter>Header Files\Scene Graph\Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="Scene Graph\ThirdPersonCameraController.h">
+      <Filter>Header Files\Scene Graph\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\GameBase.cpp">
@@ -346,6 +349,9 @@
     </ClCompile>
     <ClCompile Include="Scene Graph\RandomHeightGenerator.cpp">
       <Filter>Source Files\Scene Graph\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene Graph\ThirdPersonCameraController.cpp">
+      <Filter>Source Files\Scene Graph\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

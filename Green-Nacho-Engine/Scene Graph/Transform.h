@@ -55,6 +55,7 @@ namespace gn
 		void setGlobalRotation(float x, float y, float z);
 
 		void forceLocalUp();
+		void forceLocalForward(glm::vec3 newForward);
 		void changeRotationMatrix(glm::vec4 quaternion);
 
 		static void convertToEulerAngles(const glm::vec4& quaternion, float& pitch, float& yaw, float& roll);

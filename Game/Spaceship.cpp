@@ -77,12 +77,17 @@ void Spaceship::start(GameObject* scene, glm::vec3 position, float ascensionForc
 	BoundingBox* bb = (BoundingBox*)_graphics->getComponent(ComponentID::BOUNDING_BOX);
 	
 	Camera* c = (Camera*)_camera->addComponent(ComponentID::CAMERA);
+	ThirdPersonCameraController* tpcc = (ThirdPersonCameraController*)_camera->addComponent(ComponentID::THIRD_PERSON_CAMERA_CONTROLLER);
 	BoxCollider* bc = (BoxCollider*)_root->addComponent(ComponentID::BOX_COLLIDER);
 	
 	_rigidBody = (RigidBody*)_root->addComponent(ComponentID::RIGID_BODY);
 
 	bc->createGeometry(bb);
 	_rigidBody->createRigidBody(bc, false, _mass, 0.25f, 0.25f, 0.25f);
+
+	tpcc->setRotationSpeed(90.0f);
+	tpcc->setRadius(200.0f);
+	tpcc->setTransforms(_camera->getTransform(), _root->getTransform());
 }
 
 void Spaceship::update(float deltaTime)

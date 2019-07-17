@@ -9,6 +9,7 @@
 #include "Scene Graph/CapsuleCollider.h"
 #include "Scene Graph/RigidBody.h"
 #include "Scene Graph/NavigationController.h"
+#include "Scene Graph/ThirdPersonCameraController.h"
 #include "Scene Graph/Terrain.h"
 
 namespace gn
@@ -69,6 +70,9 @@ namespace gn
 				break;
 			case ComponentID::NAVIGATION_CONTROLLER:
 				component = new NavigationController(gameObject);
+			break;
+			case ComponentID::THIRD_PERSON_CAMERA_CONTROLLER:
+				component = new ThirdPersonCameraController(gameObject);
 				break;			
 			case ComponentID::TERRAIN:
 				component = new Terrain(gameObject);

@@ -176,6 +176,13 @@ namespace gn
 		_localRight = glm::normalize(glm::cross(_localForward, _localUp));
 	}
 
+	void Transform::forceLocalForward(glm::vec3 newForward)
+	{
+		newForward = glm::normalize(newForward);
+		_localForward = newForward;
+	}
+
+
 	void Transform::changeRotationMatrix(glm::vec4 quaternion)
 	{
 		float pitch, yaw, roll;

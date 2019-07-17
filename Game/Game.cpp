@@ -17,18 +17,23 @@ Game::~Game()
 bool Game::onStart()
 {
 	_scene = new GameObject(_renderer);
-	_terrain = ModelLoader::loadRandomTerrain(_scene, 32, 32, glm::vec3(10.0f, 30.0f, 10.0f), TERRAIN_TEXTURE);
+	_terrain = ModelLoader::loadRandomTerrain(_scene, 128, 128, glm::vec3(10.0f, 50.0f, 10.0f), TERRAIN_TEXTURE);
 
 	_spaceship = new Spaceship();
 	_helipad = new Helipad();
 
 	Terrain* terrain = (Terrain*)_terrain->getComponent(ComponentID::TERRAIN);
 
-	float maxHelipadX = terrain->getHeightmapRows() * terrain->getScale().x;
-	float maxHelipadZ = terrain->getHeightmapColumns() * terrain->getScale().z;
+	float spaceshipX = terrain->getHeightmapRows() * 0.5f * terrain->getScale().x;
+	float spaceshipZ = terrain->getHeightmapColumns() * 0.5f * terrain->getScale().z;
+	float minHelipadX = 200.0f;
+	float minHelipadZ = 200.0f;
+	float maxHelipadX = terrain->getHeightmapRows() * terrain->getScale().x - minHelipadX;
+	float maxHelipadZ = terrain->getHeightmapColumns() * terrain->getScale().z - minHelipadZ;
+	float helipadY = terrain->getScale().y;
 
-	_spaceship->start(_scene, glm::vec3(160.0f, 200.0f, 160.0f), 20000.0f, 5000.0f, 1000.0f, 1000.0f);
-	_helipad->start(_scene, 20.0f, glm::vec2(0.0f), glm::vec2(maxHelipadX, maxHelipadZ));
+	_spaceship->start(_scene, glm::vec3(spaceshipX, 200.0f, spaceshipZ), 7000.0f, 5000.0f, 1000.0f, 1000.0f);
+	_helipad->start(_scene, helipadY, glm::vec2(minHelipadX, minHelipadZ), glm::vec2(maxHelipadX, maxHelipadZ));
 
 	glm::vec3 helipadPosition = _helipad->getPlatformObject()->getTransform()->getGlobalPosition();
 	glm::vec2 helipadGridPos(helipadPosition.z / terrain->getScale().z, helipadPosition.x / terrain->getScale().x);
@@ -39,7 +44,7 @@ bool Game::onStart()
 	GameObject* spaceshipRoot = _spaceship->getRootObject();
 	_camera = (Camera*)spaceshipRoot->getComponentInChildren(ComponentID::CAMERA);
 
-	_physicsManager->setCurrentSceneGravity(glm::vec3(0.0f, -9.81f, 0.0f));
+	_physicsManager->setCurrentSceneGravity(glm::vec3(0.0f, -1.62f, 0.0f));
 
 	_scene->start();
 

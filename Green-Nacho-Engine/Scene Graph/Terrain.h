@@ -42,8 +42,8 @@ namespace gn
 
 		void flattenArea(int startRow, int endRow, int startColumn, int endColumn, int height);
 
-		inline float getHeightmapRows() const { return _heightmapRows; }
-		inline float getHeightmapColumns() const { return _heightmapColumns; }
+		inline int getHeightmapRows() const { return _heightmapRows; }
+		inline int getHeightmapColumns() const { return _heightmapColumns; }
 		inline glm::vec3 getScale() const { return _scale; }
 	};
 }
