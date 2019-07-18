@@ -41,17 +41,6 @@ bool Game::onStart()
 
 	terrain->flattenArea(helipadGridPos.x - 4, helipadGridPos.x + 4, helipadGridPos.y -4, helipadGridPos.y + 4, flattenHeight);
 
-	GameObject* model = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
-	model->getTransform()->setPosition(spaceshipX, 100.0f, spaceshipZ);
-
-	BoundingBox* bb = (BoundingBox*)model->getComponent(ComponentID::BOUNDING_BOX);
-
-	CapsuleCollider* cc = (CapsuleCollider*)model->addComponent(ComponentID::CAPSULE_COLLIDER);
-	RigidBody* rb = (RigidBody*)model->addComponent(ComponentID::RIGID_BODY);
-
-	cc->createGeometry(bb);
-	rb->createRigidBody(cc, false, 100.0f, 0.2f, 0.2f, 0.2f, glm::vec3(0.0f, 7.0f, 0.0f));
-
 	GameObject* spaceshipRoot = _spaceship->getRootObject();
 	_camera = (Camera*)spaceshipRoot->getComponentInChildren(ComponentID::CAMERA);
 
