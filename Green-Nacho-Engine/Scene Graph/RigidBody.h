@@ -45,5 +45,7 @@ namespace gn
 		void addForce(glm::vec3 force, ForceMode forceMode);
 		void addTorque(glm::vec3 torque, ForceMode forceMode);
 		void clearTorque(ForceMode forceMode);
+
+		inline physx::PxRigidActor* getRigidActor() const { return _rigidActor; }
 	};
 }

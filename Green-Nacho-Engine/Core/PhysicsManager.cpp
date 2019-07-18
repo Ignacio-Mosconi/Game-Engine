@@ -7,6 +7,28 @@ namespace gn
 {
 	PhysicsManager* PhysicsManager::_instance = NULL;
 
+	physx::PxFilterFlags createFilterShader(
+		physx::PxFilterObjectAttributes attributes0, physx::PxFilterData filterData0,
+		physx::PxFilterObjectAttributes attributes1, physx::PxFilterData filterData1,
+		physx::PxPairFlags& pairFlags, const void* constantBlock, physx::PxU32 constantBlockSize)
+	{
+		// let triggers through
+		if (physx::PxFilterObjectIsTrigger(attributes0) || physx::PxFilterObjectIsTrigger(attributes1))
+		{
+			pairFlags = physx::PxPairFlag::eTRIGGER_DEFAULT;
+			return physx::PxFilterFlag::eDEFAULT;
+		}
+		// generate contacts for all that were not filtered above
+		pairFlags = physx::PxPairFlag::eCONTACT_DEFAULT;
+
+		// trigger the contact callback for pairs (A,B) where
+		// the filtermask of A contains the ID of B and vice versa.
+		if ((filterData0.word0 & filterData1.word1) && (filterData1.word0 & filterData0.word1))
+			pairFlags |= physx::PxPairFlag::eNOTIFY_TOUCH_FOUND;
+
+		return physx::PxFilterFlag::eDEFAULT;
+	}
+
 	PhysicsManager::PhysicsManager() : _foundation(NULL), _physics(NULL), _scene(NULL), _debugRenderMaterial(NULL)
 	{
 
@@ -47,6 +69,10 @@ namespace gn
 		
 		physx::PxVec3 physxGravity(gravity.x, gravity.y, gravity.z);
 		sceneDesc.gravity = physxGravity;
+		sceneDesc.kineKineFilteringMode = physx::PxPairFilteringMode::eKEEP;
+		sceneDesc.staticKineFilteringMode = physx::PxPairFilteringMode::eKEEP;
+		
+		sceneDesc.filterShader = createFilterShader;
 		
 		if (!sceneDesc.cpuDispatcher)
 		{
@@ -151,6 +177,11 @@ namespace gn
 		physx::PxVec3 pxGravity(gravity.x, gravity.y, gravity.z);
 
 		_scene->setGravity(pxGravity);
+	}
+
+	void PhysicsManager::setSimulationEventCallback(physx::PxSimulationEventCallback* simulationCallback)
+	{
+		_scene->setSimulationEventCallback(simulationCallback);
 	}
 
 	physx::PxMaterial* PhysicsManager::createPhysicsMaterial(float staticFriction, float dynamicFriction, float restitution)

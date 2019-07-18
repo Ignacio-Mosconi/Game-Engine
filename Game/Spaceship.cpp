@@ -1,4 +1,5 @@
 #include "Spaceship.h"
+#include "SimulationEventCallback.h"
 
 using namespace gn;
 
@@ -11,7 +12,7 @@ Spaceship::Spaceship() :
 
 Spaceship::~Spaceship()
 {
-
+	delete _simulationCallback;
 }
 
 void Spaceship::ascend(float deltaTime)
@@ -84,6 +85,9 @@ void Spaceship::start(GameObject* scene, glm::vec3 position, float ascensionForc
 	_rigidBody->createRigidBody(bc, false, _mass, 0.25f, 0.25f, 0.25f);
 
 	tpcc->setUpController(_camera->getTransform(), _root->getTransform(), 70.0f, 120.0f);
+
+	_simulationCallback = new SimulationEventCallback(_rigidBody->getRigidActor());
+	PhysicsManager::getInstance()->setSimulationEventCallback(_simulationCallback);
 }
 
 void Spaceship::update(float deltaTime)

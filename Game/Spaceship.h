@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 #include "Core/InputManager.h"
+#include "Core/PhysicsManager.h"
 #include "Core/Renderer.h"
 #include "Scene Graph/GameObject.h"
 #include "Scene Graph/Transform.h"
@@ -20,6 +21,8 @@ enum class RotationDir
 	ROLL_LEFT, ROLL_RIGHT 
 };
 
+class SimulationEventCallback;
+
 class Spaceship
 {
 private:
@@ -28,6 +31,8 @@ private:
 	gn::GameObject* _camera;
 
 	gn::RigidBody* _rigidBody;
+
+	SimulationEventCallback* _simulationCallback;
 
 	float _ascensionForce;
 	float _torqueForce;

@@ -20,6 +20,7 @@ namespace physx
 	class PxMaterial;
 	class PxHeightField;
 	class PxHeightFieldDesc;
+	class PxSimulationEventCallback;
 }
 
 namespace gn
@@ -58,6 +59,8 @@ namespace gn
 		void removeActor(physx::PxActor* actor);
 
 		void setCurrentSceneGravity(glm::vec3 gravity);
+
+		void setSimulationEventCallback(physx::PxSimulationEventCallback* simulationCallback);
 		
 		physx::PxMaterial* createPhysicsMaterial(float staticFriction, float dynamicFriction, float restitution);
 		physx::PxRigidActor* createRigidActor(physx::PxTransform pxTransform, bool isStatic);

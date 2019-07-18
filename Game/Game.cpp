@@ -32,7 +32,7 @@ bool Game::onStart()
 	float maxHelipadZ = terrain->getHeightmapColumns() * terrain->getScale().z - minHelipadZ;
 	float helipadY = terrain->getScale().y;
 
-	_spaceship->start(_scene, glm::vec3(spaceshipX, 200.0f, spaceshipZ), 7000.0f, 5000.0f, 1000.0f, 1000.0f);
+	_spaceship->start(_scene, glm::vec3(spaceshipX, 75.0f, spaceshipZ), 7000.0f, 5000.0f, 1000.0f, 1000.0f);
 	_helipad->start(_scene, helipadY, glm::vec2(minHelipadX, minHelipadZ), glm::vec2(maxHelipadX, maxHelipadZ));
 
 	glm::vec3 helipadPosition = _helipad->getPlatformObject()->getTransform()->getGlobalPosition();
@@ -40,6 +40,17 @@ bool Game::onStart()
 	float flattenHeight = helipadPosition.y / terrain->getScale().y * MAX_BYTE_VALUE;
 
 	terrain->flattenArea(helipadGridPos.x - 4, helipadGridPos.x + 4, helipadGridPos.y -4, helipadGridPos.y + 4, flattenHeight);
+
+	GameObject* model = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
+	model->getTransform()->setPosition(spaceshipX, 100.0f, spaceshipZ);
+
+	BoundingBox* bb = (BoundingBox*)model->getComponent(ComponentID::BOUNDING_BOX);
+
+	CapsuleCollider* cc = (CapsuleCollider*)model->addComponent(ComponentID::CAPSULE_COLLIDER);
+	RigidBody* rb = (RigidBody*)model->addComponent(ComponentID::RIGID_BODY);
+
+	cc->createGeometry(bb);
+	rb->createRigidBody(cc, false, 100.0f, 0.2f, 0.2f, 0.2f, glm::vec3(0.0f, 7.0f, 0.0f));
 
 	GameObject* spaceshipRoot = _spaceship->getRootObject();
 	_camera = (Camera*)spaceshipRoot->getComponentInChildren(ComponentID::CAMERA);
@@ -67,7 +78,7 @@ bool Game::onUpdate(float deltaTime)
 	_spaceship->update(deltaTime);
 	_scene->update(deltaTime);
 
-	std::cout << "Fuel: " << _spaceship->getFuel() << std::endl;
+	// std::cout << "Fuel: " << _spaceship->getFuel() << std::endl;
 
 	return true;
 }
