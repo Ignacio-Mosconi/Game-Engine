@@ -5,10 +5,12 @@ VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Green-Nacho-Engine", "Green-Nacho-Engine\Green-Nacho-Engine.vcxproj", "{3B516390-F4D9-4B5C-8767-F59A2CB53FB5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{783CF191-1FB4-4929-8CE1-5E763160A957}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BSP-Demo", "BSP-Demo\BSP-Demo.vcxproj", "{2C90B781-7E2D-495E-AEBB-843D8F7A8A8E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3B516390-F4D9-4B5C-8767-F59A2CB53FB5} = {3B516390-F4D9-4B5C-8767-F59A2CB53FB5}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{783CF191-1FB4-4929-8CE1-5E763160A957}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,14 @@ Global
 		{3B516390-F4D9-4B5C-8767-F59A2CB53FB5}.Release|x64.Build.0 = Release|x64
 		{3B516390-F4D9-4B5C-8767-F59A2CB53FB5}.Release|x86.ActiveCfg = Release|Win32
 		{3B516390-F4D9-4B5C-8767-F59A2CB53FB5}.Release|x86.Build.0 = Release|Win32
+		{2C90B781-7E2D-495E-AEBB-843D8F7A8A8E}.Debug|x64.ActiveCfg = Debug|x64
+		{2C90B781-7E2D-495E-AEBB-843D8F7A8A8E}.Debug|x64.Build.0 = Debug|x64
+		{2C90B781-7E2D-495E-AEBB-843D8F7A8A8E}.Debug|x86.ActiveCfg = Debug|Win32
+		{2C90B781-7E2D-495E-AEBB-843D8F7A8A8E}.Debug|x86.Build.0 = Debug|Win32
+		{2C90B781-7E2D-495E-AEBB-843D8F7A8A8E}.Release|x64.ActiveCfg = Release|x64
+		{2C90B781-7E2D-495E-AEBB-843D8F7A8A8E}.Release|x64.Build.0 = Release|x64
+		{2C90B781-7E2D-495E-AEBB-843D8F7A8A8E}.Release|x86.ActiveCfg = Release|Win32
+		{2C90B781-7E2D-495E-AEBB-843D8F7A8A8E}.Release|x86.Build.0 = Release|Win32
 		{783CF191-1FB4-4929-8CE1-5E763160A957}.Debug|x64.ActiveCfg = Debug|x64
 		{783CF191-1FB4-4929-8CE1-5E763160A957}.Debug|x64.Build.0 = Debug|x64
 		{783CF191-1FB4-4929-8CE1-5E763160A957}.Debug|x86.ActiveCfg = Debug|Win32

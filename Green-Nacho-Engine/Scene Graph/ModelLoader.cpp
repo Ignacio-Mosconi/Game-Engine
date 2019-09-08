@@ -6,6 +6,7 @@
 #include "Scene Graph/GameObject.h"
 #include "Scene Graph/BoundingBox.h"
 #include "Scene Graph/MeshRenderer.h"
+#include "Scene Graph/BoundingBox.h"
 #include "Scene Graph/Terrain.h"
 #include "Scene Graph/RandomHeightGenerator.h"
 
@@ -30,21 +31,7 @@ namespace gn
 		glm::vec3 maxs = glm::vec3(0.0f);
 
 		processNode(modelRoot, scene->mRootNode, scene, mins, maxs, texturesPath);
-
-		glm::vec3 bbVertices[CUBE_VERTICES] =
-		{
-			glm::vec3(mins.x, mins.y, mins.z),
-			glm::vec3(mins.x, maxs.y, mins.z),
-			glm::vec3(mins.x, mins.y, maxs.z),
-			glm::vec3(mins.x, maxs.y, maxs.z),
-			glm::vec3(maxs.x, mins.y, mins.z),
-			glm::vec3(maxs.x, maxs.y, mins.z),
-			glm::vec3(maxs.x, mins.y, maxs.z),
-			glm::vec3(maxs.x, maxs.y, maxs.z)
-		};
-		
-		BoundingBox* bb = (BoundingBox*)modelRoot->addComponent(ComponentID::BOUNDING_BOX);
-		bb->setVertices(bbVertices);
+		addBoundingBox(modelRoot, mins, maxs);
 
 		return modelRoot;
 	}
@@ -158,14 +145,20 @@ namespace gn
 	void ModelLoader::processNode(GameObject* parent, aiNode* node, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs, 
 								const std::string& texturesPath)
 	{
+		std::vector<GameObject*> objectMeshes;
+
 		for (int i = 0; i < (int)node->mNumMeshes; i++)
 		{
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			GameObject* child = generateMesh(parent, mesh, scene, mins, maxs, texturesPath);
+			objectMeshes.push_back(child);
 		}
 
 		for (int i = 0; i < (int)node->mNumChildren; i++)
 			processNode(parent, node->mChildren[i], scene, mins, maxs, texturesPath);
+
+		for (int i = 0; i < objectMeshes.size(); i++)	
+			addBoundingBox(objectMeshes[i], mins, maxs);
 	}
 
 	GameObject* ModelLoader::generateMesh(GameObject* parent, aiMesh* mesh, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs,
@@ -230,6 +223,26 @@ namespace gn
 		meshRenderer->createMesh(vertices, indices, diffuseMaps);
 
 		return gameObject;
+	}
+
+	void ModelLoader::addBoundingBox(GameObject* owner, glm::vec3 mins, glm::vec3 maxs)
+	{
+		BoundingBox* boundingBox;
+
+		glm::vec3 vertices[CUBE_VERTICES] =
+		{
+			glm::vec3(mins.x, mins.y, mins.z),
+			glm::vec3(mins.x, maxs.y, mins.z),
+			glm::vec3(mins.x, mins.y, maxs.z),
+			glm::vec3(mins.x, maxs.y, maxs.z),
+			glm::vec3(maxs.x, mins.y, mins.z),
+			glm::vec3(maxs.x, maxs.y, mins.z),
+			glm::vec3(maxs.x, mins.y, maxs.z),
+			glm::vec3(maxs.x, maxs.y, maxs.z)
+		};
+		
+		boundingBox = (BoundingBox*)owner->addComponent(ComponentID::BOUNDING_BOX);
+		boundingBox->setVertices(vertices);
 	}
 
 	std::vector<Texture*> ModelLoader::loadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& texturesPath)

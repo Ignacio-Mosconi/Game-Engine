@@ -42,6 +42,8 @@ namespace gn
 		float windowHeight = (float)_renderer->getRenderWindow()->getHeight();
 		
 		updateFrustumProperties(45.0f, windowWidth / windowHeight, 0.1f, 10000.0f);
+		updateFrustum();
+		updateView();
 	}
 	
 	void Camera::stop()
@@ -62,12 +64,17 @@ namespace gn
 			_globalPosition = globalPos;
 			_viewDirection = viewDir;
 
-			glm::vec3 center = _globalPosition + _viewDirection;
-			glm::vec3 upVector = _transform->getLocalUp();		
-
 			updateFrustum();
-			_renderer->updateView(_globalPosition, center, upVector);
+			updateView();
 		}
+	}
+
+	void Camera::updateView()
+	{
+		glm::vec3 center = _globalPosition + _viewDirection;
+		glm::vec3 upVector = _transform->getLocalUp();
+
+		_renderer->updateView(_globalPosition, center, upVector);
 	}
 
 	void Camera::updateFrustum()

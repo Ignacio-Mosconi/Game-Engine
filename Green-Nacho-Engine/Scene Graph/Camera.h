@@ -46,6 +46,7 @@ namespace gn
 		void stop() override;
 		void update(float deltaTime) override;
 
+		void updateView();
 		void updateFrustum();
 		void updateFrustumProperties(float fieldOfView, float aspectRatio, float nearDistance, float farDistance);
 

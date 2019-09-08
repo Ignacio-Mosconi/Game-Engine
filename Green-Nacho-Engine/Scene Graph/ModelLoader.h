@@ -18,6 +18,7 @@ namespace gn
 {
 	class GameObject;
 	class MeshRenderer;
+	class BoundingBox;
 	class Material;
 	class Texture;
 
@@ -28,6 +29,7 @@ namespace gn
 								const std::string& texturesPath = "");
 		static GameObject* generateMesh(GameObject* parent, aiMesh* mesh, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs,
 										const std::string& texturesPath = "");
+		static void addBoundingBox(GameObject* owner, glm::vec3 mins, glm::vec3 maxs);
 		static std::vector<Texture*> loadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& texturesPath);
 		static std::vector<Texture*> loadMaterialTextures(aiTexture** textures);
 
