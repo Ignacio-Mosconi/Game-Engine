@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <limits>
 #include <glm/vec3.hpp>
 #include "Core/Exports.h"
 

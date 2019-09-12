@@ -15,6 +15,7 @@
 #include "Scene Graph/MeshRenderer.h"
 #include "Scene Graph/BoundingBox.h"
 #include "Scene Graph/CapsuleCollider.h"
+#include "Scene Graph/BoxCollider.h"
 #include "Scene Graph/RigidBody.h"
 #include "DemoConstants.h"
 

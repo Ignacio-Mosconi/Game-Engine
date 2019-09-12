@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <vector>
 #include <list>
 #include <glm/mat4x4.hpp>
 #include "Core/Exports.h"
@@ -42,6 +43,7 @@ namespace gn
 		bool removeComponent(ComponentID componentID);
 		Component* getComponent(ComponentID componentID);
 		Component* getComponentInChildren(ComponentID componentID);
+		std::vector<Component*> getComponentsInChildren(ComponentID componentID);
 
 		inline unsigned int getChildCount() { return (unsigned int)_children->size(); }
 

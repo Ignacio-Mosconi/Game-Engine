@@ -1,6 +1,7 @@
 #pragma once
 #pragma warning(disable: 4251)
 
+#include <limits>
 #include <glm/vec3.hpp>
 #include "Core/Exports.h"
 #include "Core/EngineConstants.h"
@@ -26,8 +27,9 @@ namespace gn
 
 		void start() override;
 		void stop() override;
+		void update(float deltaTime) override;
 
-		void setVertices(glm::vec3 vertices[CUBE_VERTICES]);
+		void setVertices(glm::vec3 mins, glm::vec3 maxs);
 
 		glm::vec3 getVertexGlobalPosition(unsigned int index) const;
 

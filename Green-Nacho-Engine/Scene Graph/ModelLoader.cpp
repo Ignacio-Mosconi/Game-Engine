@@ -25,10 +25,10 @@ namespace gn
 			return NULL;
 		}
 
-		GameObject* modelRoot = new GameObject(parent->getRenderer(), parent);
+		glm::vec3 mins(std::numeric_limits<float>::max());
+		glm::vec3 maxs(std::numeric_limits<float>::min());
 
-		glm::vec3 mins = glm::vec3(0.0f);
-		glm::vec3 maxs = glm::vec3(0.0f);
+		GameObject* modelRoot = new GameObject(parent->getRenderer(), parent);
 
 		processNode(modelRoot, scene->mRootNode, scene, mins, maxs, texturesPath);
 		addBoundingBox(modelRoot, mins, maxs);
@@ -143,7 +143,7 @@ namespace gn
 	}
 
 	void ModelLoader::processNode(GameObject* parent, aiNode* node, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs, 
-								const std::string& texturesPath)
+									const std::string& texturesPath)
 	{
 		std::vector<GameObject*> objectMeshes;
 
@@ -151,13 +151,14 @@ namespace gn
 		{
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			GameObject* child = generateMesh(parent, mesh, scene, mins, maxs, texturesPath);
+			
 			objectMeshes.push_back(child);
 		}
 
 		for (int i = 0; i < (int)node->mNumChildren; i++)
 			processNode(parent, node->mChildren[i], scene, mins, maxs, texturesPath);
 
-		for (int i = 0; i < objectMeshes.size(); i++)	
+		for (int i = 0; i < objectMeshes.size(); i++)
 			addBoundingBox(objectMeshes[i], mins, maxs);
 	}
 
@@ -228,21 +229,9 @@ namespace gn
 	void ModelLoader::addBoundingBox(GameObject* owner, glm::vec3 mins, glm::vec3 maxs)
 	{
 		BoundingBox* boundingBox;
-
-		glm::vec3 vertices[CUBE_VERTICES] =
-		{
-			glm::vec3(mins.x, mins.y, mins.z),
-			glm::vec3(mins.x, maxs.y, mins.z),
-			glm::vec3(mins.x, mins.y, maxs.z),
-			glm::vec3(mins.x, maxs.y, maxs.z),
-			glm::vec3(maxs.x, mins.y, mins.z),
-			glm::vec3(maxs.x, maxs.y, mins.z),
-			glm::vec3(maxs.x, mins.y, maxs.z),
-			glm::vec3(maxs.x, maxs.y, maxs.z)
-		};
 		
 		boundingBox = (BoundingBox*)owner->addComponent(ComponentID::BOUNDING_BOX);
-		boundingBox->setVertices(vertices);
+		boundingBox->setVertices(mins, maxs);
 	}
 
 	std::vector<Texture*> ModelLoader::loadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& texturesPath)
