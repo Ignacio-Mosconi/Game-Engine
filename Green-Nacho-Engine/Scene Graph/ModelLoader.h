@@ -29,7 +29,7 @@ namespace gn
 		static void processNode(GameObject* parent, aiNode* node, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs,
 								const std::string& texturesPath = "");
 		static GameObject* generateMesh(GameObject* parent, aiMesh* mesh, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs,
-										const std::string& texturesPath = "");
+										glm::vec3& localMins, glm::vec3& localMaxs, const std::string& texturesPath = "");
 		static void addBoundingBox(GameObject* owner, glm::vec3 mins, glm::vec3 maxs);
 		static std::vector<Texture*> loadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& texturesPath);
 		static std::vector<Texture*> loadMaterialTextures(aiTexture** textures);

@@ -33,7 +33,7 @@ namespace gn
 		void stop();
 
 		void update(float deltaTime);
-		void draw(Camera* activeCamera = NULL);
+		void draw(Camera* activeCamera, int& objectsDrawn);
 
 		bool addChild(GameObject* gameObject);
 		bool removeChild(GameObject* gameObject);

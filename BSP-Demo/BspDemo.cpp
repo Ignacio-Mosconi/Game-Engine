@@ -37,16 +37,17 @@ bool BspDemo::onStart()
 
 	std::vector<Component*> bbs = (std::vector<Component*>)_nanosuit->getComponentsInChildren(ComponentID::BOUNDING_BOX);
 
-	//for (int i = 0; i < bbs.size(); i++)
-	//{
-	//	BoundingBox* bb  = (BoundingBox*)bbs[i];
-	//	BoxCollider* bc = (BoxCollider*)bbs[i]->getGameObject()->addComponent(ComponentID::BOX_COLLIDER);
-	//	RigidBody* rb = (RigidBody*)bbs[i]->getGameObject()->addComponent(ComponentID::RIGID_BODY);
-	//	glm::vec3 colliderOffset(0.0f, (bb->getMaxs().y - bb->getMins().y) * 0.5f, 0.0f);
-	//	
-	//	bc->createGeometry(bb);
-	//	rb->createRigidBody(bc, true, 100.0f, 0.1f, 0.1f, 0.1f, colliderOffset);
-	//}
+	for (int i = 0; i < bbs.size(); i++)
+	{
+		BoundingBox* bb = (BoundingBox*)bbs[i];
+		BoxCollider* bc = (BoxCollider*)bbs[i]->getGameObject()->addComponent(ComponentID::BOX_COLLIDER);
+		RigidBody* rb = (RigidBody*)bbs[i]->getGameObject()->addComponent(ComponentID::RIGID_BODY);
+
+		glm::vec3 colliderOffset(0.0f, (bb->getMaxs().y - bb->getMins().y) * 0.5f, 0.0f);
+		
+		bc->createGeometry(bb);
+		rb->createRigidBody(bc, true, 100.0f, 0.1f, 0.1f, 0.1f, colliderOffset);
+	}
 
 	_scene->start();
 
@@ -71,9 +72,11 @@ bool BspDemo::onUpdate(float deltaTime)
 
 bool BspDemo::onDraw()
 {
-	_scene->draw(_camera);
+	int objectsDrawn = 0;
 
-	std::cout << "\n";
+	_scene->draw(_camera, objectsDrawn);
+
+	std::cout << "Objects Drawn: " << objectsDrawn << std::endl;
 
 	return true;
 }

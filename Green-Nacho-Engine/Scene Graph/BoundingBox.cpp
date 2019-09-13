@@ -28,23 +28,30 @@ namespace gn
 
 	void BoundingBox::update(float deltaTime)
 	{
+		updateVertices();
+	}
+
+	void BoundingBox::updateVertices()
+	{
 		std::vector<Component*> childrenBBs = _gameObject->getComponentsInChildren(ComponentID::BOUNDING_BOX);
-		glm::vec3 newMins(std::numeric_limits<float>::max());
-		glm::vec3 newMaxs(std::numeric_limits<float>::min());
+		glm::vec3 globalPosition = getGameObject()->getTransform()->getGlobalPosition();
+		glm::vec3 newMins = _mins;
+		glm::vec3 newMaxs = _maxs;
 
 		for (int i = 0; i < childrenBBs.size(); i++)
 		{
 			BoundingBox* childBB = (BoundingBox*)childrenBBs[i];
-			glm::vec3 objectGlobalPos = childBB->getGameObject()->getTransform()->getGlobalPosition();
-			
+			glm::vec3 childGlobalPos = childBB->getGameObject()->getTransform()->getGlobalPosition();
+
 			for (int j = 0; j < CUBE_VERTICES; j++)
 			{
-				glm::vec3 vertexGlobalPos = childBB->getVertexGlobalPosition(j);
-				
+				glm::vec3 vertexGlobalPos = _vertices[j] + childGlobalPos;
+				glm::vec3 vertexRelativePos = vertexGlobalPos - globalPosition;
+
 				if (vertexRelativePos.x < _mins.x)
 					newMins.x = vertexRelativePos.x;
 				if (vertexRelativePos.y < _mins.y)
-					newMins.y= vertexRelativePos.y;
+					newMins.y = vertexRelativePos.y;
 				if (vertexRelativePos.z < _mins.z)
 					newMins.z = vertexRelativePos.z;
 
@@ -57,7 +64,7 @@ namespace gn
 			}
 		}
 
-		//setVertices(newMins, newMaxs);
+		setVertices(newMins, newMaxs);
 	}
 	
 	void BoundingBox::setVertices(glm::vec3 mins, glm::vec3 maxs)

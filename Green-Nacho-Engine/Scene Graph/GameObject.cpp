@@ -58,7 +58,7 @@ namespace gn
 			(*it)->update(deltaTime);
 	}
 
-	void GameObject::draw(Camera* activeCamera)
+	void GameObject::draw(Camera* activeCamera, int& objectsDrawn)
 	{
 		glm::mat4 originalModelMatrix = _renderer->getModelMatrix();
 		glm::mat4 originalViewMatrix = _renderer->getViewMatrix();
@@ -73,7 +73,8 @@ namespace gn
 		if (activeCamera && bb)
 		{
 			shouldBeDrawn = activeCamera->isInsideFrustum(bb);
-			std::cout << "Drawn: " << shouldBeDrawn << std::endl;
+			if (shouldBeDrawn)
+				objectsDrawn++;
 		}
 
 		if (shouldBeDrawn)
@@ -81,7 +82,7 @@ namespace gn
 			for (std::list<Component*>::iterator it = _components->begin(); it != _components->end(); it++)
 				(*it)->draw();
 			for (std::list<GameObject*>::iterator it = _children->begin(); it != _children->end(); it++)
-				(*it)->draw(activeCamera);
+				(*it)->draw(activeCamera, objectsDrawn);
 		}
 
 		_renderer->setModelMatrix(originalModelMatrix);

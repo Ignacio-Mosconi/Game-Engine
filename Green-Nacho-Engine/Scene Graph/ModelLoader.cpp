@@ -33,6 +33,14 @@ namespace gn
 		processNode(modelRoot, scene->mRootNode, scene, mins, maxs, texturesPath);
 		addBoundingBox(modelRoot, mins, maxs);
 
+		std::vector<Component*> bbs = modelRoot->getComponentsInChildren(ComponentID::BOUNDING_BOX);
+
+		for (int i = 0; i < bbs.size(); i++)
+		{
+			BoundingBox* bb = (BoundingBox*)bbs[i];
+			bb->updateVertices();
+		}
+
 		return modelRoot;
 	}
 
@@ -145,25 +153,22 @@ namespace gn
 	void ModelLoader::processNode(GameObject* parent, aiNode* node, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs, 
 									const std::string& texturesPath)
 	{
-		std::vector<GameObject*> objectMeshes;
-
 		for (int i = 0; i < (int)node->mNumMeshes; i++)
 		{
+			glm::vec3 localMins(std::numeric_limits<float>::max());
+			glm::vec3 localMaxs(std::numeric_limits<float>::min());
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			GameObject* child = generateMesh(parent, mesh, scene, mins, maxs, texturesPath);
-			
-			objectMeshes.push_back(child);
+			GameObject* child = generateMesh(parent, mesh, scene, mins, maxs, localMins, localMaxs, texturesPath);
+
+			addBoundingBox(child, localMins, localMaxs);
 		}
 
 		for (int i = 0; i < (int)node->mNumChildren; i++)
 			processNode(parent, node->mChildren[i], scene, mins, maxs, texturesPath);
-
-		for (int i = 0; i < objectMeshes.size(); i++)
-			addBoundingBox(objectMeshes[i], mins, maxs);
 	}
 
 	GameObject* ModelLoader::generateMesh(GameObject* parent, aiMesh* mesh, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs,
-											const std::string& texturesPath)
+											glm::vec3& localMins, glm::vec3& localMaxs, const std::string& texturesPath)
 	{
 		GameObject* gameObject = new GameObject(parent->getRenderer(), parent);
 
@@ -198,7 +203,20 @@ namespace gn
 			if (vertex.position.z < mins.z)
 				mins.z = vertex.position.z;
 			if (vertex.position.z > maxs.z)
-				maxs.z = vertex.position.z;
+				maxs.z = vertex.position.z;			
+			
+			if (vertex.position.x < localMins.x)
+				localMins.x = vertex.position.x;
+			if (vertex.position.x > localMaxs.x)
+				localMaxs.x = vertex.position.x;
+			if (vertex.position.y < localMins.y)
+				localMins.y = vertex.position.y;
+			if (vertex.position.y > localMaxs.y)
+				localMaxs.y = vertex.position.y;
+			if (vertex.position.z < localMins.z)
+				localMins.z = vertex.position.z;
+			if (vertex.position.z > localMaxs.z)
+				localMaxs.z = vertex.position.z;
 
 			vertices.push_back(vertex);
 		}

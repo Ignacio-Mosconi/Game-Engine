@@ -29,6 +29,7 @@ namespace gn
 		void stop() override;
 		void update(float deltaTime) override;
 
+		void updateVertices();
 		void setVertices(glm::vec3 mins, glm::vec3 maxs);
 
 		glm::vec3 getVertexGlobalPosition(unsigned int index) const;
