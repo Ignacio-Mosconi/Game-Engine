@@ -148,16 +148,20 @@ namespace gn
 
 	bool GameObject::removeComponent(ComponentID componentID)
 	{
+		Component* componentToRemove = NULL;
 		bool removed = false;
 		std::list<Component*>::iterator it = std::find_if(_components->begin(), _components->end(),
 			[&componentID](const Component* comp) {return comp->getID() == componentID; });
 
 		if (it != _components->end())
 		{
+			componentToRemove = *it;
 			_components->remove(*it);
-			delete *it;
 			removed = true;
 		}
+
+		if (removed)
+			delete componentToRemove;
 
 		return removed;
 	}

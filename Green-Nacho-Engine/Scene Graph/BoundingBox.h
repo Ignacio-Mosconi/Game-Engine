@@ -1,7 +1,6 @@
 #pragma once
 #pragma warning(disable: 4251)
 
-#include <limits>
 #include <glm/vec3.hpp>
 #include "Core/Exports.h"
 #include "Core/EngineConstants.h"
@@ -9,6 +8,7 @@
 
 namespace gn
 {
+	class Material;
 	class GameObject;
 	class Transform;
 
@@ -16,8 +16,9 @@ namespace gn
 	{
 	private:
 		Transform* _transform;
+		Material* _debugRenderMaterial;
+
 		glm::vec3 _vertices[CUBE_VERTICES];
-		
 		glm::vec3 _maxs;
 		glm::vec3 _mins;
 
@@ -28,6 +29,7 @@ namespace gn
 		void start() override;
 		void stop() override;
 		void update(float deltaTime) override;
+		void draw() const override;
 
 		void updateVertices();
 		void setVertices(glm::vec3 mins, glm::vec3 maxs);

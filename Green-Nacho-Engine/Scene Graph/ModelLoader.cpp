@@ -25,8 +25,8 @@ namespace gn
 			return NULL;
 		}
 
-		glm::vec3 mins(std::numeric_limits<float>::max());
-		glm::vec3 maxs(std::numeric_limits<float>::min());
+		glm::vec3 mins(FLT_MAX);
+		glm::vec3 maxs(-FLT_MAX);
 
 		GameObject* modelRoot = new GameObject(parent->getRenderer(), parent);
 
@@ -155,8 +155,8 @@ namespace gn
 	{
 		for (int i = 0; i < (int)node->mNumMeshes; i++)
 		{
-			glm::vec3 localMins(std::numeric_limits<float>::max());
-			glm::vec3 localMaxs(std::numeric_limits<float>::min());
+			glm::vec3 localMins(FLT_MAX);
+			glm::vec3 localMaxs(-FLT_MAX);
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			GameObject* child = generateMesh(parent, mesh, scene, mins, maxs, localMins, localMaxs, texturesPath);
 

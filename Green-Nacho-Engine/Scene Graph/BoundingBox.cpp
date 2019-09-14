@@ -1,12 +1,13 @@
 #include "Scene Graph/BoundingBox.h"
 #include "Core/Renderer.h"
+#include "Core/Material.h"
 #include "Scene Graph/GameObject.h"
 #include "Scene Graph/Transform.h"
 
 namespace gn
 {
 	BoundingBox::BoundingBox(GameObject* gameObject) : Component(ComponentID::BOUNDING_BOX, gameObject),
-		_transform(NULL), _maxs(std::numeric_limits<float>::min()), _mins(std::numeric_limits<float>::max())
+		_transform(NULL), _debugRenderMaterial(NULL), _maxs(-FLT_MAX), _mins(FLT_MAX)
 	{
 
 	}
@@ -19,16 +20,76 @@ namespace gn
 	void BoundingBox::start()
 	{
 		_transform = _gameObject->getTransform();
+		_debugRenderMaterial = Material::generateMaterial(SIMPLE_VERTEX_SHADER_PATH, SIMPLE_PIXEL_SHADER_PATH);
 	}
 
 	void BoundingBox::stop()
 	{
 		_transform = NULL;
+		Material::destroyMaterial(_debugRenderMaterial);
 	}
 
 	void BoundingBox::update(float deltaTime)
 	{
 		updateVertices();
+	}
+
+	void BoundingBox::draw() const
+	{
+		Renderer* renderer = getGameObject()->getRenderer();
+
+		_debugRenderMaterial->bind();
+		_debugRenderMaterial->setMatrixProperty("MVP", renderer->getMVP());
+		
+		float* vertexBufferData = new float[VERTEX_COMPONENTS * LINE_VERTICES * 24]
+		{
+			_mins.x, _mins.y, _mins.z,
+			_mins.x, _mins.y, _maxs.z,
+
+			_mins.x, _mins.y, _mins.z,
+			_mins.x, _maxs.y, _mins.z,
+			
+			_mins.x, _mins.y, _mins.z,
+			_maxs.x, _mins.y, _mins.z,
+			
+			_maxs.x, _maxs.y, _mins.z,
+			_mins.x, _maxs.y, _mins.z,
+			
+			_maxs.x, _maxs.y, _mins.z,
+			_maxs.x, _mins.y, _mins.z,		
+			
+			_maxs.x, _maxs.y, _mins.z,
+			_maxs.x, _maxs.y, _maxs.z,
+			
+			_mins.x, _maxs.y, _maxs.z,
+			_maxs.x, _maxs.y, _maxs.z,			
+			
+			_mins.x, _maxs.y, _maxs.z,
+			_mins.x, _mins.y, _maxs.z,			
+			
+			_mins.x, _maxs.y, _maxs.z,
+			_mins.x, _maxs.y, _mins.z,			
+			
+			_maxs.x, _mins.y, _maxs.z,
+			_mins.x, _mins.y, _maxs.z,			
+			
+			_maxs.x, _mins.y, _maxs.z,
+			_maxs.x, _maxs.y, _maxs.z,			
+			
+			_maxs.x, _mins.y, _maxs.z,
+			_maxs.x, _mins.y, _mins.z,
+		};
+
+		int vertexBufferSize = sizeof(float) * VERTEX_COMPONENTS * LINE_VERTICES * 24;
+		unsigned int vertexBufferID = renderer->generateVertexBuffer(vertexBufferData, vertexBufferSize);
+
+		renderer->enableAttribute(0);
+		renderer->bindBuffer(0, VERTEX_COMPONENTS, vertexBufferID);
+		renderer->drawBuffer(PrimitiveType::LINES, LINE_VERTICES * 12);
+		renderer->disableAttribute(0);
+
+		renderer->destroyBuffer(vertexBufferID);
+		delete[] vertexBufferData;
 	}
 
 	void BoundingBox::updateVertices()
@@ -64,7 +125,8 @@ namespace gn
 			}
 		}
 
-		setVertices(newMins, newMaxs);
+		if (newMins != _mins || newMaxs != _maxs)
+			setVertices(newMins, newMaxs);
 	}
 	
 	void BoundingBox::setVertices(glm::vec3 mins, glm::vec3 maxs)
