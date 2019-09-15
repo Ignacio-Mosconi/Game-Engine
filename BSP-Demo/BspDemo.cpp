@@ -49,8 +49,8 @@ bool BspDemo::onUpdate(float deltaTime)
 
 	_nanosuit->getTransform()->translate(2.0f * deltaTime, 0.0f, 0.0f);
 	std::vector<Component*> bbs = _nanosuit->getComponentsInChildren(ComponentID::BOUNDING_BOX);
-	BoundingBox* bb = (BoundingBox*)bbs[1];
-	bb->getGameObject()->getTransform()->translate(0.0f, 2.0f * deltaTime, 0.0f);
+	BoundingBox* bb = (BoundingBox*)bbs[3];
+	bb->getGameObject()->getTransform()->rotate(0.0f, 25.0f * deltaTime, 0.0f);
 
 	return true;
 }
@@ -61,7 +61,7 @@ bool BspDemo::onDraw()
 
 	_scene->draw(_camera, objectsDrawn);
 
-	//std::cout << "Objects Drawn: " << objectsDrawn << std::endl;
+	std::cout << "Objects Drawn: " << objectsDrawn << std::endl;
 
 	return true;
 }
