@@ -33,14 +33,6 @@ namespace gn
 		processNode(modelRoot, scene->mRootNode, scene, mins, maxs, texturesPath);
 		addBoundingBox(modelRoot, mins, maxs);
 
-		std::vector<Component*> bbs = modelRoot->getComponentsInChildren(ComponentID::BOUNDING_BOX);
-
-		for (int i = 0; i < bbs.size(); i++)
-		{
-			BoundingBox* bb = (BoundingBox*)bbs[i];
-			bb->updateVertices();
-		}
-
 		return modelRoot;
 	}
 
@@ -153,18 +145,31 @@ namespace gn
 	void ModelLoader::processNode(GameObject* parent, aiNode* node, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs, 
 									const std::string& texturesPath)
 	{
-		for (int i = 0; i < (int)node->mNumMeshes; i++)
+		GameObject* child = NULL;
+
+		if (node->mNumMeshes > 1)
+			child = new GameObject(parent->getRenderer(), parent);
+ 
+		for (int i = 0; i < node->mNumMeshes; i++)
 		{
 			glm::vec3 localMins(FLT_MAX);
 			glm::vec3 localMaxs(-FLT_MAX);
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-			GameObject* child = generateMesh(parent, mesh, scene, mins, maxs, localMins, localMaxs, texturesPath);
-
+			
+			if (!child)
+				child = generateMesh(parent, mesh, scene, mins, maxs, localMins, localMaxs, texturesPath);
+			else
+				GameObject* grandChild = generateMesh(child, mesh, scene, mins, maxs, localMins, localMaxs, texturesPath);
+			
 			addBoundingBox(child, localMins, localMaxs);
 		}
 
+		GameObject* newParent = (child != NULL) ? child : parent;
+
+		std::cout << node->mNumChildren << std::endl;
+
 		for (int i = 0; i < (int)node->mNumChildren; i++)
-			processNode(parent, node->mChildren[i], scene, mins, maxs, texturesPath);
+			processNode(newParent, node->mChildren[i], scene, mins, maxs, texturesPath);
 	}
 
 	GameObject* ModelLoader::generateMesh(GameObject* parent, aiMesh* mesh, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs,

@@ -1,6 +1,7 @@
 #pragma once
 #pragma warning(disable: 4251)
 
+#include <stack>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Core/Exports.h"
@@ -57,6 +58,8 @@ namespace gn
 		void forceLocalUp();
 		void forceLocalForward(glm::vec3 newForward);
 		void changeRotationMatrix(glm::vec4 quaternion);
+
+		glm::mat4 getGlobalModelMatrix() const;
 
 		static void convertToEulerAngles(const glm::vec4& quaternion, float& pitch, float& yaw, float& roll);
 		static glm::vec4 convertToQuaternion(float pitch, float yaw, float roll);

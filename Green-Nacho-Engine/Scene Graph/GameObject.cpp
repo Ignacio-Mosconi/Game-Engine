@@ -72,6 +72,8 @@ namespace gn
 
 		if (activeCamera && bb)
 		{
+			if (!bb->getGameObject()->getParentTransform()->getGameObject()->getComponent(ComponentID::BOUNDING_BOX))
+				bb->updateVertices();
 			shouldBeDrawn = activeCamera->isInsideFrustum(bb);
 			if (shouldBeDrawn)
 				objectsDrawn++;

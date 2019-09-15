@@ -28,14 +28,16 @@ namespace gn
 
 		void start() override;
 		void stop() override;
-		void update(float deltaTime) override;
 		void draw() const override;
 
 		void updateVertices();
 		void setVertices(glm::vec3 mins, glm::vec3 maxs);
 
 		glm::vec3 getVertexGlobalPosition(unsigned int index) const;
+		glm::vec3 getMinsGlobalPosition() const;
+		glm::vec3 getMaxsGlobalPosition() const;
 
+		inline glm::vec3 getVertex(unsigned int index) const { return _vertices[index]; }
 		inline glm::vec3 getMaxs() const { return _maxs; }
 		inline glm::vec3 getMins() const { return _mins; }
 	};

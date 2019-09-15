@@ -155,8 +155,8 @@ namespace gn
 	void Transform::setGlobalPosition(float x, float y, float z)
 	{
 		glm::vec3 globalPosition = getGlobalPosition();
-		glm::vec3 targetGloabalPosition = glm::vec3(x, y, z);
-		glm::vec3 globalDiff = targetGloabalPosition - globalPosition;
+		glm::vec3 targetGlobalPosition = glm::vec3(x, y, z);
+		glm::vec3 globalDiff = targetGlobalPosition - globalPosition;
 
 		setPosition(_position.x + globalDiff.x, _position.y + globalDiff.y, _position.z + globalDiff.z);
 	}
@@ -164,8 +164,8 @@ namespace gn
 	void Transform::setGlobalRotation(float x, float y, float z)
 	{
 		glm::vec3 globalRotation = getGlobalRotation();
-		glm::vec3 targetGloabalRotation = glm::vec3(x, y, z);
-		glm::vec3 globalDiff = targetGloabalRotation - globalRotation;
+		glm::vec3 targetGlobalRotation = glm::vec3(x, y, z);
+		glm::vec3 globalDiff = targetGlobalRotation - globalRotation;
 
 		setRotation(_rotation.x + globalDiff.x, _rotation.y + globalDiff.y, _rotation.z + globalDiff.z);
 	}
@@ -213,6 +213,30 @@ namespace gn
 		clampEulerRotation();
 		updateDirectionVectors();
 		updateModelMatrix();
+	}
+
+	glm::mat4 Transform::getGlobalModelMatrix() const
+	{
+		glm::mat4 globalModelMatrix = glm::mat4(1.0f);
+		
+		std::stack<glm::mat4> modelMatrices;
+		Transform* parentTransform = _gameObject->getParentTransform();
+		
+		modelMatrices.push(_modelMatrix);
+
+		while (parentTransform != NULL)
+		{
+			modelMatrices.push(parentTransform->getModelMatrix());
+			parentTransform = parentTransform->getGameObject()->getParentTransform();
+		}
+
+		while (!modelMatrices.empty())
+		{
+			globalModelMatrix *= modelMatrices.top();
+			modelMatrices.pop();
+		}
+
+		return globalModelMatrix;
 	}
 
 	void Transform::convertToEulerAngles(const glm::vec4& quaternion, float& pitch, float& yaw, float& roll)
