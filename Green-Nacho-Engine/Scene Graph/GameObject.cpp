@@ -4,6 +4,7 @@
 #include "Scene Graph/Transform.h"
 #include "Scene Graph/Camera.h"
 #include "Scene Graph/BoundingBox.h"
+#include "Scene Graph/BspPlane.h"
 
 namespace gn
 {
@@ -58,7 +59,7 @@ namespace gn
 			(*it)->update(deltaTime);
 	}
 
-	void GameObject::draw(Camera* activeCamera, int& objectsDrawn)
+	void GameObject::draw(Camera* activeCamera, std::vector<BspPlane*> bspPlanes, int& objectsDrawn)
 	{
 		glm::mat4 originalModelMatrix = _renderer->getModelMatrix();
 		glm::mat4 originalViewMatrix = _renderer->getViewMatrix();
@@ -74,9 +75,32 @@ namespace gn
 		{
 			if (!bb->getGameObject()->getParentTransform()->getGameObject()->getComponent(ComponentID::BOUNDING_BOX))
 				bb->updateVertices();
-			shouldBeDrawn = activeCamera->isInsideFrustum(bb);
+
+			for (int i = 0; i < bspPlanes.size(); i++)
+			{
+				glm::vec3 cameraPosition = activeCamera->getGameObject()->getTransform()->getGlobalPosition();
+				float cameraDistanceToPlane = bspPlanes[i]->getDistanceToPlane(cameraPosition);
+				float cameraDistanceSign = glm::sign(cameraDistanceToPlane);
+
+				for (int j = 0; j < CUBE_VERTICES; j++)
+				{
+					glm::vec3 vertexPosition = bb->getVertexGlobalPosition(j);
+					float vertexDistanceToPlane = bspPlanes[i]->getDistanceToPlane(vertexPosition);
+					float vertexDistanceSign = glm::sign(vertexDistanceToPlane);
+
+					if (vertexDistanceSign == cameraDistanceSign)
+						break;
+					if (j == CUBE_VERTICES - 1)
+						shouldBeDrawn = false;
+				}
+			}
+			
 			if (shouldBeDrawn)
-				objectsDrawn++;
+			{
+				shouldBeDrawn = activeCamera->isInsideFrustum(bb);
+				if (shouldBeDrawn)
+					objectsDrawn++;
+			}
 		}
 
 		if (shouldBeDrawn)
@@ -84,7 +108,7 @@ namespace gn
 			for (std::list<Component*>::iterator it = _components->begin(); it != _components->end(); it++)
 				(*it)->draw();
 			for (std::list<GameObject*>::iterator it = _children->begin(); it != _children->end(); it++)
-				(*it)->draw(activeCamera, objectsDrawn);
+				(*it)->draw(activeCamera, bspPlanes, objectsDrawn);
 		}
 
 		_renderer->setModelMatrix(originalModelMatrix);

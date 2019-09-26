@@ -11,6 +11,7 @@
 #include "Scene Graph/NavigationController.h"
 #include "Scene Graph/ThirdPersonCameraController.h"
 #include "Scene Graph/Terrain.h"
+#include "Scene Graph/BspPlane.h"
 
 namespace gn
 {
@@ -76,6 +77,9 @@ namespace gn
 				break;			
 			case ComponentID::TERRAIN:
 				component = new Terrain(gameObject);
+				break;			
+			case ComponentID::BSP_PLANE:
+				component = new BspPlane(gameObject);
 				break;
 		}
 

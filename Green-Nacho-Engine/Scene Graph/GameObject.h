@@ -14,6 +14,7 @@ namespace gn
 	class Component;
 	class Transform;
 	class Camera;
+	class BspPlane;
 
 	class ENGINE_DECL_SPEC GameObject
 	{
@@ -33,7 +34,7 @@ namespace gn
 		void stop();
 
 		void update(float deltaTime);
-		void draw(Camera* activeCamera, int& objectsDrawn);
+		void draw(Camera* activeCamera, std::vector<BspPlane*> bspPlanes, int& objectsDrawn);
 
 		bool addChild(GameObject* gameObject);
 		bool removeChild(GameObject* gameObject);
