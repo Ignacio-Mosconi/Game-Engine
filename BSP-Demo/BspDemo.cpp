@@ -25,9 +25,15 @@ bool BspDemo::onStart()
 	_camera = (Camera*)_character->addComponent(ComponentID::CAMERA);
 	
 	_nanosuit = ModelLoader::loadModel(_scene, NANOSUIT_PATH, NANOSUIT_TEXTURES);
-	_nanosuit->getTransform()->setGlobalPosition(0.0f, 0.0f, 0.0f);
+	_nanosuit->getTransform()->setGlobalPosition(0.0f, 0.0f, 5.0f);
 
 	std::vector<Component*> bbs = (std::vector<Component*>)_nanosuit->getComponentsInChildren(ComponentID::BOUNDING_BOX);
+
+	GameObject* bspPlaneObject = new GameObject(_renderer);
+	BspPlane* bspPlane = (BspPlane*)bspPlaneObject->addComponent(ComponentID::BSP_PLANE);
+	bspPlane->createPlane(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f));
+
+	_bspPlanes.push_back(bspPlane);
 
 	_scene->start();
 
@@ -59,7 +65,7 @@ bool BspDemo::onDraw()
 {
 	int objectsDrawn = 0;
 
-	_scene->draw(_camera, objectsDrawn);
+	_scene->draw(_camera, _bspPlanes, objectsDrawn);
 
 	std::cout << "Objects Drawn: " << objectsDrawn << std::endl;
 

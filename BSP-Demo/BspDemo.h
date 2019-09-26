@@ -17,6 +17,7 @@
 #include "Scene Graph/CapsuleCollider.h"
 #include "Scene Graph/BoxCollider.h"
 #include "Scene Graph/RigidBody.h"
+#include "Scene Graph/BspPlane.h"
 #include "DemoConstants.h"
 
 
@@ -26,6 +27,8 @@ private:
 	gn::Camera* _camera;
 	gn::GameObject* _character;
 	gn::GameObject* _nanosuit;
+
+	std::vector<gn::BspPlane*> _bspPlanes;
 
 protected:
 	bool onStart() override;
