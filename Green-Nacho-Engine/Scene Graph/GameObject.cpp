@@ -76,24 +76,10 @@ namespace gn
 			if (!bb->getGameObject()->getParentTransform()->getGameObject()->getComponent(ComponentID::BOUNDING_BOX))
 				bb->updateVertices();
 
+			glm::vec3 cameraPosition = activeCamera->getGameObject()->getTransform()->getGlobalPosition();
+
 			for (int i = 0; i < bspPlanes.size(); i++)
-			{
-				glm::vec3 cameraPosition = activeCamera->getGameObject()->getTransform()->getGlobalPosition();
-				float cameraDistanceToPlane = bspPlanes[i]->getDistanceToPlane(cameraPosition);
-				float cameraDistanceSign = glm::sign(cameraDistanceToPlane);
-
-				for (int j = 0; j < CUBE_VERTICES; j++)
-				{
-					glm::vec3 vertexPosition = bb->getVertexGlobalPosition(j);
-					float vertexDistanceToPlane = bspPlanes[i]->getDistanceToPlane(vertexPosition);
-					float vertexDistanceSign = glm::sign(vertexDistanceToPlane);
-
-					if (vertexDistanceSign == cameraDistanceSign)
-						break;
-					if (j == CUBE_VERTICES - 1)
-						shouldBeDrawn = false;
-				}
-			}
+				shouldBeDrawn = !bspPlanes[i]->isBehindPlane(bb, cameraPosition);
 			
 			if (shouldBeDrawn)
 			{
