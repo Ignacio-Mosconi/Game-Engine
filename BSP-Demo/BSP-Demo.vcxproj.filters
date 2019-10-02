@@ -21,12 +21,18 @@
     <ClCompile Include="BspDemo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MovableObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BspDemo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DemoConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MovableObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

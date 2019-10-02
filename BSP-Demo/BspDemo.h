@@ -18,8 +18,10 @@
 #include "Scene Graph/BoxCollider.h"
 #include "Scene Graph/RigidBody.h"
 #include "Scene Graph/BspPlane.h"
+#include "Scene Graph/Terrain.h"
 #include "DemoConstants.h"
 
+class MovableObject;
 
 class BspDemo : public gn::GameBase
 {
@@ -27,8 +29,13 @@ private:
 	gn::Camera* _camera;
 	gn::GameObject* _character;
 	gn::GameObject* _nanosuit;
+	gn::GameObject* _assaultRifle1;
+	gn::GameObject* _assaultRifle2;
+	gn::GameObject* _terrain;
 
 	std::vector<gn::BspPlane*> _bspPlanes;
+
+	MovableObject* _spaceship;
 
 protected:
 	bool onStart() override;

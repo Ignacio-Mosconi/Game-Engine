@@ -80,7 +80,7 @@ namespace gn
 				_drawTimer -= DRAW_FRAME_TIME;
 
 				_renderer->clearScreen();
-				_physicsManager->drawDebugVisualization(_renderer);
+				//_physicsManager->drawDebugVisualization(_renderer);
 				onDraw();
 				_renderer->swapBuffers();
 			}

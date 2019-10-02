@@ -85,7 +85,7 @@ namespace gn
 					break;
 			}
 			
-			if (shouldBeDrawn)
+			if (shouldBeDrawn && !bb->isRoot())
 			{
 				shouldBeDrawn = activeCamera->isInsideFrustum(bb);
 				if (shouldBeDrawn)

@@ -1,9 +1,9 @@
 #pragma once
 
 // Window Properties
-constexpr int SCREEN_WIDTH = 1280;
-constexpr int SCREEN_HEIGHT = 720;
-constexpr const char* WINDOW_TITLE = "Green Nacho - 3D Game Engine";
+constexpr int SCREEN_WIDTH = 960;
+constexpr int SCREEN_HEIGHT = 540;
+constexpr const char* WINDOW_TITLE = "Green Nacho - 3D Game Engine - BSP Demo";
 // 3D Model Paths
 constexpr const char* AK_47_PATH = "Assets/Models/AK-47.fbx";
 constexpr const char* PISTOL_PATH = "Assets/Models/Glock 3d.fbx";

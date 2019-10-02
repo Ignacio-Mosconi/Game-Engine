@@ -139,10 +139,12 @@ copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Gre
   <ItemGroup>
     <ClCompile Include="BspDemo.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MovableObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BspDemo.h" />
     <ClInclude Include="DemoConstants.h" />
+    <ClInclude Include="MovableObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\CustomPixelShader.pixelshader" />

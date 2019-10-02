@@ -39,7 +39,7 @@ bool Game::onStart()
 	glm::vec2 helipadGridPos(helipadPosition.z / terrain->getScale().z, helipadPosition.x / terrain->getScale().x);
 	float flattenHeight = helipadPosition.y / terrain->getScale().y * MAX_BYTE_VALUE;
 
-	terrain->flattenArea(helipadGridPos.x - 4, helipadGridPos.x + 4, helipadGridPos.y -4, helipadGridPos.y + 4, flattenHeight);
+	terrain->flattenArea(helipadGridPos.x - 4, helipadGridPos.x + 4, helipadGridPos.y - 4, helipadGridPos.y + 4, flattenHeight);
 
 	GameObject* spaceshipRoot = _spaceship->getRootObject();
 	_camera = (Camera*)spaceshipRoot->getComponentInChildren(ComponentID::CAMERA);
