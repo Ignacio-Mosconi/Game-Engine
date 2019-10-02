@@ -79,7 +79,11 @@ namespace gn
 			glm::vec3 cameraPosition = activeCamera->getGameObject()->getTransform()->getGlobalPosition();
 
 			for (int i = 0; i < bspPlanes.size(); i++)
+			{
 				shouldBeDrawn = !bspPlanes[i]->isBehindPlane(bb, cameraPosition);
+				if (!shouldBeDrawn)
+					break;
+			}
 			
 			if (shouldBeDrawn)
 			{
