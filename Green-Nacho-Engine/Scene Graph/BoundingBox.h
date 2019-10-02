@@ -2,6 +2,7 @@
 #pragma warning(disable: 4251)
 
 #include <glm/vec3.hpp>
+#include <glm/gtx/norm.hpp>
 #include "Core/Exports.h"
 #include "Core/EngineConstants.h"
 #include "Scene Graph/Component.h"
@@ -22,6 +23,8 @@ namespace gn
 		glm::vec3 _maxs;
 		glm::vec3 _mins;
 
+		bool _isRoot;
+
 	public:
 		BoundingBox(GameObject* gameObject);
 		virtual ~BoundingBox();
@@ -34,11 +37,12 @@ namespace gn
 		void setVertices(glm::vec3 mins, glm::vec3 maxs);
 
 		glm::vec3 getVertexGlobalPosition(unsigned int index) const;
-		glm::vec3 getMinsGlobalPosition() const;
-		glm::vec3 getMaxsGlobalPosition() const;
 
 		inline glm::vec3 getVertex(unsigned int index) const { return _vertices[index]; }
 		inline glm::vec3 getMaxs() const { return _maxs; }
 		inline glm::vec3 getMins() const { return _mins; }
+		inline bool isRoot() const { return _isRoot;  }
+
+		void setIsRoot(bool isRoot) { _isRoot = isRoot;  }
 	};
 }

@@ -89,17 +89,13 @@ namespace gn
 
 	void BoundingBox::updateVertices()
 	{	
-		glm::mat4 globalModelMatrix = _transform->getGlobalModelMatrix();
-		glm::vec3 newMins(FLT_MAX);
-		glm::vec3 newMaxs(-FLT_MAX);
-		glm::vec3 newGlobalMins = (glm::vec3)(globalModelMatrix * glm::vec4(newMins.x, newMins.y, newMins.z, 1.0f));
-		glm::vec3 newGlobalMaxs = (glm::vec3)(globalModelMatrix * glm::vec4(newMaxs.x, newMaxs.y, newMaxs.z, 1.0f));
-
 		if (!_gameObject->getComponentInChildren(ComponentID::BOUNDING_BOX))
-		{
-			newMins = _mins;
-			newMaxs = _maxs;
-		}
+			return;
+
+		glm::vec3 mins(FLT_MAX);
+		glm::vec3 maxs(-FLT_MAX);
+		glm::vec3 globalMins = mins;
+		glm::vec3 globalMaxs = maxs;
 
 		for (int i = 0; i < _gameObject->getChildCount(); i++)
 		{
@@ -111,35 +107,40 @@ namespace gn
 
 				for (int j = 0; j < CUBE_VERTICES; j++)
 				{	
-					glm::vec3 vertexGlobalPos = childBB->getVertexGlobalPosition(j);
-					glm::vec3 vertexRelativePos = vertexGlobalPos - _transform->getGlobalPosition();
-					glm::vec3 previousNewMins = newMins;
-					glm::vec3 previousNewMaxs = newMaxs;
+					glm::mat4 parentInverseModelMat = (glm::mat4(1.0f) / _transform->getModelMatrix());
+					glm::vec3 vertexRotatedPos = parentInverseModelMat * glm::vec4(childBB->getVertexGlobalPosition(j), 1.0f);
+					glm::vec3 previousMins = mins;
+					glm::vec3 previousMaxs = maxs;
 
-					if (vertexGlobalPos.x < newGlobalMins.x)
-						newMins.x = vertexRelativePos.x;
-					if (vertexGlobalPos.y < newGlobalMins.y)
-						newMins.y = vertexRelativePos.y;
-					if (vertexGlobalPos.z < newGlobalMins.z)
-						newMins.z = vertexRelativePos.z;
+					if (vertexRotatedPos.x < globalMins.x)
+						mins.x = vertexRotatedPos.x;
+					if (vertexRotatedPos.y < globalMins.y)
+						mins.y = vertexRotatedPos.y;
+					if (vertexRotatedPos.z < globalMins.z)
+						mins.z = vertexRotatedPos.z;
 
-					if (vertexGlobalPos.x > newGlobalMaxs.x)
-						newMaxs.x = vertexRelativePos.x;
-					if (vertexGlobalPos.y > newGlobalMaxs.y)
-						newMaxs.y = vertexRelativePos.y;
-					if (vertexGlobalPos.z > newGlobalMaxs.z)
-						newMaxs.z = vertexRelativePos.z;
+					if (vertexRotatedPos.x > globalMaxs.x)
+						maxs.x = vertexRotatedPos.x;
+					if (vertexRotatedPos.y > globalMaxs.y)
+						maxs.y = vertexRotatedPos.y;
+					if (vertexRotatedPos.z > globalMaxs.z)
+						maxs.z = vertexRotatedPos.z;
 
-					if (newMins != previousNewMins)
-						newGlobalMins = (glm::vec3)(globalModelMatrix * glm::vec4(newMins.x, newMins.y, newMins.z, 1.0f));
-					if (newMaxs != previousNewMaxs)
-						newGlobalMaxs= (glm::vec3)(globalModelMatrix * glm::vec4(newMaxs.x, newMaxs.y, newMaxs.z, 1.0f));
+					if (mins != previousMins || maxs != previousMaxs)
+					{
+						glm::mat4 parentlessGlobalModelMat = parentInverseModelMat * _transform->getGlobalModelMatrix();
+						
+						if (mins != previousMins)
+							globalMins = (glm::vec3)(parentlessGlobalModelMat * glm::vec4(mins, 1.0f));
+						if (maxs != previousMaxs)
+							globalMaxs = (glm::vec3)(parentlessGlobalModelMat * glm::vec4(maxs, 1.0f));
+					}
 				}
 			}
 		}
 
-		if (newMins != _mins || newMaxs != _maxs)
-			setVertices(newMins, newMaxs);
+		if (mins != _mins || maxs != _maxs)
+			setVertices(mins, maxs);
 	}
 	
 	void BoundingBox::setVertices(glm::vec3 mins, glm::vec3 maxs)
@@ -174,26 +175,6 @@ namespace gn
 		glm::vec4 globalPos(_vertices[index].x, _vertices[index].y, _vertices[index].z, 1.0f);
 		glm::mat4 globalModelMatrix = _transform->getGlobalModelMatrix();
 
-		globalPos = globalModelMatrix * globalPos;
-
-		return (glm::vec3)globalPos;
-	}	
-	
-	glm::vec3 BoundingBox::getMinsGlobalPosition() const
-	{	
-		glm::vec4 globalPos(_mins.x, _mins.y, _mins.z, 1.0f);
-		glm::mat4 globalModelMatrix = _transform->getGlobalModelMatrix();
-
-		globalPos = globalModelMatrix * globalPos;
-
-		return (glm::vec3)globalPos;
-	}	
-	
-	glm::vec3 BoundingBox::getMaxsGlobalPosition() const
-	{	
-		glm::vec4 globalPos(_maxs.x, _maxs.y, _maxs.z, 1.0f);
-		glm::mat4 globalModelMatrix = _transform->getGlobalModelMatrix();
-		
 		globalPos = globalModelMatrix * globalPos;
 
 		return (glm::vec3)globalPos;

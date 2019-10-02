@@ -29,11 +29,28 @@ bool BspDemo::onStart()
 
 	std::vector<Component*> bbs = (std::vector<Component*>)_nanosuit->getComponentsInChildren(ComponentID::BOUNDING_BOX);
 
-	GameObject* bspPlaneObject = new GameObject(_renderer);
-	BspPlane* bspPlane = (BspPlane*)bspPlaneObject->addComponent(ComponentID::BSP_PLANE);
-	bspPlane->createPlane(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f));
+	//GameObject* wall1 = ModelLoader::loadModel(_scene, WALL_PATH, WALL_TEXTURES);
+	//GameObject* wall2 = ModelLoader::loadModel(_scene, WALL_PATH, WALL_TEXTURES);
+	//GameObject* wall3 = ModelLoader::loadModel(_scene, WALL_PATH, WALL_TEXTURES);
 
-	_bspPlanes.push_back(bspPlane);
+	//wall1->getTransform()->setGlobalPosition(0.0f, 0.0f, 0.0f);
+	//wall2->getTransform()->setGlobalPosition(-15.0f, 0.0f, 15.0f);
+	//wall3->getTransform()->setGlobalPosition(15.0f, 0.0f, 15.0f);
+	
+	//wall2->getTransform()->rotate(0.0f, -90.0f, 0.0f);
+	//wall3->getTransform()->setGlobalRotation(0.0f, -90.0f, 0.0f);
+
+	//BspPlane* bspPlane1 = (BspPlane*)wall1->addComponent(ComponentID::BSP_PLANE);
+	//BspPlane* bspPlane2 = (BspPlane*)wall2->addComponent(ComponentID::BSP_PLANE);
+	//BspPlane* bspPlane3 = (BspPlane*)wall3->addComponent(ComponentID::BSP_PLANE);
+	
+	//bspPlane1->createPlane(wall1->getTransform()->getForward(), wall1->getTransform()->getGlobalPosition());
+	//bspPlane2->createPlane(wall2->getTransform()->getForward(), wall2->getTransform()->getGlobalPosition());
+	//bspPlane3->createPlane(wall3->getTransform()->getForward(), wall3->getTransform()->getGlobalPosition());
+
+	//_bspPlanes.push_back(bspPlane1);
+	//_bspPlanes.push_back(bspPlane2);
+	//_bspPlanes.push_back(bspPlane3);
 
 	_scene->start();
 
@@ -54,6 +71,7 @@ bool BspDemo::onUpdate(float deltaTime)
 	_scene->update(deltaTime);
 
 	_nanosuit->getTransform()->translate(2.0f * deltaTime, 0.0f, 0.0f);
+	_nanosuit->getTransform()->rotate(2.0f * deltaTime, 0.0f, 0.0f);
 	std::vector<Component*> bbs = _nanosuit->getComponentsInChildren(ComponentID::BOUNDING_BOX);
 	BoundingBox* bb = (BoundingBox*)bbs[3];
 	bb->getGameObject()->getTransform()->rotate(0.0f, 25.0f * deltaTime, 0.0f);

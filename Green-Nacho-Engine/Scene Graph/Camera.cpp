@@ -120,11 +120,11 @@ namespace gn
 	bool Camera::isInsideFrustum(BoundingBox* boundingBox)
 	{
 		bool isInsideFrustum = true;
-		bool allOutsideCurrentPlane = false;
+		bool allBehindCurrentPlane = false;
 
 		for (int i = 0; i < (int)FrustumPlane::COUNT; i++)
 		{
-			allOutsideCurrentPlane = false;
+			allBehindCurrentPlane = false;
 
 			for (int j = 0; j < CUBE_VERTICES; j++)
 			{
@@ -136,10 +136,10 @@ namespace gn
 				if (dist > 0.0f)
 					break;
 				if (j == CUBE_VERTICES - 1)
-					allOutsideCurrentPlane = true;
+					allBehindCurrentPlane = true;
 			}
 
-			if (allOutsideCurrentPlane)
+			if (allBehindCurrentPlane)
 			{
 				isInsideFrustum = false;
 				break;

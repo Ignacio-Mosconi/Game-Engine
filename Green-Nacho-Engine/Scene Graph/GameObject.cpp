@@ -73,7 +73,7 @@ namespace gn
 
 		if (activeCamera && bb)
 		{
-			if (!bb->getGameObject()->getParentTransform()->getGameObject()->getComponent(ComponentID::BOUNDING_BOX))
+			if (bb->isRoot())
 				bb->updateVertices();
 
 			glm::vec3 cameraPosition = activeCamera->getGameObject()->getTransform()->getGlobalPosition();

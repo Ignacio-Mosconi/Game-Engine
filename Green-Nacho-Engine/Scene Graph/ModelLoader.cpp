@@ -33,6 +33,12 @@ namespace gn
 		processNode(modelRoot, scene->mRootNode, scene, mins, maxs, texturesPath);
 		addBoundingBox(modelRoot, mins, maxs);
 
+		if (!parent->getComponent(ComponentID::BOUNDING_BOX))
+		{
+			BoundingBox* rootBB = (BoundingBox*)modelRoot->getComponent(ComponentID::BOUNDING_BOX);
+			rootBB->setIsRoot(true);
+		}
+
 		return modelRoot;
 	}
 
@@ -255,6 +261,7 @@ namespace gn
 		
 		boundingBox = (BoundingBox*)owner->addComponent(ComponentID::BOUNDING_BOX);
 		boundingBox->setVertices(mins, maxs);
+		boundingBox->setIsRoot(false);
 	}
 
 	std::vector<Texture*> ModelLoader::loadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& texturesPath)
