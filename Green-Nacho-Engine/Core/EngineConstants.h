@@ -28,3 +28,5 @@ constexpr float DRAW_FRAME_TIME = 1.0f / 60.0f;
 constexpr float FULL_ROTATION = 360.0f;
 //Physics Properties
 constexpr float DEFAULT_GRAVITY_Y = -9.81f;
+// Model Loading
+constexpr const char* BSP_KEYWORD = "BSP";

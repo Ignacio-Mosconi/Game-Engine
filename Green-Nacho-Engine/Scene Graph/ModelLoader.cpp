@@ -4,15 +4,18 @@
 #include "ModelLoader.h"
 #include "Core/Material.h"
 #include "Scene Graph/GameObject.h"
+#include "Scene Graph/Transform.h"
 #include "Scene Graph/BoundingBox.h"
 #include "Scene Graph/MeshRenderer.h"
 #include "Scene Graph/BoundingBox.h"
+#include "Scene Graph/BspPlane.h"
 #include "Scene Graph/Terrain.h"
 #include "Scene Graph/RandomHeightGenerator.h"
 
 namespace gn
 {
-	GameObject* ModelLoader::loadModel(GameObject* parent, const std::string& modelPath, const std::string& texturesPath)
+	GameObject* ModelLoader::loadModel(GameObject* parent, const std::string& modelPath,
+										const std::string& texturesPath, std::vector<BspPlane*>* bspPlanes)
 	{
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(modelPath, aiProcess_Triangulate | aiProcess_FlipUVs);
@@ -30,7 +33,7 @@ namespace gn
 
 		GameObject* modelRoot = new GameObject(parent->getRenderer(), parent);
 
-		processNode(modelRoot, scene->mRootNode, scene, mins, maxs, texturesPath);
+		processNode(modelRoot, scene->mRootNode, scene, mins, maxs, texturesPath, bspPlanes);
 		addBoundingBox(modelRoot, mins, maxs);
 
 		if (!parent->getComponent(ComponentID::BOUNDING_BOX))
@@ -149,33 +152,46 @@ namespace gn
 	}
 
 	void ModelLoader::processNode(GameObject* parent, aiNode* node, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs, 
-									const std::string& texturesPath)
+									const std::string& texturesPath, std::vector<BspPlane*>* bspPlanes)
 	{
 		GameObject* child = NULL;
 
-		if (node->mNumMeshes > 1)
-			child = new GameObject(parent->getRenderer(), parent);
- 
-		for (int i = 0; i < node->mNumMeshes; i++)
+		glm::vec3 localMins(FLT_MAX);
+		glm::vec3 localMaxs(-FLT_MAX);
+
+		for (int i = 0; i < (int)node->mNumMeshes; i++)
 		{
-			glm::vec3 localMins(FLT_MAX);
-			glm::vec3 localMaxs(-FLT_MAX);
+			std::string nodeName = node->mName.C_Str();
+
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+			child = generateMesh(parent, mesh, scene, mins, maxs, localMins, localMaxs, texturesPath);
+		}	
+
+		if (child)
+		{
+			aiVector3D aiScaling;
+			aiVector3D aiPosition;
+			aiQuaternion aiRotation;
 			
-			if (!child)
-				child = generateMesh(parent, mesh, scene, mins, maxs, localMins, localMaxs, texturesPath);
-			else
-				GameObject* grandChild = generateMesh(child, mesh, scene, mins, maxs, localMins, localMaxs, texturesPath);
+			node->mTransformation.Decompose(aiScaling, aiRotation, aiPosition);
 			
+			Transform* childTransform = child->getTransform();
+			
+			childTransform->changeRotationMatrix(glm::vec4(aiRotation.x, aiRotation.y, aiRotation.z, aiRotation.w));
+			childTransform->setPosition(aiPosition.x, aiPosition.y, aiPosition.z);
+			childTransform->setScale(aiScaling.x, aiScaling.y, aiScaling.z);
+			
+			std::string nodeName = node->mName.C_Str();
+
+			if (nodeName.find(BSP_KEYWORD) != std::string::npos)
+				addBspPlane(child, bspPlanes);
 			addBoundingBox(child, localMins, localMaxs);
-		}
+		}	
 
-		GameObject* newParent = (child != NULL) ? child : parent;
-
-		std::cout << node->mNumChildren << std::endl;
+		GameObject* newParent = (child) ? child : parent;
 
 		for (int i = 0; i < (int)node->mNumChildren; i++)
-			processNode(newParent, node->mChildren[i], scene, mins, maxs, texturesPath);
+			processNode(newParent, node->mChildren[i], scene, mins, maxs, texturesPath, bspPlanes);
 	}
 
 	GameObject* ModelLoader::generateMesh(GameObject* parent, aiMesh* mesh, const aiScene* scene, glm::vec3& mins, glm::vec3& maxs,
@@ -262,6 +278,16 @@ namespace gn
 		boundingBox = (BoundingBox*)owner->addComponent(ComponentID::BOUNDING_BOX);
 		boundingBox->setVertices(mins, maxs);
 		boundingBox->setIsRoot(false);
+	}	
+	
+	void ModelLoader::addBspPlane(GameObject* owner, std::vector<BspPlane*>* bspPlanes)
+	{
+		BspPlane* bspPlane;
+		Transform* bspTransform = owner->getTransform();
+
+		bspPlane = (BspPlane*)owner->addComponent(ComponentID::BSP_PLANE);
+		bspPlane->createPlane(bspTransform->getForward(), bspTransform->getGlobalPosition());
+		bspPlanes->push_back(bspPlane);
 	}
 
 	std::vector<Texture*> ModelLoader::loadMaterialTextures(aiMaterial* material, aiTextureType type, const std::string& texturesPath)
