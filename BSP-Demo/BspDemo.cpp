@@ -43,7 +43,7 @@ bool BspDemo::onStart()
 	terrain->flattenArea(-32.0f, 32.0f, -32.0f, 32.0f, 1.0f);
 	_terrain->getTransform()->setGlobalPosition(-64.0f * terrain->getScale().x, 0.0f, -64.0f * terrain->getScale().z);
 
-	GameObject* walls = ModelLoader::loadModel(_scene, WALLS_PATH, WALLS_TEXTURES, &_bspPlanes);
+	GameObject* bspScene = ModelLoader::loadModel(_scene, BSP_SCENE_PATH, BSP_SCENE_TEXTURES, &_bspPlanes);
 
 	_scene->start();
 
@@ -55,7 +55,7 @@ bool BspDemo::onStop()
 	_scene->stop();
 
 	delete _scene;
-	//delete _spaceship;
+	delete _spaceship;
 
 	return true;
 }
@@ -64,13 +64,13 @@ bool BspDemo::onUpdate(float deltaTime)
 {
 	_scene->update(deltaTime);
 
-	//_nanosuit->getTransform()->translate(2.0f * deltaTime, 0.0f, 0.0f);
-	//_nanosuit->getTransform()->rotate(2.0f * deltaTime, 0.0f, 0.0f);
-	//std::vector<Component*> bbs = _nanosuit->getComponentsInChildren(ComponentID::BOUNDING_BOX);
-	//BoundingBox* bb = (BoundingBox*)bbs[3];
-	//bb->getGameObject()->getTransform()->rotate(0.0f, 25.0f * deltaTime, 0.0f);
+	_nanosuit->getTransform()->translate(2.0f * deltaTime, 0.0f, 0.0f);
+	_nanosuit->getTransform()->rotate(2.0f * deltaTime, 0.0f, 0.0f);
+	std::vector<Component*> bbs = _nanosuit->getComponentsInChildren(ComponentID::BOUNDING_BOX);
+	BoundingBox* bb = (BoundingBox*)bbs[3];
+	bb->getGameObject()->getTransform()->rotate(0.0f, 25.0f * deltaTime, 0.0f);
 
-	//_spaceship->update(deltaTime);
+	_spaceship->update(deltaTime);
 
 	return true;
 }
