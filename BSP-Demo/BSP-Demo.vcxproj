@@ -156,6 +156,10 @@ copy "$(SolutionDir)Binaries\Green-Nacho-Engine\$(Platform)\$(Configuration)\Gre
     <None Include="Assets\Shaders\TexturePixelShader.pixelshader" />
     <None Include="Assets\Shaders\TextureVertexShader.vertexshader" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Assets\Shaders\LightsSmoke.pixelshader" />
+    <Text Include="Assets\Shaders\LightsSmoke.vertexshader" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

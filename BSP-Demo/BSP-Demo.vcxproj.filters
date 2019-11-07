@@ -62,4 +62,12 @@
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Assets\Shaders\LightsSmoke.pixelshader">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Assets\Shaders\LightsSmoke.vertexshader">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
